@@ -6,7 +6,7 @@ const initialState = {
 };
 
 export const investorDealSlice = createSlice({
-  name: "investorDeal",
+  name: "investorDeals",
   initialState,
   reducers: {
     setInvestorDeals: (state, action) => {
@@ -14,7 +14,7 @@ export const investorDealSlice = createSlice({
     },
 
     deleteDeal: (state, action) => {
-      state.investorDeal = state.investorDeal.filter(
+      state.investorDeals = state.investorDeals.filter(
         (data) => data.id !== action.payload
       );
     },

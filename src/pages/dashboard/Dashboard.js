@@ -3,16 +3,14 @@ import "./dashboard.css";
 import { Link } from "react-router-dom";
 import { getInvestorDealsFromDatabase } from "../../firebase/firebase";
 import { useEffect, useState } from "react";
-
+import DisplayCard from "../../components/DisplayCard";
 import { HourglassSplit } from "react-bootstrap-icons";
 import { setInvestorDeals } from "../../redux/createDealSlice";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
-  // const user = useSelector((state) => state.user);
-  const investorDeals = useSelector(
-    (state) => state.investorDeal.investorDeals
-  );
+
+  const investorDeals = useSelector((state) => state.investorDeals);
   const [isLoading, setIsLoading] = useState(true);
 
   const getInvestorDeals = async () => {
@@ -40,15 +38,15 @@ const Dashboard = () => {
             {/* <button onClick={() => dispatch(logout())}>Logout</button> */}
           </div>
           <div className="R_Container">
-            {/* {isLoading ? (
+            {isLoading ? (
               <h3>
-                Fetching <HourglassSplit /> Blogs
+                Fetching <HourglassSplit /> Investor Deals
               </h3>
             ) : (
-              blogs.blogs.map((data) => (
-                <BlogDisplayCard key={data.id} data={data} />
+              investorDeals.investorDeals.map((data) => (
+                <DisplayCard key={data.id} data={data} />
               ))
-            )} */}
+            )}
           </div>
         </div>
       </div>

@@ -20,14 +20,39 @@ textarea {
 
 fieldset {
   border: 1px solid grey;
+  border-radius: 5px;
   display: flex;
   flex-wrap: wrap;
   padding: 20px;
-  /* justify-content: center; */
+  margin: 1rem 0;
+
+  justify-content: center;
 }
 legend {
   color: grey;
   font-weight: bold;
+}
+
+.btn_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading-state {
+  width: max-content;
+  font-size: 2rem;
+  margin: 2rem auto;
+  animation: spinner 1.5s linear infinite;
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 /* 
 .Blog_Form {
@@ -73,4 +98,4 @@ button {
   border: 1px solid #dddada;
   border-radius: 8px;
   background-color: whitesmoke;
-} */
+} */ ;

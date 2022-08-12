@@ -72,9 +72,10 @@ export const addDealInDatabase = async (bid, data) => {
     console.log("Err: ", err);
   }
 };
+
 // deleteDocs
 
-export const deleteBlogInDatabse = async (uid) => {
+export const deleteInvestorDetailsInDatabse = async (uid) => {
   try {
     return await deleteDoc(doc(database, "Investordeals", uid));
   } catch (err) {

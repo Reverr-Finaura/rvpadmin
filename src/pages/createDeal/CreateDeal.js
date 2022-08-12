@@ -9,6 +9,7 @@ import {
 import "./createdeal.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { HourglassSplit } from "react-bootstrap-icons";
 
 const CreateDeal = () => {
   const [name, setName] = useState("");
@@ -26,7 +27,11 @@ const CreateDeal = () => {
   const [website, setWebsite] = useState("");
   const [pitchDeckMedia, setPitchDeckMedia] = useState("");
   const [projectionMedia, setProjectionMedia] = useState("");
+
+  const [dealsAddLoading, setDealsAddLoading] = useState(false);
+
   const onAddDealHandler = async () => {
+    setDealsAddLoading(true);
     try {
       let uid = uidGenerator();
       let addedOn = dateGenerator();
@@ -34,7 +39,7 @@ const CreateDeal = () => {
       const projectionUrl = await uploadMedia(projectionMedia);
       const dealData = {
         id: uid,
-        dealDeatails: {
+        dealDetails: {
           name,
           industry,
           date,
@@ -61,6 +66,7 @@ const CreateDeal = () => {
 
       await addDealInDatabase(uid, dealData);
       console.log("added");
+      setDealsAddLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -164,6 +170,11 @@ const CreateDeal = () => {
             />
           </fieldset>
         </form>
+        {dealsAddLoading && (
+          <div className="loading-state">
+            <HourglassSplit />
+          </div>
+        )}
         <div className="btn_container">
           <button onClick={onAddDealHandler}>Add Deal</button>
         </div>

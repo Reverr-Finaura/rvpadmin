@@ -1,0 +1,35 @@
+.display-card__wrap {
+  border: 2px solid black;
+  margin: 2rem auto;
+  padding: 1rem;
+  width: 80%;
+  border-radius: 5px;
+}
+
+.display-card__card-actions {
+  display: flex;
+  justify-content: end;
+  cursor: pointer;
+}
+
+.display-card__download-button {
+  cursor: pointer;
+}
+
+.social-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.social-link {
+  font-size: 1.2rem;
+  margin: 0 1rem;
+  cursor: pointer;
+}
+
+.deal-details__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
