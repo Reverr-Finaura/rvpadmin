@@ -18,9 +18,14 @@ export const investorDealSlice = createSlice({
         (data) => data.id !== action.payload
       );
     },
+
+    updateDeal: (state, action) => {
+      state.investorDeals = action.payload;
+    },
   },
 });
 
-export const { setInvestorDeals, deleteDeal } = investorDealSlice.actions;
+export const { setInvestorDeals, deleteDeal, updateDeal } =
+  investorDealSlice.actions;
 
 export default investorDealSlice.reducer;

@@ -14,9 +14,12 @@ import {
   deleteInvestorDetailsInDatabse,
   deleteMedia,
 } from "../firebase/firebase";
+import EditModal from "./EditModal";
+import { useState } from "react";
 
 const DisplayCard = ({ data }) => {
   const dispatch = useDispatch();
+  const [showModal, setShowModal] = useState(false);
   const {
     dealDetails,
     dealDescription,
@@ -34,11 +37,19 @@ const DisplayCard = ({ data }) => {
 
   return (
     <div className="display-card__wrap">
+      {showModal && (
+        <EditModal
+          show={showModal}
+          onClose={() => setShowModal(false)}
+          uid={id}
+        />
+      )}
       <div className="display-card__card-actions">
         <Pen
           title="Click to Edit"
           onClick={() => {
             // Edit Functionality
+            setShowModal(true);
           }}
           style={{ margin: "0.5rem" }}
         />

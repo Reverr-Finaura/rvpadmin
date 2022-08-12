@@ -7,6 +7,7 @@ import {
   doc,
   setDoc,
   deleteDoc,
+  updateDoc,
 } from "firebase/firestore";
 
 import {
@@ -65,9 +66,18 @@ export const getInvestorDealsFromDatabase = async () => {
 
 // addDocs
 
-export const addDealInDatabase = async (bid, data) => {
+export const addDealInDatabase = async (uid, data) => {
   try {
-    return await setDoc(doc(database, "Investordeals", bid), data);
+    return await setDoc(doc(database, "Investordeals", uid), data);
+  } catch (err) {
+    console.log("Err: ", err);
+  }
+};
+
+// updateDocs
+export const updateInvestorDetailsInDatabase = async (uid, data) => {
+  try {
+    return await updateDoc(doc(database, "Investordeals", uid), data);
   } catch (err) {
     console.log("Err: ", err);
   }

@@ -43,10 +43,10 @@ legend {
   width: max-content;
   font-size: 2rem;
   margin: 2rem auto;
-  animation: spinner 1.5s linear infinite;
+  animation: hourglass 1.5s linear infinite;
 }
 
-@keyframes spinner {
+@keyframes hourglass {
   0% {
     transform: rotate(0deg);
   }

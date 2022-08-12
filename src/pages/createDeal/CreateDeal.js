@@ -71,6 +71,7 @@ const CreateDeal = () => {
       console.log(error);
     }
   };
+
   return (
     <>
       <div className="main__deal">
