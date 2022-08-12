@@ -9,7 +9,8 @@ import { setInvestorDeals } from "../../redux/createDealSlice";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
-  // const user = useSelector((state) => state.user);
+
+  // investordeals data to be mapped
   const investorDeals = useSelector(
     (state) => state.investorDeal.investorDeals
   );
@@ -42,11 +43,11 @@ const Dashboard = () => {
           <div className="R_Container">
             {/* {isLoading ? (
               <h3>
-                Fetching <HourglassSplit /> Blogs
+                Fetching <HourglassSplit /> Deals
               </h3>
             ) : (
-              blogs.blogs.map((data) => (
-                <BlogDisplayCard key={data.id} data={data} />
+              investorDeals.map((data) => (
+                <DealCard key={data.id} data={data} />
               ))
             )} */}
           </div>
