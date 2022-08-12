@@ -1,0 +1,45 @@
+.SignIn_MainContainer {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.SignIn_Container {
+  border: 1px solid grey;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  /* flex: 0.5; */
+  width: 60%;
+  padding: 0.5rem;
+  border-radius: 3px;
+}
+
+.SignIn_Container input,
+p {
+  /* width: 100%; */
+  width: 80%;
+  margin: 0.5rem;
+}
+
+.SignIn_Container p {
+  text-align: center;
+  font-size: large;
+  font-weight: 300;
+}
+.SignIn_Container input,.SingIn_Btn {
+  border: 1px solid grey;
+  padding: 1rem;
+  border-radius: 4px;
+  outline: none;
+}
+
+.SingIn_Btn {
+  width: 50%;
+  cursor: pointer;
+  font-weight: 300;
+  border: 1px solid grey;
+}

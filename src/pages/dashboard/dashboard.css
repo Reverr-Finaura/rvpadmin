@@ -1,0 +1,50 @@
+.Dashboard_MainContainer {
+  height: 100vh;
+}
+
+.Dashboard_Container {
+  border: 1px solid grey;
+  display: flex;
+  height: 99.6vh;
+}
+
+.L_Container {
+  border-right: 1px solid grey;
+  width: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.L_Container button {
+  cursor: pointer;
+}
+
+.R_Container {
+  width: 70%;
+  overflow-x: hidden;
+}
+
+.R_Container h3 {
+  text-align: center;
+  color: grey;
+  font-weight: 600;
+}
+
+@media screen and (max-width: 900px) {
+  .Dashboard_Container {
+    display: flex;
+    flex-direction: column;
+    border: none;
+  }
+
+  .L_Container {
+    width: 100%;
+  }
+
+  .R_Container {
+    width: 100%;
+    overflow-x: unset;
+  }
+}

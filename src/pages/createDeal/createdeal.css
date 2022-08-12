@@ -1,0 +1,76 @@
+.main__deal {
+  width: 80%;
+  height: max-content;
+  /* border: 2px solid black; */
+  padding: 10px;
+  margin: auto;
+}
+
+.main__deal input,
+textarea {
+  width: 40%;
+  border: 1px solid grey;
+  margin: 10px;
+  padding: 8px;
+  border-radius: 4px;
+}
+textarea {
+  width: 100%;
+}
+
+fieldset {
+  border: 1px solid grey;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 20px;
+  /* justify-content: center; */
+}
+legend {
+  color: grey;
+  font-weight: bold;
+}
+/* 
+.Blog_Form {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.Blog_Form input {
+  flex: 1;
+  background-color: whitesmoke;
+}
+
+.Blog_Form input,
+button {
+  margin: 1rem;
+  outline: none;
+  padding: 0.8rem;
+  border: 1px solid #dddada;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.Blog_Form button {
+  flex: 1;
+  cursor: pointer;
+  background-color: #000c12;
+  color: white;
+}
+
+.Blog_TextContent {
+  display: flex;
+  justify-content: center;
+}
+
+.Blog_TextContent textarea {
+  flex: 1;
+  margin: 1rem;
+  padding: 2rem;
+  font-size: 1.2rem;
+  outline: none;
+  border: 1px solid #dddada;
+  border-radius: 8px;
+  background-color: whitesmoke;
+} */
