@@ -21,7 +21,7 @@ textarea {
 fieldset {
   border: 1px solid grey;
   border-radius: 5px;
-  display: flex;
+  /* display: flex; */
   flex-wrap: wrap;
   padding: 20px;
   margin: 1rem 0;

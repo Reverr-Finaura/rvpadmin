@@ -9,7 +9,10 @@ import {
 import "./createdeal.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { HourglassSplit } from "react-bootstrap-icons";
+import { HourglassSplit, Pen, Trash } from "react-bootstrap-icons";
+import { keyGen } from "../../utils/keyGen";
+import AddFaq from "../../components/addfaq/AddFaq";
+import AddHighlight from "../../components/addHighlights/AddHighlight";
 
 const CreateDeal = () => {
   const [name, setName] = useState("");
@@ -27,9 +30,8 @@ const CreateDeal = () => {
   const [website, setWebsite] = useState("");
   const [pitchDeckMedia, setPitchDeckMedia] = useState("");
   const [projectionMedia, setProjectionMedia] = useState("");
-
   const [dealsAddLoading, setDealsAddLoading] = useState(false);
-
+ 
   const onAddDealHandler = async () => {
     setDealsAddLoading(true);
     try {
@@ -171,6 +173,11 @@ const CreateDeal = () => {
             />
           </fieldset>
         </form>
+
+        <AddFaq />
+
+        <AddHighlight />
+
         {dealsAddLoading && (
           <div className="loading-state">
             <HourglassSplit />

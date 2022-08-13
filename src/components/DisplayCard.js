@@ -42,6 +42,7 @@ const DisplayCard = ({ data }) => {
           show={showModal}
           onClose={() => setShowModal(false)}
           uid={id}
+          data={data}
         />
       )}
       <div className="display-card__card-actions">
