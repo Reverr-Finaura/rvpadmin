@@ -13,7 +13,7 @@ import AddHighlight from "../../components/addHighlights/AddHighlight";
 import AddInvestor from "../../components/addInvestor/AddInvestor";
 import AddFounder from "../../components/addfounder/AddFounder";
 import AddAdvisor from "../../components/addAdvisor/AddAdvisor";
-import { setInvestorDeals, updateDeal } from "../../redux/createDealSlice";
+import { setInvestorDeals } from "../../redux/createDealSlice";
 
 const EditModal = (props) => {
   const dispatch = useDispatch();
