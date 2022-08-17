@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { act } from "react-dom/test-utils";
 
 const initialState = {
   investorDeals: null,
@@ -44,9 +45,9 @@ export const investorDealSlice = createSlice({
       );
     },
 
-    updateDeal: (state, action) => {
-      state.investorDeals = action.payload;
-    },
+    // updateDeal: (state, { payload }) => {
+    //   state.investorDeals = payload;
+    // },
   },
 });
 

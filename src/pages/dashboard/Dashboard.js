@@ -5,7 +5,7 @@ import { getInvestorDealsFromDatabase } from "../../firebase/firebase";
 import { useEffect, useState } from "react";
 import DisplayCard from "../../components/displaycard/DisplayCard";
 import { HourglassSplit } from "react-bootstrap-icons";
-import { setInvestorDeals } from "../../redux/createDealSlice";
+import { setInvestorDeals, updateDeal } from "../../redux/createDealSlice";
 
 const Dashboard = () => {
   const dispatch = useDispatch();

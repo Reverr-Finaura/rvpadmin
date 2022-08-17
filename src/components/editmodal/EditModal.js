@@ -6,8 +6,14 @@ import {
   uploadMedia,
   getInvestorDealsFromDatabase,
 } from "../../firebase/firebase";
-import { updateDeal } from "../../redux/createDealSlice";
 import { HourglassSplit } from "react-bootstrap-icons";
+import { dateGenerator } from "../../utils/dategenerator";
+import AddFaq from "../../components/addfaq/AddFaq";
+import AddHighlight from "../../components/addHighlights/AddHighlight";
+import AddInvestor from "../../components/addInvestor/AddInvestor";
+import AddFounder from "../../components/addfounder/AddFounder";
+import AddAdvisor from "../../components/addAdvisor/AddAdvisor";
+import { setInvestorDeals, updateDeal } from "../../redux/createDealSlice";
 
 const EditModal = (props) => {
   const dispatch = useDispatch();
@@ -28,6 +34,9 @@ const EditModal = (props) => {
   const [website, setWebsite] = useState("");
   const [pitchDeckMedia, setPitchDeckMedia] = useState("");
   const [projectionMedia, setProjectionMedia] = useState("");
+  const [logo, setLogo] = useState("");
+  const [bgImg, setBgImg] = useState("");
+  const [due_Diligence, setDue_Dilligence] = useState(false);
 
   const [dealsUpdateLoading, setDealsUpdateLoading] = useState(false);
 
@@ -35,12 +44,29 @@ const EditModal = (props) => {
     return null;
   }
 
+  const getUpdatedInvestorDeals = async () => {
+    const results = await getInvestorDealsFromDatabase();
+    if (results.length) {
+      dispatch(setInvestorDeals([...results]));
+    }
+  };
+
   const onUpdateDealClickHandler = async () => {
     setDealsUpdateLoading(true);
+    const { investors, founders, advisors, faqs, dealHighlight } =
+      investorDeals;
     try {
-      const pitchDeckUrl = await uploadMedia(pitchDeckMedia);
-      const projectionUrl = await uploadMedia(projectionMedia);
-      const dealData = {
+      const pitchDeckUrl = await uploadMedia(
+        pitchDeckMedia,
+        "rvpDeal/pitchDecFiles"
+      );
+      const projectionUrl = await uploadMedia(
+        projectionMedia,
+        "rvpDeal/projectionFiles"
+      );
+      const logoImg = await uploadMedia(logo, "rvpDeal/cardImg/logoImg");
+      const bagdImg = await uploadMedia(bgImg, "rvpDeal/cardImg/backgroundImg");
+      const dealUpdatedData = {
         id: props.uid,
         dealDetails: {
           name,
@@ -50,24 +76,34 @@ const EditModal = (props) => {
           firm,
           type,
         },
-
+        due_Diligence,
         pitchDeck: { docName: pitchDeckMedia.name, docUrl: pitchDeckUrl },
         projection: { docName: projectionMedia.name, docUrl: projectionUrl },
         dealDescription: {
           shortDesc,
           description,
         },
-        socialLinks: {
+        faqs,
+        founders,
+        advisors,
+        dealHighlight,
+        investors,
+        Links: {
           instagram,
           linkedIn,
           twitter,
           website,
           videoLink,
         },
+        cardImages: {
+          logo: { name: logo.name, logoUrl: logoImg },
+          bgImage: { name: bgImg.name, bgUrl: bagdImg },
+        },
       };
 
-      await updateInvestorDetailsInDatabase(props.uid, dealData);
+      await updateInvestorDetailsInDatabase(props.uid, dealUpdatedData);
       console.log("updated");
+      getUpdatedInvestorDeals();
       setDealsUpdateLoading(false);
     } catch (error) {
       console.log(error);
@@ -131,7 +167,7 @@ const EditModal = (props) => {
 
             <form>
               <fieldset>
-                <legend>Media</legend>
+                <legend>File</legend>
                 <input
                   type="file"
                   onChange={(e) => {
@@ -155,7 +191,41 @@ const EditModal = (props) => {
 
             <form>
               <fieldset>
-                <legend>Social Links</legend>
+                <legend>Card Images</legend>
+                <input
+                  type="file"
+                  onChange={(e) => {
+                    const newDate = dateGenerator();
+                    if (e.target.files[0]) {
+                      Object.defineProperty(e.target.files[0], "name", {
+                        writable: true,
+                        value: `${name} ${newDate}`,
+                      });
+                      setLogo(e.target.files[0]);
+                    }
+                  }}
+                  placeholder="Pitchdeck"
+                />
+                <input
+                  onChange={(e) => {
+                    const newDate = dateGenerator();
+                    if (e.target.files[0]) {
+                      Object.defineProperty(e.target.files[0], "name", {
+                        writable: true,
+                        value: `${name} ${newDate}`,
+                      });
+                      setBgImg(e.target.files[0]);
+                    }
+                  }}
+                  type="file"
+                  placeholder="Projections"
+                />
+              </fieldset>
+            </form>
+
+            <form>
+              <fieldset>
+                <legend>Links</legend>
                 <input
                   onChange={(e) => setInstagram(e.target.value)}
                   placeholder="Instagram"
@@ -178,6 +248,34 @@ const EditModal = (props) => {
                 />
               </fieldset>
             </form>
+
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <h1 style={{ marginRight: "2rem", color: "gray" }}>
+                Due_diligence{" "}
+              </h1>
+              <label className="switch">
+                <input
+                  type="checkbox"
+                  onClick={(e) =>
+                    e.target.checked
+                      ? setDue_Dilligence(true)
+                      : setDue_Dilligence(false)
+                  }
+                />
+                <span className="slider round"></span>
+              </label>
+            </div>
+            <AddFaq />
+
+            <AddHighlight />
+            <AddInvestor />
+            <AddFounder />
+            <AddAdvisor />
           </div>
         </div>
         <div className="edit-modal__footer">
