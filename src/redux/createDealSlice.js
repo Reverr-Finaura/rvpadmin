@@ -44,10 +44,6 @@ export const investorDealSlice = createSlice({
         (data) => data.id !== action.payload
       );
     },
-
-    // updateDeal: (state, { payload }) => {
-    //   state.investorDeals = payload;
-    // },
   },
 });
 
