@@ -5,8 +5,8 @@ import {
   updateInvestorDetailsInDatabase,
   uploadMedia,
   getInvestorDealsFromDatabase,
-} from "../firebase/firebase";
-import { updateDeal } from "../redux/createDealSlice";
+} from "../../firebase/firebase";
+import { updateDeal } from "../../redux/createDealSlice";
 import { HourglassSplit } from "react-bootstrap-icons";
 
 const EditModal = (props) => {

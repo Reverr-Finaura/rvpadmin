@@ -4,6 +4,9 @@ export const dateGenerator = () => {
     day: "numeric",
     year: "numeric",
     month: "long",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
   });
 
   return newDate;

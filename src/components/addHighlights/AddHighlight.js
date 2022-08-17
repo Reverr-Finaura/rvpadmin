@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { Pen, Trash } from "react-bootstrap-icons";
+import { useDispatch } from "react-redux";
+import { setDealHighlight } from "../../redux/createDealSlice";
 import { keyGen } from "../../utils/keyGen";
 
 const AddHighlight = () => {
@@ -8,7 +10,7 @@ const AddHighlight = () => {
   const [higlights, setHiglights] = useState([]);
   const [selectedData, setSelectedData] = useState("");
   const [isEditable, setIsEditable] = useState(false);
-
+  const dispatch = useDispatch();
   const onAddHighlightHandler = () => {
     let newKey = keyGen();
     setIsAddHighlight(false);
@@ -30,6 +32,7 @@ const AddHighlight = () => {
     );
     setIsAddHighlight(true);
     setSelectedData(data);
+    setHighlight(() => data.title);
     setIsEditable(true);
   };
 
@@ -40,8 +43,8 @@ const AddHighlight = () => {
   };
 
   useEffect(() => {
-    setHighlight(selectedData.title);
-  }, [isEditable]);
+    dispatch(setDealHighlight(higlights));
+  }, [higlights]);
 
   return (
     <>

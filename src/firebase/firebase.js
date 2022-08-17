@@ -96,10 +96,10 @@ export const deleteInvestorDetailsInDatabse = async (uid) => {
 // Storage
 const storage = getStorage(app);
 
-export const uploadMedia = async (media) => {
+export const uploadMedia = async (media, path) => {
   try {
-    await uploadBytesResumable(ref(storage, `rvpDeal/${media.name}`), media);
-    const getMedia = await ref(storage, `rvpDeal/${media.name}`);
+    await uploadBytesResumable(ref(storage, `${path}/${media.name}`), media);
+    const getMedia = await ref(storage, `${path}/${media.name}`);
     const mediaLink = await getDownloadURL(getMedia);
     return mediaLink;
   } catch (err) {
@@ -107,6 +107,6 @@ export const uploadMedia = async (media) => {
   }
 };
 
-export const deleteMedia = (media) => {
-  deleteObject(ref(storage, `rvpDeal/${media}`));
+export const deleteMedia = (media, path) => {
+  deleteObject(ref(storage, `${path}/${media}`));
 };

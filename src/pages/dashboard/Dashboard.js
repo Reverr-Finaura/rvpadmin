@@ -3,7 +3,7 @@ import "./dashboard.css";
 import { Link } from "react-router-dom";
 import { getInvestorDealsFromDatabase } from "../../firebase/firebase";
 import { useEffect, useState } from "react";
-import DisplayCard from "../../components/DisplayCard";
+import DisplayCard from "../../components/displaycard/DisplayCard";
 import { HourglassSplit } from "react-bootstrap-icons";
 import { setInvestorDeals } from "../../redux/createDealSlice";
 
@@ -11,14 +11,11 @@ const Dashboard = () => {
   const dispatch = useDispatch();
   window.scroll(0, 0);
 
-  const investorDeals = useSelector((state) => state.investorDeals);
-
   const [isLoading, setIsLoading] = useState(true);
-
   const getInvestorDeals = async () => {
     const results = await getInvestorDealsFromDatabase();
     if (results.length) {
-      dispatch(setInvestorDeals(results));
+      dispatch(setInvestorDeals([...results]));
     }
     setIsLoading(false);
   };
@@ -27,6 +24,7 @@ const Dashboard = () => {
     getInvestorDeals();
   }, []);
 
+  const investorDeals = useSelector((state) => state.investorDeals);
   return (
     <>
       <div className="Dashboard_MainContainer">

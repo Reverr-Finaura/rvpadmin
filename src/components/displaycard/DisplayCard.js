@@ -9,15 +9,16 @@ import {
   Globe,
 } from "react-bootstrap-icons";
 import { useDispatch } from "react-redux";
-import { deleteDeal } from "../redux/createDealSlice";
+import { deleteDeal } from "../../redux/createDealSlice";
 import {
   deleteInvestorDetailsInDatabse,
   deleteMedia,
-} from "../firebase/firebase";
-import EditModal from "./EditModal";
+} from "../../firebase/firebase";
+import EditModal from "../editmodal/EditModal";
 import { useState } from "react";
 
 const DisplayCard = ({ data }) => {
+  console.log(data);
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
   const {
@@ -26,14 +27,15 @@ const DisplayCard = ({ data }) => {
     id,
     pitchDeck,
     projection,
-    socialLinks,
+    Links,
     addedOn,
   } = data;
   const { date, firm, industry, name, raised, type } = dealDetails;
+
   const { description, shortDesc } = dealDescription;
   const { docName, docUrl } = pitchDeck;
   const { projectionDocName, projectionDocUrl } = projection;
-  const { instagram, linkedIn, twitter, videoLink, website } = socialLinks;
+  const { instagram, linkedIn, twitter, videoLink, website } = Links;
 
   return (
     <div className="display-card__wrap">
