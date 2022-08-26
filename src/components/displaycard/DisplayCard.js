@@ -29,8 +29,22 @@ const DisplayCard = ({ data }) => {
     projection,
     Links,
     addedOn,
+    onePage,
   } = data;
-  const { date, firm, industry, name, raised, type } = dealDetails;
+  const {
+    date,
+    firm,
+    industry,
+    name,
+    raised,
+    type,
+    headquarter,
+    noOfEmployees,
+    sectorsOfInvestment,
+    incorporationDate,
+    preMoneyValuation,
+    minimumInvestment,
+  } = dealDetails;
 
   const { description, shortDesc } = dealDescription;
   const { docName, docUrl } = pitchDeck;
@@ -76,6 +90,8 @@ const DisplayCard = ({ data }) => {
           </div>
           <div>
             <b>Date: </b> {date}
+            <br />
+            <b>Incorporation Date: </b> {incorporationDate}
           </div>
         </div>
         <br />
@@ -91,6 +107,25 @@ const DisplayCard = ({ data }) => {
         </div>
         <div>
           <b>Type: </b> {type}
+        </div>
+        <div>
+          <b>Headquarters: </b> {headquarter}
+        </div>
+
+        <div>
+          <b>No. of employees: </b> {noOfEmployees}
+        </div>
+        <div>
+          <b>Sectors of Investment: </b>{" "}
+          {sectorsOfInvestment.map((data) => (
+            <span className="sectors-of-investment">{data}</span>
+          ))}
+        </div>
+        <div>
+          <b>Pre money valuation: </b> {preMoneyValuation}
+        </div>
+        <div>
+          <b>Minimum Investment: </b> {minimumInvestment}
         </div>
       </div>
       <br />

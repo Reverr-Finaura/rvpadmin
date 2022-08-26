@@ -17,6 +17,7 @@ import AddInvestor from "../../components/addInvestor/AddInvestor";
 import AddFounder from "../../components/addfounder/AddFounder";
 import AddAdvisor from "../../components/addAdvisor/AddAdvisor";
 import { useSelector } from "react-redux";
+import Select from "react-select";
 
 const CreateDeal = () => {
   const [name, setName] = useState("");
@@ -40,7 +41,7 @@ const CreateDeal = () => {
   const [due_Diligence, setDue_Dilligence] = useState(false);
   const [headquarter, setHeadquarter] = useState("");
   const [noOfEmployees, setNoOfEmployees] = useState("");
-  const [sectorsOfInvestment, setSectorsOfInvestment] = useState("");
+  const [sectorsOfInvestment, setSectorsOfInvestment] = useState([]);
   const [incorporationDate, setIncorporationDate] = useState("");
   const [preMoneyValuation, setPreMoneyValuation] = useState(0);
   const [minimumInvestment, setMinimumInvestment] = useState(0);
@@ -55,6 +56,30 @@ const CreateDeal = () => {
   const [growthStategy, setGrowthStrategy] = useState("");
   const [marketTraction, setMarketTraction] = useState("");
   const [fundingAmt, setFundingAmt] = useState("");
+
+  const sectors = [
+    { value: 1, label: "Agricultural" },
+    { value: 2, label: "Apparel & Accessories" },
+    { value: 3, label: "Automobile & Ancillaries" },
+    { value: 4, label: "Banking" },
+    { value: 5, label: "Consumer Durables" },
+    { value: 6, label: "Derived Materials" },
+    { value: 7, label: "Energy" },
+    { value: 8, label: "Financial" },
+    { value: 9, label: "FMCG" },
+    { value: 10, label: "Food and Beverages" },
+    { value: 11, label: "Healthcare" },
+    { value: 12, label: "Hospitality and Travel" },
+    { value: 13, label: "Industrial Products" },
+    { value: 14, label: "Industries" },
+    { value: 15, label: "IT Industry" },
+    { value: 16, label: "Logistics and Freight" },
+    { value: 17, label: "Media & Entertainment" },
+    { value: 18, label: "Raw Material" },
+    { value: 19, label: "Tele-Communication" },
+    { value: 20, label: "Textile Industry" },
+    { value: 21, label: "Others" },
+  ];
 
   const investorDeals = useSelector((state) => state.investorDeals);
 
@@ -142,8 +167,8 @@ const CreateDeal = () => {
     <>
       <div className="main__deal">
         <form>
-          <fieldset>
-            <legend>Deal Deatails</legend>
+          <fieldset style={{ display: "flex" }}>
+            <legend>Deal Details</legend>
             <input
               onChange={(e) => setName(e.target.value)}
               placeholder="Name"
@@ -177,11 +202,20 @@ const CreateDeal = () => {
               onChange={(e) => setNoOfEmployees(e.target.value)}
               placeholder="No of employees"
             />
-            <input
-              onChange={(e) => setSectorsOfInvestment(e.target.value)}
-              placeholder="Sectors of investment"
-            />
-            <lable style={{ marginLeft: "1%" }}>Incorporation Date :</lable>
+            <div style={{ width: "88%", marginLeft: "1%" }}>
+              <Select
+                isMulti
+                options={sectors}
+                onChange={(e) => {
+                  setSectorsOfInvestment(
+                    Array.isArray(e) ? e.map((x) => x.label) : []
+                  );
+                }}
+              />
+            </div>
+            <label style={{ marginLeft: "1%" }}>
+              <h4>Incorporation Date :</h4>
+            </label>
             <input
               style={{ width: "26.3%" }}
               onChange={(e) => setIncorporationDate(e.target.value)}
@@ -203,12 +237,12 @@ const CreateDeal = () => {
         </form>
 
         <form>
-          <fieldset>
+          <fieldset style={{ display: "flex" }}>
             <legend>Deal Description</legend>
             <textarea
               onChange={(e) => setShortDesc(e.target.value)}
               rows="3"
-              placeholder="Short_desc"
+              placeholder="Short Description"
             />
             <textarea
               onChange={(e) => setDescription(e.target.value)}
@@ -234,7 +268,7 @@ const CreateDeal = () => {
             <textarea
               onChange={(e) => setSolution(e.target.value)}
               rows="3"
-              placeholder="solution"
+              placeholder="Solution"
             />
             <h3>Market (In Crores)</h3>
             <input
@@ -383,11 +417,11 @@ const CreateDeal = () => {
             />
             <input
               onChange={(e) => setVideoLink(e.target.value)}
-              placeholder="Video_link"
+              placeholder="Video Link"
             />
             <input
               onChange={(e) => setWebsite(e.target.value)}
-              placeholder="Website_link"
+              placeholder="Website Link"
             />
           </fieldset>
         </form>
@@ -398,7 +432,7 @@ const CreateDeal = () => {
             alignItems: "center",
           }}
         >
-          <h1 style={{ marginRight: "2rem", color: "gray" }}>Due_diligence </h1>
+          <h1 style={{ marginRight: "2rem", color: "gray" }}>Due Diligence </h1>
           <label className="switch">
             <input
               type="checkbox"

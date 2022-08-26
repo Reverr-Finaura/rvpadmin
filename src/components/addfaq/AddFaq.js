@@ -50,7 +50,7 @@ const AddFaq = () => {
     <>
       <form>
         <fieldset>
-          <legend>Faq</legend>
+          <legend>FAQ</legend>
           {faqs.length
             ? faqs.map((data) => {
                 return (

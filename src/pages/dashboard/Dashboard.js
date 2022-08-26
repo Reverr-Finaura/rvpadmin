@@ -25,6 +25,7 @@ const Dashboard = () => {
   }, []);
 
   const investorDeals = useSelector((state) => state.investorDeals);
+  console.log(investorDeals);
   return (
     <>
       <div className="Dashboard_MainContainer">

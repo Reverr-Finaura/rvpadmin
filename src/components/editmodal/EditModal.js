@@ -14,6 +14,7 @@ import AddInvestor from "../../components/addInvestor/AddInvestor";
 import AddFounder from "../../components/addfounder/AddFounder";
 import AddAdvisor from "../../components/addAdvisor/AddAdvisor";
 import { setInvestorDeals } from "../../redux/createDealSlice";
+import Select from "react-select";
 
 const EditModal = (props) => {
   const dispatch = useDispatch();
@@ -37,6 +38,47 @@ const EditModal = (props) => {
   const [logo, setLogo] = useState("");
   const [bgImg, setBgImg] = useState("");
   const [due_Diligence, setDue_Dilligence] = useState(false);
+  const [headquarter, setHeadquarter] = useState("");
+  const [noOfEmployees, setNoOfEmployees] = useState("");
+  const [sectorsOfInvestment, setSectorsOfInvestment] = useState([]);
+  const [incorporationDate, setIncorporationDate] = useState("");
+  const [preMoneyValuation, setPreMoneyValuation] = useState(0);
+  const [minimumInvestment, setMinimumInvestment] = useState(0);
+  const [companyDescription, setCompanyDescription] = useState("");
+  const [problem, setProblem] = useState("");
+  const [solution, setSolution] = useState("");
+  const [tam, setTam] = useState(0);
+  const [sam, setSam] = useState(0);
+  const [som, setSom] = useState(0);
+  const [competitiveLandscape, setCompetitiveLandscape] = useState("");
+  const [revenueModal, setRevenueModal] = useState("");
+  const [growthStategy, setGrowthStrategy] = useState("");
+  const [marketTraction, setMarketTraction] = useState("");
+  const [fundingAmt, setFundingAmt] = useState("");
+
+  const sectors = [
+    { value: 1, label: "Agricultural" },
+    { value: 2, label: "Apparel & Accessories" },
+    { value: 3, label: "Automobile & Ancillaries" },
+    { value: 4, label: "Banking" },
+    { value: 5, label: "Consumer Durables" },
+    { value: 6, label: "Derived Materials" },
+    { value: 7, label: "Energy" },
+    { value: 8, label: "Financial" },
+    { value: 9, label: "FMCG" },
+    { value: 10, label: "Food and Beverages" },
+    { value: 11, label: "Healthcare" },
+    { value: 12, label: "Hospitality and Travel" },
+    { value: 13, label: "Industrial Products" },
+    { value: 14, label: "Industries" },
+    { value: 15, label: "IT Industry" },
+    { value: 16, label: "Logistics and Freight" },
+    { value: 17, label: "Media & Entertainment" },
+    { value: 18, label: "Raw Material" },
+    { value: 19, label: "Tele-Communication" },
+    { value: 20, label: "Textile Industry" },
+    { value: 21, label: "Others" },
+  ];
 
   const [dealsUpdateLoading, setDealsUpdateLoading] = useState(false);
 
@@ -75,6 +117,12 @@ const EditModal = (props) => {
           raised,
           firm,
           type,
+          headquarter,
+          noOfEmployees,
+          sectorsOfInvestment,
+          incorporationDate,
+          minimumInvestment,
+          preMoneyValuation,
         },
         due_Diligence,
         pitchDeck: { docName: pitchDeckMedia.name, docUrl: pitchDeckUrl },
@@ -99,6 +147,19 @@ const EditModal = (props) => {
           logo: { name: logo.name, logoUrl: logoImg },
           bgImage: { name: bgImg.name, bgUrl: bagdImg },
         },
+        onePage: {
+          companyDescription,
+          problem,
+          solution,
+          tam,
+          sam,
+          som,
+          competitiveLandscape,
+          revenueModal,
+          growthStategy,
+          marketTraction,
+          fundingAmt,
+        },
       };
 
       await updateInvestorDetailsInDatabase(props.uid, dealUpdatedData);
@@ -119,8 +180,8 @@ const EditModal = (props) => {
         <div className="edit-modal__body">
           <div className="main__deal">
             <form>
-              <fieldset>
-                <legend>Deal Deatails</legend>
+              <fieldset style={{ display: "flex" }}>
+                <legend>Deal Details</legend>
                 <input
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Name"
@@ -146,6 +207,45 @@ const EditModal = (props) => {
                   onChange={(e) => setFirm(e.target.value)}
                   placeholder="Firm"
                 />
+                <input
+                  onChange={(e) => setHeadquarter(e.target.value)}
+                  placeholder="Headquarters"
+                />
+                <input
+                  onChange={(e) => setNoOfEmployees(e.target.value)}
+                  placeholder="No of employees"
+                />
+                <div style={{ width: "88%", marginLeft: "1%" }}>
+                  <Select
+                    isMulti
+                    options={sectors}
+                    onChange={(e) => {
+                      setSectorsOfInvestment(
+                        Array.isArray(e) ? e.map((x) => x.label) : []
+                      );
+                    }}
+                  />
+                </div>
+                <label style={{ marginLeft: "1%" }}>
+                  <h4>Incorporation Date :</h4>
+                </label>
+                <input
+                  style={{ width: "26.3%" }}
+                  onChange={(e) => setIncorporationDate(e.target.value)}
+                  placeholder="Incorporation date"
+                  type="date"
+                />
+                <input
+                  onChange={(e) => setPreMoneyValuation(e.target.value)}
+                  placeholder="Pre money valuation"
+                  type="number"
+                />
+
+                <input
+                  onChange={(e) => setMinimumInvestment(e.target.value)}
+                  placeholder="Minimum investment"
+                  type="number"
+                />
               </fieldset>
             </form>
 
@@ -155,7 +255,7 @@ const EditModal = (props) => {
                 <textarea
                   onChange={(e) => setShortDesc(e.target.value)}
                   rows="3"
-                  placeholder="Short_desc"
+                  placeholder="Short Description"
                 />
                 <textarea
                   onChange={(e) => setDescription(e.target.value)}
@@ -167,7 +267,91 @@ const EditModal = (props) => {
 
             <form>
               <fieldset>
+                <legend>One Pager</legend>
+                <textarea
+                  onChange={(e) => setCompanyDescription(e.target.value)}
+                  rows="3"
+                  placeholder="Enter Company description"
+                />
+                <textarea
+                  onChange={(e) => setProblem(e.target.value)}
+                  rows="3"
+                  placeholder="Problem"
+                />
+                <textarea
+                  onChange={(e) => setSolution(e.target.value)}
+                  rows="3"
+                  placeholder="Solution"
+                />
+                <h3>Market (In Crores)</h3>
+                <input
+                  onChange={(e) => setTam(e.target.value)}
+                  placeholder="TAM"
+                  type="number"
+                />
+                <input
+                  onChange={(e) => setSom(e.target.value)}
+                  placeholder="SOM"
+                  type="number"
+                />{" "}
+                <input
+                  onChange={(e) => setSam(e.target.value)}
+                  placeholder="SAM"
+                  type="number"
+                />
+                <div
+                  style={{ display: "flex", justifyContent: "space-between" }}
+                >
+                  <div style={{ width: "45%" }}>
+                    <h3>Competitive Landscape</h3>
+                    <textarea
+                      onChange={(e) => setCompetitiveLandscape(e.target.value)}
+                      rows="3"
+                      placeholder="Mention your competitors"
+                    />
+                  </div>
+                  <div style={{ width: "45%" }}>
+                    <h3>Revenue Model</h3>
+                    <textarea
+                      onChange={(e) => setRevenueModal(e.target.value)}
+                      rows="3"
+                      placeholder="Your startup's revenue model"
+                    />
+                  </div>
+                </div>
+                <div
+                  style={{ display: "flex", justifyContent: "space-between" }}
+                >
+                  <div style={{ width: "45%" }}>
+                    <h3>Growth Strategy</h3>
+                    <textarea
+                      onChange={(e) => setGrowthStrategy(e.target.value)}
+                      rows="3"
+                      placeholder="Few points about..."
+                    />
+                  </div>
+                  <div style={{ width: "45%" }}>
+                    <h3>Market Traction</h3>
+                    <textarea
+                      onChange={(e) => setMarketTraction(e.target.value)}
+                      rows="3"
+                      placeholder="Current market traction"
+                    />
+                  </div>
+                </div>
+                <h3>Funding Ask (in lakhs)</h3>
+                <input
+                  onChange={(e) => setFundingAmt(e.target.value)}
+                  placeholder="Enter funding amount"
+                  type="number"
+                />
+              </fieldset>
+            </form>
+
+            <form>
+              <fieldset>
                 <legend>File</legend>
+                <label for="Pitchdeck">Pitchdeck: </label>
                 <input
                   type="file"
                   onChange={(e) => {
@@ -176,7 +360,10 @@ const EditModal = (props) => {
                     }
                   }}
                   placeholder="Pitchdeck"
+                  name="Pitchdeck"
                 />
+                <br />
+                <label for="Projections">Projections: </label>
                 <input
                   onChange={(e) => {
                     if (e.target.files[0]) {
@@ -185,6 +372,7 @@ const EditModal = (props) => {
                   }}
                   type="file"
                   placeholder="Projections"
+                  name="Projections"
                 />
               </fieldset>
             </form>
@@ -192,6 +380,7 @@ const EditModal = (props) => {
             <form>
               <fieldset>
                 <legend>Card Images</legend>
+                <label for="logo">Logo: </label>
                 <input
                   type="file"
                   onChange={(e) => {
@@ -204,8 +393,11 @@ const EditModal = (props) => {
                       setLogo(e.target.files[0]);
                     }
                   }}
-                  placeholder="Pitchdeck"
+                  placeholder="logo"
+                  name="logo"
                 />
+                <br />
+                <label for="bg">Background: </label>
                 <input
                   onChange={(e) => {
                     const newDate = dateGenerator();
@@ -218,7 +410,8 @@ const EditModal = (props) => {
                     }
                   }}
                   type="file"
-                  placeholder="Projections"
+                  placeholder="background"
+                  name="background"
                 />
               </fieldset>
             </form>
@@ -240,11 +433,11 @@ const EditModal = (props) => {
                 />
                 <input
                   onChange={(e) => setVideoLink(e.target.value)}
-                  placeholder="Video_link"
+                  placeholder="Video Link"
                 />
                 <input
                   onChange={(e) => setWebsite(e.target.value)}
-                  placeholder="Website_link"
+                  placeholder="Website Link"
                 />
               </fieldset>
             </form>
@@ -256,7 +449,7 @@ const EditModal = (props) => {
               }}
             >
               <h1 style={{ marginRight: "2rem", color: "gray" }}>
-                Due_diligence{" "}
+                Due Diligence{" "}
               </h1>
               <label className="switch">
                 <input
