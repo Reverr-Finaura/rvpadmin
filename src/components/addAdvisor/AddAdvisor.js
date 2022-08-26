@@ -14,6 +14,8 @@ const AddAdvisor = () => {
   const [isEditable, setIsEditable] = useState(false);
   const [selectedData, setSelectedData] = useState({});
   const [advisorImg, SetadvisorImg] = useState("");
+  const [description, setDescription] = useState("");
+
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
   const onAddAdvisorHandler = async () => {
@@ -27,6 +29,7 @@ const AddAdvisor = () => {
         image: { imageName: advisorImg.name, imageUrl: advisorImgUrl },
         linkedIn,
         id: newKey,
+        description,
       },
       ...advisor,
     ]);
@@ -42,6 +45,8 @@ const AddAdvisor = () => {
     setSelectedData(data);
     SetName(() => data.name);
     SetLinkedIn(() => data.linkedIn);
+    setDescription(() => data.description);
+
     setIsEditable(true);
   };
 
@@ -53,13 +58,21 @@ const AddAdvisor = () => {
     console.log(advisorImg);
     const advisorImgUrl = await uploadMedia(advisorImg, "rvpDeal/advisors");
     SetAdvisor([
-      { name, Image: advisorImgUrl, linkedIn, id: selectedData.id },
+      {
+        name,
+        Image: advisorImgUrl,
+        linkedIn,
+        id: selectedData.id,
+        description,
+      },
       ...advisor,
     ]);
     setIsEditable(false);
     setSelectedData("");
     SetName("");
     SetLinkedIn("");
+    setDescription("");
+    setIsLoading(false);
     setIsLoading(false);
   };
 
@@ -113,6 +126,11 @@ const AddAdvisor = () => {
                 value={linkedIn || ""}
                 onChange={(e) => SetLinkedIn(e.target.value)}
                 placeholder="LinkedIn"
+              />
+              <textarea
+                onChange={(e) => setDescription(e.target.value)}
+                rows="3"
+                placeholder="Short_desc"
               />
               {isEditable ? (
                 <button onClick={(e) => onSaveChangesHandler(e)}>

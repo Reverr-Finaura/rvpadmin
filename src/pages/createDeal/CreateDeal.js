@@ -38,6 +38,23 @@ const CreateDeal = () => {
   const [bgImg, setBgImg] = useState("");
   const [dealsAddLoading, setDealsAddLoading] = useState(false);
   const [due_Diligence, setDue_Dilligence] = useState(false);
+  const [headquarter, setHeadquarter] = useState("");
+  const [noOfEmployees, setNoOfEmployees] = useState("");
+  const [sectorsOfInvestment, setSectorsOfInvestment] = useState("");
+  const [incorporationDate, setIncorporationDate] = useState("");
+  const [preMoneyValuation, setPreMoneyValuation] = useState(0);
+  const [minimumInvestment, setMinimumInvestment] = useState(0);
+  const [companyDescription, setCompanyDescription] = useState("");
+  const [problem, setProblem] = useState("");
+  const [solution, setSolution] = useState("");
+  const [tam, setTam] = useState(0);
+  const [sam, setSam] = useState(0);
+  const [som, setSom] = useState(0);
+  const [competitiveLandscape, setCompetitiveLandscape] = useState("");
+  const [revenueModal, setRevenueModal] = useState("");
+  const [growthStategy, setGrowthStrategy] = useState("");
+  const [marketTraction, setMarketTraction] = useState("");
+  const [fundingAmt, setFundingAmt] = useState("");
 
   const investorDeals = useSelector((state) => state.investorDeals);
 
@@ -67,6 +84,12 @@ const CreateDeal = () => {
           raised,
           firm,
           type,
+          headquarter,
+          noOfEmployees,
+          sectorsOfInvestment,
+          incorporationDate,
+          minimumInvestment,
+          preMoneyValuation,
         },
         due_Diligence,
         pitchDeck: { docName: pitchDeckMedia.name, docUrl: pitchDeckUrl },
@@ -91,6 +114,19 @@ const CreateDeal = () => {
         cardImages: {
           logo: { name: logo.name, logoUrl: logoImg },
           bgImage: { name: bgImg.name, bgUrl: bagdImg },
+        },
+        onePage: {
+          companyDescription,
+          problem,
+          solution,
+          tam,
+          sam,
+          som,
+          competitiveLandscape,
+          revenueModal,
+          growthStategy,
+          marketTraction,
+          fundingAmt,
         },
       };
 
@@ -133,6 +169,36 @@ const CreateDeal = () => {
               onChange={(e) => setFirm(e.target.value)}
               placeholder="Firm"
             />
+            <input
+              onChange={(e) => setHeadquarter(e.target.value)}
+              placeholder="Headquarters"
+            />
+            <input
+              onChange={(e) => setNoOfEmployees(e.target.value)}
+              placeholder="No of employees"
+            />
+            <input
+              onChange={(e) => setSectorsOfInvestment(e.target.value)}
+              placeholder="Sectors of investment"
+            />
+            <lable style={{ marginLeft: "1%" }}>Incorporation Date :</lable>
+            <input
+              style={{ width: "26.3%" }}
+              onChange={(e) => setIncorporationDate(e.target.value)}
+              placeholder="Incorporation date"
+              type="date"
+            />
+            <input
+              onChange={(e) => setPreMoneyValuation(e.target.value)}
+              placeholder="Pre money valuation"
+              type="number"
+            />
+
+            <input
+              onChange={(e) => setMinimumInvestment(e.target.value)}
+              placeholder="Minimum investment"
+              type="number"
+            />
           </fieldset>
         </form>
 
@@ -148,6 +214,85 @@ const CreateDeal = () => {
               onChange={(e) => setDescription(e.target.value)}
               rows="8"
               placeholder="Description"
+            />
+          </fieldset>
+        </form>
+
+        <form>
+          <fieldset>
+            <legend>One Pager</legend>
+            <textarea
+              onChange={(e) => setCompanyDescription(e.target.value)}
+              rows="3"
+              placeholder="Enter Company description"
+            />
+            <textarea
+              onChange={(e) => setProblem(e.target.value)}
+              rows="3"
+              placeholder="Problem"
+            />
+            <textarea
+              onChange={(e) => setSolution(e.target.value)}
+              rows="3"
+              placeholder="solution"
+            />
+            <h3>Market (In Crores)</h3>
+            <input
+              onChange={(e) => setTam(e.target.value)}
+              placeholder="TAM"
+              type="number"
+            />
+            <input
+              onChange={(e) => setSom(e.target.value)}
+              placeholder="SOM"
+              type="number"
+            />{" "}
+            <input
+              onChange={(e) => setSam(e.target.value)}
+              placeholder="SAM"
+              type="number"
+            />
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <div style={{ width: "45%" }}>
+                <h3>Competitive Landscape</h3>
+                <textarea
+                  onChange={(e) => setCompetitiveLandscape(e.target.value)}
+                  rows="3"
+                  placeholder="Mention your competitors"
+                />
+              </div>
+              <div style={{ width: "45%" }}>
+                <h3>Revenue Model</h3>
+                <textarea
+                  onChange={(e) => setRevenueModal(e.target.value)}
+                  rows="3"
+                  placeholder="Your startup's revenue model"
+                />
+              </div>
+            </div>
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <div style={{ width: "45%" }}>
+                <h3>Growth Strategy</h3>
+                <textarea
+                  onChange={(e) => setGrowthStrategy(e.target.value)}
+                  rows="3"
+                  placeholder="Few points about..."
+                />
+              </div>
+              <div style={{ width: "45%" }}>
+                <h3>Market Traction</h3>
+                <textarea
+                  onChange={(e) => setMarketTraction(e.target.value)}
+                  rows="3"
+                  placeholder="Current market traction"
+                />
+              </div>
+            </div>
+            <h3>Funding Ask (in lakhs)</h3>
+            <input
+              onChange={(e) => setFundingAmt(e.target.value)}
+              placeholder="Enter funding amount"
+              type="number"
             />
           </fieldset>
         </form>

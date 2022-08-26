@@ -16,6 +16,8 @@ const AddFounder = () => {
   const [selectedData, setSelectedData] = useState({});
   const [founderImg, SetFounderImg] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [description, setDescription] = useState("");
+
   const dispatch = useDispatch();
 
   const onAddFounderHandler = async () => {
@@ -30,6 +32,7 @@ const AddFounder = () => {
         linkedIn,
         position,
         id: newKey,
+        description,
       },
       ...founder,
     ]);
@@ -47,6 +50,8 @@ const AddFounder = () => {
     SetName(() => data.name);
     SetLinkedIn(() => data.linkedIn);
     setPosition(() => data.position);
+    setDescription(() => data.description);
+
     setIsEditable(true);
   };
 
@@ -56,13 +61,21 @@ const AddFounder = () => {
     setIsLoading(true);
     const founderImgUrl = await uploadMedia(founderImg, "rvpDeal/founders");
     SetFounder([
-      { position, name, Image: founderImgUrl, linkedIn, id: selectedData.id },
+      {
+        position,
+        name,
+        Image: founderImgUrl,
+        linkedIn,
+        id: selectedData.id,
+        description,
+      },
       ...founder,
     ]);
     setIsEditable(false);
     setSelectedData("");
     SetName("");
     SetLinkedIn("");
+    setDescription("");
     setPosition("");
     setIsLoading(false);
   };
@@ -122,6 +135,11 @@ const AddFounder = () => {
                 value={position || ""}
                 onChange={(e) => setPosition(e.target.value)}
                 placeholder="Position"
+              />{" "}
+              <textarea
+                onChange={(e) => setDescription(e.target.value)}
+                rows="3"
+                placeholder="Short_desc"
               />
               {isEditable ? (
                 <button onClick={(e) => onSaveChangesHandler(e)}>

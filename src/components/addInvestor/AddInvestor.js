@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Pen, Trash } from "react-bootstrap-icons";
 import { useDispatch } from "react-redux";
 import { uploadMedia } from "../../firebase/firebase";
-import { setInvestors } from "../../redux/createDealSlice";
+import { setInvestorDeals, setInvestors } from "../../redux/createDealSlice";
 import { dateGenerator } from "../../utils/dategenerator";
 import { keyGen } from "../../utils/keyGen";
 
@@ -15,6 +15,7 @@ const AddInvestor = () => {
   const [selectedData, setSelectedData] = useState({});
   const [investorImg, SetInvestorImg] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [description, setDescription] = useState("");
   const dispatch = useDispatch();
 
   const onAddInvestorHandler = async () => {
@@ -28,6 +29,7 @@ const AddInvestor = () => {
         image: { imageName: investorImg.name, imageUrl: investorImgUrl },
         linkedIn,
         id: newKey,
+        description,
       },
       ...investors,
     ]);
@@ -45,6 +47,7 @@ const AddInvestor = () => {
     setSelectedData(data);
     SetName(() => data.name);
     SetLinkedIn(() => data.linkedIn);
+    setDescription(() => data.description);
     setIsEditable(true);
   };
 
@@ -56,13 +59,20 @@ const AddInvestor = () => {
     console.log(investorImg);
     const investorImgUrl = await uploadMedia(investorImg, "rvpDeal/investors");
     SetInvestors([
-      { name, Image: investorImgUrl, linkedIn, id: selectedData.id },
+      {
+        name,
+        Image: investorImgUrl,
+        linkedIn,
+        id: selectedData.id,
+        description,
+      },
       ...investors,
     ]);
     setIsEditable(false);
     setSelectedData("");
     SetName("");
     SetLinkedIn("");
+    setDescription("");
     setIsLoading(false);
   };
 
@@ -118,6 +128,11 @@ const AddInvestor = () => {
                 value={linkedIn || ""}
                 onChange={(e) => SetLinkedIn(e.target.value)}
                 placeholder="LinkedIn"
+              />
+              <textarea
+                onChange={(e) => setDescription(e.target.value)}
+                rows="3"
+                placeholder="Short_desc"
               />
               {isEditable ? (
                 <button onClick={(e) => onSaveChangesHandler(e)}>
