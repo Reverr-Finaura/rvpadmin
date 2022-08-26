@@ -28,8 +28,7 @@ const DisplayCard = ({ data }) => {
     pitchDeck,
     projection,
     Links,
-    addedOn,
-    onePage,
+    cardImages,
   } = data;
   const {
     date,
@@ -47,9 +46,10 @@ const DisplayCard = ({ data }) => {
   } = dealDetails;
 
   const { description, shortDesc } = dealDescription;
-  const { docName, docUrl } = pitchDeck;
-  const { projectionDocName, projectionDocUrl } = projection;
+  const { docUrl } = pitchDeck;
+  const { projectionDocUrl } = projection;
   const { instagram, linkedIn, twitter, videoLink, website } = Links;
+  const { bgImage, logo } = cardImages;
 
   return (
     <div className="display-card__wrap">
@@ -78,6 +78,8 @@ const DisplayCard = ({ data }) => {
             dispatch(deleteDeal(id));
             deleteMedia(docUrl);
             deleteMedia(projectionDocUrl);
+            deleteMedia(bgImage.bgUrl);
+            deleteMedia(logo.logoUrl);
           }}
           style={{ margin: "0.5rem" }}
         />
@@ -85,8 +87,15 @@ const DisplayCard = ({ data }) => {
       <br />
       <div className="deal-details">
         <div className="deal-details__top">
-          <div>
-            <b>Name :</b> {name}
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <img
+              src={logo.logoUrl}
+              width="80px"
+              alt="logo"
+              className="deal-details__logo"
+            />
+            &nbsp;&nbsp;
+            <b>Name:</b>&nbsp;{name}
           </div>
           <div>
             <b>Date: </b> {date}

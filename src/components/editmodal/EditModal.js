@@ -216,6 +216,9 @@ const EditModal = (props) => {
                   placeholder="No of employees"
                 />
                 <div style={{ width: "88%", marginLeft: "1%" }}>
+                  <label for="sectors">
+                    <h4>Sectors: </h4>
+                  </label>
                   <Select
                     isMulti
                     options={sectors}
@@ -224,6 +227,7 @@ const EditModal = (props) => {
                         Array.isArray(e) ? e.map((x) => x.label) : []
                       );
                     }}
+                    name="sectors"
                   />
                 </div>
                 <label style={{ marginLeft: "1%" }}>

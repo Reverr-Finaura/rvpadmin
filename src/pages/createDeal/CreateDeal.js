@@ -203,6 +203,9 @@ const CreateDeal = () => {
               placeholder="No of employees"
             />
             <div style={{ width: "88%", marginLeft: "1%" }}>
+              <label for="sectors">
+                <h4>Sectors: </h4>
+              </label>
               <Select
                 isMulti
                 options={sectors}
@@ -211,6 +214,7 @@ const CreateDeal = () => {
                     Array.isArray(e) ? e.map((x) => x.label) : []
                   );
                 }}
+                name="sectors"
               />
             </div>
             <label style={{ marginLeft: "1%" }}>
@@ -334,6 +338,7 @@ const CreateDeal = () => {
         <form>
           <fieldset>
             <legend>File</legend>
+            <label for="Pitchdeck">Pitchdeck: </label>
             <input
               type="file"
               onChange={(e) => {
@@ -347,7 +352,10 @@ const CreateDeal = () => {
                 }
               }}
               placeholder="Pitchdeck"
+              name="Pitchdeck"
             />
+            <br />
+            <label for="projection">Projection: </label>
             <input
               onChange={(e) => {
                 const newDate = dateGenerator();
@@ -361,6 +369,7 @@ const CreateDeal = () => {
               }}
               type="file"
               placeholder="Projections"
+              name="projection"
             />
           </fieldset>
         </form>
@@ -369,6 +378,7 @@ const CreateDeal = () => {
         <form>
           <fieldset>
             <legend>Card Images</legend>
+            <label for="logo">Logo: </label>
             <input
               type="file"
               onChange={(e) => {
@@ -381,8 +391,11 @@ const CreateDeal = () => {
                   setLogo(e.target.files[0]);
                 }
               }}
-              placeholder="Pitchdeck"
+              placeholder="logo"
+              name="logo"
             />
+            <br />
+            <label for="bg">Background: </label>
             <input
               onChange={(e) => {
                 const newDate = dateGenerator();
@@ -395,7 +408,8 @@ const CreateDeal = () => {
                 }
               }}
               type="file"
-              placeholder="Projections"
+              placeholder="bg"
+              name="bg"
             />
           </fieldset>
         </form>

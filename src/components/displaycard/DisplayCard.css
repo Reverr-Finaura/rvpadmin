@@ -6,6 +6,11 @@
   border-radius: 5px;
 }
 
+.deal-details__logo {
+  border-radius: 50%;
+  box-shadow: 0 0 3px #535353;
+}
+
 .display-card__card-actions {
   display: flex;
   justify-content: end;
