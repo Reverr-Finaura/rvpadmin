@@ -163,6 +163,22 @@ const CreateDeal = () => {
     }
   };
 
+  const scheduleDeal = () => {
+    meetingDetails = { time, date, desc, meetingLink };
+  };
+
+  /* 
+  schedule -> meetingData-Update,
+  fetch meeting -> destuct interestedUser,
+  emailJS -> meeting link,meeting_Time.....,
+for(let i=0; i<=interestedUser.length; i++ ){
+    email.send({
+    interestedUser[i].email,
+    })
+  }
+
+*/
+
   return (
     <>
       <div className="main__deal">
@@ -239,7 +255,6 @@ const CreateDeal = () => {
             />
           </fieldset>
         </form>
-
         <form>
           <fieldset style={{ display: "flex" }}>
             <legend>Deal Description</legend>
@@ -255,7 +270,6 @@ const CreateDeal = () => {
             />
           </fieldset>
         </form>
-
         <form>
           <fieldset>
             <legend>One Pager</legend>
@@ -373,7 +387,6 @@ const CreateDeal = () => {
             />
           </fieldset>
         </form>
-
         {/* Card Images */}
         <form>
           <fieldset>
@@ -413,7 +426,6 @@ const CreateDeal = () => {
             />
           </fieldset>
         </form>
-
         <form>
           <fieldset>
             <legend>Links</legend>
@@ -439,7 +451,6 @@ const CreateDeal = () => {
             />
           </fieldset>
         </form>
-
         <div
           style={{
             display: "flex",
@@ -460,12 +471,10 @@ const CreateDeal = () => {
           </label>
         </div>
         <AddFaq />
-
         <AddHighlight />
         <AddInvestor />
         <AddFounder />
         <AddAdvisor />
-
         {dealsAddLoading && (
           <div className="loading-state">
             <HourglassSplit />
