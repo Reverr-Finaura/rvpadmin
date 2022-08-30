@@ -55,7 +55,6 @@ const AddAdvisor = (props) => {
     SetIsAddAdvisor(false);
 
     setIsLoading(true);
-    console.log(advisorImg);
     const advisorImgUrl = await uploadMedia(advisorImg, "rvpDeal/advisors");
     SetAdvisor([
       {

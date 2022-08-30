@@ -52,10 +52,22 @@ const EditModal = (props) => {
   const [linkedIn, setLinkedIn] = useState(Links.linkedIn);
   const [videoLink, setVideoLink] = useState(Links.videoLink);
   const [website, setWebsite] = useState(Links.website);
-  const [pitchDeckMedia, setPitchDeckMedia] = useState("");
-  const [projectionMedia, setProjectionMedia] = useState("");
-  const [logo, setLogo] = useState("");
-  const [bgImg, setBgImg] = useState("");
+  const [pitchDeckMedia, setPitchDeckMedia] = useState({
+    docName: pitchDeck.docName,
+    docUrl: pitchDeck.docUrl,
+  });
+  const [projectionMedia, setProjectionMedia] = useState({
+    docName: projection.docName,
+    docUrl: projection.docUrl,
+  });
+  const [logo, setLogo] = useState({
+    name: cardImages.logo.name,
+    logoUrl: cardImages.logo.logoUrl,
+  });
+  const [bgImg, setBgImg] = useState({
+    name: cardImages.bgImage.name,
+    bgUrl: cardImages.bgImage.bgUrl,
+  });
   const [dueDiligence, setDue_Dilligence] = useState(due_Diligence);
   const [headquarter, setHeadquarter] = useState(dealDetails.headquarter);
   const [noOfEmployees, setNoOfEmployees] = useState(dealDetails.noOfEmployees);
@@ -126,25 +138,69 @@ const EditModal = (props) => {
   }
 
   const [dealsUpdateLoading, setDealsUpdateLoading] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
 
   if (!props.show) {
     return null;
   }
 
+  const onUploadLogoClickHandler = async (e) => {
+    e.preventDefault();
+    setIsUploading(true);
+    const logoUrl = await uploadMedia(logo, "rvpDeal/cardImg/logoImg");
+    setLogo({
+      name: logo.name,
+      logoUrl: logoUrl,
+    });
+    setIsUploading(false);
+  };
+
+  const onUploadBgClickHandler = async (e) => {
+    e.preventDefault();
+    setIsUploading(true);
+    const bgUrl = await uploadMedia(bgImg, "rvpDeal/cardImg/backgroundImg");
+    setBgImg({
+      name: bgImg.name,
+      bgUrl: bgUrl,
+    });
+    setIsUploading(false);
+  };
+
+  const onUploadPitchDeckClickHandler = async (e) => {
+    e.preventDefault();
+    setIsUploading(true);
+    const pitchDeckUrl = await uploadMedia(
+      pitchDeckMedia,
+      "rvpDeal/pitchDecFiles"
+    );
+    setProjectionMedia({
+      docName: pitchDeckMedia.name,
+      docUrl: pitchDeckUrl,
+    });
+    setIsUploading(false);
+  };
+
+  const onUploadProjectionClickHandler = async (e) => {
+    e.preventDefault();
+    setIsUploading(true);
+    const projectionUrl = await uploadMedia(
+      projectionMedia,
+      "rvpDeal/projectionFiles"
+    );
+    setProjectionMedia({
+      docName: projectionMedia.name,
+      docUrl: projectionUrl,
+    });
+    setIsUploading(false);
+  };
+
   const onUpdateDealClickHandler = async () => {
+    console.log(logo);
+    console.log(bgImg);
+    console.log(pitchDeckMedia);
+    console.log(projectionMedia);
     setDealsUpdateLoading(true);
     try {
-      const pitchDeckUrl = await uploadMedia(
-        pitchDeckMedia,
-        "rvpDeal/pitchDecFiles"
-      );
-      const projectionUrl = await uploadMedia(
-        projectionMedia,
-        "rvpDeal/projectionFiles"
-      );
-      const logoImg = await uploadMedia(logo, "rvpDeal/cardImg/logoImg");
-      const bagdImg = await uploadMedia(bgImg, "rvpDeal/cardImg/backgroundImg");
-
       const dealUpdatedData = {
         dealDetails: {
           name,
@@ -190,13 +246,20 @@ const EditModal = (props) => {
         advisors: advisorRedux,
         investors: investorsRedux,
         founders: foundersRedux,
-        // cardImages: {
-        //   bgImage: { name: bgImg.name, bgUrl: bagdImg },
-        //   logo: { name: logo.name, logoUrl: logoImg },
-        // },
-        // pitchDeck: { docName: pitchDeckMedia.name, docUrl: pitchDeckUrl },
-        // projection: { docName: projectionMedia.name, docUrl: projectionUrl },
+        cardImages: {
+          bgImage: { name: bgImg.name, bgUrl: bgImg.bgUrl },
+          logo: { name: logo.name, logoUrl: logo.logoUrl },
+        },
+        pitchDeck: {
+          docName: pitchDeckMedia.docName,
+          docUrl: pitchDeckMedia.docUrl,
+        },
+        projection: {
+          docName: projectionMedia.docName,
+          docUrl: projectionMedia.docUrl,
+        },
       };
+
       console.log(dealUpdatedData);
       await updateInvestorDetailsInDatabase(props.uid, dealUpdatedData);
       console.log("updated");
@@ -206,8 +269,6 @@ const EditModal = (props) => {
       console.log(error);
     }
   };
-
-  console.log(sectorsOfInvestment);
 
   return (
     <div className="edit-modal">
@@ -429,6 +490,13 @@ const EditModal = (props) => {
                   placeholder="Pitchdeck"
                   name="Pitchdeck"
                 />
+                {isUploading ? (
+                  <HourglassSplit />
+                ) : (
+                  <button onClick={onUploadPitchDeckClickHandler}>
+                    Upload
+                  </button>
+                )}
                 <br />
                 <label for="Projections">Projections: </label>
                 <input
@@ -441,6 +509,13 @@ const EditModal = (props) => {
                   placeholder="Projections"
                   name="Projections"
                 />
+                {isUploading ? (
+                  <HourglassSplit />
+                ) : (
+                  <button onClick={onUploadProjectionClickHandler}>
+                    Upload
+                  </button>
+                )}
               </fieldset>
             </form>
 
@@ -463,6 +538,11 @@ const EditModal = (props) => {
                   placeholder="logo"
                   name="logo"
                 />
+                {isUploading ? (
+                  <HourglassSplit />
+                ) : (
+                  <button onClick={onUploadLogoClickHandler}>Upload</button>
+                )}
                 <br />
                 <label for="bg">Background: </label>
                 <input
@@ -480,6 +560,11 @@ const EditModal = (props) => {
                   placeholder="background"
                   name="background"
                 />
+                {isUploading ? (
+                  <HourglassSplit />
+                ) : (
+                  <button onClick={onUploadBgClickHandler}>Upload</button>
+                )}
               </fieldset>
             </form>
 
