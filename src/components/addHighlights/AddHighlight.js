@@ -4,10 +4,10 @@ import { useDispatch } from "react-redux";
 import { setDealHighlight } from "../../redux/createDealSlice";
 import { keyGen } from "../../utils/keyGen";
 
-const AddHighlight = () => {
+const AddHighlight = (props) => {
   const [isAddHighlight, setIsAddHighlight] = useState(false);
   const [highlight, setHighlight] = useState("");
-  const [higlights, setHiglights] = useState([]);
+  const [higlights, setHiglights] = useState(props.highlight);
   const [selectedData, setSelectedData] = useState("");
   const [isEditable, setIsEditable] = useState(false);
   const dispatch = useDispatch();

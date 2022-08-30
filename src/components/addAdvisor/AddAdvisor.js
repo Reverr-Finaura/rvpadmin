@@ -6,11 +6,11 @@ import { setAdvisors } from "../../redux/createDealSlice";
 import { dateGenerator } from "../../utils/dategenerator";
 import { keyGen } from "../../utils/keyGen";
 
-const AddAdvisor = () => {
+const AddAdvisor = (props) => {
   const [name, SetName] = useState("");
   const [linkedIn, SetLinkedIn] = useState("");
   const [isAddAdvisor, SetIsAddAdvisor] = useState(false);
-  const [advisor, SetAdvisor] = useState([]);
+  const [advisor, SetAdvisor] = useState(props.advisors);
   const [isEditable, setIsEditable] = useState(false);
   const [selectedData, setSelectedData] = useState({});
   const [advisorImg, SetadvisorImg] = useState("");
@@ -60,7 +60,7 @@ const AddAdvisor = () => {
     SetAdvisor([
       {
         name,
-        Image: advisorImgUrl,
+        image: { imageName: advisorImg.name, imageUrl: advisorImgUrl },
         linkedIn,
         id: selectedData.id,
         description,
@@ -131,6 +131,7 @@ const AddAdvisor = () => {
                 onChange={(e) => setDescription(e.target.value)}
                 rows="3"
                 placeholder="Short_desc"
+                value={description || ""}
               />
               {isEditable ? (
                 <button onClick={(e) => onSaveChangesHandler(e)}>

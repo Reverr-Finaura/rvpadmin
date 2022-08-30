@@ -163,9 +163,9 @@ const CreateDeal = () => {
     }
   };
 
-  const scheduleDeal = () => {
-    meetingDetails = { time, date, desc, meetingLink };
-  };
+  // const scheduleDeal = () => {
+  //   meetingDetails = { time, date, desc, meetingLink };
+  // };
 
   /* 
   schedule -> meetingData-Update,
@@ -470,11 +470,11 @@ for(let i=0; i<=interestedUser.length; i++ ){
             <span className="slider round"></span>
           </label>
         </div>
-        <AddFaq />
-        <AddHighlight />
-        <AddInvestor />
-        <AddFounder />
-        <AddAdvisor />
+        <AddFaq faqs={[]} />
+        <AddHighlight highlight={[]} />
+        <AddInvestor investors={[]} />
+        <AddFounder founders={[]} />
+        <AddAdvisor advisors={[]} />
         {dealsAddLoading && (
           <div className="loading-state">
             <HourglassSplit />
