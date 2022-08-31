@@ -6,11 +6,11 @@ import { setInvestorDeals, setInvestors } from "../../redux/createDealSlice";
 import { dateGenerator } from "../../utils/dategenerator";
 import { keyGen } from "../../utils/keyGen";
 
-const AddInvestor = () => {
+const AddInvestor = (props) => {
   const [name, SetName] = useState("");
   const [linkedIn, SetLinkedIn] = useState("");
   const [isAddInvestor, SetIsAddInvestor] = useState(false);
-  const [investors, SetInvestors] = useState([]);
+  const [investors, SetInvestors] = useState(props.investors);
   const [isEditable, setIsEditable] = useState(false);
   const [selectedData, setSelectedData] = useState({});
   const [investorImg, SetInvestorImg] = useState("");
@@ -61,7 +61,7 @@ const AddInvestor = () => {
     SetInvestors([
       {
         name,
-        Image: investorImgUrl,
+        image: { imageName: investorImg.name, imageUrl: investorImgUrl },
         linkedIn,
         id: selectedData.id,
         description,
@@ -133,6 +133,7 @@ const AddInvestor = () => {
                 onChange={(e) => setDescription(e.target.value)}
                 rows="3"
                 placeholder="Short_desc"
+                value={description || ""}
               />
               {isEditable ? (
                 <button onClick={(e) => onSaveChangesHandler(e)}>

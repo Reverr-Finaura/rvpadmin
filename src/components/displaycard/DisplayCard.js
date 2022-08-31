@@ -18,7 +18,7 @@ import EditModal from "../editmodal/EditModal";
 import { useState } from "react";
 
 const DisplayCard = ({ data }) => {
-  console.log(data);
+  // console.log(data);
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
   const {
@@ -65,7 +65,6 @@ const DisplayCard = ({ data }) => {
         <Pen
           title="Click to Edit"
           onClick={() => {
-            // Edit Functionality
             setShowModal(true);
           }}
           style={{ margin: "0.5rem" }}
@@ -73,7 +72,7 @@ const DisplayCard = ({ data }) => {
         <Trash
           title="Click to delete"
           onClick={() => {
-            console.log(id);
+            // console.log(id);
             deleteInvestorDetailsInDatabse(id);
             dispatch(deleteDeal(id));
             deleteMedia(docUrl);
@@ -91,6 +90,7 @@ const DisplayCard = ({ data }) => {
             <img
               src={logo.logoUrl}
               width="80px"
+              height="80px"
               alt="logo"
               className="deal-details__logo"
             />

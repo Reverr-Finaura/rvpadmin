@@ -4,11 +4,11 @@ import { useDispatch } from "react-redux";
 import { setFaq } from "../../redux/createDealSlice";
 import { keyGen } from "../../utils/keyGen";
 
-const AddFaq = () => {
+const AddFaq = (props) => {
   const [isAddfaq, setIsAddFaq] = useState(false);
   const [question, setQuestion] = useState("");
   const [ans, setAns] = useState("");
-  const [faqs, setFaqs] = useState([]);
+  const [faqs, setFaqs] = useState(props.faqs);
   const [selectedData, setSelectedData] = useState("");
   const [isEditable, setIsEditable] = useState(false);
   const dispatch = useDispatch();

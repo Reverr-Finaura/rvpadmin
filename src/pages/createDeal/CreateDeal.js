@@ -18,6 +18,7 @@ import AddFounder from "../../components/addfounder/AddFounder";
 import AddAdvisor from "../../components/addAdvisor/AddAdvisor";
 import { useSelector } from "react-redux";
 import Select from "react-select";
+import Meetings from "../../components/meetings/Meetings";
 
 const CreateDeal = () => {
   const [name, setName] = useState("");
@@ -85,7 +86,7 @@ const CreateDeal = () => {
 
   const onAddDealHandler = async () => {
     setDealsAddLoading(true);
-    const { investors, founders, advisors, faqs, dealHighlight } =
+    const { investors, founders, advisors, faqs, dealHighlight, meetings } =
       investorDeals;
     try {
       let uid = uidGenerator();
@@ -153,6 +154,7 @@ const CreateDeal = () => {
           marketTraction,
           fundingAmt,
         },
+        meetings,
       };
 
       await addDealInDatabase(uid, dealData);
@@ -163,10 +165,16 @@ const CreateDeal = () => {
     }
   };
 
+<<<<<<< HEAD
   const scheduleDeal = () => {
     meetingDetails = { time, date, desc, meetingLink };
     // await sendMeetingLink()
   };
+=======
+  // const scheduleDeal = () => {
+  //   meetingDetails = { time, date, desc, meetingLink };
+  // };
+>>>>>>> b5234536ba73b8deb0088b9ab68d0abc00cb043a
 
   // const sendMailLink = async () => {
   //   for (i = 0; i < interestedUsers.length; i++) {
@@ -462,6 +470,7 @@ for(let i=0; i<=interestedUser.length; i++ ){
             />
           </fieldset>
         </form>
+        <Meetings />
         <div
           style={{
             display: "flex",
@@ -481,11 +490,11 @@ for(let i=0; i<=interestedUser.length; i++ ){
             <span className="slider round"></span>
           </label>
         </div>
-        <AddFaq />
-        <AddHighlight />
-        <AddInvestor />
-        <AddFounder />
-        <AddAdvisor />
+        <AddFaq faqs={[]} />
+        <AddHighlight highlight={[]} />
+        <AddInvestor investors={[]} />
+        <AddFounder founders={[]} />
+        <AddAdvisor advisors={[]} />
         {dealsAddLoading && (
           <div className="loading-state">
             <HourglassSplit />

@@ -6,11 +6,11 @@ import { setFounders } from "../../redux/createDealSlice";
 import { dateGenerator } from "../../utils/dategenerator";
 import { keyGen } from "../../utils/keyGen";
 
-const AddFounder = () => {
+const AddFounder = (props) => {
   const [name, SetName] = useState("");
   const [linkedIn, SetLinkedIn] = useState("");
   const [isAddFounder, SetIsAddFounder] = useState(false);
-  const [founder, SetFounder] = useState([]);
+  const [founder, SetFounder] = useState(props.founders);
   const [position, setPosition] = useState("");
   const [isEditable, setIsEditable] = useState(false);
   const [selectedData, setSelectedData] = useState({});
@@ -64,7 +64,7 @@ const AddFounder = () => {
       {
         position,
         name,
-        Image: founderImgUrl,
+        image: { imageName: founderImg.name, imageUrl: founderImgUrl },
         linkedIn,
         id: selectedData.id,
         description,
@@ -140,6 +140,7 @@ const AddFounder = () => {
                 onChange={(e) => setDescription(e.target.value)}
                 rows="3"
                 placeholder="Short_desc"
+                value={description || ""}
               />
               {isEditable ? (
                 <button onClick={(e) => onSaveChangesHandler(e)}>
