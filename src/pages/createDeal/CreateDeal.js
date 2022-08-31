@@ -154,7 +154,6 @@ const CreateDeal = () => {
           marketTraction,
           fundingAmt,
         },
-        meetings,
       };
 
       await addDealInDatabase(uid, dealData);
@@ -165,16 +164,10 @@ const CreateDeal = () => {
     }
   };
 
-<<<<<<< HEAD
   const scheduleDeal = () => {
-    meetingDetails = { time, date, desc, meetingLink };
+    // meetingDetails = { time, date, desc, meetingLink };
     // await sendMeetingLink()
   };
-=======
-  // const scheduleDeal = () => {
-  //   meetingDetails = { time, date, desc, meetingLink };
-  // };
->>>>>>> b5234536ba73b8deb0088b9ab68d0abc00cb043a
 
   // const sendMailLink = async () => {
   //   for (i = 0; i < interestedUsers.length; i++) {

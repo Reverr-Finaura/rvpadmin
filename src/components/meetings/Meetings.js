@@ -137,7 +137,9 @@ const Meetings = () => {
             )}
           </>
         ) : (
-          <button onClick={() => setIsAddMeetings(true)}>Add Meeting</button>
+          <button onClick={() => setIsAddMeetings(true)}>
+            Schedule Meeting
+          </button>
         )}
       </fieldset>
     </form>
