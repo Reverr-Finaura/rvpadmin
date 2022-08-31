@@ -18,6 +18,7 @@ import AddFounder from "../../components/addfounder/AddFounder";
 import AddAdvisor from "../../components/addAdvisor/AddAdvisor";
 import { useSelector } from "react-redux";
 import Select from "react-select";
+import Meetings from "../../components/meetings/Meetings";
 
 const CreateDeal = () => {
   const [name, setName] = useState("");
@@ -85,7 +86,7 @@ const CreateDeal = () => {
 
   const onAddDealHandler = async () => {
     setDealsAddLoading(true);
-    const { investors, founders, advisors, faqs, dealHighlight } =
+    const { investors, founders, advisors, faqs, dealHighlight, meetings } =
       investorDeals;
     try {
       let uid = uidGenerator();
@@ -153,6 +154,7 @@ const CreateDeal = () => {
           marketTraction,
           fundingAmt,
         },
+        meetings,
       };
 
       await addDealInDatabase(uid, dealData);
@@ -451,6 +453,7 @@ for(let i=0; i<=interestedUser.length; i++ ){
             />
           </fieldset>
         </form>
+        <Meetings />
         <div
           style={{
             display: "flex",
