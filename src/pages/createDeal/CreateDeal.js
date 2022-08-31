@@ -154,7 +154,6 @@ const CreateDeal = () => {
           marketTraction,
           fundingAmt,
         },
-        meetings,
       };
 
       await addDealInDatabase(uid, dealData);
@@ -165,9 +164,20 @@ const CreateDeal = () => {
     }
   };
 
-  // const scheduleDeal = () => {
-  //   meetingDetails = { time, date, desc, meetingLink };
+  const scheduleDeal = () => {
+    // meetingDetails = { time, date, desc, meetingLink };
+    // await sendMeetingLink()
+  };
+
+  // const sendMailLink = async () => {
+  //   for (i = 0; i < interestedUsers.length; i++) {
+  //     await emailJs.send(interestedUsers[i]);
+  //   }
   // };
+
+  // useEffect(() => {
+  //  getMeetingsFromDatabase(uid);
+  // }, [meetings]);
 
   /* 
   schedule -> meetingData-Update,
