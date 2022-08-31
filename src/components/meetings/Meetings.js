@@ -5,14 +5,14 @@ import { keyGen } from "../../utils/keyGen";
 import { useDispatch } from "react-redux";
 import { setDealMeetings } from "../../redux/createDealSlice";
 
-const Meetings = () => {
+const Meetings = (props) => {
   const [isAddMeetings, setIsAddMeetings] = useState(false);
   const [meetingDate, setMeetingDate] = useState("");
   const [meetingTime, setMeetingTime] = useState("");
   const [meetingDesc, setMeetingDesc] = useState("");
   const [meetingLink, setMeetingLink] = useState("");
   const [isEditable, setIsEditable] = useState(false);
-  const [meetings, setMeetings] = useState("");
+  const [meetings, setMeetings] = useState(props.meetings);
   const [selectedData, setSelectedData] = useState("");
 
   const dispatch = useDispatch();
@@ -81,7 +81,7 @@ const Meetings = () => {
     dispatch(setDealMeetings(meetings));
   }, [meetings]);
 
-  console.log(meetings);
+  // console.log(meetings);
 
   return (
     <form>
@@ -89,7 +89,7 @@ const Meetings = () => {
         <legend>Meeting Details</legend>
         {meetings.length
           ? meetings.map((data) => {
-              console.log(data);
+              // console.log(data);
               return (
                 <>
                   <h5 key={data.id} style={{ margin: 0 }}>

@@ -13,9 +13,11 @@ import AddInvestor from "../../components/addInvestor/AddInvestor";
 import AddFounder from "../../components/addfounder/AddFounder";
 import AddAdvisor from "../../components/addAdvisor/AddAdvisor";
 import Select from "react-select";
+import Meetings from "../meetings/Meetings";
 
 const EditModal = (props) => {
   const {
+    id,
     Links,
     advisors,
     cardImages,
@@ -29,6 +31,7 @@ const EditModal = (props) => {
     onePage,
     pitchDeck,
     projection,
+    meetings,
   } = props.data;
 
   const faqsRedux = useSelector((state) => state.investorDeals.faqs);
@@ -38,7 +41,8 @@ const EditModal = (props) => {
   const advisorRedux = useSelector((state) => state.investorDeals.advisors);
   const investorsRedux = useSelector((state) => state.investorDeals.investors);
   const foundersRedux = useSelector((state) => state.investorDeals.founders);
-
+  const meetingsRedux = useSelector((state) => state.investorDeals.meetings);
+  console.log(meetingsRedux);
   const [name, setName] = useState(dealDetails.name);
   const [industry, setIndustry] = useState(dealDetails.industry);
   const [raised, setRaised] = useState(dealDetails.raised);
@@ -138,7 +142,10 @@ const EditModal = (props) => {
   }
 
   const [dealsUpdateLoading, setDealsUpdateLoading] = useState(false);
-  const [isUploading, setIsUploading] = useState(false);
+  const [isPitchUploading, setIsPitchUploading] = useState(false);
+  const [isPorojectionUploading, setIsProjectionUploading] = useState(false);
+  const [isLogoUploading, setIsLogoUploading] = useState(false);
+  const [isBgUploading, setIsBgUploading] = useState(false);
 
   if (!props.show) {
     return null;
@@ -146,29 +153,29 @@ const EditModal = (props) => {
 
   const onUploadLogoClickHandler = async (e) => {
     e.preventDefault();
-    setIsUploading(true);
+    setIsLogoUploading(true);
     const logoUrl = await uploadMedia(logo, "rvpDeal/cardImg/logoImg");
     setLogo({
       name: logo.name,
       logoUrl: logoUrl,
     });
-    setIsUploading(false);
+    setIsLogoUploading(false);
   };
 
   const onUploadBgClickHandler = async (e) => {
     e.preventDefault();
-    setIsUploading(true);
+    setIsBgUploading(true);
     const bgUrl = await uploadMedia(bgImg, "rvpDeal/cardImg/backgroundImg");
     setBgImg({
       name: bgImg.name,
       bgUrl: bgUrl,
     });
-    setIsUploading(false);
+    setIsBgUploading(false);
   };
 
   const onUploadPitchDeckClickHandler = async (e) => {
     e.preventDefault();
-    setIsUploading(true);
+    setIsPitchUploading(true);
     const pitchDeckUrl = await uploadMedia(
       pitchDeckMedia,
       "rvpDeal/pitchDecFiles"
@@ -177,12 +184,12 @@ const EditModal = (props) => {
       docName: pitchDeckMedia.name,
       docUrl: pitchDeckUrl,
     });
-    setIsUploading(false);
+    setIsPitchUploading(false);
   };
 
   const onUploadProjectionClickHandler = async (e) => {
     e.preventDefault();
-    setIsUploading(true);
+    setIsProjectionUploading(true);
     const projectionUrl = await uploadMedia(
       projectionMedia,
       "rvpDeal/projectionFiles"
@@ -191,7 +198,7 @@ const EditModal = (props) => {
       docName: projectionMedia.name,
       docUrl: projectionUrl,
     });
-    setIsUploading(false);
+    setIsProjectionUploading(false);
   };
 
   const onUpdateDealClickHandler = async () => {
@@ -258,6 +265,7 @@ const EditModal = (props) => {
           docName: projectionMedia.docName,
           docUrl: projectionMedia.docUrl,
         },
+        meetings: meetingsRedux,
       };
 
       console.log(dealUpdatedData);
@@ -490,7 +498,7 @@ const EditModal = (props) => {
                   placeholder="Pitchdeck"
                   name="Pitchdeck"
                 />
-                {isUploading ? (
+                {isPitchUploading ? (
                   <HourglassSplit />
                 ) : (
                   <button onClick={onUploadPitchDeckClickHandler}>
@@ -509,7 +517,7 @@ const EditModal = (props) => {
                   placeholder="Projections"
                   name="Projections"
                 />
-                {isUploading ? (
+                {isPorojectionUploading ? (
                   <HourglassSplit />
                 ) : (
                   <button onClick={onUploadProjectionClickHandler}>
@@ -538,7 +546,7 @@ const EditModal = (props) => {
                   placeholder="logo"
                   name="logo"
                 />
-                {isUploading ? (
+                {isLogoUploading ? (
                   <HourglassSplit />
                 ) : (
                   <button onClick={onUploadLogoClickHandler}>Upload</button>
@@ -560,7 +568,7 @@ const EditModal = (props) => {
                   placeholder="background"
                   name="background"
                 />
-                {isUploading ? (
+                {isBgUploading ? (
                   <HourglassSplit />
                 ) : (
                   <button onClick={onUploadBgClickHandler}>Upload</button>
@@ -598,7 +606,7 @@ const EditModal = (props) => {
                 />
               </fieldset>
             </form>
-
+            <Meetings key={id + "-MEETINGS"} meetings={meetings} />
             <div
               style={{
                 display: "flex",
@@ -621,11 +629,11 @@ const EditModal = (props) => {
                 <span className="slider round"></span>
               </label>
             </div>
-            <AddFaq faqs={faqs} />
-            <AddHighlight highlight={dealHighlight} />
-            <AddInvestor investors={investors} />
-            <AddFounder founders={founders} />
-            <AddAdvisor advisors={advisors} />
+            <AddFaq key={id + "-FAQS"} faqs={faqs} />
+            <AddHighlight key={id + "-HIGHLIGHTS"} highlight={dealHighlight} />
+            <AddInvestor key={id + "-INVESTORS"} investors={investors} />
+            <AddFounder key={id + "-FOUNDERS"} founders={founders} />
+            <AddAdvisor key={id + "-ADVISORS"} advisors={advisors} />
           </div>
         </div>
         <div className="edit-modal__footer">

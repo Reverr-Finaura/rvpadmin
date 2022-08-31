@@ -453,7 +453,7 @@ for(let i=0; i<=interestedUser.length; i++ ){
             />
           </fieldset>
         </form>
-        <Meetings />
+        <Meetings meetings={[]} />
         <div
           style={{
             display: "flex",
