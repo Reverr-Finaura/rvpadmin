@@ -12,7 +12,7 @@ const AddAdvisor = (props) => {
   const [isAddAdvisor, SetIsAddAdvisor] = useState(false);
   const [advisor, SetAdvisor] = useState(props.advisors);
   const [isEditable, setIsEditable] = useState(false);
-  const [selectedData, setSelectedData] = useState({});
+  const [selectedData, setSelectedData] = useState("");
   const [advisorImg, SetadvisorImg] = useState("");
   const [description, setDescription] = useState("");
 
@@ -46,7 +46,6 @@ const AddAdvisor = (props) => {
     SetName(() => data.name);
     SetLinkedIn(() => data.linkedIn);
     setDescription(() => data.description);
-
     setIsEditable(true);
   };
 
@@ -55,11 +54,18 @@ const AddAdvisor = (props) => {
     SetIsAddAdvisor(false);
 
     setIsLoading(true);
-    const advisorImgUrl = await uploadMedia(advisorImg, "rvpDeal/advisors");
+    let advisorImgUrl = await uploadMedia(advisorImg, "rvpDeal/advisors");
+    if (advisorImg === "") {
+      // console.log("exec");
+      advisorImgUrl = selectedData.image.imageUrl;
+    }
     SetAdvisor([
       {
         name,
-        image: { imageName: advisorImg.name, imageUrl: advisorImgUrl },
+        image: {
+          imageName: advisorImg.name || selectedData.image.imageName,
+          imageUrl: advisorImgUrl,
+        },
         linkedIn,
         id: selectedData.id,
         description,

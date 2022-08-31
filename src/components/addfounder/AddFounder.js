@@ -13,7 +13,7 @@ const AddFounder = (props) => {
   const [founder, SetFounder] = useState(props.founders);
   const [position, setPosition] = useState("");
   const [isEditable, setIsEditable] = useState(false);
-  const [selectedData, setSelectedData] = useState({});
+  const [selectedData, setSelectedData] = useState("");
   const [founderImg, SetFounderImg] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [description, setDescription] = useState("");
@@ -59,12 +59,19 @@ const AddFounder = (props) => {
     e.preventDefault();
     SetIsAddFounder(false);
     setIsLoading(true);
-    const founderImgUrl = await uploadMedia(founderImg, "rvpDeal/founders");
+    let founderImgUrl = await uploadMedia(founderImg, "rvpDeal/founders");
+    if (founderImg === "") {
+      // console.log("exec");
+      founderImgUrl = selectedData.image.imageUrl;
+    }
     SetFounder([
       {
         position,
         name,
-        image: { imageName: founderImg.name, imageUrl: founderImgUrl },
+        image: {
+          imageName: founderImg.name || selectedData.image.imageName,
+          imageUrl: founderImgUrl,
+        },
         linkedIn,
         id: selectedData.id,
         description,

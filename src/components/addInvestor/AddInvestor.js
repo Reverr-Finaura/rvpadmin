@@ -12,7 +12,7 @@ const AddInvestor = (props) => {
   const [isAddInvestor, SetIsAddInvestor] = useState(false);
   const [investors, SetInvestors] = useState(props.investors);
   const [isEditable, setIsEditable] = useState(false);
-  const [selectedData, setSelectedData] = useState({});
+  const [selectedData, setSelectedData] = useState("");
   const [investorImg, SetInvestorImg] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [description, setDescription] = useState("");
@@ -57,11 +57,18 @@ const AddInvestor = (props) => {
 
     setIsLoading(true);
     console.log(investorImg);
-    const investorImgUrl = await uploadMedia(investorImg, "rvpDeal/investors");
+    let investorImgUrl = await uploadMedia(investorImg, "rvpDeal/investors");
+    if (investorImg === "") {
+      // console.log("exec");
+      investorImgUrl = selectedData.image.imageUrl;
+    }
     SetInvestors([
       {
         name,
-        image: { imageName: investorImg.name, imageUrl: investorImgUrl },
+        image: {
+          imageName: investorImg.name || selectedData.image.imageName,
+          imageUrl: investorImgUrl,
+        },
         linkedIn,
         id: selectedData.id,
         description,

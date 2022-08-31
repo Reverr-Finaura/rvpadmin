@@ -42,7 +42,7 @@ const EditModal = (props) => {
   const investorsRedux = useSelector((state) => state.investorDeals.investors);
   const foundersRedux = useSelector((state) => state.investorDeals.founders);
   const meetingsRedux = useSelector((state) => state.investorDeals.meetings);
-  console.log(meetingsRedux);
+
   const [name, setName] = useState(dealDetails.name);
   const [industry, setIndustry] = useState(dealDetails.industry);
   const [raised, setRaised] = useState(dealDetails.raised);

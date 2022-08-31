@@ -154,6 +154,7 @@ const CreateDeal = () => {
           marketTraction,
           fundingAmt,
         },
+        meetings: meetings,
       };
 
       await addDealInDatabase(uid, dealData);
