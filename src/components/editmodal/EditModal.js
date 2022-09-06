@@ -201,6 +201,12 @@ const EditModal = (props) => {
     setIsProjectionUploading(false);
   };
 
+  // const sendEmailLinkToMail=()=>{
+  //   for(let i=0; i<=interestedUSer.length; i++){
+
+  //   }
+  // }
+
   const onUpdateDealClickHandler = async () => {
     console.log(logo);
     console.log(bgImg);

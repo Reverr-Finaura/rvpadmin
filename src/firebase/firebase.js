@@ -8,6 +8,8 @@ import {
   setDoc,
   deleteDoc,
   updateDoc,
+  where,
+  query,
 } from "firebase/firestore";
 
 import {
@@ -44,6 +46,30 @@ export const getAdminsFromDatabase = async () => {
       Admins.push({ ...doc.data() });
     });
     return Admins;
+  } catch (err) {
+    console.log("Err: ", err);
+  }
+};
+
+// getUser
+export const getUserFromDatabase = async (uid) => {
+  let User;
+  await (
+    await getDocs(
+      query(collection(database, `Users`), where("uid", "==", `${uid}`))
+    )
+  ).forEach((doc) => {
+    User = { ...doc.data() };
+  });
+  return User;
+};
+
+
+// updateUser
+
+export const updateUserInDatabse = async (uid, data) => {
+  try {
+    return await updateDoc(doc(database, "Users", uid), data);
   } catch (err) {
     console.log("Err: ", err);
   }

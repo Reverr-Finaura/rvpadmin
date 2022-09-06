@@ -10,6 +10,7 @@ const initialState = {
   faqs: null,
   dealHighlight: null,
   meetings: null,
+  selectedDeal: null,
 };
 
 export const investorDealSlice = createSlice({
@@ -43,6 +44,9 @@ export const investorDealSlice = createSlice({
     setDealMeetings: (state, { payload }) => {
       state.meetings = payload;
     },
+    setSelectedDeal: (state, { payload }) => {
+      state.selectedDeal = payload;
+    },
 
     deleteDeal: (state, action) => {
       state.investorDeals = state.investorDeals.filter(
@@ -62,6 +66,7 @@ export const {
   setFaq,
   setDealHighlight,
   setDealMeetings,
+  setSelectedDeal,
 } = investorDealSlice.actions;
 
 export default investorDealSlice.reducer;

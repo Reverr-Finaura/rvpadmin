@@ -9,7 +9,7 @@ import {
   Globe,
 } from "react-bootstrap-icons";
 import { useDispatch } from "react-redux";
-import { deleteDeal } from "../../redux/createDealSlice";
+import { deleteDeal, setSelectedDeal } from "../../redux/createDealSlice";
 import {
   deleteInvestorDetailsInDatabse,
   deleteMedia,
@@ -66,6 +66,7 @@ const DisplayCard = ({ data }) => {
           title="Click to Edit"
           onClick={() => {
             setShowModal(true);
+            dispatch(setSelectedDeal(data));
           }}
           style={{ margin: "0.5rem" }}
         />

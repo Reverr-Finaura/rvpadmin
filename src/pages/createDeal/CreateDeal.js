@@ -165,33 +165,6 @@ const CreateDeal = () => {
     }
   };
 
-  const scheduleDeal = () => {
-    // meetingDetails = { time, date, desc, meetingLink };
-    // await sendMeetingLink()
-  };
-
-  // const sendMailLink = async () => {
-  //   for (i = 0; i < interestedUsers.length; i++) {
-  //     await emailJs.send(interestedUsers[i]);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //  getMeetingsFromDatabase(uid);
-  // }, [meetings]);
-
-  /* 
-  schedule -> meetingData-Update,
-  fetch meeting -> destuct interestedUser,
-  emailJS -> meeting link,meeting_Time.....,
-for(let i=0; i<=interestedUser.length; i++ ){
-    email.send({
-    interestedUser[i].email,
-    })
-  }
-
-*/
-
   return (
     <>
       <div className="main__deal">
