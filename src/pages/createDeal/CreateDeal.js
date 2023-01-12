@@ -18,7 +18,7 @@ import AddFounder from "../../components/addfounder/AddFounder";
 import AddAdvisor from "../../components/addAdvisor/AddAdvisor";
 import { useSelector } from "react-redux";
 import Select from "react-select";
-// import Meetings from "../../components/meetings/Meetings";
+import Meetings from "../../components/meetings/Meetings";
 
 const CreateDeal = () => {
   const [name, setName] = useState("");
@@ -83,6 +83,7 @@ const CreateDeal = () => {
   ];
 
   const investorDeals = useSelector((state) => state.investorDeals);
+  // console.log("Create Deal",investorDeals)
 
   const onAddDealHandler = async () => {
     setDealsAddLoading(true);
@@ -437,7 +438,7 @@ const CreateDeal = () => {
             />
           </fieldset>
         </form>
-        {/* <Meetings meetings={[]} /> */}
+        {investorDeals.selectedDeal?<Meetings meetings={[]} />:null}
         <div
           style={{
             display: "flex",

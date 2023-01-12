@@ -33,7 +33,8 @@ const EditModal = (props) => {
     projection,
     meetings,
   } = props.data;
-
+  const investorDeals = useSelector((state) => state.investorDeals);
+  // console.log("Edit Modal",investorDeals)
   const faqsRedux = useSelector((state) => state.investorDeals.faqs);
   const highlightsRedux = useSelector(
     (state) => state.investorDeals.dealHighlight
