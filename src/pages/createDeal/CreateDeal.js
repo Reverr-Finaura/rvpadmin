@@ -19,6 +19,8 @@ import AddAdvisor from "../../components/addAdvisor/AddAdvisor";
 import { useSelector } from "react-redux";
 import Select from "react-select";
 import Meetings from "../../components/meetings/Meetings";
+import { useNavigate } from "react-router-dom";
+
 
 const CreateDeal = () => {
   const [name, setName] = useState("");
@@ -57,6 +59,7 @@ const CreateDeal = () => {
   const [growthStategy, setGrowthStrategy] = useState("");
   const [marketTraction, setMarketTraction] = useState("");
   const [fundingAmt, setFundingAmt] = useState("");
+const navigate=useNavigate()
 
   const sectors = [
     { value: 1, label: "Agricultural" },
@@ -119,8 +122,10 @@ const CreateDeal = () => {
           preMoneyValuation,
         },
         due_Diligence,
-        pitchDeck: { docName: pitchDeckMedia.name, docUrl: pitchDeckUrl },
-        projection: { docName: projectionMedia.name, docUrl: projectionUrl },
+        // pitchDeck: { docName: pitchDeckMedia.name, docUrl: pitchDeckUrl },
+        // projection: { docName: projectionMedia.name, docUrl: projectionUrl },
+        pitchDeck: { docName: pitchDeckMedia?pitchDeckMedia.name:"", docUrl: pitchDeckUrl?pitchDeckUrl:"" },
+        projection: { docName: projectionMedia?projectionMedia.name:"", docUrl: projectionUrl?projectionUrl:"" },
         dealDescription: {
           shortDesc,
           description,
@@ -139,8 +144,10 @@ const CreateDeal = () => {
         },
         addedOn,
         cardImages: {
-          logo: { name: logo.name, logoUrl: logoImg },
-          bgImage: { name: bgImg.name, bgUrl: bagdImg },
+          // logo: { name: logo.name, logoUrl: logoImg },
+          // bgImage: { name: bgImg.name, bgUrl: bagdImg },
+          logo: { name: logo?logo.name:"", logoUrl: logoImg?logoImg:"" },
+          bgImage: { name: bgImg?bgImg.name:"", bgUrl: bagdImg?bagdImg:"" },
         },
         onePage: {
           companyDescription,
@@ -160,6 +167,10 @@ const CreateDeal = () => {
 
       await addDealInDatabase(uid, dealData);
       console.log("added");
+      toast.success("Deal Added")
+setTimeout(()=>{
+navigate("/dashboard")
+},1000)
       setDealsAddLoading(false);
     } catch (error) {
       console.log(error);

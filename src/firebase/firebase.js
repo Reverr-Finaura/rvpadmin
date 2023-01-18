@@ -125,6 +125,8 @@ export const deleteInvestorDetailsInDatabse = async (uid) => {
 const storage = getStorage(app);
 
 export const uploadMedia = async (media, path) => {
+  
+  if(media!==""){
   try {
     await uploadBytesResumable(ref(storage, `${path}/${media.name}`), media);
     const getMedia = await ref(storage, `${path}/${media.name}`);
@@ -133,6 +135,7 @@ export const uploadMedia = async (media, path) => {
   } catch (err) {
     console.log("Err: ", err);
   }
+}
 };
 
 export const deleteMedia = (media, path) => {

@@ -18,7 +18,7 @@ import EditModal from "../editmodal/EditModal";
 import { useState } from "react";
 
 const DisplayCard = ({ data }) => {
-  // console.log(data);
+  console.log(data);
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
   const {
@@ -47,7 +47,7 @@ const DisplayCard = ({ data }) => {
 
   const { description, shortDesc } = dealDescription;
   const { docUrl } = pitchDeck;
-  const { projectionDocUrl } = projection;
+  const { docUrl:projectionDocUrl } = projection;
   const { instagram, linkedIn, twitter, videoLink, website } = Links;
   const { bgImage, logo } = cardImages;
 
@@ -150,26 +150,26 @@ const DisplayCard = ({ data }) => {
       <br />
       <div className="pitch-deck">
         <b>Pitch : </b>
-        <button
+        {docUrl!==""?<button
           onClick={() => {
             window.open(docUrl, "_blank");
           }}
           className="display-card__download-button"
         >
           Download
-        </button>
+        </button>:"N/A"}
       </div>
       <br />
       <div className="projection">
         <b>Projection : </b>
-        <button
+        {projectionDocUrl!==""?<button
           onClick={() => {
             window.open(projectionDocUrl, "_blank");
           }}
           className="display-card__download-button"
         >
           Download
-        </button>
+        </button>:"N/A"}
       </div>
       <br />
       <br />
