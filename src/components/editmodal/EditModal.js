@@ -18,6 +18,7 @@ import Meetings from "../meetings/Meetings";
 const EditModal = (props) => {
   const {
     id,
+    live,
     Links,
     advisors,
     cardImages,
@@ -103,6 +104,8 @@ const EditModal = (props) => {
   const [growthStategy, setGrowthStrategy] = useState(onePage.growthStategy);
   const [marketTraction, setMarketTraction] = useState(onePage.marketTraction);
   const [fundingAmt, setFundingAmt] = useState(onePage.fundingAmt);
+const [isDealLive,setIsDealLive]=useState(live)
+
 
   const sectors = [
     { value: 1, label: "Agricultural" },
@@ -209,6 +212,7 @@ const EditModal = (props) => {
   // }
 
   const onUpdateDealClickHandler = async () => {
+   
     console.log(logo);
     console.log(bgImg);
     console.log(pitchDeckMedia);
@@ -216,6 +220,7 @@ const EditModal = (props) => {
     setDealsUpdateLoading(true);
     try {
       const dealUpdatedData = {
+        live:isDealLive,
         dealDetails: {
           name,
           industry,
@@ -275,11 +280,15 @@ const EditModal = (props) => {
         meetings: meetingsRedux,
       };
 
-      console.log(dealUpdatedData);
+      console.log("dealUpdatedData",dealUpdatedData);
       await updateInvestorDetailsInDatabase(props.uid, dealUpdatedData);
       console.log("updated");
 
       setDealsUpdateLoading(false);
+      setTimeout(()=>{
+        window.location.reload()
+      },1000)
+      
     } catch (error) {
       console.log(error);
     }
@@ -641,8 +650,33 @@ const EditModal = (props) => {
             <AddInvestor key={id + "-INVESTORS"} investors={investors} />
             <AddFounder key={id + "-FOUNDERS"} founders={founders} />
             <AddAdvisor key={id + "-ADVISORS"} advisors={advisors} />
+
+            {/* LIVE TOGGLER */}
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <h1 style={{ marginRight: "2rem", color: "gray" }}>
+                Live{" "}
+              </h1>
+              <label className="switch">
+                <input
+                  type="checkbox"
+                  onClick={(e) =>
+                    e.target.checked
+                      ? setIsDealLive(true)
+                      : setIsDealLive(false)
+                  }
+                  defaultChecked={isDealLive}
+                />
+                <span className="slider round"></span>
+              </label>
+            </div>
           </div>
         </div>
+        
         <div className="edit-modal__footer">
           {dealsUpdateLoading && (
             <div className="loading-state">
@@ -650,6 +684,7 @@ const EditModal = (props) => {
             </div>
           )}
           <br />
+          
           <div>
             <button
               onClick={onUpdateDealClickHandler}

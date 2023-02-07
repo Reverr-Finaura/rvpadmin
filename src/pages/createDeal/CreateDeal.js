@@ -42,6 +42,7 @@ const CreateDeal = () => {
   const [bgImg, setBgImg] = useState("");
   const [dealsAddLoading, setDealsAddLoading] = useState(false);
   const [due_Diligence, setDue_Dilligence] = useState(false);
+  const [dealLive,setDealLive]=useState(false)
   const [headquarter, setHeadquarter] = useState("");
   const [noOfEmployees, setNoOfEmployees] = useState("");
   const [sectorsOfInvestment, setSectorsOfInvestment] = useState([]);
@@ -107,6 +108,7 @@ const navigate=useNavigate()
       const bagdImg = await uploadMedia(bgImg, "rvpDeal/cardImg/backgroundImg");
       const dealData = {
         id: uid,
+        live:dealLive,
         dealDetails: {
           name,
           industry,
@@ -479,6 +481,28 @@ navigate("/dashboard")
             <HourglassSplit />
           </div>
         )}
+
+        {/* LIVE TOGGLER */}
+        
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          <h1 style={{ marginRight: "2rem", color: "gray" }}>Make It Live </h1>
+          <label className="switch">
+            <input
+              type="checkbox"
+              onClick={(e) =>
+                e.target.checked
+                  ? setDealLive(true)
+                  : setDealLive(false)
+              }
+            />
+            <span className="slider round"></span>
+          </label>
+        </div>
         <div className="btn_container">
           <button onClick={onAddDealHandler}>Add Deal</button>
         </div>
