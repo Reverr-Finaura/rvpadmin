@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import "./dashboard.css";
 import { Link } from "react-router-dom";
-import { getInvestorDealsFromDatabase } from "../../firebase/firebase";
+import { addUniqueIdToFirebase, getInvestorDealsFromDatabase, getListOfUniqueId } from "../../firebase/firebase";
 import { useEffect, useState } from "react";
 import DisplayCard from "../../components/displaycard/DisplayCard";
 import { HourglassSplit } from "react-bootstrap-icons";
@@ -30,11 +30,17 @@ const [isSendingFormBegin,setIsSendingFormBegin]=useState(false)
     getInvestorDeals();
   }, []);
 
+ const randomString=(length)=> {
+    return Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).slice(1);
+}
+
+
 
 const sendDealToFounder=(e)=>{
   e.preventDefault()
   setIsSendingFormBegin(true)
-  const link="https://reverr.io/form"
+  let uniqueId=randomString(13);
+  const link=`https://investor.reverr.io/form/${uniqueId}`
   let templateParams = {
     from_name: "Reverr",
     to_name: sendFormData.name,
@@ -51,11 +57,17 @@ const sendDealToFounder=(e)=>{
         .then(
           function (response) {
             console.log("SUCCESS!", response.status, response.text);
-            setIsSendingFormBegin(false)
-            setSendFormClick(false)
           },
         )
+        .then(async()=>{
+          let oldIdList=await getListOfUniqueId()
+          console.log("oldIdList",oldIdList)
+          let newIdList=[...oldIdList,uniqueId]
+          await addUniqueIdToFirebase(newIdList)
+        })
         .then(() => {
+          setIsSendingFormBegin(false)
+          setSendFormClick(false)
           toast.success("Form Send to Founder");
         })
         .catch((err)=>{

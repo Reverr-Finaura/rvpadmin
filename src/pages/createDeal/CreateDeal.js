@@ -87,7 +87,7 @@ const navigate=useNavigate()
   ];
 
   const investorDeals = useSelector((state) => state.investorDeals);
-  // console.log("Create Deal",investorDeals)
+  console.log("Create Deal",investorDeals)
 
   const onAddDealHandler = async () => {
     setDealsAddLoading(true);

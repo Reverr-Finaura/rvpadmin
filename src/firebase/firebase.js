@@ -141,3 +141,31 @@ export const uploadMedia = async (media, path) => {
 export const deleteMedia = (media, path) => {
   deleteObject(ref(storage, `${path}/${media}`));
 };
+
+//FETCH ARRAY OF UNIQUE ID FROM FIREBASE
+export const getListOfUniqueId=async()=>{
+try {
+  let listOfUniqueId
+  await (
+    await getDocs(collection(database, `metaData`))
+  ).forEach((doc) => {
+  console.log(doc.id)
+  if(doc.id==="applyForDeals"){
+    listOfUniqueId=( doc.data().uniqueId);
+  }
+    
+  });
+  return listOfUniqueId;
+} catch (error) {
+  console.log("Err: ", error);
+}
+}
+
+//ADD FORM UNIQUE ID
+export const addUniqueIdToFirebase=async(id)=>{
+  try {
+    return await updateDoc(doc(database, "metaData", "applyForDeals"), {uniqueId:id});
+  } catch (err) {
+    console.log("Err: ", err);
+  }
+}
