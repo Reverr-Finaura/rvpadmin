@@ -169,3 +169,12 @@ export const addUniqueIdToFirebase=async(id)=>{
     console.log("Err: ", err);
   }
 }
+
+//ADD PPT DATA TO FIREBASE
+export const addPptInDatabase=async(uid,data)=>{
+  try {
+    return await setDoc(doc(database, "PptTemplates", uid), data);
+  } catch (err) {
+    console.log("Err: ", err);
+  }
+}
