@@ -1,6 +1,7 @@
 import SignIn from "../pages/auth/SignIn";
 import CreateDeal from "../pages/createDeal/CreateDeal";
 import Dashboard from "../pages/dashboard/Dashboard";
+import UploadBlogs from "../pages/Upload Blogs/UploadBlogs";
 import UploadDocument from "../pages/Upload Document/UploadDocument";
 import UploadPPT from "../pages/Upload PPT/UploadPPT";
 import ProtectedRoute from "./ProtectedRoute";
@@ -40,6 +41,13 @@ const AppRoute = () => {
       element={
         <ProtectedRoute>
             <UploadDocument/>
+          </ProtectedRoute>
+      }></Route>
+       <Route
+      path="/uploadBlogs"
+      element={
+        <ProtectedRoute>
+            <UploadBlogs/>
           </ProtectedRoute>
       }></Route>
     </Routes>

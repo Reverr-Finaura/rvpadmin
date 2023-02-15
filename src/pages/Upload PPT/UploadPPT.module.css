@@ -38,3 +38,32 @@
     margin-top: 2.5rem;
     font-size: 3rem;
 }
+
+.tagListContainer{
+    display: flex;
+    align-self: center;
+    gap: 2rem;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.tagOptions{
+    width: fit-content;
+    padding: .5rem 1rem;
+    border-radius: 6px;
+    border: 1px solid black;
+    cursor: pointer;
+}
+.tagOptions:hover{
+    background-color: #2a72de;
+    color: white;
+}
+.tagOptionsSelected{
+    width: fit-content;
+    padding: .5rem 1rem;
+    border-radius: 6px;
+    border: 1px solid black;
+    cursor: pointer;
+    background-color: #2a72de;
+    color: white;
+}

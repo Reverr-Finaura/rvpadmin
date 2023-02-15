@@ -11,7 +11,10 @@ const UploadPPT = () => {
     const[isLoading,setIsloading]=useState(false)
     const [thumbnail, setThumbnail] = useState("");
     const[tempImgUrl,settempImgUrl]=useState(null)
-const[data,setData]=useState({namee:"",link:"",thumbnail:"",timeStamp:"",tag:"Popular"})  
+    const[tagArray,setTagArray]=useState([])
+const[data,setData]=useState({namee:"",link:"",thumbnail:"",timeStamp:""})  
+
+console.log("tagArray",tagArray)
 
 const handleInputChange=(e)=>{
     const{name,value}=e.target
@@ -20,8 +23,28 @@ const handleInputChange=(e)=>{
     })
 }
 
+const handleTagoptionClick=(e)=>{
+  let text=e.target.innerHTML
+
+  if(e.target.className===styles.tagListContainer){return}
+  if(tagArray.includes(text)){
+    let newTagArr=tagArray.filter((item)=>{return item!==text})
+    setTagArray(newTagArr)
+    let p=e.target
+    p.className=styles.tagOptions
+    
+  }
+  else{setTagArray((prev)=>{return [...prev,text]})
+  let p=e.target
+  p.className=styles.tagOptionsSelected
+  }
+}
+
+
 const uploadDataToFirebase=async(e)=>{
+  
 e.preventDefault()
+if(tagArray.length===0){alert("Select Atleast One Tag");return}
 setIsloading(true)
 const thumbnailImg = await uploadMedia(thumbnail, "pptTemplates/thumbnail/");
 const timeStamp=new Date();
@@ -31,7 +54,7 @@ const pptData={
     link:data.link,
     thumbnail:thumbnailImg,
     timeStamp,
-    tag:data.tag
+    tag:tagArray
 }
 await addPptInDatabase(uid, pptData);
 setIsloading(true)
@@ -58,7 +81,17 @@ window.location.reload()
         </fieldset>
         <fieldset className={styles.input}>
             <legend>Tag*</legend>
-            <select value={data.tag} onChange={handleInputChange} name="tag" className={styles.input} required>
+            <div onClick={handleTagoptionClick} className={styles.tagListContainer}>
+              <p value="For You" className={styles.tagOptions}>For You</p>
+              <p value="Popular" className={styles.tagOptions}>Popular</p>
+              <p value="Basic" className={styles.tagOptions}>Basic</p>
+              <p value="Startups" className={styles.tagOptions}>Startups</p>
+              <p value="Business" className={styles.tagOptions}>Business</p>
+              <p value="Marketing" className={styles.tagOptions}>Marketing</p>
+              <p value="Academic" className={styles.tagOptions}>Academic</p>
+              <p value="Sales" className={styles.tagOptions}>Sales</p>
+            </div>
+            {/* <select multiple value={data.tag} onChange={handleInputChange} name="tag" className={styles.input} required>
             <option value="For You">For You</option>
             <option value="Popular">Popular</option>
             <option value="Basic">Basic</option>
@@ -67,7 +100,7 @@ window.location.reload()
             <option value="Marketing">Marketing</option>
             <option value="Academic">Academic</option>
             <option value="Sales">Sales</option>
-</select>
+</select> */}
             </fieldset>
         <fieldset className={styles.input}>
             <legend>PPT Images*</legend>
