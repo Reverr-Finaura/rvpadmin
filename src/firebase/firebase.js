@@ -178,3 +178,12 @@ export const addPptInDatabase=async(uid,data)=>{
     console.log("Err: ", err);
   }
 }
+
+//ADD DOCUMENT IN FIREBASE
+export const addDocumentInDatabase=async(uid,data)=>{
+  try {
+    return await setDoc(doc(database, "DocumentTemplates", uid), data);
+  } catch (err) {
+    console.log("Err: ", err);
+  }
+}

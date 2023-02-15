@@ -91,8 +91,11 @@ const sendDealToFounder=(e)=>{
             <Link to="/create-deal">
               <button>Create Deal</button>
             </Link>
-            <Link style={{marginTop:"1rem"}} to="/tools">
+            <Link style={{marginTop:"1rem"}} to="/pptTemplate">
               <button>Upload PPT Templates</button>
+            </Link>
+            <Link style={{marginTop:"1rem"}} to="/documentTemplate">
+              <button>Upload Document Templates</button>
             </Link>
             <button onClick={()=>setSendFormClick(true)} style={{marginTop:"1rem"}}>Send Form To Founder</button>
             {/* <button onClick={() => dispatch(logout())}>Logout</button> */}

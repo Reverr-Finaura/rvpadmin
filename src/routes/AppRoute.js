@@ -1,6 +1,7 @@
 import SignIn from "../pages/auth/SignIn";
 import CreateDeal from "../pages/createDeal/CreateDeal";
 import Dashboard from "../pages/dashboard/Dashboard";
+import UploadDocument from "../pages/Upload Document/UploadDocument";
 import UploadPPT from "../pages/Upload PPT/UploadPPT";
 import ProtectedRoute from "./ProtectedRoute";
 
@@ -27,13 +28,20 @@ const AppRoute = () => {
         }
       />
       <Route
-        path="/tools"
+        path="/pptTemplate"
         element={
           <ProtectedRoute>
             <UploadPPT />
           </ProtectedRoute>
         }
       />
+      <Route
+      path="/documentTemplate"
+      element={
+        <ProtectedRoute>
+            <UploadDocument/>
+          </ProtectedRoute>
+      }></Route>
     </Routes>
   );
 };
