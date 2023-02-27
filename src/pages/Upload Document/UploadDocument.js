@@ -32,7 +32,7 @@ const documentData={
     type:data.type
 }
 await addDocumentInDatabase(uid, documentData);
-setIsloading(true)
+setIsloading(false)
 toast.success("Uploaded in Firebase")
 setTimeout(()=>{
 window.location.reload()
