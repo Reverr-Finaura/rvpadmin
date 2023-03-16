@@ -29,7 +29,7 @@ const documentData={
     link:data.link,
     timeStamp,
     tag:data.tag,
-    type:data.type
+    // type:data.type
 }
 await addDocumentInDatabase(uid, documentData);
 setIsloading(false)
@@ -58,13 +58,14 @@ window.location.reload()
             <legend>Google Drive Link*</legend>
         <input onChange={handleInputChange} name='link' className={styles.input} type="text" placeholder='https://docs.google.com/presentation/d/FILEID/edit?usp=share_link&ouid=UID&rtpof=true&sd=true' value={data.link} required autoComplete='off'/>
         </fieldset>
-        <fieldset className={styles.input}>
+        {/* <fieldset className={styles.input}>
             <legend>Type*</legend>
         <input onChange={handleInputChange} name='type' className={styles.input} type="text" placeholder='Type' value={data.type} required autoComplete='off'/>
-        </fieldset>
+        </fieldset> */}
         <fieldset className={styles.input}>
             <legend>Tag*</legend>
             <select value={data.tag} onChange={handleInputChange} name="tag" className={styles.input} required>
+            <option value="Business Plan">Business Plan</option>
             <option value="Business Validation">Business Validation</option>
             <option value="Financial Models">Financial Models</option>
             <option value="Fundraising">Fundraising</option>
