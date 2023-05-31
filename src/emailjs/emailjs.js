@@ -10,6 +10,6 @@ export const sendMeetingLink = (meetinlink, email) => {
     "service_lfmmz8k",
     "template_6ggk1mh",
     templateParams,
-    "user_FR6AulWQMZry87FBzhKNu"
+    "dVExxiI8hYMCyc0sY"
   );
 };

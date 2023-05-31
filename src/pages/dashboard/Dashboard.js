@@ -52,7 +52,7 @@ const sendDealToFounder=(e)=>{
           "service_lfmmz8k",
           "template_6lqwjap",
           templateParams,
-          "user_FR6AulWQMZry87FBzhKNu"
+          "dVExxiI8hYMCyc0sY"
         )
         .then(
           function (response) {
