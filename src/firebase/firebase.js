@@ -72,6 +72,29 @@ export const updateMentorCalendly = async (mentorCalendlyLink, userEmail)=>{
   }
 }
 
+// get all mentors
+export const getAllMentors = async ()=>{
+  try {
+    let users = [];
+    let mentors=[];
+    await (
+      await getDocs(collection(database, 'Users'))
+    ).forEach((doc) => {
+      users.push({ id:doc.id, ...doc.data() });
+    })
+    users.map((user,idx)=>{
+      if(user.userType == 'Mentor'){
+        mentors.push({...user})
+      }
+    })
+    return await mentors
+    // return [{email:"adminblogs@reverrapp.com", password:"admin@blogs"}];
+  } catch (err) {
+    console.log("Err: ", err);
+    return -1;
+  }
+}
+
 // Fetch Admins Data
 export const getAdminsFromDatabase = async () => {
   try {

@@ -26,7 +26,9 @@ export default function Mentor() {
         alert("Please Enter user's email to continue")
       }else{
         var result = await getSingleUserFromDatabase(userEmail);
-        if(result == -1){
+        if(result == undefined){
+            alert("No document found!.")
+        }else if(result == -1){
             alert("No user found with that email please check.")
         }else if(result.userType != "Mentor"){
             alert("This email does not belong to a mentor.")
