@@ -1,6 +1,7 @@
 import SignIn from "../pages/auth/SignIn";
 import CreateDeal from "../pages/createDeal/CreateDeal";
 import Dashboard from "../pages/dashboard/Dashboard";
+import Mentor from "../pages/mentordetails/Mentor";
 import UploadBlogs from "../pages/Upload Blogs/UploadBlogs";
 import UploadDocument from "../pages/Upload Document/UploadDocument";
 import UploadPPT from "../pages/Upload PPT/UploadPPT";
@@ -17,6 +18,14 @@ const AppRoute = () => {
         element={
           <ProtectedRoute>
             <Dashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/update-mentor"
+        element={
+          <ProtectedRoute>
+            <Mentor />
           </ProtectedRoute>
         }
       />

@@ -10,6 +10,7 @@ import {
   updateDoc,
   where,
   query,
+  getDoc
 } from "firebase/firestore";
 
 import {
@@ -36,6 +37,40 @@ const app = initializeApp(firebaseConfig);
 
 // Firestore
 const database = getFirestore();
+
+// get single user
+export const getSingleUserFromDatabase = async (id) =>{
+  try{
+    const result = await getDoc(doc(database, 'Users', id))
+    console.log(result);
+    return result.data();
+  }catch (err){
+    console.log(err)
+    return -1;
+  }
+}
+
+// update mentor account
+export const updateMentorAccount = async (accountDetails, userEmail)=>{
+  try{
+    const result = await updateDoc(doc(database, "Users", userEmail), {accountDetails})
+    return result;
+  } catch (err){
+    console.log(err)
+    return -1;
+  }
+}
+
+// update mentor calendly
+export const updateMentorCalendly = async (mentorCalendlyLink, userEmail)=>{
+  try{
+    const result = await updateDoc(doc(database, "Users", userEmail), {mentorCalendlyLink})
+    return result;
+  } catch (err){
+    console.log(err)
+    return -1;
+  }
+}
 
 // Fetch Admins Data
 export const getAdminsFromDatabase = async () => {

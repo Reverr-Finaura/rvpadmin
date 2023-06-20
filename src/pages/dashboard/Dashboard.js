@@ -94,6 +94,9 @@ const sendDealToFounder=(e)=>{
             <Link style={{marginTop:"1rem"}} to="/pptTemplate">
               <button>Upload PPT Templates</button>
             </Link>
+            <Link style={{marginTop:"1rem"}} to="/update-mentor">
+              <button>update mentor details</button>
+            </Link>
             <Link style={{marginTop:"1rem"}} to="/documentTemplate">
               <button>Upload Document Templates</button>
             </Link>
