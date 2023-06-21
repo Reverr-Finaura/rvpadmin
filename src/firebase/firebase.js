@@ -50,6 +50,18 @@ export const getSingleUserFromDatabase = async (id) =>{
   }
 }
 
+//ADD MENTOR
+
+export const addMentorInDatabase = async (uid, data) => {
+  try {
+    await setDoc(doc(database, "Users", uid), data);
+    return true;
+  } catch (err) {
+    console.log("Err: ", err);
+    return false;
+  }
+};
+
 // update mentor account
 export const updateMentorAccount = async (accountDetails, userEmail)=>{
   try{
@@ -94,6 +106,7 @@ export const getAllMentors = async ()=>{
     return -1;
   }
 }
+
 
 // Fetch Admins Data
 export const getAdminsFromDatabase = async () => {
@@ -192,6 +205,7 @@ export const uploadMedia = async (media, path) => {
     return mediaLink;
   } catch (err) {
     console.log("Err: ", err);
+    return false
   }
 }
 };
