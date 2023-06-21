@@ -30,16 +30,31 @@ const Domains = [
 ]
 
 const Spaces = [
-    {value:"Fintech", label:"Fintech"},
-    {value:"Edtech", label:"Edtech"},
-    {value:"Agritech", label:"Agritech"},
-    {value:"SAAS", label:"SAAS"},
-    {value:"Foodtech", label:"Foodtech"},
+    {value:"FinTech", label:"FinTech"},
+    {value:"EdTech", label:"EdTech"},
+    {value:"AgriTech", label:"AgriTech"},
+    {value:"FoodTech", label:"FoodTech"},
     {value:"Ecommerce", label:"Ecommerce"},
-    {value:"Logistics & delivery", label:"Logistics & delivery"},
+    {value:"Logistics & Delivery", label:"Logistics & Delivery"},
     {value:"Cleantech & Renewable Energy", label:"Cleantech & Renewable Energy"},
     {value:"Ai & ML", label:"Ai & ML"},
-    {value:"Web 3", label:"Web 3"},
+    {value:"Web 3.0", label:"Web 3.0"},
+    {value:"SpaceTech", label:"SpaceTech"},
+    {value:"HealthTech", label:"HealthTech"},
+    {value:"Cybersecurity", label:"Cybersecurity"},
+    {value:"AR & VR", label:"AR & VR"},
+    {value:"Internet of Things(IOT)", label:"Internet of Things(IOT)"},
+    {value:"Biotech", label:"Biotech"},
+    {value:"TravelTech", label:"TravelTech"},
+    {value:"Real Estate-Tech", label:"Real Estate-Tech"},
+    {value:"BeautyTech", label:"BeautyTech"},
+    {value:"LegalTech", label:"LegalTech"},
+    {value:"HR-Tech", label:"HR-Tech"},
+    {value:"Personal fitness Tech", label:"Personal fitness Tech"},
+    {value:"Waste Management Technologies", label:"Waste Management Technologies"},
+    {value:"Online Marketplaces", label:"Online Marketplaces"},
+    {value:"CloudTech", label:"CloudTech"},
+    {value:"FashionTech", label:"FashionTech"},
 ]
 
 // program to generate random strings
