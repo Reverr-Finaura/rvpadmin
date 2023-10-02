@@ -88,7 +88,10 @@ const sendDealToFounder=(e)=>{
           <div className="L_Container">
             <h1 style={{ color: "grey" }}>Admin</h1>
             {/* <h3>{user !== null ? user.user : "User"}</h3> */}
-            <Link to="/create-deal">
+            <Link to="/webinar">
+              <button>Webinar</button>
+            </Link>
+            <Link style={{marginTop:"1rem"}} to="/create-deal">
               <button>Create Deal</button>
             </Link>
             <Link style={{marginTop:"1rem"}} to="/pptTemplate">

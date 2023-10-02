@@ -6,6 +6,7 @@ import ViewMentors from "../pages/mentordetails/ViewMentors";
 import UploadBlogs from "../pages/Upload Blogs/UploadBlogs";
 import UploadDocument from "../pages/Upload Document/UploadDocument";
 import UploadPPT from "../pages/Upload PPT/UploadPPT";
+import Webinar from "../pages/webinar/Webinar";
 import ProtectedRoute from "./ProtectedRoute";
 
 const { Routes, Route } = require("react-router-dom");
@@ -35,6 +36,14 @@ const AppRoute = () => {
         element={
           <ProtectedRoute>
             <ViewMentors />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/webinar"
+        element={
+          <ProtectedRoute>
+            <Webinar />
           </ProtectedRoute>
         }
       />

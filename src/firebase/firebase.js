@@ -23,14 +23,14 @@ import {
 
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAG7aYqGunCEEqMePnR7YN_uMsn8yvwtcM",
-  authDomain: "reverr-25fb3.firebaseapp.com",
-  databaseURL: "https://reverr-25fb3-default-rtdb.firebaseio.com",
-  projectId: "reverr-25fb3",
-  storageBucket: "reverr-25fb3.appspot.com",
-  messagingSenderId: "710745964607",
-  appId: "1:710745964607:web:9c0b08192f30bb97bab88a",
-  measurementId: "G-7S7P5C52RG"
+  databaseURL: "https://dsquare-242c3-default-rtdb.firebaseio.com",
+  apiKey: "AIzaSyBe_7JYNBINJITC1HGbaLxgg3f7yZ0aud4",
+  authDomain: "dsquare-242c3.firebaseapp.com",
+  projectId: "dsquare-242c3",
+  storageBucket: "dsquare-242c3.appspot.com",
+  messagingSenderId: "103281255621",
+  appId: "1:103281255621:web:c97b1cdbd53ad43ed1fcac",
+  measurementId: "G-WS41LSXFKR"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -246,6 +246,14 @@ export const addUniqueIdToFirebase=async(id)=>{
 export const addPptInDatabase=async(uid,data)=>{
   try {
     return await setDoc(doc(database, "PptTemplates", uid), data);
+  } catch (err) {
+    console.log("Err: ", err);
+  }
+}
+
+export const updateWebinarDatabase=async(data)=>{
+  try {
+    return await updateDoc(doc(database, "meta", "webinar"), data);
   } catch (err) {
     console.log("Err: ", err);
   }

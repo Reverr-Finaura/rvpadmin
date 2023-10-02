@@ -1,0 +1,69 @@
+.main_page{
+    padding: 2rem;
+}
+.form{
+    flex-direction: column;
+    font-size: 1.2rem;
+}
+.input{
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    width: 80%;
+    font-size: 1.2rem;
+
+}
+.file{
+    padding: .5rem;
+    font-size: 1rem;
+    margin-left: .5rem;
+    padding-bottom: 0;
+}
+.image{
+    width: 300px;
+    height: 300x;
+    border-radius: 11px;
+}
+
+.button{
+    padding: 1rem;
+    font-size: 1.2rem;
+    background-color: transparent;
+    border: 2px solid black;
+    border-radius: 5px;
+   margin-top: 2.5rem;
+   cursor: pointer;
+}
+
+.loadingIcon{
+    margin-top: 2.5rem;
+    font-size: 3rem;
+}
+
+.tagListContainer{
+    display: flex;
+    align-self: center;
+    gap: 2rem;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.tagOptions{
+    width: fit-content;
+    padding: .5rem 1rem;
+    border-radius: 6px;
+    border: 1px solid black;
+    cursor: pointer;
+}
+.tagOptions:hover{
+    background-color: #2a72de;
+    color: white;
+}
+.tagOptionsSelected{
+    width: fit-content;
+    padding: .5rem 1rem;
+    border-radius: 6px;
+    border: 1px solid black;
+    cursor: pointer;
+    background-color: #2a72de;
+    color: white;
+}
