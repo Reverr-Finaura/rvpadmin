@@ -1,0 +1,35 @@
+.Contact_MainContainer {
+    height: 100vh;
+}
+
+.Contact_Container {
+    border: 1px solid grey;
+    display: flex;
+    height: 99.6vh;
+}
+
+.L_contact_Container {
+    border-right: 1px solid grey;
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.L_contact_Container button {
+    cursor: pointer;
+}
+
+.R_contact_Container {
+    width: 70%;
+    overflow-x: hidden;
+    padding: 100px 50px;
+}
+
+.R_contact_button_section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}

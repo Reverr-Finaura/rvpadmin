@@ -1,4 +1,5 @@
 import SignIn from "../pages/auth/SignIn";
+import Contact from "../pages/contact/Contact";
 import CreateDeal from "../pages/createDeal/CreateDeal";
 import Dashboard from "../pages/dashboard/Dashboard";
 import Mentor from "../pages/mentordetails/Mentor";
@@ -64,19 +65,29 @@ const AppRoute = () => {
         }
       />
       <Route
-      path="/documentTemplate"
-      element={
-        <ProtectedRoute>
-            <UploadDocument/>
+        path="/documentTemplate"
+        element={
+          <ProtectedRoute>
+            <UploadDocument />
           </ProtectedRoute>
-      }></Route>
-       <Route
-      path="/uploadBlogs"
-      element={
-        <ProtectedRoute>
-            <UploadBlogs/>
+        }
+      ></Route>
+      <Route
+        path="/uploadBlogs"
+        element={
+          <ProtectedRoute>
+            <UploadBlogs />
           </ProtectedRoute>
-      }></Route>
+        }
+      ></Route>
+      <Route
+        path="/contact"
+        element={
+          <ProtectedRoute>
+            <Contact />
+          </ProtectedRoute>
+        }
+      ></Route>
     </Routes>
   );
 };

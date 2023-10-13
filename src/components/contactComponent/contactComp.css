@@ -1,0 +1,85 @@
+.form-container {
+    margin-top: 50px;
+}
+
+form {
+    width: 100%;
+}
+
+.input-feilds {
+    width: 100%;
+}
+
+.chatConatiner {
+    margin-top: 20px;
+    width: 100%;
+    border: 1px solid black;
+}
+
+.mainChat {
+    height: 400px;
+    width: 100%;
+    border: 1px solid black;
+    display: flex;
+}
+
+.chatlist {
+    border: 1px solid black;
+    height: 100%;
+    width: 20%;
+}
+
+.chatheader {
+    display: flex;
+    padding: 0 20px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.chatcontent {
+    border: 1px solid black;
+    width: 80%;
+
+}
+
+.messagelist {
+    padding: 10px 0;
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: calc(100% - 65px);
+}
+
+.chat-btn {
+    width: 100%;
+    display: flex;
+}
+
+.sendMessage {
+    width: 100%;
+}
+
+.message {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8.9px);
+    -webkit-backdrop-filter: blur(8.9px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    width: auto;
+    max-width: 70%;
+    gap: 10px;
+    margin-left: 10px;
+    margin-top: 5px;
+    padding: 5px;
+}
+
+p {
+    text-align: start;
+    font-size: 15px;
+    color: black;
+    font-weight: 600;
+}
