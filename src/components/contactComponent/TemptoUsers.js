@@ -22,36 +22,36 @@ const TemptoUsers = () => {
     setSelectedData(selectedOptions);
   };
 
-  let checked = [];
-  for (let i = 0; i < selectedData.length; i++) {
-    const lastMessage =
-      selectedData[i]?.messages[selectedData[i]?.messages.length - 1];
-    const messageDate = new Date(
-      lastMessage?.date?.seconds * 1000 + lastMessage?.date?.nanoseconds / 1e6
-    );
-    const currentDate = new Date();
-    const timeDifferenceInHours =
-      (currentDate - messageDate) / (1000 * 60 * 60);
-    if (timeDifferenceInHours >= 24) {
-      checked.push(true);
-    } else {
-      checked.push(false);
-    }
-  }
+  // let checked = [];
+  // for (let i = 0; i < selectedData.length; i++) {
+  //   const lastMessage =
+  //     selectedData[i]?.messages[selectedData[i]?.messages.length - 1];
+  //   const messageDate = new Date(
+  //     lastMessage?.date?.seconds * 1000 + lastMessage?.date?.nanoseconds / 1e6
+  //   );
+  //   const currentDate = new Date();
+  //   const timeDifferenceInHours =
+  //     (currentDate - messageDate) / (1000 * 60 * 60);
+  //   if (timeDifferenceInHours >= 24) {
+  //     checked.push(true);
+  //   } else {
+  //     checked.push(false);
+  //   }
+  // }
   const getCodeAndNumber = () => {
     const codes = selectedData.map((item) => item.id.slice(0, -10));
     const numbers = selectedData.map((item) => item.id.slice(-10));
     const filteredCodes = [];
     const filteredNumbers = [];
-    for (let i = 0; i < checked.length; i++) {
-      if (checked[i] !== false) {
-        filteredCodes.push(codes[i]);
-        filteredNumbers.push(numbers[i]);
-      }
-    }
+    // for (let i = 0; i < checked.length; i++) {
+    //   if (checked[i] !== false) {
+    //     filteredCodes.push(codes[i]);
+    //     filteredNumbers.push(numbers[i]);
+    //   }
+    // }
     return {
-      codes: filteredCodes,
-      numbers: filteredNumbers,
+      codes,
+      numbers,
     };
   };
 

@@ -9,6 +9,9 @@ const MsgToUser = () => {
   const [selectedData, setSelectedData] = useState(null);
   const [singleChat, setSingleChat] = useState(null);
   const [users, setUsers] = useState([]);
+  // var lastMessage;
+  // var messageDate;
+  // var currentDate;
   useEffect(() => {
     const getUserMsg = async () => {
       try {
@@ -39,7 +42,8 @@ const MsgToUser = () => {
     lastMessage?.date?.seconds * 1000 + lastMessage?.date?.nanoseconds / 1e6
   );
   const currentDate = new Date();
-  const timeDifferenceInHours = (currentDate - messageDate) / (1000 * 60 * 60);
+  // console.log(Math.ceil(Math.abs(currentDate - messageDate) / (1000 * 60 * 60)))
+  const timeDifferenceInHours = Math.ceil(Math.abs(currentDate - messageDate) / (1000 * 60 * 60));
   const handleSelectChange = (selectedOptions) => {
     setSelectedData(selectedOptions);
   };
@@ -53,7 +57,7 @@ const MsgToUser = () => {
       countryCode: selectedData.id.slice(0, -10),
       number: selectedData.id.slice(-10),
     };
-    if (timeDifferenceInHours >= 24) {
+    if (timeDifferenceInHours < 24) {
       try {
         const res = await fetch("https://server.reverr.io/sendwacustommsg   ", {
           method: "POST",

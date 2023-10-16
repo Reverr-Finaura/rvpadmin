@@ -34,13 +34,13 @@ const TempToUser = () => {
     }
   }, [selectedData]);
 
-  const lastMessage = singleChat?.messages[singleChat?.messages.length - 1];
-  const messageDate = new Date(
-    lastMessage?.date?.seconds * 1000 + lastMessage?.date?.nanoseconds / 1e6
-  );
-  const currentDate = new Date();
-  const timeDifferenceInHours = (currentDate - messageDate) / (1000 * 60 * 60);
-  console.log(timeDifferenceInHours);
+  // const lastMessage = singleChat?.messages[singleChat?.messages.length - 1];
+  // const messageDate = new Date(
+  //   lastMessage?.date?.seconds * 1000 + lastMessage?.date?.nanoseconds / 1e6
+  // );
+  // const currentDate = new Date();
+  // const timeDifferenceInHours = (currentDate - messageDate) / (1000 * 60 * 60);
+  // console.log(timeDifferenceInHours);
   const handleSelectChange = (selectedOptions) => {
     setSelectedData(selectedOptions);
   };
@@ -54,7 +54,7 @@ const TempToUser = () => {
       countryCode: selectedData.id.slice(0, -10),
       number: selectedData.id.slice(-10),
     };
-    if (timeDifferenceInHours >= 24) {
+   
       try {
         const res = await fetch("https://server.reverr.io/sendwatemplatemsg", {
           method: "POST",
@@ -65,9 +65,7 @@ const TempToUser = () => {
       } catch (error) {
         console.error("Error sending message:", error);
       }
-    } else {
-      console.log("can't send message because 24 hours is not completed");
-    }
+    
     setTimeout(() => {
       setTemplateName("");
       setSelectedData(null);
