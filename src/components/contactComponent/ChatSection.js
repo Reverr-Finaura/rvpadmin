@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { database, getMessage } from "../../firebase/firebase";
 import "./contactComp.css";
 import ReactSelect from "react-select";
@@ -9,13 +9,20 @@ import {
   doc,
   getDoc,
   onSnapshot,
+  orderBy,
   query,
   updateDoc,
   where,
 } from "firebase/firestore";
+import MsgView from "./msgview";
 
 const ChatSection = () => {
   const [users, setUsers] = useState([]);
+  const [message, setMessage] = useState("");
+  const [selectedData, setSelectedData] = useState(null);
+  const [toogle, setToggle] = useState(false);
+
+  const [currMessages, setCurrMessages] = useState([]);
 
   useEffect(() => {
     var tempData;
@@ -31,25 +38,10 @@ const ChatSection = () => {
     };
     getUserMsg();
   }, []);
-  // const docref = collection(database, "WhatsappMessages");
-  // useEffect(() => {
-  //   console.log(selectedData);
-  //   if (selectedData !== null) {
-  //     const messageQuery = query(
-  //       docref,
-  //       where("number", "==", selectedData?.id)
-  //     );
-  //     onSnapshot(messageQuery, (snapshot) => {
-  //       console.log("new msg", snapshot);
-  //     });
-  //   }
-  // }, []);
-
-  const [message, setMessage] = useState("");
-  const [selectedData, setSelectedData] = useState(null);
-  const [toogle, setToggle] = useState(false);
 
   const handleSelectChange = (selectedOptions) => {
+    setCurrMessages(selectedOptions.messages)
+    // currmessages = selectedOptions.messages;
     setSelectedData(selectedOptions);
   };
   const submit = async (e) => {
@@ -68,6 +60,7 @@ const ChatSection = () => {
       });
       console.log(res);
     }
+    setMessage("");
   };
   // const [singleChat, setSingleChat] = useState(null);
   // useEffect(() => {
@@ -142,65 +135,9 @@ const ChatSection = () => {
                 }`}
               </div>
               <div className='chatcontent'>
-                <div className='messagelist'>
-                  {selectedData?.messages &&
-                    selectedData?.messages.reverse().map((item, index) => {
-                      return (
-                        <React.Fragment key={index}>
-                          {item.usermessage === null ? (
-                            <div
-                              style={{
-                                display: "flex",
-                                flexDirection: "row-reverse",
-                              }}
-                            >
-                              <div
-                                className='message'
-                                style={{ backgroundColor: "grey" }}
-                              >
-                                <p>
-                                  {item?.message?.text?.body ||
-                                    "No message body"}
-                                </p>
-                              </div>
-                            </div>
-                          ) : (
-                            <>
-                              <div
-                                style={{
-                                  display: "flex",
-                                  flexDirection: "row",
-                                }}
-                              >
-                                <div className='message'>
-                                  <p>
-                                    {item?.usermessage || "No user message"}
-                                  </p>
-                                </div>
-                              </div>
-                              {item.message &&
-                                item.message.text &&
-                                item.message.text.body && (
-                                  <div
-                                    style={{
-                                      display: "flex",
-                                      flexDirection: "row-reverse",
-                                    }}
-                                  >
-                                    <div
-                                      className='message'
-                                      style={{ backgroundColor: "grey" }}
-                                    >
-                                      <p>{item.message.text.body}</p>
-                                    </div>
-                                  </div>
-                                )}
-                            </>
-                          )}
-                        </React.Fragment>
-                      );
-                    })}
-                </div>
+                {selectedData!==null &&
+                <MsgView currMessages={currMessages} setCurrMessages={setCurrMessages} selectedData={selectedData} setSelectedData={setSelectedData}/>
+                }
                 <div className='chat-btn'>
                   <input
                     value={message}
