@@ -15,6 +15,7 @@ const TemptoUsers = () => {
     };
     getUserMsg();
   }, []);
+  const [selectTrue, setSelectedTrue] = useState(false);
   const [templateName, setTemplateName] = useState("");
   const [selectedData, setSelectedData] = useState([]);
 
@@ -54,6 +55,10 @@ const TemptoUsers = () => {
       numbers,
     };
   };
+  const selectAllUsers = () => {
+    setSelectedData(users);
+    setSelectedTrue(true);
+  };
 
   const submit = async (e) => {
     e.preventDefault();
@@ -77,6 +82,7 @@ const TemptoUsers = () => {
       console.error("Error sending message:", error);
     }
     setTimeout(() => {
+      setSelectedTrue(false);
       setTemplateName("");
       setSelectedData([]);
     }, 1000);
@@ -95,9 +101,19 @@ const TemptoUsers = () => {
             classNamePrefix='select'
             onChange={handleSelectChange}
             value={selectedData}
-            getOptionLabel={(option) => option.id}
+            getOptionLabel={(option) =>
+              `+` + option.id + (option.name ? ` (${option.name})` : "")
+            }
             getOptionValue={(option) => option.id}
           />
+        </div>
+        <div className='input-feilds'>
+          Select All Users
+          <button onClick={selectAllUsers}>
+            {selectTrue === true
+              ? "All user selected"
+              : "All user not selected"}
+          </button>
         </div>
         <div className='input-feilds'>
           <label>Template</label>

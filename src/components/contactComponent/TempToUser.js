@@ -9,6 +9,7 @@ const TempToUser = () => {
   const [selectedData, setSelectedData] = useState(null);
   const [users, setUsers] = useState([]);
   const [singleChat, setSingleChat] = useState(null);
+
   useEffect(() => {
     const getUserMsg = async () => {
       try {
@@ -54,18 +55,18 @@ const TempToUser = () => {
       countryCode: selectedData.id.slice(0, -10),
       number: selectedData.id.slice(-10),
     };
-   
-      try {
-        const res = await fetch("https://server.reverr.io/sendwatemplatemsg", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
-        });
-        console.log(res);
-      } catch (error) {
-        console.error("Error sending message:", error);
-      }
-    
+
+    try {
+      const res = await fetch("https://server.reverr.io/sendwatemplatemsg", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      console.log(res);
+    } catch (error) {
+      console.error("Error sending message:", error);
+    }
+
     setTimeout(() => {
       setTemplateName("");
       setSelectedData(null);
@@ -84,7 +85,9 @@ const TempToUser = () => {
             options={users}
             onChange={handleSelectChange} // Handle selection changes
             value={selectedData}
-            getOptionLabel={(option) => option.id}
+            getOptionLabel={(option) =>
+              `+` + option.id + (option.name ? ` (${option.name})` : "")
+            }
             getOptionValue={(option) => option.id}
           />
         </div>

@@ -6,6 +6,7 @@ import MsgToUser from "../../components/contactComponent/MsgToUser";
 import TemptoUsers from "../../components/contactComponent/TemptoUsers";
 import TempToUser from "../../components/contactComponent/TempToUser";
 import ChatSection from "../../components/contactComponent/ChatSection";
+import AddUser from "../../components/contactComponent/AddUser";
 
 const Contact = () => {
   const [section, setSection] = useState(1);
@@ -82,6 +83,14 @@ const Contact = () => {
               >
                 Chat with user
               </button>
+              <button
+                onClick={() => setSection(6)}
+                style={{
+                  backgroundColor: `${section === 6 ? "green " : ""}`,
+                }}
+              >
+                Add user
+              </button>
             </div>
             <div>
               {section === 1 && <MsgToUser />}
@@ -89,6 +98,7 @@ const Contact = () => {
               {section === 3 && <TempToUser />}
               {section === 4 && <TemptoUsers />}
               {section === 5 && <ChatSection />}
+              {section === 6 && <AddUser />}
             </div>
           </div>
         </div>

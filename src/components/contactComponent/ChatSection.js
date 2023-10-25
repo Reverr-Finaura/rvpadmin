@@ -1,19 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { database, getMessage } from "../../firebase/firebase";
 import "./contactComp.css";
 import ReactSelect from "react-select";
 import Toggle from "react-toggle";
 import "react-toggle/style.css";
-import {
-  collection,
-  doc,
-  getDoc,
-  onSnapshot,
-  orderBy,
-  query,
-  updateDoc,
-  where,
-} from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 import MsgView from "./msgview";
 
 const ChatSection = () => {
@@ -40,7 +31,7 @@ const ChatSection = () => {
   }, []);
 
   const handleSelectChange = (selectedOptions) => {
-    setCurrMessages(selectedOptions.messages)
+    setCurrMessages(selectedOptions.messages);
     // currmessages = selectedOptions.messages;
     setSelectedData(selectedOptions);
   };
@@ -62,19 +53,18 @@ const ChatSection = () => {
     }
     setMessage("");
   };
+
   // const [singleChat, setSingleChat] = useState(null);
   // useEffect(() => {
   //   if (selectedData) {
   //     const getSinglemsg = async () => {
   //       const docRef = doc(database, "WhatsappMessages", selectedData?.id);
   //       const docSnapshot = await getDoc(docRef);
-
   //       if (docSnapshot.exists()) {
   //         setSingleChat({ ...docSnapshot.data(), id: docSnapshot.id });
   //       }
   //       console.log("new Msg", singleChat);
   //     };
-
   //     getSinglemsg();
   //   }
   // }, [selectedData]);
@@ -106,7 +96,9 @@ const ChatSection = () => {
           options={users}
           onChange={handleSelectChange}
           value={selectedData}
-          getOptionLabel={(option) => option.id}
+          getOptionLabel={(option) =>
+            `+` + option.id + (option.name ? ` (${option.name})` : "")
+          }
           getOptionValue={(option) => option.id}
         />
       </div>
@@ -133,11 +125,17 @@ const ChatSection = () => {
                   "-" +
                   selectedData.id.slice(-10)
                 }`}
+                {selectedData.name ? ` (${selectedData.name})` : ""}
               </div>
               <div className='chatcontent'>
-                {selectedData!==null &&
-                <MsgView currMessages={currMessages} setCurrMessages={setCurrMessages} selectedData={selectedData} setSelectedData={setSelectedData}/>
-                }
+                {selectedData !== null && (
+                  <MsgView
+                    currMessages={currMessages}
+                    setCurrMessages={setCurrMessages}
+                    selectedData={selectedData}
+                    setSelectedData={setSelectedData}
+                  />
+                )}
                 <div className='chat-btn'>
                   <input
                     value={message}

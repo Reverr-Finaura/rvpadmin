@@ -43,7 +43,9 @@ const MsgToUser = () => {
   );
   const currentDate = new Date();
   // console.log(Math.ceil(Math.abs(currentDate - messageDate) / (1000 * 60 * 60)))
-  const timeDifferenceInHours = Math.ceil(Math.abs(currentDate - messageDate) / (1000 * 60 * 60));
+  const timeDifferenceInHours = Math.ceil(
+    Math.abs(currentDate - messageDate) / (1000 * 60 * 60)
+  );
   const handleSelectChange = (selectedOptions) => {
     setSelectedData(selectedOptions);
   };
@@ -88,9 +90,11 @@ const MsgToUser = () => {
             classNamePrefix='select'
             name='user'
             options={users}
-            onChange={handleSelectChange} // Handle selection changes
+            onChange={handleSelectChange}
             value={selectedData}
-            getOptionLabel={(option) => option.id}
+            getOptionLabel={(option) =>
+              `+` + option.id + (option.name ? ` (${option.name})` : "")
+            }
             getOptionValue={(option) => option.id}
           />
         </div>

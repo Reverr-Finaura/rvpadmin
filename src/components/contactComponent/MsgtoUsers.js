@@ -17,6 +17,7 @@ const MsgtoUsers = () => {
     getUserMsg();
   }, []);
   const [message, setMessage] = useState("");
+  const [selectTrue, setSelectedTrue] = useState(false);
   const [selectedData, setSelectedData] = useState([]);
   const handleSelectChange = (selectedOptions) => {
     setSelectedData(selectedOptions);
@@ -30,8 +31,9 @@ const MsgtoUsers = () => {
       lastMessage?.date?.seconds * 1000 + lastMessage?.date?.nanoseconds / 1e6
     );
     const currentDate = new Date();
-    const timeDifferenceInHours =
-    (Math.ceil(Math.abs(currentDate - messageDate) / (1000 * 60 * 60)));
+    const timeDifferenceInHours = Math.ceil(
+      Math.abs(currentDate - messageDate) / (1000 * 60 * 60)
+    );
     if (timeDifferenceInHours < 24) {
       checked.push(true);
     } else {
@@ -53,6 +55,10 @@ const MsgtoUsers = () => {
       codes: filteredCodes,
       numbers: filteredNumbers,
     };
+  };
+  const selectAllUsers = () => {
+    setSelectedData(users);
+    setSelectedTrue(true);
   };
   const submit = async (e) => {
     e.preventDefault();
@@ -76,13 +82,14 @@ const MsgtoUsers = () => {
       console.error("Error sending message:", error);
     }
     setTimeout(() => {
+      setSelectedTrue(false);
       setMessage("");
       setSelectedData([]);
     }, 1000);
   };
   return (
     <div className='form-container'>
-      <h3>Send Message to single user</h3>
+      <h3>Send Message to Mutiple user</h3>
       <form onSubmit={submit}>
         <div className='input-feilds'>
           <label>Select Mutiple user</label>
@@ -94,9 +101,19 @@ const MsgtoUsers = () => {
             classNamePrefix='select'
             onChange={handleSelectChange}
             value={selectedData}
-            getOptionLabel={(option) => option.id}
+            getOptionLabel={(option) =>
+              `+` + option.id + (option.name ? ` (${option.name})` : "")
+            }
             getOptionValue={(option) => option.id}
           />
+        </div>
+        <div className='input-feilds'>
+          <label>Select All Users</label>
+          <button onClick={selectAllUsers}>
+            {selectTrue === true
+              ? "All user  selected"
+              : "All user not selected"}
+          </button>
         </div>
         <div className='input-feilds'>
           <label>Message</label>
