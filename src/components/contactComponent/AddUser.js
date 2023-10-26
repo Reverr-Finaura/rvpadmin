@@ -1,8 +1,8 @@
-import { addDoc, collection } from "firebase/firestore";
+import { setDoc, collection, doc } from "firebase/firestore";
 import React, { useState } from "react";
 import ReactSelect from "react-select";
 import { database } from "../../firebase/firebase";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 
 const AddUser = () => {
   const userType = [{ name: "founder" }, { name: "professional" }];
@@ -25,9 +25,7 @@ const AddUser = () => {
         exits: "true",
       };
       const collectionRef = collection(database, "WhatsappMessages");
-      await addDoc(collectionRef, {
-        data,
-      });
+      await setDoc(doc(database, "WhatsappMessages", data.number), {...data});
       toast.success("User have been successfully Added");
     }
   };
@@ -81,6 +79,7 @@ const AddUser = () => {
           </div>
         </form>
       </div>
+      <ToastContainer/>
     </div>
   );
 };

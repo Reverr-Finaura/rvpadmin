@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import Papa from "papaparse";
-import { addDoc, collection } from "firebase/firestore";
+import { collection, setDoc, doc } from "firebase/firestore";
 import { database } from "../../firebase/firebase";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 
 const CSVAdduser = () => {
   const [data, setData] = useState(null);
@@ -43,9 +43,11 @@ const CSVAdduser = () => {
         };
         console.log(userdata);
         try {
-          await addDoc(collectionRef, { userdata });
+          // await addDoc(collectionRef, { userdata });
+          await setDoc(doc(database, "WhatsappMessages", userdata.number), {...userdata});
         } catch (error) {
           console.error("Error adding document: ", error);
+          toast.error(`Error adding user: ${userdata.name} ,${userdata.number}`, error)
         }
       }
       toast.success("All CSV file user have been successfully Added");
@@ -65,6 +67,7 @@ const CSVAdduser = () => {
           </div>
         </form>
       </div>
+      <ToastContainer />
     </div>
   );
 };

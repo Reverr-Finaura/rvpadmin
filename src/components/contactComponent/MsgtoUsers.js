@@ -58,7 +58,7 @@ const MsgtoUsers = () => {
   };
   const selectAllUsers = () => {
     setSelectedData(users);
-    setSelectedTrue(true);
+    setSelectedTrue(!selectTrue);
   };
   const submit = async (e) => {
     e.preventDefault();
@@ -109,7 +109,7 @@ const MsgtoUsers = () => {
         </div>
         <div className='input-feilds'>
           <label>Select All Users</label>
-          <button onClick={selectAllUsers}>
+          <button type="button" onClick={selectAllUsers}>
             {selectTrue === true
               ? "All user  selected"
               : "All user not selected"}

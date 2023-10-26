@@ -57,7 +57,7 @@ const TemptoUsers = () => {
   };
   const selectAllUsers = () => {
     setSelectedData(users);
-    setSelectedTrue(true);
+    setSelectedTrue(!selectTrue);
   };
 
   const submit = async (e) => {
@@ -109,7 +109,7 @@ const TemptoUsers = () => {
         </div>
         <div className='input-feilds'>
           Select All Users
-          <button onClick={selectAllUsers}>
+          <button type="button" onClick={selectAllUsers}>
             {selectTrue === true
               ? "All user selected"
               : "All user not selected"}
