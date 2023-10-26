@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
-import { getMessage } from "../../firebase/firebase";
+import { getMessage, uploadMedia } from "../../firebase/firebase";
+import { ToastContainer, toast } from "react-toastify";
 
 const TemptoUsers = () => {
   const [users, setUsers] = useState([]);
+  const [imageLink, setImageLink] = useState(null);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     const getUserMsg = async () => {
       try {
@@ -18,6 +21,22 @@ const TemptoUsers = () => {
   const [selectTrue, setSelectedTrue] = useState(false);
   const [templateName, setTemplateName] = useState("");
   const [selectedData, setSelectedData] = useState([]);
+
+  const handleFileChange = async(e)=>{
+    if (e.target.files) {
+      try {
+        setLoading(true)
+        const file = e.target.files[0];
+        const link = await uploadMedia(file, "WhatsappTemplateImages")
+        console.log(link)
+        setImageLink(link)
+        setLoading(false)
+        toast.success("Image uplaoded!")
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  }
 
   const handleSelectChange = (selectedOptions) => {
     setSelectedData(selectedOptions);
@@ -62,22 +81,47 @@ const TemptoUsers = () => {
 
   const submit = async (e) => {
     e.preventDefault();
+    if(loading){
+      toast.error("Uploading image please wait...")
+    }else{
     if (!selectedData) {
       return;
     }
     const { codes, numbers } = getCodeAndNumber();
-    const data = {
+    var data;
+    if(imageLink!=null){
+      data = {
+       templateName: templateName,
+       countryCode: codes,
+       number: numbers,
+       image:imageLink
+     };
+   }else{
+      data = {
       templateName: templateName,
       countryCodes: codes,
       numbers: numbers,
     };
+    }
     try {
+      if(imageLink!=null){
+        const res = await fetch("https://server.reverr.io/sendwatemplatemsgimg", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+        console.log(res);
+        setImageLink(null)
+        toast.success("Template send!")
+      }else{
       const res = await fetch("https://server.reverr.io/sendwamutm", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
       console.log(res);
+      toast.success("Template send!")
+    }
     } catch (error) {
       console.error("Error sending message:", error);
     }
@@ -86,6 +130,7 @@ const TemptoUsers = () => {
       setTemplateName("");
       setSelectedData([]);
     }, 1000);
+    }
   };
   return (
     <div className='form-container'>
@@ -122,9 +167,11 @@ const TemptoUsers = () => {
             value={templateName}
             onChange={(e) => setTemplateName(e.target.value)}
           ></textarea>
+          <input type='file' onChange={handleFileChange}/>
         </div>
         <button>Send Message</button>
       </form>
+      <ToastContainer/>
     </div>
   );
 };
