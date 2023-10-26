@@ -105,7 +105,7 @@ const TemptoUsers = () => {
     }
     try {
       if(imageLink!=null){
-        const res = await fetch("https://server.reverr.io/sendwatemplatemsgimg", {
+        const res = await fetch("https://server.reverr.io/sendwamutmimg", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data),
