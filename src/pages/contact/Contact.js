@@ -7,6 +7,7 @@ import TemptoUsers from "../../components/contactComponent/TemptoUsers";
 import TempToUser from "../../components/contactComponent/TempToUser";
 import ChatSection from "../../components/contactComponent/ChatSection";
 import AddUser from "../../components/contactComponent/AddUser";
+import CSVAdduser from "../../components/contactComponent/CsvAdduser";
 
 const Contact = () => {
   const [section, setSection] = useState(1);
@@ -91,6 +92,14 @@ const Contact = () => {
               >
                 Add user
               </button>
+              <button
+                onClick={() => setSection(7)}
+                style={{
+                  backgroundColor: `${section === 7 ? "green " : ""}`,
+                }}
+              >
+                CSV Add user
+              </button>
             </div>
             <div>
               {section === 1 && <MsgToUser />}
@@ -99,6 +108,7 @@ const Contact = () => {
               {section === 4 && <TemptoUsers />}
               {section === 5 && <ChatSection />}
               {section === 6 && <AddUser />}
+              {section === 7 && <CSVAdduser />}
             </div>
           </div>
         </div>
