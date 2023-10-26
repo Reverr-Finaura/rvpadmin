@@ -92,8 +92,8 @@ const TemptoUsers = () => {
     if(imageLink!=null){
       data = {
        templateName: templateName,
-       countryCode: codes,
-       number: numbers,
+       countryCodes: codes,
+       numbers: numbers,
        image:imageLink
      };
    }else{
