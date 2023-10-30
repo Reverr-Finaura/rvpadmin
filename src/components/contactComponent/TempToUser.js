@@ -12,17 +12,21 @@ const TempToUser = () => {
   const [singleChat, setSingleChat] = useState(null);
   const [imageLink, setImageLink] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [btnDisable, setBtnDisable] = useState(false);
+  const [fileName, setFileName] = useState(null);
+  
 
   const handleFileChange = async(e)=>{
     if (e.target.files) {
       try {
         setLoading(true)
         const file = e.target.files[0];
+        setFileName(e.target.value)
         const link = await uploadMedia(file, "WhatsappTemplateImages")
         console.log(link)
         setImageLink(link)
         setLoading(false)
-        toast.success("Image uplaoded!")
+        toast.success("Image uploaded!")
       } catch (error) {
         console.error(error);
       }
@@ -66,8 +70,17 @@ const TempToUser = () => {
   const handleSelectChange = (selectedOptions) => {
     setSelectedData(selectedOptions);
   };
+
+  const Reset = ()=>{
+    setImageLink(null)
+    setBtnDisable(false)
+    setFileName("")
+    setTemplateName("");
+    setSelectedData(null);
+  }
   const submit = async (e) => {
     e.preventDefault();
+    
     if(loading){
       toast.error("Uploading image please wait...")
     }else{
@@ -89,8 +102,9 @@ const TempToUser = () => {
         number: selectedData.id.slice(-10),
       };
     }
-    
-    console.log(data)
+    setBtnDisable(true)
+    // console.log(data)
+    toast.success("Sending Template To users")
     try {
       if(imageLink!=null){
         const res = await fetch("https://server.reverr.io/sendwatemplatemsgimg", {
@@ -98,26 +112,29 @@ const TempToUser = () => {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data),
         });
-        console.log(res);
-        setImageLink(null)
+        // console.log(res);
+        Reset()
         toast.success("Template send!")
+        
       }else{
       const res = await fetch("https://server.reverr.io/sendwatemplatemsg", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
-      console.log(res);
+      // console.log(res);
       toast.success("Template send!")
+      Reset()
       }
     } catch (error) {
       console.error("Error sending message:", error);
+      Reset()
     }
 
-    setTimeout(() => {
-      setTemplateName("");
-      setSelectedData(null);
-    }, 1000);
+    // setTimeout(() => {
+    //   setTemplateName("");
+    //   setSelectedData(null);
+    // }, 1000);
   }
   };
   return (
@@ -146,9 +163,9 @@ const TempToUser = () => {
             value={templateName}
             onChange={(e) => setTemplateName(e.target.value)}
           ></textarea>
-          <input type='file' onChange={handleFileChange}/>
+          <input type='file' value={fileName} onChange={handleFileChange}/>
         </div>
-        <button>Send Message</button>
+        <button disabled={btnDisable}>Send Message</button>
       </form>
       <ToastContainer/>
     </div>

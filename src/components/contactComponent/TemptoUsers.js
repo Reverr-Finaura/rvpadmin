@@ -7,6 +7,8 @@ const TemptoUsers = () => {
   const [users, setUsers] = useState([]);
   const [imageLink, setImageLink] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [btnDisable, setBtnDisable] = useState(false);
+  const [fileName, setFileName] = useState(null);
   useEffect(() => {
     const getUserMsg = async () => {
       try {
@@ -27,6 +29,7 @@ const TemptoUsers = () => {
       try {
         setLoading(true)
         const file = e.target.files[0];
+        setFileName(e.target.value)
         const link = await uploadMedia(file, "WhatsappTemplateImages")
         console.log(link)
         setImageLink(link)
@@ -41,6 +44,14 @@ const TemptoUsers = () => {
   const handleSelectChange = (selectedOptions) => {
     setSelectedData(selectedOptions);
   };
+  const Reset = ()=>{
+    setImageLink(null)
+    setBtnDisable(false)
+    setFileName("")
+    setTemplateName("");
+    setSelectedData([]);
+    setSelectedTrue(false);
+  }
 
   // let checked = [];
   // for (let i = 0; i < selectedData.length; i++) {
@@ -103,6 +114,9 @@ const TemptoUsers = () => {
       numbers: numbers,
     };
     }
+    setBtnDisable(true)
+    // console.log(data)
+    toast.success("Sending Template To users")
     try {
       if(imageLink!=null){
         const res = await fetch("https://server.reverr.io/sendwamutmimg", {
@@ -110,8 +124,8 @@ const TemptoUsers = () => {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data),
         });
-        console.log(res);
-        setImageLink(null)
+        // console.log(res);
+        Reset()
         toast.success("Template send!")
       }else{
       const res = await fetch("https://server.reverr.io/sendwamutm", {
@@ -119,17 +133,19 @@ const TemptoUsers = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
-      console.log(res);
+      // console.log(res);
+      Reset()
       toast.success("Template send!")
     }
     } catch (error) {
+      Reset()
       console.error("Error sending message:", error);
     }
-    setTimeout(() => {
-      setSelectedTrue(false);
-      setTemplateName("");
-      setSelectedData([]);
-    }, 1000);
+    // setTimeout(() => {
+    //   setSelectedTrue(false);
+    //   setTemplateName("");
+    //   setSelectedData([]);
+    // }, 1000);
     }
   };
   return (
@@ -167,9 +183,9 @@ const TemptoUsers = () => {
             value={templateName}
             onChange={(e) => setTemplateName(e.target.value)}
           ></textarea>
-          <input type='file' onChange={handleFileChange}/>
+          <input type='file' value={fileName} onChange={handleFileChange}/>
         </div>
-        <button>Send Message</button>
+        <button disabled={btnDisable}>Send Message</button>
       </form>
       <ToastContainer/>
     </div>
