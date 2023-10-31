@@ -24,34 +24,34 @@ const TemptoUsers = () => {
   const [templateName, setTemplateName] = useState("");
   const [selectedData, setSelectedData] = useState([]);
 
-  const handleFileChange = async(e)=>{
+  const handleFileChange = async (e) => {
     if (e.target.files) {
       try {
-        setLoading(true)
+        setLoading(true);
         const file = e.target.files[0];
-        setFileName(e.target.value)
-        const link = await uploadMedia(file, "WhatsappTemplateImages")
-        console.log(link)
-        setImageLink(link)
-        setLoading(false)
-        toast.success("Image uplaoded!")
+        setFileName(e.target.value);
+        const link = await uploadMedia(file, "WhatsappTemplateImages");
+        console.log(link);
+        setImageLink(link);
+        setLoading(false);
+        toast.success("Image uplaoded!");
       } catch (error) {
         console.error(error);
       }
     }
-  }
+  };
 
   const handleSelectChange = (selectedOptions) => {
     setSelectedData(selectedOptions);
   };
-  const Reset = ()=>{
-    setImageLink(null)
-    setBtnDisable(false)
-    setFileName("")
+  const Reset = () => {
+    setImageLink(null);
+    setBtnDisable(false);
+    setFileName("");
     setTemplateName("");
     setSelectedData([]);
     setSelectedTrue(false);
-  }
+  };
 
   // let checked = [];
   // for (let i = 0; i < selectedData.length; i++) {
@@ -86,66 +86,70 @@ const TemptoUsers = () => {
     };
   };
   const selectAllUsers = () => {
-    setSelectedData(users);
+    if (selectTrue) {
+      setSelectedData(users);
+    } else {
+      setSelectedData([]);
+    }
     setSelectedTrue(!selectTrue);
   };
 
   const submit = async (e) => {
     e.preventDefault();
-    if(loading){
-      toast.error("Uploading image please wait...")
-    }else{
-    if (!selectedData) {
-      return;
-    }
-    const { codes, numbers } = getCodeAndNumber();
-    var data;
-    if(imageLink!=null){
-      data = {
-       templateName: templateName,
-       countryCodes: codes,
-       numbers: numbers,
-       image:imageLink
-     };
-   }else{
-      data = {
-      templateName: templateName,
-      countryCodes: codes,
-      numbers: numbers,
-    };
-    }
-    setBtnDisable(true)
-    // console.log(data)
-    toast.success("Sending Template To users")
-    try {
-      if(imageLink!=null){
-        const res = await fetch("https://server.reverr.io/sendwamutmimg", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
-        });
-        // console.log(res);
-        Reset()
-        toast.success("Template send!")
-      }else{
-      const res = await fetch("https://server.reverr.io/sendwamutm", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-      // console.log(res);
-      Reset()
-      toast.success("Template send!")
-    }
-    } catch (error) {
-      Reset()
-      console.error("Error sending message:", error);
-    }
-    // setTimeout(() => {
-    //   setSelectedTrue(false);
-    //   setTemplateName("");
-    //   setSelectedData([]);
-    // }, 1000);
+    if (loading) {
+      toast.error("Uploading image please wait...");
+    } else {
+      if (!selectedData) {
+        return;
+      }
+      const { codes, numbers } = getCodeAndNumber();
+      var data;
+      if (imageLink != null) {
+        data = {
+          templateName: templateName,
+          countryCodes: codes,
+          numbers: numbers,
+          image: imageLink,
+        };
+      } else {
+        data = {
+          templateName: templateName,
+          countryCodes: codes,
+          numbers: numbers,
+        };
+      }
+      setBtnDisable(true);
+      // console.log(data)
+      toast.success("Sending Template To users");
+      try {
+        if (imageLink != null) {
+          const res = await fetch("https://server.reverr.io/sendwamutmimg", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+          });
+          // console.log(res);
+          Reset();
+          toast.success("Template send!");
+        } else {
+          const res = await fetch("https://server.reverr.io/sendwamutm", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+          });
+          // console.log(res);
+          Reset();
+          toast.success("Template send!");
+        }
+      } catch (error) {
+        Reset();
+        console.error("Error sending message:", error);
+      }
+      // setTimeout(() => {
+      //   setSelectedTrue(false);
+      //   setTemplateName("");
+      //   setSelectedData([]);
+      // }, 1000);
     }
   };
   return (
@@ -170,7 +174,7 @@ const TemptoUsers = () => {
         </div>
         <div className='input-feilds'>
           Select All Users
-          <button type="button" onClick={selectAllUsers}>
+          <button type='button' onClick={selectAllUsers}>
             {selectTrue === true
               ? "All user selected"
               : "All user not selected"}
@@ -183,11 +187,11 @@ const TemptoUsers = () => {
             value={templateName}
             onChange={(e) => setTemplateName(e.target.value)}
           ></textarea>
-          <input type='file' value={fileName} onChange={handleFileChange}/>
+          <input type='file' value={fileName} onChange={handleFileChange} />
         </div>
         <button disabled={btnDisable}>Send Message</button>
       </form>
-      <ToastContainer/>
+      <ToastContainer />
     </div>
   );
 };
