@@ -34,7 +34,7 @@ const TemptoUsers = () => {
         console.log(link);
         setImageLink(link);
         setLoading(false);
-        toast.success("Image uplaoded!");
+        toast.success("Image uploaded!");
       } catch (error) {
         console.error(error);
       }
@@ -86,7 +86,7 @@ const TemptoUsers = () => {
     };
   };
   const selectAllUsers = () => {
-    if (selectTrue) {
+    if (!selectTrue) {
       setSelectedData(users);
     } else {
       setSelectedData([]);

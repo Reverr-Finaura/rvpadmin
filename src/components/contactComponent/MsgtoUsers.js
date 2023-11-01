@@ -57,7 +57,7 @@ const MsgtoUsers = () => {
     };
   };
   const selectAllUsers = () => {
-    if (selectTrue) {
+    if (!selectTrue) {
       setSelectedData(users);
     } else {
       setSelectedData([]);
