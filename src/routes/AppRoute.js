@@ -4,6 +4,7 @@ import CreateDeal from "../pages/createDeal/CreateDeal";
 import Dashboard from "../pages/dashboard/Dashboard";
 import Mentor from "../pages/mentordetails/Mentor";
 import ViewMentors from "../pages/mentordetails/ViewMentors";
+import NewContact from "../pages/NewContact/NewContact";
 import UploadBlogs from "../pages/Upload Blogs/UploadBlogs";
 import UploadDocument from "../pages/Upload Document/UploadDocument";
 import UploadPPT from "../pages/Upload PPT/UploadPPT";
@@ -15,9 +16,9 @@ const { Routes, Route } = require("react-router-dom");
 const AppRoute = () => {
   return (
     <Routes>
-      <Route path="/" element={<SignIn />} />
+      <Route path='/' element={<SignIn />} />
       <Route
-        path="/dashboard"
+        path='/dashboard'
         element={
           <ProtectedRoute>
             <Dashboard />
@@ -25,7 +26,7 @@ const AppRoute = () => {
         }
       />
       <Route
-        path="/update-mentor"
+        path='/update-mentor'
         element={
           <ProtectedRoute>
             <Mentor />
@@ -33,7 +34,7 @@ const AppRoute = () => {
         }
       />
       <Route
-        path="/view-mentors"
+        path='/view-mentors'
         element={
           <ProtectedRoute>
             <ViewMentors />
@@ -41,7 +42,7 @@ const AppRoute = () => {
         }
       />
       <Route
-        path="/webinar"
+        path='/webinar'
         element={
           <ProtectedRoute>
             <Webinar />
@@ -49,7 +50,7 @@ const AppRoute = () => {
         }
       />
       <Route
-        path="/create-deal"
+        path='/create-deal'
         element={
           <ProtectedRoute>
             <CreateDeal />
@@ -57,7 +58,7 @@ const AppRoute = () => {
         }
       />
       <Route
-        path="/pptTemplate"
+        path='/pptTemplate'
         element={
           <ProtectedRoute>
             <UploadPPT />
@@ -65,7 +66,7 @@ const AppRoute = () => {
         }
       />
       <Route
-        path="/documentTemplate"
+        path='/documentTemplate'
         element={
           <ProtectedRoute>
             <UploadDocument />
@@ -73,7 +74,7 @@ const AppRoute = () => {
         }
       ></Route>
       <Route
-        path="/uploadBlogs"
+        path='/uploadBlogs'
         element={
           <ProtectedRoute>
             <UploadBlogs />
@@ -81,10 +82,18 @@ const AppRoute = () => {
         }
       ></Route>
       <Route
-        path="/contact"
+        path='/contact'
         element={
           <ProtectedRoute>
             <Contact />
+          </ProtectedRoute>
+        }
+      ></Route>
+      <Route
+        path='/contact2'
+        element={
+          <ProtectedRoute>
+            <NewContact />
           </ProtectedRoute>
         }
       ></Route>

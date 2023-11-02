@@ -84,7 +84,6 @@ const TemptoUsers = () => {
     setTimeout(() => {
       setSelectedTrue(false);
       setTemplateName("");
-      setSelectedData([]);
     }, 1000);
   };
   return (

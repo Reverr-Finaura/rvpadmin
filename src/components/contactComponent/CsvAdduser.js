@@ -41,7 +41,7 @@ const CSVAdduser = () => {
           stop: false,
           exits: "true",
         };
-        console.log(userdata);
+        // console.log(userdata);
         try {
           await addDoc(collectionRef, { userdata });
         } catch (error) {

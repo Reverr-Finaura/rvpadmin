@@ -126,6 +126,9 @@ const Dashboard = () => {
             <Link style={{ marginTop: "1rem" }} to='/contact'>
               <button>WhatsApp CRM</button>
             </Link>
+            <Link style={{ marginTop: "1rem" }} to='/contact2'>
+              <button>New WhatsApp CRM</button>
+            </Link>
             {/* <button onClick={() => dispatch(logout())}>Logout</button> */}
           </div>
           <div className='R_Container'>
