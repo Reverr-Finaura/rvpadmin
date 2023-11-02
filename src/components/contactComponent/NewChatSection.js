@@ -29,21 +29,22 @@ const NewChatSection = () => {
   };
   const submit = async (e) => {
     e.preventDefault();
-    const data = {
-      text: message,
-      countryCode: selectedData.id.slice(0, -10),
-      number: selectedData.id.slice(-10),
-    };
-    console.log(data);
-    if (selectedData) {
-      const res = await fetch("https://server.reverr.io/sendwacustommsg   ", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-      console.log(res);
+    if (e?.key === "Enter" || e === "Send") {
+      const data = {
+        text: message,
+        countryCode: selectedData.id.slice(0, -10),
+        number: selectedData.id.slice(-10),
+      };
+      if (selectedData) {
+        const res = await fetch("https://server.reverr.io/sendwacustommsg", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+        console.log(res);
+      }
+      setMessage("");
     }
-    setMessage("");
   };
   useEffect(() => {
     setToggle(selectedData?.stop);
@@ -76,9 +77,8 @@ const NewChatSection = () => {
                   onClick={() => handleSelectChange(user)}
                   style={{
                     backgroundColor:
-                      selectedData?.name === user?.name ? "green" : "",
-                    color:
-                      selectedData?.name === user?.name ? "white" : "black",
+                      selectedData?.id === user?.id ? "green" : "",
+                    color: selectedData?.id === user?.id ? "white" : "black",
                   }}
                 >
                   <p>{user.name ? `${user.name}` : ""}</p>
@@ -120,12 +120,21 @@ const NewChatSection = () => {
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     className='sendMessage'
+                    onKeyUp={submit}
                   />
-                  <button onClick={submit}>Send Message</button>
+                  <button onClick={() => submit("Send")}>Send Message</button>
                 </div>
               </>
             ) : (
-              "Please select a any Chat"
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <p>"Please select a any Chat"</p>
+              </div>
             )}
           </div>
         </div>

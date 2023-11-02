@@ -151,29 +151,29 @@ const TemptoUsers = () => {
       //   setSelectedData([]);
       // }, 1000);
     }
-    if (!selectedData) {
-      return;
-    }
-    const { codes, numbers } = getCodeAndNumber();
-    const data = {
-      templateName: templateName,
-      countryCodes: codes,
-      numbers: numbers,
-    };
-    try {
-      const res = await fetch("https://server.reverr.io/sendwamutm", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-      console.log(res);
-    } catch (error) {
-      console.error("Error sending message:", error);
-    }
-    setTimeout(() => {
-      setSelectedTrue(false);
-      setTemplateName("");
-    }, 1000);
+    // if (!selectedData) {
+    //   return;
+    // }
+    // const { codes, numbers } = getCodeAndNumber();
+    // const data = {
+    //   templateName: templateName,
+    //   countryCodes: codes,
+    //   numbers: numbers,
+    // };
+    // try {
+    //   const res = await fetch("https://server.reverr.io/sendwamutm", {
+    //     method: "POST",
+    //     headers: { "Content-Type": "application/json" },
+    //     body: JSON.stringify(data),
+    //   });
+    //   console.log(res);
+    // } catch (error) {
+    //   console.error("Error sending message:", error);
+    // }
+    // setTimeout(() => {
+    //   setSelectedTrue(false);
+    //   setTemplateName("");
+    // }, 1000);
   };
   return (
     <div className='form-container'>
