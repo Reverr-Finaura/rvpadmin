@@ -8,8 +8,10 @@
 .left {
     width: 200px;
     height: 100%;
+    border: 1px solid black;
 }
 
 .right {
     width: calc(100% - 200px);
+    padding: 20px;
 }

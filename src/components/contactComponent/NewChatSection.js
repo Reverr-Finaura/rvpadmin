@@ -10,6 +10,8 @@ const NewChatSection = () => {
   const [message, setMessage] = useState("");
   const [selectedData, setSelectedData] = useState(null);
   const [toogle, setToggle] = useState(false);
+  const [inputSearch, setInputSearch] = useState("");
+  const [list, setList] = useState([users]);
 
   const [currMessages, setCurrMessages] = useState([]);
   useEffect(() => {
@@ -62,6 +64,20 @@ const NewChatSection = () => {
       console.log(error);
     }
   };
+  useEffect(() => {
+    const searchFun = () => {
+      let search = [...users];
+      if (inputSearch) {
+        search = search.filter(
+          (item) =>
+            item.id.toLowerCase().search(inputSearch.toLowerCase().trim()) !==
+            -1
+        );
+      }
+      setList(search);
+    };
+    searchFun();
+  }, [inputSearch, users]);
 
   return (
     <>
@@ -69,7 +85,16 @@ const NewChatSection = () => {
       <div className='newChat-wrapper'>
         <div className='new-chat-box'>
           <div className='chatlist'>
-            {users.map((user) => {
+            <div className='chatserach'>
+              <label>Search User</label>
+              <input
+                type='number'
+                value={inputSearch}
+                placeholder='Enter the User number to search'
+                onChange={(e) => setInputSearch(e.target.value)}
+              />
+            </div>
+            {list.map((user) => {
               return (
                 <div
                   key={user.id}
@@ -133,7 +158,7 @@ const NewChatSection = () => {
                   alignItems: "center",
                 }}
               >
-                <p>"Please select a any Chat"</p>
+                <p>"Please select any Chat"</p>
               </div>
             )}
           </div>
