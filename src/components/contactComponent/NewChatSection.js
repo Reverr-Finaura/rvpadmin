@@ -11,7 +11,7 @@ const NewChatSection = () => {
   const [selectedData, setSelectedData] = useState(null);
   const [toogle, setToggle] = useState(false);
   const [inputSearch, setInputSearch] = useState("");
-  const [list, setList] = useState([users]);
+  const [list, setList] = useState([]);
 
   const [currMessages, setCurrMessages] = useState([]);
   useEffect(() => {
@@ -30,13 +30,13 @@ const NewChatSection = () => {
     setSelectedData(selectedOptions);
   };
   const submit = async (e) => {
-    e.preventDefault();
     if (e?.key === "Enter" || e === "Send") {
       const data = {
         text: message,
         countryCode: selectedData.id.slice(0, -10),
         number: selectedData.id.slice(-10),
       };
+      console.log(data);
       if (selectedData) {
         const res = await fetch("https://server.reverr.io/sendwacustommsg", {
           method: "POST",
@@ -94,10 +94,10 @@ const NewChatSection = () => {
                 onChange={(e) => setInputSearch(e.target.value)}
               />
             </div>
-            {list.map((user) => {
+            {list.map((user, index) => {
               return (
                 <div
-                  key={user.id}
+                  key={index}
                   className='numberitem'
                   onClick={() => handleSelectChange(user)}
                   style={{
@@ -107,9 +107,10 @@ const NewChatSection = () => {
                   }}
                 >
                   <p>{user.name ? `${user.name}` : ""}</p>
-                  <span>{`+${
-                    user.id.slice(0, -10) + "-" + user.id.slice(-10)
-                  }`}</span>
+                  <span>
+                    {user.id &&
+                      `+${user.id.slice(0, -10) + "-" + user.id.slice(-10)}`}
+                  </span>
                 </div>
               );
             })}
@@ -147,7 +148,15 @@ const NewChatSection = () => {
                     className='sendMessage'
                     onKeyUp={submit}
                   />
-                  <button onClick={() => submit("Send")}>Send Message</button>
+                  <button
+                    onClick={() => submit("Send")}
+                    style={{
+                      backgroundColor: "green",
+                      color: "white",
+                    }}
+                  >
+                    Send
+                  </button>
                 </div>
               </>
             ) : (
