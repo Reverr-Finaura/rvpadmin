@@ -25,7 +25,7 @@ const NewContact = () => {
           {section === 2 && <MsgtoUsers />}
           {section === 3 && <TempToUser />}
           {section === 4 && <TemptoUsers />}
-          {section === 5 && <ChatSection />}
+          {/* {section === 5 && <ChatSection />} */}
           {section === 6 && <AddUser />}
           {section === 7 && <CSVAdduser />}
           {section === 8 && <NewChatSection />}

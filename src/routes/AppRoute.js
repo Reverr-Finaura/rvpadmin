@@ -81,14 +81,14 @@ const AppRoute = () => {
           </ProtectedRoute>
         }
       ></Route>
-      <Route
+      {/* <Route
         path='/contact'
         element={
           <ProtectedRoute>
             <Contact />
           </ProtectedRoute>
         }
-      ></Route>
+      ></Route> */}
       <Route
         path='/contact2'
         element={
