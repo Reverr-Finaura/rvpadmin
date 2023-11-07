@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { database, getMessage } from "../../firebase/firebase";
+import { database } from "../../firebase/firebase";
 import "./contactComp.css";
 import "react-toggle/style.css";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
@@ -10,6 +10,7 @@ const MsgView = ({
   setSelectedData,
   selectedData,
 }) => {
+  console.log(currMessages);
   const Messagesref = collection(database, "WhatsappMessages");
   const ref = useRef(null);
 
@@ -57,7 +58,18 @@ const MsgView = ({
                   }}
                 >
                   <div className='message' style={{ backgroundColor: "grey" }}>
-                    <p>{item?.message?.text?.body || "No message body"}</p>
+                    {item.message &&
+                      item.message.text &&
+                      item.message.text.body && (
+                        <p>{item?.message?.text?.body}</p>
+                      )}
+
+                    {item.message.template && (
+                      <div className='template'>
+                        <h5>Template that what was is :-</h5>
+                        <p>{item?.message?.template?.name}</p>
+                      </div>
+                    )}
                   </div>
                 </div>
               ) : (

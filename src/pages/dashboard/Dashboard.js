@@ -123,11 +123,11 @@ const Dashboard = () => {
             >
               Send Form To Founder
             </button>
-            <Link style={{ marginTop: "1rem" }} to='/contact'>
+            {/* <Link style={{ marginTop: "1rem" }} to='/contact'>
               <button>WhatsApp CRM</button>
-            </Link>
+            </Link> */}
             <Link style={{ marginTop: "1rem" }} to='/contact2'>
-              <button>New WhatsApp CRM</button>
+              <button>WhatsApp CRM</button>
             </Link>
             {/* <button onClick={() => dispatch(logout())}>Logout</button> */}
           </div>

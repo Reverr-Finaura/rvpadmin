@@ -68,11 +68,15 @@ const NewChatSection = () => {
     const searchFun = () => {
       let search = [...users];
       if (inputSearch) {
-        search = search.filter(
-          (item) =>
-            item.id.toLowerCase().search(inputSearch.toLowerCase().trim()) !==
-            -1
-        );
+        const lowerCaseSearch = inputSearch.toLowerCase().trim();
+        search = search.filter((item) => {
+          const id = item.id || "";
+          const name = item.name || "";
+          return (
+            id.toLowerCase().includes(lowerCaseSearch) ||
+            name.toLowerCase().includes(lowerCaseSearch)
+          );
+        });
       }
       setList(search);
     };
@@ -88,9 +92,9 @@ const NewChatSection = () => {
             <div className='chatserach'>
               <label>Search User</label>
               <input
-                type='number'
+                type='text'
                 value={inputSearch}
-                placeholder='Enter the User number to search'
+                placeholder='Search the User with name & number'
                 onChange={(e) => setInputSearch(e.target.value)}
               />
             </div>
