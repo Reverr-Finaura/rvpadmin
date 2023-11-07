@@ -75,7 +75,7 @@ const Sidebar = ({ section, setSection }) => {
           }}
           className={style.optionitem}
         >
-          New Chat User
+          Chat with User
         </p>
       </div>
     </div>
