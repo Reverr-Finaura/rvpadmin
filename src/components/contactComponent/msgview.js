@@ -66,7 +66,7 @@ const MsgView = ({
 
                     {item.message.template && (
                       <div className='template'>
-                        <h5>Template that what was is :-</h5>
+                        <h5>Template Name :-</h5>
                         <p>{item?.message?.template?.name}</p>
                       </div>
                     )}
