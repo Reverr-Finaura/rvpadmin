@@ -1,21 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./contactComp.css";
 import Select from "react-select";
-import { getMessage } from "../../firebase/firebase";
+import { database, getMessage } from "../../firebase/firebase";
+import { doc, getDoc } from "firebase/firestore";
 
 const MsgtoUsers = () => {
-  const [users, setUsers] = useState([]);
-  useEffect(() => {
-    const getUserMsg = async () => {
-      try {
-        const user = await getMessage();
-        setUsers(user);
-      } catch (error) {
-        new Error(error);
-      }
-    };
-    getUserMsg();
-  }, []);
   const [message, setMessage] = useState("");
   const [selectTrue, setSelectedTrue] = useState(false);
   const [selectedData, setSelectedData] = useState([]);
@@ -25,21 +14,81 @@ const MsgtoUsers = () => {
 
   let checked = [];
   for (let i = 0; i < selectedData.length; i++) {
-    const lastMessage =
-      selectedData[i]?.messages[selectedData[i]?.messages.length - 1];
-    const messageDate = new Date(
-      lastMessage?.date?.seconds * 1000 + lastMessage?.date?.nanoseconds / 1e6
-    );
-    const currentDate = new Date();
-    const timeDifferenceInHours = Math.ceil(
-      Math.abs(currentDate - messageDate) / (1000 * 60 * 60)
-    );
-    if (timeDifferenceInHours < 24) {
-      checked.push(true);
-    } else {
-      checked.push(false);
+    if (selectedData[i].messages) {
+      const lastMessage =
+        selectedData[i]?.messages[selectedData[i]?.messages.length - 1];
+      const messageDate = new Date(
+        lastMessage?.date?.seconds * 1000 + lastMessage?.date?.nanoseconds / 1e6
+      );
+      const currentDate = new Date();
+      const timeDifferenceInHours = Math.ceil(
+        Math.abs(currentDate - messageDate) / (1000 * 60 * 60)
+      );
+      if (timeDifferenceInHours < 24) {
+        checked.push(true);
+      } else {
+        checked.push(false);
+      }
     }
   }
+  const [users, setUsers] = useState([]);
+
+  const getUserMsg = async () => {
+    try {
+      const user = await getMessage();
+      setUsers(user);
+    } catch (error) {
+      new Error(error);
+    }
+  };
+  useEffect(() => {
+    getUserMsg();
+  }, []);
+
+  const [tags, setTags] = useState({});
+  const [selectedTags, setSelectedTags] = useState([]);
+
+  const handleTagSelectChange = (selectedOptions) => {
+    setSelectedTags(selectedOptions);
+    const filteredUser = users.filter((user) => {
+      const userTags = user?.userTags || [];
+      return userTags.some((userTag) =>
+        selectedOptions.some((selectedTag) => selectedTag.label === userTag)
+      );
+    });
+    setSelectedData(filteredUser);
+  };
+
+  useEffect(() => {
+    const getTags = async () => {
+      const result = await getDoc(doc(database, "meta", "tags"));
+      if (result.exists()) {
+        setTags(result.data());
+      }
+    };
+    getTags();
+  }, []);
+
+  // useEffect(() => {
+  //   if (selectedTags) {
+  //     const filteredUsers = users.filter((user) => {
+  //       const userTags = user?.userTags || [];
+  //       return userTags.includes(selectedTags.label);
+  //     });
+  //     setUsers(filteredUsers);
+  //   } else {
+  //     getUserMsg();
+  //   }
+  // }, [selectedTags]);
+
+  const selectAllUsers = () => {
+    if (!selectTrue) {
+      setSelectedData(users);
+    } else {
+      setSelectedData([]);
+    }
+    setSelectedTrue(!selectTrue);
+  };
   const getCodeAndNumber = () => {
     const codes = selectedData.map((item) => item.id.slice(0, -10));
     const numbers = selectedData.map((item) => item.id.slice(-10));
@@ -55,14 +104,6 @@ const MsgtoUsers = () => {
       codes: filteredCodes,
       numbers: filteredNumbers,
     };
-  };
-  const selectAllUsers = () => {
-    if (!selectTrue) {
-      setSelectedData(users);
-    } else {
-      setSelectedData([]);
-    }
-    setSelectedTrue(!selectTrue);
   };
   const submit = async (e) => {
     e.preventDefault();
@@ -91,10 +132,25 @@ const MsgtoUsers = () => {
       setSelectedData([]);
     }, 1000);
   };
+
   return (
     <div className='form-container'>
       <h3>Send Message to Mutiple user</h3>
       <form onSubmit={submit}>
+        <div className='input-feilds'>
+          <label>Select User Tags</label>
+          <Select
+            name='tags'
+            isMulti
+            isClearable
+            classNamePrefix='select'
+            options={tags.initialTags}
+            onChange={handleTagSelectChange}
+            value={selectedTags}
+            getOptionLabel={(option) => option.label}
+            getOptionValue={(option) => option.label}
+          />
+        </div>
         <div className='input-feilds'>
           <label>Select Mutiple user</label>
           <Select

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Papa from "papaparse";
-import { collection, setDoc, doc } from "firebase/firestore";
+import { setDoc, doc, getDoc, updateDoc, arrayUnion } from "firebase/firestore";
 import { database } from "../../firebase/firebase";
 import { ToastContainer, toast } from "react-toastify";
 
@@ -30,24 +30,45 @@ const CSVAdduser = () => {
   const submit = async (e) => {
     e.preventDefault();
     if (data && data.length > 0) {
-      const collectionRef = collection(database, "WhatsappMessages");
       for (let i = 0; i < data.length; i++) {
         const rowData = data[i];
+        const header3Data = rowData[headers[3]];
+        const header3DataArray = [];
+        header3DataArray.push(header3Data);
+        const formattedtags = header3DataArray.map((tag) => ({
+          label: tag.toLowerCase(),
+        }));
+        try {
+          const tagsDocumnetRef = doc(database, "meta", "tags");
+          const allTags = (await getDoc(tagsDocumnetRef)).data();
+          if (!allTags.initialTags.some((tag) => formattedtags.includes(tag))) {
+            await updateDoc(tagsDocumnetRef, {
+              initialTags: arrayUnion(...formattedtags),
+            });
+          }
+        } catch (error) {
+          console.error("Error updating tags document:", error);
+        }
         const userdata = {
           [headers[0]]: rowData[headers[0]],
           [headers[1]]: rowData[headers[1]],
           [headers[2]]: rowData[headers[2]],
+          [headers[3]]: formattedtags.map((tag) => tag.label),
           profile: true,
           stop: false,
           exits: "true",
         };
-        // console.log(userdata);
+        console.log(userdata);
         try {
-          // await addDoc(collectionRef, { userdata });
-          await setDoc(doc(database, "WhatsappMessages", userdata.number), {...userdata});
+          await setDoc(doc(database, "WhatsappMessages", userdata.number), {
+            ...userdata,
+          });
         } catch (error) {
           console.error("Error adding document: ", error);
-          toast.error(`Error adding user: ${userdata.name} ,${userdata.number}`, error)
+          toast.error(
+            `Error adding user: ${userdata.name} ,${userdata.number}`,
+            error
+          );
         }
       }
       toast.success("All CSV file user have been successfully Added");

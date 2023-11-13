@@ -1,17 +1,53 @@
-import { setDoc, collection, doc } from "firebase/firestore";
-import React, { useState } from "react";
+import { doc, getDoc, updateDoc, arrayUnion, setDoc } from "firebase/firestore";
+import React, { useEffect, useState } from "react";
 import ReactSelect from "react-select";
+import CreatableSelect from "react-select/creatable";
 import { database } from "../../firebase/firebase";
 import { ToastContainer, toast } from "react-toastify";
 
 const AddUser = () => {
   const userType = [{ name: "founder" }, { name: "professional" }];
   const [name, setName] = useState("");
-  const [code, setCode] = useState(null);
-  const [number, setNumber] = useState(null);
-  const [selectedData, setSelectedData] = useState(null);
+  const [code, setCode] = useState("");
+  const [number, setNumber] = useState("");
+  const [selectedData, setSelectedData] = useState("");
   const handleSelectChange = (selectedOptions) => {
     setSelectedData(selectedOptions);
+  };
+  const [tags, setTags] = useState({});
+  const [selectedTags, setSelectedTags] = useState([]);
+
+  const handleTagSelectChange = async (selectedOptions) => {
+    if (selectedOptions) {
+      const formattedSelectedTags = selectedOptions.map((option) => ({
+        label: option.label.toLowerCase(),
+      }));
+      try {
+        setSelectedTags(formattedSelectedTags);
+        const tagsDocumnetRef = doc(database, "meta", "tags");
+        const allTags = (await getDoc(tagsDocumnetRef)).data();
+        if (
+          !allTags.initialTags.some((tag) =>
+            formattedSelectedTags.includes(tag)
+          )
+        ) {
+          await updateDoc(tagsDocumnetRef, {
+            initialTags: arrayUnion(...formattedSelectedTags),
+          });
+          console.log("Updated tags");
+        }
+      } catch (error) {
+        console.error("Error updating tags document:", error);
+      }
+    }
+  };
+
+  const reset = () => {
+    setName("");
+    setCode("");
+    setNumber("");
+    setSelectedData("");
+    setSelectedTags([]);
   };
   const submit = async (e) => {
     e.preventDefault();
@@ -20,15 +56,38 @@ const AddUser = () => {
         name: name,
         number: code.toString() + number.toString(),
         userType: selectedData.name,
+        userTags: selectedTags.map((item) => item.label),
         profile: true,
         stop: false,
         exits: "true",
       };
-      const collectionRef = collection(database, "WhatsappMessages");
-      await setDoc(doc(database, "WhatsappMessages", data.number), {...data});
+      console.log(data);
+      await setDoc(doc(database, "WhatsappMessages", data.number), { ...data });
       toast.success("User have been successfully Added");
+      reset();
     }
   };
+
+  // useEffect(() => {
+  //   const sendTags = async () => {
+  //     await setDoc(doc(database, "meta", "tags"), {
+  //       initialTags,
+  //     });
+  //   };
+  //   sendTags();
+  // }, []);
+
+  useEffect(() => {
+    const getTags = async () => {
+      const result = await getDoc(doc(database, "meta", "tags"));
+      if (result.exists()) {
+        setTags(result.data());
+      }
+    };
+    getTags();
+  }, []);
+  // console.log(tags.initialTags);
+
   return (
     <div>
       <div>
@@ -64,6 +123,7 @@ const AddUser = () => {
           <div className='input-feilds'>
             <label>User Type</label>
             <ReactSelect
+              isClearable
               className='basic-single'
               classNamePrefix='select'
               name='usersMessage'
@@ -75,11 +135,24 @@ const AddUser = () => {
             />
           </div>
           <div className='input-feilds'>
+            <label>Tags</label>
+            <CreatableSelect
+              className='basic-multi-select'
+              isClearable
+              isMulti={true}
+              options={tags.initialTags}
+              onChange={handleTagSelectChange}
+              value={selectedTags}
+              getOptionLabel={(option) => option.label}
+              getOptionValue={(option) => option.label}
+            />
+          </div>
+          <div className='input-feilds'>
             <button>Add User</button>
           </div>
         </form>
       </div>
-      <ToastContainer/>
+      <ToastContainer />
     </div>
   );
 };

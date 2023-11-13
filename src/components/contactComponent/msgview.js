@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { database } from "../../firebase/firebase";
 import "./contactComp.css";
 import "react-toggle/style.css";
@@ -64,7 +64,7 @@ const MsgView = ({
                         <p>{item?.message?.text?.body}</p>
                       )}
 
-                    {item.message.template && (
+                    {item.message && item.message.template && (
                       <div className='template'>
                         <h5>Template Name :-</h5>
                         <p>{item?.message?.template?.name}</p>

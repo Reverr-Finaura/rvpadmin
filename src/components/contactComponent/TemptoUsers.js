@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
-import { getMessage, uploadMedia } from "../../firebase/firebase";
+import { database, getMessage, uploadMedia } from "../../firebase/firebase";
 import { ToastContainer, toast } from "react-toastify";
+import { doc, getDoc } from "firebase/firestore";
 
 const TemptoUsers = () => {
   const [users, setUsers] = useState([]);
@@ -9,17 +10,53 @@ const TemptoUsers = () => {
   const [loading, setLoading] = useState(false);
   const [btnDisable, setBtnDisable] = useState(false);
   const [fileName, setFileName] = useState(null);
+  const getUserMsg = async () => {
+    try {
+      const user = await getMessage();
+      setUsers(user);
+    } catch (error) {
+      new Error(error);
+    }
+  };
   useEffect(() => {
-    const getUserMsg = async () => {
-      try {
-        const user = await getMessage();
-        setUsers(user);
-      } catch (error) {
-        new Error(error);
-      }
-    };
     getUserMsg();
   }, []);
+
+  const [tags, setTags] = useState({});
+  const [selectedTags, setSelectedTags] = useState();
+
+  const handleTagSelectChange = (selectedOptions) => {
+    setSelectedTags(selectedOptions);
+    const filteredUser = users.filter((user) => {
+      const userTags = user?.userTags || [];
+      return userTags.some((userTag) =>
+        selectedOptions.some((selectedTag) => selectedTag.label === userTag)
+      );
+    });
+    setSelectedData(filteredUser);
+  };
+  useEffect(() => {
+    const getTags = async () => {
+      const result = await getDoc(doc(database, "meta", "tags"));
+      if (result.exists()) {
+        setTags(result.data());
+      }
+    };
+    getTags();
+  }, []);
+
+  // useEffect(() => {
+  //   if (selectedTags) {
+  //     const filteredUsers = users.filter((user) => {
+  //       const userTags = user?.userTags || [];
+  //       return userTags.includes(selectedTags.label);
+  //     });
+  //     setUsers(filteredUsers);
+  //   } else {
+  //     getUserMsg();
+  //   }
+  // }, [selectedTags]);
+
   const [selectTrue, setSelectedTrue] = useState(false);
   const [templateName, setTemplateName] = useState("");
   const [selectedData, setSelectedData] = useState([]);
@@ -180,6 +217,21 @@ const TemptoUsers = () => {
       <h3>Send Template to single user</h3>
       <form onSubmit={submit}>
         <div className='input-feilds'>
+          <div className='input-feilds'>
+            <label>Select User Tags</label>
+            <Select
+              name='tags'
+              isClearable
+              isMulti
+              className='basic-multi-select'
+              classNamePrefix='select'
+              options={tags.initialTags}
+              onChange={handleTagSelectChange}
+              value={selectedTags}
+              getOptionLabel={(option) => option.label}
+              getOptionValue={(option) => option.label}
+            />
+          </div>
           <label>Select Mutiple user</label>
           <Select
             isMulti

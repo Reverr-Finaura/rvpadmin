@@ -86,6 +86,7 @@ const MsgToUser = () => {
         <div className='input-feilds'>
           <label>Select user</label>
           <Select
+            isClearable
             className='basic-single'
             classNamePrefix='select'
             name='user'
