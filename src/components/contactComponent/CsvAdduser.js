@@ -58,7 +58,6 @@ const CSVAdduser = () => {
           stop: false,
           exits: "true",
         };
-        console.log(userdata);
         try {
           await setDoc(doc(database, "WhatsappMessages", userdata.number), {
             ...userdata,

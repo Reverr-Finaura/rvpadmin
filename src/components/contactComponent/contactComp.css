@@ -17,7 +17,7 @@ form {
 }
 
 input {
-    height: 30px;
+    height: 38px;
     border-radius: 5px;
     border: 1px solid black;
     outline: none;
@@ -190,4 +190,10 @@ p {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.editname {
+    display: flex;
+    gap: 20px;
+    font-size: 18px;
 }

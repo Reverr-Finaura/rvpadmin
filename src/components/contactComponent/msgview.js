@@ -15,14 +15,13 @@ const MsgView = ({
   const ref = useRef(null);
 
   useEffect(() => {
-    if (currMessages.length) {
-      // console.log("scrooll")
+    if (currMessages && currMessages.length) {
       ref.current?.scrollIntoView({
         behavior: "smooth",
         block: "end",
       });
     }
-  }, [currMessages.length]);
+  }, [currMessages]);
 
   useEffect(() => {
     const messageQuery = query(
@@ -46,7 +45,8 @@ const MsgView = ({
 
   return (
     <div className='messagelist'>
-      {currMessages.length !== 0 &&
+      {currMessages &&
+        currMessages.length !== 0 &&
         currMessages.map((item, index) => {
           return (
             <div ref={ref} key={index}>

@@ -41,15 +41,6 @@ const Sidebar = ({ section, setSection }) => {
         >
           Send template to Mutiple user
         </p>
-        {/* <p
-          onClick={() => setSection(5)}
-          style={{
-            backgroundColor: `${section === 5 ? "green " : ""}`,
-          }}
-          className={style.optionitem}
-        >
-          Chat with user
-        </p> */}
         <p
           onClick={() => setSection(6)}
           style={{
@@ -76,6 +67,15 @@ const Sidebar = ({ section, setSection }) => {
           className={style.optionitem}
         >
           Chat with User
+        </p>
+        <p
+          onClick={() => setSection(9)}
+          style={{
+            backgroundColor: `${section === 9 ? "green " : ""}`,
+          }}
+          className={style.optionitem}
+        >
+          Edit User
         </p>
       </div>
     </div>

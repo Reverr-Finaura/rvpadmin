@@ -37,6 +37,7 @@ const MsgToUser = () => {
       getSinglemsg();
     }
   }, [selectedData]);
+
   const lastMessage = singleChat?.messages[singleChat?.messages.length - 1];
   const messageDate = new Date(
     lastMessage?.date?.seconds * 1000 + lastMessage?.date?.nanoseconds / 1e6
