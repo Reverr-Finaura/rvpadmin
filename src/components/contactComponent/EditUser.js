@@ -44,10 +44,7 @@ const EditUser = () => {
       </div>
       {selectedData && (
         <div>
-          <EditSection
-            setSelectedData={setSelectedData}
-            selectedData={selectedData}
-          />
+          <EditSection selectedData={selectedData} />
         </div>
       )}
     </div>

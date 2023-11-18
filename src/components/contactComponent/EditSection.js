@@ -5,7 +5,7 @@ import ReactSelect from "react-select";
 import CreatableSelect from "react-select/creatable";
 import { ToastContainer, toast } from "react-toastify";
 
-const EditSection = ({ setSelectedData, selectedData }) => {
+const EditSection = ({ selectedData }) => {
   const [userdata, setUserdata] = useState({});
 
   useEffect(() => {
