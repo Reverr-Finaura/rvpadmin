@@ -44,7 +44,12 @@ const EditUser = () => {
       </div>
       {selectedData && (
         <div>
-          <EditSection selectedData={selectedData} />
+          <EditSection
+            selectedData={selectedData}
+            editName={selectedData?.name}
+            editUserType={selectedData?.userType}
+            editUserTags={selectedData?.userTags}
+          />
         </div>
       )}
     </div>

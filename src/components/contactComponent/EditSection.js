@@ -5,7 +5,13 @@ import ReactSelect from "react-select";
 import CreatableSelect from "react-select/creatable";
 import { ToastContainer, toast } from "react-toastify";
 
-const EditSection = ({ selectedData }) => {
+const EditSection = ({
+  selectedData,
+  editName,
+  editUserType,
+  editUserTags,
+}) => {
+  console.log(editUserType);
   const [userdata, setUserdata] = useState({});
 
   useEffect(() => {
@@ -31,15 +37,19 @@ const EditSection = ({ selectedData }) => {
     };
     getTags();
   }, []);
-  console.log(tags);
+  // console.log(tags);
 
   const userType = [{ name: "founder" }, { name: "professional" }];
-  const [name, setName] = useState("");
-  const [userTypes, setUsertypes] = useState("");
+  const [name, setName] = useState(editName);
+  const [userTypes, setUsertypes] = useState({ name: editUserType });
   const handleSelectChange = (selectedOptions) => {
     setUsertypes(selectedOptions);
   };
-  const [selectedTags, setSelectedTags] = useState([]);
+  const [selectedTags, setSelectedTags] = useState(
+    editUserTags.map((i) => ({
+      label: i,
+    }))
+  );
   const handleTagSelectChange = async (selectedOptions) => {
     if (selectedOptions) {
       const formattedSelectedTags = selectedOptions.map((option) => ({
@@ -59,16 +69,10 @@ const EditSection = ({ selectedData }) => {
           });
           console.log("Updated tags");
         }
-        reset();
       } catch (error) {
         console.error("Error updating tags document:", error);
       }
     }
-  };
-  const reset = () => {
-    setName("");
-    setUsertypes("");
-    setSelectedTags([]);
   };
   const submit = async (e) => {
     e.preventDefault();
