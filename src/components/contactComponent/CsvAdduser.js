@@ -30,6 +30,11 @@ const CSVAdduser = () => {
   const submit = async (e) => {
     e.preventDefault();
     if (data && data.length > 0) {
+      toast.info("uploading Users please wait...")
+      var twenty = data.length /5;
+      var fourty = twenty*2;
+      var sixty = twenty*3;
+      var eighty = twenty*4;
       for (let i = 0; i < data.length; i++) {
         const rowData = data[i];
         const header3Data = rowData[headers[3]];
@@ -59,9 +64,19 @@ const CSVAdduser = () => {
           exits: "true",
         };
         try {
-          await setDoc(doc(database, "WhatsappMessages", userdata.number), {
+          await setDoc(doc(database, "Testing", userdata.number), {
             ...userdata,
           });
+          console.log(i,i == twenty, data.length/5)
+          if(i == Math.round(twenty)){
+            toast.info("uploaded 20%...")
+          }else if(i == Math.round(fourty)){
+            toast.info("uploaded 40%...")
+          }else if(i == Math.round(sixty)){
+            toast.info("uploaded 60%...")
+          }else if(i == Math.round(eighty)){
+            toast.info("uploaded 80%...")
+          }
         } catch (error) {
           console.error("Error adding document: ", error);
           toast.error(
