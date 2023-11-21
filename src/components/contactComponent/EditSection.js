@@ -46,7 +46,7 @@ const EditSection = ({
     setUsertypes(selectedOptions);
   };
   const [selectedTags, setSelectedTags] = useState(
-    editUserTags.map((i) => ({
+    (editUserTags ?? []).map((i) => ({
       label: i,
     }))
   );
