@@ -64,7 +64,7 @@ const CSVAdduser = () => {
           exits: "true",
         };
         try {
-          await setDoc(doc(database, "Testing", userdata.number), {
+          await setDoc(doc(database, "WhatsappMessages", userdata.number), {
             ...userdata,
           });
           console.log(i,i == twenty, data.length/5)
