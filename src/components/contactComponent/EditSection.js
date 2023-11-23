@@ -10,6 +10,8 @@ const EditSection = ({
   editName,
   editUserType,
   editUserTags,
+  setIsEdit,
+  isEdit,
 }) => {
   console.log(editUserType);
   const [userdata, setUserdata] = useState({});
@@ -20,8 +22,9 @@ const EditSection = ({
         const docRef = doc(database, "WhatsappMessages", selectedData?.id);
         const docSnapshot = await getDoc(docRef);
         if (docSnapshot.exists()) {
-          setUserdata({ ...docSnapshot.data() });
+          setUserdata({ ...docSnapshot.data(), id: docSnapshot.id });
         }
+        console.log("running");
       };
       getUserData();
     }
@@ -88,6 +91,7 @@ const EditSection = ({
       await updateDoc(doc(database, "WhatsappMessages", selectedData?.id), {
         ...data,
       });
+      setIsEdit(!isEdit);
       toast.success("User have been successfully edited");
     } catch (error) {
       console.log("Error updating tags document:", error);
@@ -114,7 +118,6 @@ const EditSection = ({
             type='text'
             placeholder='Enter User Name'
             value={name}
-            defaultValue={userdata?.name}
             onChange={(e) => setName(e.target.value)}
           />
         </div>

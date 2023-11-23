@@ -5,17 +5,19 @@ import EditSection from "./EditSection";
 
 const EditUser = () => {
   const [users, setUsers] = useState([]);
+  const [isEdit, setIsEdit] = useState(false);
   useEffect(() => {
     const getUserMsg = async () => {
       try {
         const user = await getMessage();
         setUsers(user);
+        console.log("running");
       } catch (error) {
         new Error(error);
       }
     };
     getUserMsg();
-  }, []);
+  }, [isEdit]);
 
   const [selectedData, setSelectedData] = useState("");
   const handleSelectChange = (selectedOptions) => {
@@ -46,6 +48,8 @@ const EditUser = () => {
         <div>
           <EditSection
             selectedData={selectedData}
+            isEdited={isEdit}
+            setIsEdit={setIsEdit}
             editName={selectedData?.name}
             editUserType={selectedData?.userType}
             editUserTags={selectedData?.userTags}

@@ -29,6 +29,8 @@ const MsgtoUsers = () => {
       } else {
         checked.push(false);
       }
+    } else {
+      checked.push(true);
     }
   }
   const [users, setUsers] = useState([]);
