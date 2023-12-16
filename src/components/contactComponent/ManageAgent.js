@@ -1,73 +1,32 @@
 import React, { useEffect, useState } from "react";
 import "./contactComp.css";
 import { database, getAllAgents } from "../../firebase/firebase";
-import { deleteDoc } from "firebase/firestore";
+import { deleteDoc, doc } from "firebase/firestore";
 import { ToastContainer, toast } from "react-toastify";
 
 const ManageAgent = () => {
-  const rabe = [
-    { name: "Manage", email: "manage@example.com", password: "password" },
-    { name: "John Doe", email: "john.doe@example.com", password: "secure123" },
-    {
-      name: "Alice Smith",
-      email: "alice.smith@example.com",
-      password: "pass1234",
-    },
-    {
-      name: "Bob Johnson",
-      email: "bob.johnson@example.com",
-      password: "bob123",
-    },
-    {
-      name: "Emily Davis",
-      email: "emily.davis@example.com",
-      password: "emily456",
-    },
-    {
-      name: "Daniel Brown",
-      email: "daniel.brown@example.com",
-      password: "daniel789",
-    },
-    {
-      name: "Olivia White",
-      email: "olivia.white@example.com",
-      password: "olivia123",
-    },
-    {
-      name: "Michael Green",
-      email: "michael.green@example.com",
-      password: "michael456",
-    },
-    {
-      name: "Sophia Black",
-      email: "sophia.black@example.com",
-      password: "sophia789",
-    },
-    {
-      name: "David Miller",
-      email: "david.miller@example.com",
-      password: "david123",
-    },
-  ];
   const [data, setdata] = useState([]);
+
   useEffect(() => {
     const getAgents = async () => {
       try {
         const res = await getAllAgents();
         if (res.length > 0) {
           setdata(res);
-        } else {
-          setdata(rabe);
         }
-      } catch (error) {}
+      } catch (error) {
+        toast.error(error);
+      }
     };
     getAgents();
   }, []);
 
   const deleteAgnet = async (email) => {
+    console.log("delete" + email);
     try {
-      await deleteDoc(database, "Agents", email);
-      toast.success("User have been successfully Added");
+      await deleteDoc(doc(database, "Agents", email));
+      setdata((prevData) => prevData.filter((item) => item.email !== email));
+      toast.success(`${email} have been successfully deleted`);
     } catch (error) {
       toast.error(error);
     }

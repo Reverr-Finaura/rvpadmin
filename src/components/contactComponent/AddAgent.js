@@ -21,29 +21,31 @@ const AddAgent = () => {
 
   const submit = async (e) => {
     e.preventDefault();
-    if (name === "" && email === "" && password === "") {
-      setLoadings(true);
-      const data = {
-        name: name,
-        email: email,
-        password: password,
-      };
-      try {
-        const existingUser = await fetchSignInMethodsForEmail(auth, email);
-        if (existingUser.length === 0) {
-          await createUserWithEmailAndPassword(auth, email, password);
-          await setDoc(doc(database, "Agents", data.email), { ...data });
-          toast.success("User have been successfully Added");
-        } else {
-          toast.error(`User ${name} already exists`);
-        }
-        setLoadings(false);
-        reset();
-      } catch (error) {
-        console.error(error);
+    if (!name || !email || !password) {
+      toast.error("Fill all fields");
+      return;
+    }
+    setLoadings(true);
+    const data = {
+      name: name,
+      email: email,
+      password: password,
+      isAgent: true,
+    };
+    console.log(data);
+    try {
+      const existingUser = await fetchSignInMethodsForEmail(auth, email);
+      if (existingUser.length === 0) {
+        await createUserWithEmailAndPassword(auth, email, password);
+        await setDoc(doc(database, "Agents", data.email), { ...data });
+        toast.success("User has been successfully added");
+      } else {
+        toast.error(`User ${email} already exists`);
       }
-    } else {
-      toast.error(`Fill all fields`);
+      setLoadings(false);
+      reset();
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -80,7 +82,7 @@ const AddAgent = () => {
             />
           </div>
           <div className='input-feilds'>
-            <button disable={loadings}>Add Agent</button>
+            <button disabled={loadings}>Add Agent</button>
           </div>
         </form>
       </div>
