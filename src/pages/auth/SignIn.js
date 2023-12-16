@@ -43,20 +43,20 @@ const SignIn = () => {
 
   return (
     <>
-      <div className="SignIn_MainContainer">
+      <div className='SignIn_MainContainer'>
         <h1 style={{ color: "grey" }}>Admin</h1>
-        <div className="SignIn_Container">
+        <div className='SignIn_Container'>
           <p>SignIn</p>
           <input
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="Email"
+            placeholder='Email'
           />
           <input
-            type="password"
+            type='password'
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="Password"
+            placeholder='Password'
           />
-          <button onClick={checkEmailandPassword} className="SingIn_Btn">
+          <button onClick={checkEmailandPassword} className='SingIn_Btn'>
             Sign In
           </button>
         </div>

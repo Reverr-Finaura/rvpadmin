@@ -1,4 +1,5 @@
 import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
 
 import {
   getFirestore,
@@ -33,6 +34,7 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+export const auth = getAuth();
 
 // Firestore
 export const database = getFirestore();
@@ -274,6 +276,19 @@ const whatsAppMessageCollectionRef = collection(database, "WhatsappMessages");
 export const getMessage = async () => {
   try {
     const data = await getDocs(query(whatsAppMessageCollectionRef));
+    const userdata = data.docs.map((doc) => ({
+      ...doc.data(),
+      id: doc.id,
+    }));
+    return userdata;
+  } catch (error) {
+    console.error("Error retrieving message from Firestore:", error);
+  }
+};
+const AgentsCollectionref = collection(database, "Agents");
+export const getAllAgents = async () => {
+  try {
+    const data = await getDocs(query(AgentsCollectionref));
     const userdata = data.docs.map((doc) => ({
       ...doc.data(),
       id: doc.id,
