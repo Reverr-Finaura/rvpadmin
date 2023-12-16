@@ -29,7 +29,6 @@ const MsgView = ({
       where("number", "==", selectedData.id)
     );
     const unsubscribe = onSnapshot(messageQuery, (snapshot) => {
-      // console.log("new msg", );
       var msgs = [];
       snapshot.forEach((doc) => {
         console.log(doc.data());
@@ -37,7 +36,6 @@ const MsgView = ({
 
         setSelectedData({ ...doc.data(), id: doc.id });
       });
-      // console.log("msg",msgs)
       setCurrMessages(msgs);
     });
     return () => unsubscribe();

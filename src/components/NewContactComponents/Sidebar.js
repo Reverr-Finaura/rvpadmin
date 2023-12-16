@@ -77,6 +77,24 @@ const Sidebar = ({ section, setSection }) => {
         >
           Edit User
         </p>
+        <p
+          onClick={() => setSection(10)}
+          style={{
+            backgroundColor: `${section === 10 ? "green " : ""}`,
+          }}
+          className={style.optionitem}
+        >
+          Add Agent
+        </p>
+        <p
+          onClick={() => setSection(11)}
+          style={{
+            backgroundColor: `${section === 11 ? "green " : ""}`,
+          }}
+          className={style.optionitem}
+        >
+          Manage Agents
+        </p>
       </div>
     </div>
   );

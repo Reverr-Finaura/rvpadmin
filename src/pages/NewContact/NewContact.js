@@ -10,6 +10,8 @@ import AddUser from "../../components/contactComponent/AddUser";
 import CSVAdduser from "../../components/contactComponent/CsvAdduser";
 import NewChatSection from "../../components/contactComponent/NewChatSection";
 import EditUser from "../../components/contactComponent/EditUser";
+import AddAgent from "../../components/contactComponent/AddAgent";
+import ManageAgent from "../../components/contactComponent/ManageAgent";
 
 const NewContact = () => {
   const [section, setSection] = useState(1);
@@ -29,6 +31,8 @@ const NewContact = () => {
           {section === 7 && <CSVAdduser />}
           {section === 8 && <NewChatSection />}
           {section === 9 && <EditUser />}
+          {section === 10 && <AddAgent />}
+          {section === 11 && <ManageAgent />}
         </div>
       </div>
     </>

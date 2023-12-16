@@ -3,6 +3,7 @@ import Papa from "papaparse";
 import { setDoc, doc, getDoc, updateDoc, arrayUnion } from "firebase/firestore";
 import { database } from "../../firebase/firebase";
 import { ToastContainer, toast } from "react-toastify";
+import "./contactComp.css";
 
 const CSVAdduser = () => {
   const [data, setData] = useState(null);
@@ -30,11 +31,11 @@ const CSVAdduser = () => {
   const submit = async (e) => {
     e.preventDefault();
     if (data && data.length > 0) {
-      toast.info("uploading Users please wait...")
-      var twenty = data.length /5;
-      var fourty = twenty*2;
-      var sixty = twenty*3;
-      var eighty = twenty*4;
+      toast.info("uploading Users please wait...");
+      var twenty = data.length / 5;
+      var fourty = twenty * 2;
+      var sixty = twenty * 3;
+      var eighty = twenty * 4;
       for (let i = 0; i < data.length; i++) {
         const rowData = data[i];
         const header3Data = rowData[headers[3]];
@@ -67,15 +68,15 @@ const CSVAdduser = () => {
           await setDoc(doc(database, "WhatsappMessages", userdata.number), {
             ...userdata,
           });
-          console.log(i,i == twenty, data.length/5)
-          if(i == Math.round(twenty)){
-            toast.info("uploaded 20%...")
-          }else if(i == Math.round(fourty)){
-            toast.info("uploaded 40%...")
-          }else if(i == Math.round(sixty)){
-            toast.info("uploaded 60%...")
-          }else if(i == Math.round(eighty)){
-            toast.info("uploaded 80%...")
+          console.log(i, i == twenty, data.length / 5);
+          if (i == Math.round(twenty)) {
+            toast.info("uploaded 20%...");
+          } else if (i == Math.round(fourty)) {
+            toast.info("uploaded 40%...");
+          } else if (i == Math.round(sixty)) {
+            toast.info("uploaded 60%...");
+          } else if (i == Math.round(eighty)) {
+            toast.info("uploaded 80%...");
           }
         } catch (error) {
           console.error("Error adding document: ", error);

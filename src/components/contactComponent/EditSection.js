@@ -4,6 +4,7 @@ import { arrayUnion, doc, getDoc, updateDoc } from "firebase/firestore";
 import ReactSelect from "react-select";
 import CreatableSelect from "react-select/creatable";
 import { ToastContainer, toast } from "react-toastify";
+import "./contactComp.css";
 
 const EditSection = ({
   selectedData,

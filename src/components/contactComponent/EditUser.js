@@ -2,6 +2,7 @@ import Select from "react-select";
 import React, { useEffect, useState } from "react";
 import { getMessage } from "../../firebase/firebase";
 import EditSection from "./EditSection";
+import "./contactComp.css";
 
 const EditUser = () => {
   const [users, setUsers] = useState([]);

@@ -4,6 +4,7 @@ import ReactSelect from "react-select";
 import CreatableSelect from "react-select/creatable";
 import { database } from "../../firebase/firebase";
 import { ToastContainer, toast } from "react-toastify";
+import "./contactComp.css";
 
 const AddUser = () => {
   const userType = [{ name: "founder" }, { name: "professional" }];
