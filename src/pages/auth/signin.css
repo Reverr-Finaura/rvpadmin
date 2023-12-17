@@ -30,7 +30,8 @@ p {
   font-size: large;
   font-weight: 300;
 }
-.SignIn_Container input,.SingIn_Btn {
+.SignIn_Container input,
+.SingIn_Btn {
   border: 1px solid grey;
   padding: 1rem;
   border-radius: 4px;
@@ -42,4 +43,9 @@ p {
   cursor: pointer;
   font-weight: 300;
   border: 1px solid grey;
+}
+.admin_login_click {
+  cursor: pointer;
+  text-decoration: underline;
+  font-weight: bold;
 }

@@ -1,71 +1,64 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { getAdminsFromDatabase } from "../../firebase/firebase";
 import { login } from "../../redux/userSlice";
 import { ToastContainer, toast } from "react-toastify";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../firebase/firebase";
 import "react-toastify/dist/ReactToastify.css";
 import "./signin.css";
-const SignIn = () => {
+
+const AgentSignIn = () => {
   const dispatch = useDispatch();
-  const [admins, setAdmins] = useState([]);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const getAdmin = async () => {
-    const results = await getAdminsFromDatabase();
-    if (results.length) {
-      setAdmins([...results]);
-    }
-  };
 
-  useEffect(() => {
-    getAdmin();
-  }, []);
-
-  const checkEmailandPassword = () => {
-    if (email.length && password.length) {
-      const filteredAdmin = admins.filter(
-        (data) => data.email === email && data.password === password
+  const checkEmailAndPassword = async () => {
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
       );
-      if (filteredAdmin.length) {
+      const user = userCredential.user;
+
+      if (user) {
         dispatch(login(email));
-        navigate("dashboard");
+        navigate("/contact2"); // Adjust the path as per your route structure
       } else {
-        toast.error("Please enter a valid email or password !", {
+        toast.error("Authentication failed. Please check your credentials.", {
           autoClose: 2000,
         });
       }
-    } else {
-      toast.error("Fields Can't be empty !", { autoClose: 2000 });
+    } catch (error) {
+      toast.error("Error signing in. Please try again later.", {
+        autoClose: 2000,
+      });
+      console.error(error);
     }
-  };
-
-  const handleAgentLogin = () => {
-    navigate("/adminSignIn");
   };
 
   return (
     <>
       <div className="SignIn_MainContainer">
-        <h1 style={{ color: "grey" }}>Admin</h1>
+        <h1 style={{ color: "grey" }}>Agent</h1>
         <div className="SignIn_Container">
           <p>SignIn</p>
           <input
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Email"
+            value={email}
           />
           <input
             type="password"
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
+            value={password}
           />
-          <button onClick={checkEmailandPassword} className="SingIn_Btn">
+          <button onClick={checkEmailAndPassword} className="SingIn_Btn">
             Sign In
           </button>
-          <p className="admin_login_click" onClick={handleAgentLogin}>
-            for Agents SignIn
-          </p>
         </div>
       </div>
       <ToastContainer />
@@ -73,4 +66,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default AgentSignIn;
