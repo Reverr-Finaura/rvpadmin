@@ -12,12 +12,15 @@ import NewChatSection from "../../components/contactComponent/NewChatSection";
 import EditUser from "../../components/contactComponent/EditUser";
 import AddAgent from "../../components/contactComponent/AddAgent";
 import ManageAgent from "../../components/contactComponent/ManageAgent";
+import { useLocation } from "react-router-dom";
 
 const NewContact = () => {
   const [section, setSection] = useState(1);
+  const location = useLocation();
+  const isAgent = location.state?.isAgent || false;
   return (
     <>
-      <Navbar />
+      {!isAgent && <Navbar />}
       <div className={style.main}>
         <div className={style.left}>
           <Sidebar section={section} setSection={setSection} />

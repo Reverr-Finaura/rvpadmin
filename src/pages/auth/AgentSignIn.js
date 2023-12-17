@@ -22,10 +22,12 @@ const AgentSignIn = () => {
         password
       );
       const user = userCredential.user;
+      console.log(user);
 
       if (user) {
         dispatch(login(email));
-        navigate("/contact2"); // Adjust the path as per your route structure
+        // navigate("/contact2");
+        navigate("/contact2", { state: { isAgent: true } });
       } else {
         toast.error("Authentication failed. Please check your credentials.", {
           autoClose: 2000,
@@ -37,6 +39,10 @@ const AgentSignIn = () => {
       });
       console.error(error);
     }
+  };
+
+  const handleAdminLogin = () => {
+    navigate("/");
   };
 
   return (
@@ -59,6 +65,9 @@ const AgentSignIn = () => {
           <button onClick={checkEmailAndPassword} className="SingIn_Btn">
             Sign In
           </button>
+          <p className="admin_login_click" onClick={handleAdminLogin}>
+            for Admin SignIn
+          </p>
         </div>
       </div>
       <ToastContainer />
