@@ -45,6 +45,7 @@ const AddAgent = () => {
       setLoadings(false);
       reset();
     } catch (error) {
+      setLoadings(false);
       console.error(error);
     }
   };

@@ -69,7 +69,7 @@ input {
     width: 100%;
     overflow-x: hidden;
     overflow-y: scroll;
-    height: calc(100% - 110px);
+    height: calc(100% - 120px);
 }
 
 .chat-btn {
@@ -158,6 +158,17 @@ p {
     height: 100%;
 }
 
+.chat-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.chat-actions>p {
+    font-size: 16px;
+    font-weight: 600;
+}
+
 .numberitem {
     background: rgba(255, 255, 255, 0.03);
     border-radius: 16px;
@@ -224,4 +235,22 @@ p {
     text-align: left;
     background-color: green;
     color: black;
+}
+
+.manage-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.manage-btn {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.edit-fotm {
+    max-width: auto;
+    min-width: 480px;
+    padding: 20px;
 }

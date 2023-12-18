@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from "react";
 import "./contactComp.css";
-import { database, getAllAgents } from "../../firebase/firebase";
-import { deleteDoc, doc } from "firebase/firestore";
+import { auth, database, getAllAgents } from "../../firebase/firebase";
+import { deleteDoc, doc, getDoc } from "firebase/firestore";
 import { ToastContainer, toast } from "react-toastify";
+import { deleteUser } from "firebase/auth";
+import EditAgent from "./EditAgent";
+import ViewAgent from "./ViewAgent";
 
 const ManageAgent = () => {
   const [data, setdata] = useState([]);
+  const [showSelect, setShowSelect] = useState(false);
+  const [selectedData, setSelectedData] = useState([]);
 
   useEffect(() => {
     const getAgents = async () => {
@@ -22,39 +27,120 @@ const ManageAgent = () => {
   }, []);
 
   const deleteAgnet = async (email) => {
-    console.log("delete" + email);
     try {
-      await deleteDoc(doc(database, "Agents", email));
-      setdata((prevData) => prevData.filter((item) => item.email !== email));
-      toast.success(`${email} have been successfully deleted`);
+      const agentRef = doc(database, "Agents", email);
+      const agentDoc = await getDoc(agentRef);
+      const agentData = agentDoc.data();
+      if (agentData) {
+        const authuser = auth.currentUser;
+        await deleteDoc(agentRef);
+        await deleteUser(authuser);
+        setdata((prevData) => prevData.filter((item) => item.email !== email));
+        toast.success("Agent has been successfully deleted");
+      } else {
+        toast.error("Agent not found");
+      }
     } catch (error) {
-      toast.error(error);
+      console.log(error.message);
+      toast.error(error.message);
     }
   };
+
+  const openSelector = () => {
+    if (selectedData.length === 0) {
+      setShowSelect(!showSelect);
+    } else {
+      toast.error("Please Clear Selected");
+    }
+  };
+
+  const datahandler = (id) => {
+    if (selectedData.includes(id)) {
+      setSelectedData(selectedData.filter((item) => item !== id));
+    } else {
+      setSelectedData([...selectedData, id]);
+    }
+  };
+
+  const selectedAllHandler = () => {
+    setShowSelect(true);
+    setSelectedData(data.map((item) => item.id));
+  };
+  const deleteHandler = () => {
+    if (selectedData.length > 0) {
+      selectedData.map(async (item) => {
+        await deleteDoc(doc(database, "Agents", item.id));
+      });
+      toast.success("All selected Agents has been deleted succesfully");
+    } else {
+      toast.error("Please Selected data");
+    }
+  };
+
   return (
     <div>
       <div>
-        <h3>Manage Agents</h3>
+        <div className='manage-header'>
+          <h3>Manage Agents</h3>
+          <div className='manage-btn'>
+            {selectedData.length > 0 && (
+              <>
+                <button onClick={deleteHandler}>Delete Selected</button>
+                <button onClick={() => setSelectedData([])}>
+                  UnSelected All
+                </button>
+              </>
+            )}
+            <button onClick={openSelector}>
+              {showSelect ? "Close" : "Open to Select"}
+            </button>
+            <button onClick={selectedAllHandler}>Select All</button>
+          </div>
+        </div>
         <table id='customers'>
           <thead>
             <tr>
+              {showSelect && <th>Select</th>}
               <th>Name</th>
               <th>Email</th>
               <th>Password</th>
-              <th>Delete</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
             {data.map((item, index) => {
               return (
                 <tr key={index}>
+                  {showSelect && (
+                    <td>
+                      <input
+                        type='checkbox'
+                        onChange={() => datahandler(item.id)}
+                        checked={selectedData.includes(item.id)}
+                      />
+                    </td>
+                  )}
                   <td>{item.name}</td>
                   <td>{item.email}</td>
                   <td>{item.password}</td>
                   <td>
-                    <button onClick={() => deleteAgnet(item.email)}>
-                      Delete
-                    </button>
+                    <div className='manage-btn'>
+                      <button onClick={() => deleteAgnet(item.email)}>
+                        Delete Agent
+                      </button>
+                      <EditAgent
+                        docId={item.id}
+                        docName={item.name}
+                        docEmail={item.email}
+                        docPassword={item.password}
+                      />
+                      <ViewAgent
+                        docId={item.id}
+                        docName={item.name}
+                        docEmail={item.email}
+                        docPassword={item.password}
+                      />
+                    </div>
                   </td>
                 </tr>
               );

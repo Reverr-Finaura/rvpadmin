@@ -132,11 +132,22 @@ const NewChatSection = () => {
                     })`}
                   </p>
                   <label>
-                    <Toggle
-                      checked={toogle}
-                      icons={false}
-                      onChange={handleToggleChange}
-                    />
+                    <div className='chat-actions'>
+                      <p>
+                        <span
+                          style={{
+                            color: `${toogle ? "green" : "red"} `,
+                          }}
+                        >
+                          {toogle ? " Start Chat" : "End Chat"}
+                        </span>
+                      </p>
+                      <Toggle
+                        checked={toogle}
+                        icons={false}
+                        onChange={handleToggleChange}
+                      />
+                    </div>
                   </label>
                 </div>
                 <MsgView
@@ -151,9 +162,11 @@ const NewChatSection = () => {
                     onChange={(e) => setMessage(e.target.value)}
                     className='sendMessage'
                     onKeyUp={submit}
+                    disabled={!toogle}
                   />
                   <button
                     onClick={() => submit("Send")}
+                    disabled={!toogle}
                     style={{
                       backgroundColor: "green",
                       color: "white",
