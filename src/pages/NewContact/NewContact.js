@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../../components/NewContactComponents/Navbar";
 import style from "./newcontact.module.css";
 import Sidebar from "../../components/NewContactComponents/Sidebar";
@@ -13,13 +13,68 @@ import EditUser from "../../components/contactComponent/EditUser";
 import AddAgent from "../../components/contactComponent/AddAgent";
 import ManageAgent from "../../components/contactComponent/ManageAgent";
 import { useLocation } from "react-router-dom";
+import CommonNav from "../../components/commonNav/CommonNav";
+import { logout } from "../../redux/userSlice";
+import { auth } from "../../firebase/firebase";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const NewContact = () => {
   const [section, setSection] = useState(1);
   const location = useLocation();
   const isAgent = location.state?.isAgent || false;
+  const [agentName, setAgentName] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isAgent) {
+      // Fetch agent's name from Firebase
+      const fetchAgentName = async () => {
+        try {
+          const user = auth.currentUser;
+          if (user) {
+            const agentname = user.displayName;
+            console.log(agentname);
+            if (agentname) {
+              setAgentName(agentname);
+            }
+          }
+        } catch (error) {
+          // Handle any potential errors while fetching agent's name
+          console.error("Error fetching agent name:", error);
+        }
+      };
+
+      fetchAgentName();
+    }
+  }, [isAgent]);
+
+  const handleAgentLogout = () => {
+    auth
+      .signOut()
+      .then(() => {
+        dispatch(logout());
+      })
+      .then(() => {
+        navigate("/agentSignIn");
+      })
+      .catch((error) => {
+        console.error("Error signing out:", error);
+      });
+  };
+
+  const handleAdminLogout = () => {
+    dispatch(logout());
+    navigate("/");
+  };
+
   return (
     <>
+      <CommonNav
+        userName={agentName}
+        handleLogout={isAgent ? handleAgentLogout : handleAdminLogout}
+      />
       {!isAgent && <Navbar />}
       <div className={style.main}>
         <div className={style.left}>

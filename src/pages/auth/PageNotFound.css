@@ -1,0 +1,17 @@
+.new-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.back-btn {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  border-radius: 5px;
+
+  /* text-decoration: none; */
+  cursor: pointer;
+}

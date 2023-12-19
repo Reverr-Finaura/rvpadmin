@@ -42,7 +42,7 @@ const SignIn = () => {
   };
 
   const handleAgentLogin = () => {
-    navigate("/adminSignIn");
+    navigate("/agentSignIn");
   };
 
   return (
