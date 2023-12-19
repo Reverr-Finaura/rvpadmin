@@ -1,16 +1,26 @@
-import React from "react";
-import "./CommonNav.css"; // Import the CSS file
+import React, { useState } from "react";
+import style from "../NewContactComponents/style.module.css";
+import Notication from "../NewContactComponents/Notication";
 
-const CommonNav = ({ userName, handleLogout }) => {
+const CommonNav = ({ handleLogout }) => {
   // console.log(userName);
+  const [shownotification, setShowNotifications] = useState(false);
   return (
-    <div className="navContainer">
-      {" "}
-      {/* Use className for classes in React */}
-      {userName && <p>Welcome {userName}</p>}
-      <button className="logoutButton" onClick={handleLogout}>
-        Logout
-      </button>
+    <div className={style.nav}>
+      <div className={style.navCon}>
+        <button
+          className={style.notification}
+          onClick={() => setShowNotifications(!shownotification)}
+        >
+          Notification
+          {shownotification && (
+            <Notication
+              handleClose={() => setShowNotifications(!shownotification)}
+            />
+          )}
+        </button>
+        <button onClick={handleLogout}>Logout</button>
+      </div>
     </div>
   );
 };

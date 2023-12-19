@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 
 const ProtectedRoute = ({ children }) => {
   const user = useSelector((state) => state.user);
-  if (!user.user) {
+  if (!user) {
     return <Navigate to="/" replace />;
   }
 

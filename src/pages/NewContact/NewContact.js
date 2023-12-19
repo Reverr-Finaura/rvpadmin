@@ -23,45 +23,13 @@ const NewContact = () => {
   const [section, setSection] = useState(1);
   const location = useLocation();
   const isAgent = location.state?.isAgent || false;
-  const [agentName, setAgentName] = useState("");
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (isAgent) {
-      // Fetch agent's name from Firebase
-      const fetchAgentName = async () => {
-        try {
-          const user = auth.currentUser;
-          if (user) {
-            const agentname = user.displayName;
-            console.log(agentname);
-            if (agentname) {
-              setAgentName(agentname);
-            }
-          }
-        } catch (error) {
-          // Handle any potential errors while fetching agent's name
-          console.error("Error fetching agent name:", error);
-        }
-      };
-
-      fetchAgentName();
-    }
-  }, [isAgent]);
-
   const handleAgentLogout = () => {
-    auth
-      .signOut()
-      .then(() => {
-        dispatch(logout());
-      })
-      .then(() => {
-        navigate("/agentSignIn");
-      })
-      .catch((error) => {
-        console.error("Error signing out:", error);
-      });
+    dispatch(logout());
+    navigate("/agentSignIn");
   };
 
   const handleAdminLogout = () => {
@@ -71,17 +39,8 @@ const NewContact = () => {
 
   return (
     <>
-      {isAgent && (
-        <CommonNav
-          userName={agentName}
-          handleLogout={isAgent ? handleAgentLogout : handleAdminLogout}
-        />
-      )}
-      {!isAgent && (
-        <Navbar
-          handleLogout={isAgent ? handleAgentLogout : handleAdminLogout}
-        />
-      )}
+      {isAgent && <CommonNav handleLogout={handleAgentLogout} />}
+      {!isAgent && <Navbar handleLogout={handleAdminLogout} />}
       <div className={style.main}>
         <div className={style.left}>
           <Sidebar
