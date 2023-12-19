@@ -4,6 +4,7 @@ import { ToastContainer, toast } from "react-toastify";
 import {
   createUserWithEmailAndPassword,
   fetchSignInMethodsForEmail,
+  updateProfile,
 } from "firebase/auth";
 import { auth, database } from "../../firebase/firebase";
 import "./contactComp.css";
@@ -36,7 +37,14 @@ const AddAgent = () => {
     try {
       const existingUser = await fetchSignInMethodsForEmail(auth, email);
       if (existingUser.length === 0) {
-        await createUserWithEmailAndPassword(auth, email, password);
+        await createUserWithEmailAndPassword(auth, email, password).then(
+          (userCredential) => {
+            const user = userCredential.user;
+            updateProfile(user, {
+              displayName: name,
+            });
+          }
+        );
         await setDoc(doc(database, "Agents", data.email), { ...data });
         toast.success("User has been successfully added");
       } else {
@@ -55,34 +63,34 @@ const AddAgent = () => {
       <div>
         <h3>Add Agent Form</h3>
         <form onSubmit={submit}>
-          <div className='input-feilds'>
+          <div className="input-feilds">
             <label>Name</label>
             <input
-              type='type'
-              placeholder='Enter a Name'
+              type="type"
+              placeholder="Enter a Name"
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
           </div>
-          <div className='input-feilds'>
+          <div className="input-feilds">
             <label>Email</label>
             <input
-              type='email'
-              placeholder='Enter a Email'
+              type="email"
+              placeholder="Enter a Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
-          <div className='input-feilds'>
+          <div className="input-feilds">
             <label>Password</label>
             <input
-              type='password'
-              placeholder='Enter a password'
+              type="password"
+              placeholder="Enter a password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          <div className='input-feilds'>
+          <div className="input-feilds">
             <button disabled={loadings}>Add Agent</button>
           </div>
         </form>

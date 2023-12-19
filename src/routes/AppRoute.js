@@ -11,6 +11,7 @@ import UploadDocument from "../pages/Upload Document/UploadDocument";
 import UploadPPT from "../pages/Upload PPT/UploadPPT";
 import Webinar from "../pages/webinar/Webinar";
 import ProtectedRoute from "./ProtectedRoute";
+import PageNotFound from "../pages/auth/PageNotFound";
 
 const { Routes, Route } = require("react-router-dom");
 
@@ -18,7 +19,7 @@ const AppRoute = () => {
   return (
     <Routes>
       <Route path="/" element={<SignIn />} />
-      <Route path="/adminSignIn" element={<AgentSignIn />} />
+      <Route path="/agentSignIn" element={<AgentSignIn />} />
       <Route
         path="/dashboard"
         element={
@@ -99,6 +100,14 @@ const AppRoute = () => {
           </ProtectedRoute>
         }
       ></Route>
+      <Route
+        path="*"
+        element={
+          // <ProtectedRoute>
+          <PageNotFound />
+          // </ProtectedRoute>
+        }
+      />
     </Routes>
   );
 };
