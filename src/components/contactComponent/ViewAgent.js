@@ -2,6 +2,7 @@ import * as React from "react";
 import Dialog from "@mui/material/Dialog";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
+import { GrView } from "react-icons/gr";
 
 const ViewAgent = ({ docId, docName, docEmail, docPassword }) => {
   const [open, setOpen] = React.useState(false);
@@ -17,7 +18,7 @@ const ViewAgent = ({ docId, docName, docEmail, docPassword }) => {
   };
   return (
     <React.Fragment>
-      <button onClick={handleClickOpen}>View Agent</button>
+      <GrView onClick={handleClickOpen}></GrView>
       <Dialog
         fullScreen={fullScreen}
         open={open}

@@ -85,6 +85,7 @@ input {
 
 .message {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: start;
     background: rgba(255, 255, 255, 0.03);
@@ -98,7 +99,6 @@ input {
     gap: 10px;
     margin-left: 10px;
     margin-top: 5px;
-    padding: 8px;
 }
 
 .template {
@@ -253,4 +253,10 @@ p {
     max-width: auto;
     min-width: 480px;
     padding: 20px;
+    height: auto;
+}
+
+button {
+    width: 150px;
+    height: fit-content;
 }

@@ -1,11 +1,7 @@
 import { doc, setDoc } from "firebase/firestore";
 import React from "react";
 import { ToastContainer, toast } from "react-toastify";
-import {
-  createUserWithEmailAndPassword,
-  fetchSignInMethodsForEmail,
-  updateProfile,
-} from "firebase/auth";
+import { fetchSignInMethodsForEmail } from "firebase/auth";
 import { auth, database } from "../../firebase/firebase";
 import "./contactComp.css";
 

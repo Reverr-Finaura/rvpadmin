@@ -3,13 +3,10 @@ import Dialog from "@mui/material/Dialog";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import { toast } from "react-toastify";
-import { auth, database } from "../../firebase/firebase";
+import { database } from "../../firebase/firebase";
+import "./contactComp.css";
 import { doc, updateDoc } from "firebase/firestore";
-import {
-  fetchSignInMethodsForEmail,
-  updateEmail,
-  updatePassword,
-} from "firebase/auth";
+import { MdModeEdit } from "react-icons/md";
 
 const EditAgent = ({ docId, docName, docEmail, docPassword }) => {
   const [open, setOpen] = React.useState(false);
@@ -32,11 +29,10 @@ const EditAgent = ({ docId, docName, docEmail, docPassword }) => {
     setEmail("");
     setPassword("");
   };
-  const updateUserData = async (authuser, email, password, data, docId) => {
-    // await updateEmail(authuser, email);
-    // await updatePassword(authuser, password);
-    await updateDoc(doc(database, "Agents", docId), { ...data });
-  };
+  // const updateUserData = async (authuser, email, password, data, docId) => {
+  //   await updateEmail(authuser, email);
+  //   await updatePassword(authuser, password);
+  // };
   const submit = async (e) => {
     e.preventDefault();
     if (!name || !email || !password) {
@@ -51,14 +47,15 @@ const EditAgent = ({ docId, docName, docEmail, docPassword }) => {
       isAgent: true,
     };
     try {
-      const existingUser = await fetchSignInMethodsForEmail(auth, email);
-      if (existingUser.length === 1) {
-        const authuser = auth.currentUser;
-        await updateUserData(authuser, email, password, data, docId);
-        toast.success("User has been successfully added");
-      } else {
-        toast.error(`User ${email} already exists`);
-      }
+      await updateDoc(doc(database, "Agents", docId), { ...data });
+      // const existingUser = await fetchSignInMethodsForEmail(auth, email);
+      // if (existingUser.length === 1) {
+      //   const authuser = auth.currentUser;
+      //   await updateUserData(authuser, email, password, data, docId);
+      // } else {
+      //   toast.error(`User ${email} already exists`);
+      // }
+      toast.success("User has been successfully added");
       setLoadings(false);
       reset();
     } catch (error) {
@@ -69,7 +66,7 @@ const EditAgent = ({ docId, docName, docEmail, docPassword }) => {
 
   return (
     <React.Fragment>
-      <button onClick={handleClickOpen}>Edit Agent</button>
+      <MdModeEdit onClick={handleClickOpen}></MdModeEdit>
       <Dialog
         fullScreen={fullScreen}
         open={open}

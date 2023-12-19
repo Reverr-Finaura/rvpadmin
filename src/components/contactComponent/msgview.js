@@ -3,6 +3,7 @@ import { database } from "../../firebase/firebase";
 import "./contactComp.css";
 import "react-toggle/style.css";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
+import moment from "moment";
 
 const MsgView = ({
   currMessages,
@@ -10,10 +11,8 @@ const MsgView = ({
   setSelectedData,
   selectedData,
 }) => {
-  console.log(currMessages);
   const Messagesref = collection(database, "WhatsappMessages");
   const ref = useRef(null);
-
   useEffect(() => {
     if (currMessages && currMessages.length) {
       ref.current?.scrollIntoView({
@@ -31,7 +30,6 @@ const MsgView = ({
     const unsubscribe = onSnapshot(messageQuery, (snapshot) => {
       var msgs = [];
       snapshot.forEach((doc) => {
-        console.log(doc.data());
         msgs = doc.data().messages;
 
         setSelectedData({ ...doc.data(), id: doc.id });
@@ -46,6 +44,13 @@ const MsgView = ({
       {currMessages &&
         currMessages.length !== 0 &&
         currMessages.map((item, index) => {
+          const date =
+            new Date(
+              item.date.seconds * 1000 + item.date.nanoseconds / 1e6
+            ).toString() ||
+            new Date(
+              item.date._seconds * 1000 + item.date._nanoseconds / 1e6
+            ).toString();
           return (
             <div ref={ref} key={index}>
               {item.usermessage === null ? (
@@ -68,10 +73,11 @@ const MsgView = ({
                         <p>{item?.message?.template?.name}</p>
                       </div>
                     )}
+                    <p>{moment(date).format("LLL")}</p>
                   </div>
                 </div>
               ) : (
-                <>
+                <div>
                   <div
                     style={{
                       display: "flex",
@@ -96,10 +102,11 @@ const MsgView = ({
                           style={{ backgroundColor: "grey" }}
                         >
                           <p>{item.message.text.body}</p>
+                          <p>{moment(date).format("LLL")}</p>
                         </div>
                       </div>
                     )}
-                </>
+                </div>
               )}
             </div>
           );

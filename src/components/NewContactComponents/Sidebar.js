@@ -2,7 +2,7 @@ import React from "react";
 import style from "./style.module.css";
 import { useLocation } from "react-router-dom";
 
-const Sidebar = ({ section, setSection }) => {
+const Sidebar = ({ section, setSection, handleLogout }) => {
   const location = useLocation();
   const isAgent = location.state?.isAgent || false;
   return (

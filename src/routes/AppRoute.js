@@ -1,6 +1,5 @@
 import SignIn from "../pages/auth/SignIn";
 import AgentSignIn from "../pages/auth/AgentSignIn";
-import Contact from "../pages/contact/Contact";
 import CreateDeal from "../pages/createDeal/CreateDeal";
 import Dashboard from "../pages/dashboard/Dashboard";
 import Mentor from "../pages/mentordetails/Mentor";
@@ -18,10 +17,10 @@ const { Routes, Route } = require("react-router-dom");
 const AppRoute = () => {
   return (
     <Routes>
-      <Route path="/" element={<SignIn />} />
-      <Route path="/agentSignIn" element={<AgentSignIn />} />
+      <Route path='/' element={<SignIn />} />
+      <Route path='/agentSignIn' element={<AgentSignIn />} />
       <Route
-        path="/dashboard"
+        path='/dashboard'
         element={
           <ProtectedRoute>
             <Dashboard />
@@ -29,7 +28,7 @@ const AppRoute = () => {
         }
       />
       <Route
-        path="/update-mentor"
+        path='/update-mentor'
         element={
           <ProtectedRoute>
             <Mentor />
@@ -37,7 +36,7 @@ const AppRoute = () => {
         }
       />
       <Route
-        path="/view-mentors"
+        path='/view-mentors'
         element={
           <ProtectedRoute>
             <ViewMentors />
@@ -45,7 +44,7 @@ const AppRoute = () => {
         }
       />
       <Route
-        path="/webinar"
+        path='/webinar'
         element={
           <ProtectedRoute>
             <Webinar />
@@ -53,7 +52,7 @@ const AppRoute = () => {
         }
       />
       <Route
-        path="/create-deal"
+        path='/create-deal'
         element={
           <ProtectedRoute>
             <CreateDeal />
@@ -61,7 +60,7 @@ const AppRoute = () => {
         }
       />
       <Route
-        path="/pptTemplate"
+        path='/pptTemplate'
         element={
           <ProtectedRoute>
             <UploadPPT />
@@ -69,7 +68,7 @@ const AppRoute = () => {
         }
       />
       <Route
-        path="/documentTemplate"
+        path='/documentTemplate'
         element={
           <ProtectedRoute>
             <UploadDocument />
@@ -77,23 +76,15 @@ const AppRoute = () => {
         }
       ></Route>
       <Route
-        path="/uploadBlogs"
+        path='/uploadBlogs'
         element={
           <ProtectedRoute>
             <UploadBlogs />
           </ProtectedRoute>
         }
       ></Route>
-      {/* <Route
-        path='/contact'
-        element={
-          <ProtectedRoute>
-            <Contact />
-          </ProtectedRoute>
-        }
-      ></Route> */}
       <Route
-        path="/contact2"
+        path='/contact2'
         element={
           <ProtectedRoute>
             <NewContact />
@@ -101,7 +92,7 @@ const AppRoute = () => {
         }
       ></Route>
       <Route
-        path="*"
+        path='*'
         element={
           // <ProtectedRoute>
           <PageNotFound />

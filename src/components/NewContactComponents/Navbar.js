@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import style from "./style.module.css";
+import Notication from "./Notication";
 
-const Navbar = () => {
+const Navbar = ({ handleLogout }) => {
+  const [shownotification, setShowNotifications] = useState(false);
   return (
     <div className={style.nav}>
       <div className={style.navCon}>
@@ -30,6 +32,18 @@ const Navbar = () => {
         <NavLink to='/contact2' style={{ textDecoration: "none" }}>
           <p className={style.paranv}>WhatsApp CRM</p>
         </NavLink>
+        <button
+          className={style.notification}
+          onClick={() => setShowNotifications(!shownotification)}
+        >
+          Notification
+          {shownotification && (
+            <Notication
+              handleClose={() => setShowNotifications(!shownotification)}
+            />
+          )}
+        </button>
+        <button onClick={handleLogout}>Logout</button>
       </div>
     </div>
   );

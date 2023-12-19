@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "./contactComp.css";
-import { auth, database, getAllAgents } from "../../firebase/firebase";
+import { database, getAllAgents } from "../../firebase/firebase";
 import { deleteDoc, doc, getDoc } from "firebase/firestore";
 import { ToastContainer, toast } from "react-toastify";
-import { deleteUser } from "firebase/auth";
 import EditAgent from "./EditAgent";
 import ViewAgent from "./ViewAgent";
+import { MdDelete } from "react-icons/md";
 
 const ManageAgent = () => {
   const [data, setdata] = useState([]);
@@ -31,9 +31,7 @@ const ManageAgent = () => {
       const agentDoc = await getDoc(agentRef);
       const agentData = agentDoc.data();
       if (agentData) {
-        // const authuser = auth.currentUser;
         await deleteDoc(agentRef);
-        // await deleteUser(authuser);
         setdata((prevData) => prevData.filter((item) => item.email !== email));
         toast.success("Agent has been successfully deleted");
       } else {
@@ -124,9 +122,9 @@ const ManageAgent = () => {
                   <td>{item.password}</td>
                   <td>
                     <div className='manage-btn'>
-                      <button onClick={() => deleteAgnet(item.email)}>
-                        Delete Agent
-                      </button>
+                      <MdDelete
+                        onClick={() => deleteAgnet(item.email)}
+                      ></MdDelete>
                       <EditAgent
                         docId={item.id}
                         docName={item.name}

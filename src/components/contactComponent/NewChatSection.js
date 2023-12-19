@@ -4,6 +4,7 @@ import { database, getMessage } from "../../firebase/firebase";
 import MsgView from "./msgview";
 import { doc, updateDoc } from "firebase/firestore";
 import Toggle from "react-toggle";
+import ChatAssignedModal from "./ChatAssignedModal";
 
 const NewChatSection = () => {
   const [users, setUsers] = useState([]);
@@ -36,7 +37,7 @@ const NewChatSection = () => {
         countryCode: selectedData.id.slice(0, -10),
         number: selectedData.id.slice(-10),
       };
-      console.log(data);
+      // console.log(data);
       if (selectedData) {
         const res = await fetch("https://server.reverr.io/sendwacustommsg", {
           method: "POST",
@@ -123,14 +124,17 @@ const NewChatSection = () => {
             {selectedData !== null ? (
               <>
                 <div className='cat-bodyuper'>
-                  <p>
-                    {selectedData.name ? ` ${selectedData.name}  ` : ""}
-                    {`(+${
-                      selectedData.id.slice(0, -10) +
-                      "-" +
-                      selectedData.id.slice(-10)
-                    })`}
-                  </p>
+                  <div className='chat-actions'>
+                    <p>
+                      {selectedData.name ? ` ${selectedData.name}  ` : ""}
+                      {`(+${
+                        selectedData.id.slice(0, -10) +
+                        "-" +
+                        selectedData.id.slice(-10)
+                      })`}
+                    </p>
+                    <ChatAssignedModal selectedChat={selectedData} />
+                  </div>
                   <label>
                     <div className='chat-actions'>
                       <p>
