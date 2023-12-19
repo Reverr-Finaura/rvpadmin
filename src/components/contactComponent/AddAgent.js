@@ -25,6 +25,10 @@ const AddAgent = () => {
       toast.error("Fill all fields");
       return;
     }
+    if (password.length <= 6) {
+      toast.error("Password must be at least 6 characters");
+      return;
+    }
     setLoadings(true);
     const data = {
       name: name,
@@ -36,7 +40,7 @@ const AddAgent = () => {
     try {
       const existingUser = await fetchSignInMethodsForEmail(auth, email);
       if (existingUser.length === 0) {
-        await createUserWithEmailAndPassword(auth, email, password);
+        // await createUserWithEmailAndPassword(auth, email, password);
         await setDoc(doc(database, "Agents", data.email), { ...data });
         toast.success("User has been successfully added");
       } else {

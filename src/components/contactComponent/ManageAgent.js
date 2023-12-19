@@ -25,16 +25,15 @@ const ManageAgent = () => {
     };
     getAgents();
   }, []);
-
   const deleteAgnet = async (email) => {
     try {
       const agentRef = doc(database, "Agents", email);
       const agentDoc = await getDoc(agentRef);
       const agentData = agentDoc.data();
       if (agentData) {
-        const authuser = auth.currentUser;
+        // const authuser = auth.currentUser;
         await deleteDoc(agentRef);
-        await deleteUser(authuser);
+        // await deleteUser(authuser);
         setdata((prevData) => prevData.filter((item) => item.email !== email));
         toast.success("Agent has been successfully deleted");
       } else {

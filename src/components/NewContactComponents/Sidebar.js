@@ -88,7 +88,7 @@ const Sidebar = ({ section, setSection }) => {
             }}
             className={style.optionitem}
           >
-            Add Agent
+            Create Agent
           </p>
         )}
         {!isAgent && (

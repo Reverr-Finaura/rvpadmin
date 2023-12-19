@@ -33,8 +33,8 @@ const EditAgent = ({ docId, docName, docEmail, docPassword }) => {
     setPassword("");
   };
   const updateUserData = async (authuser, email, password, data, docId) => {
-    await updateEmail(authuser, email);
-    await updatePassword(authuser, password);
+    // await updateEmail(authuser, email);
+    // await updatePassword(authuser, password);
     await updateDoc(doc(database, "Agents", docId), { ...data });
   };
   const submit = async (e) => {
