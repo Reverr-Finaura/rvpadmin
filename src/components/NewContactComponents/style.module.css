@@ -35,6 +35,10 @@
     flex-direction: column;
 }
 
+.sidemainmenu>p {
+    width: 90%;
+}
+
 .optionitem {
     padding: 5px;
     border-radius: 8px;
@@ -43,30 +47,8 @@
     cursor: pointer;
 }
 
-.notification {
-    position: relative;
-    z-index: 999 !important;
-}
-
-.notificationbox {
-    top: 50px;
-    right: 0;
-    position: absolute;
-    width: 400px;
-    height: 500px;
-    background: rgba(255, 255, 255, 0.86);
-    border-radius: 16px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.94);
-    z-index: 999 !important;
-    padding: 20px;
-    overflow-y: scroll;
-
-}
-
 .notificationheader {
+    padding: 10px;
     display: flex;
     justify-content: space-between;
 }
@@ -78,9 +60,12 @@
 }
 
 .notifybox {
-    background-color: grey;
-    padding: 10px;
-    border-radius: 10px;
+    padding: 20px !important;
+    display: flex;
+    flex-direction: column;
+    padding: 10px !important;
+    border-radius: 10px !important;
+    border: 2px solid green !important;
 }
 
 .info {

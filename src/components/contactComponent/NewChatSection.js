@@ -5,8 +5,11 @@ import MsgView from "./msgview";
 import { doc, updateDoc } from "firebase/firestore";
 import Toggle from "react-toggle";
 import ChatAssignedModal from "./ChatAssignedModal";
+import { ToastContainer } from "react-toastify";
+import { useSelector } from "react-redux";
 
 const NewChatSection = () => {
+  const user = useSelector((state) => state.user.user);
   const [users, setUsers] = useState([]);
   const [message, setMessage] = useState("");
   const [selectedData, setSelectedData] = useState(null);
@@ -37,7 +40,6 @@ const NewChatSection = () => {
         countryCode: selectedData.id.slice(0, -10),
         number: selectedData.id.slice(-10),
       };
-      // console.log(data);
       if (selectedData) {
         const res = await fetch("https://server.reverr.io/sendwacustommsg", {
           method: "POST",
@@ -86,6 +88,7 @@ const NewChatSection = () => {
 
   return (
     <>
+      <ToastContainer />
       <h3>User Chat Section</h3>
       <div className='newChat-wrapper'>
         <div className='new-chat-box'>
@@ -125,34 +128,42 @@ const NewChatSection = () => {
               <>
                 <div className='cat-bodyuper'>
                   <div className='chat-actions'>
-                    <p>
-                      {selectedData.name ? ` ${selectedData.name}  ` : ""}
-                      {`(+${
-                        selectedData.id.slice(0, -10) +
-                        "-" +
-                        selectedData.id.slice(-10)
-                      })`}
-                    </p>
-                    <ChatAssignedModal selectedChat={selectedData} />
-                  </div>
-                  <label>
-                    <div className='chat-actions'>
-                      <p>
-                        <span
-                          style={{
-                            color: `${toogle ? "green" : "red"} `,
-                          }}
-                        >
-                          {toogle ? " Start Chat" : "End Chat"}
-                        </span>
+                    <div>
+                      <p style={{ width: "100%", margin: 0 }}>
+                        {selectedData.name ? ` ${selectedData.name}  ` : ""}
                       </p>
-                      <Toggle
-                        checked={toogle}
-                        icons={false}
-                        onChange={handleToggleChange}
-                      />
+                      <span style={{ fontSize: "12px" }}>
+                        {`(+${
+                          selectedData.id.slice(0, -10) +
+                          "-" +
+                          selectedData.id.slice(-10)
+                        })`}
+                      </span>
                     </div>
-                  </label>
+                    {user.isAdmin && (
+                      <ChatAssignedModal
+                        selectedChatId={selectedData.id}
+                        selectedChatName={selectedData.name}
+                        selectedChatAssigned={selectedData.chatAssigned}
+                      />
+                    )}
+                  </div>
+                  <div className='chat-actions'>
+                    <p>
+                      <span
+                        style={{
+                          color: `${toogle ? "green" : "red"} `,
+                        }}
+                      >
+                        {toogle ? " Start Chat" : "End Chat"}
+                      </span>
+                    </p>
+                    <Toggle
+                      checked={toogle}
+                      icons={false}
+                      onChange={handleToggleChange}
+                    />
+                  </div>
                 </div>
                 <MsgView
                   currMessages={currMessages}

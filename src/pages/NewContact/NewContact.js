@@ -15,13 +15,13 @@ import ManageAgent from "../../components/contactComponent/ManageAgent";
 import { useLocation } from "react-router-dom";
 import CommonNav from "../../components/commonNav/CommonNav";
 import { logout } from "../../redux/userSlice";
-import { auth } from "../../firebase/firebase";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const NewContact = () => {
   const [section, setSection] = useState(1);
   const location = useLocation();
+  const user = useSelector((state) => state.user.user);
   const isAgent = location.state?.isAgent || false;
 
   const dispatch = useDispatch();
@@ -39,15 +39,11 @@ const NewContact = () => {
 
   return (
     <>
-      {isAgent && <CommonNav handleLogout={handleAgentLogout} />}
-      {!isAgent && <Navbar handleLogout={handleAdminLogout} />}
+      {user.isAgent && <CommonNav handleLogout={handleAgentLogout} />}
+      {user.isAdmin && <Navbar handleLogout={handleAdminLogout} />}
       <div className={style.main}>
         <div className={style.left}>
-          <Sidebar
-            section={section}
-            setSection={setSection}
-            handleLogout={isAgent ? handleAgentLogout : handleAdminLogout}
-          />
+          <Sidebar section={section} setSection={setSection} />
         </div>
         <div className={style.right}>
           {section === 1 && <MsgToUser />}

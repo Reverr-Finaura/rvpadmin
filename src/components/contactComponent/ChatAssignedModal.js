@@ -6,24 +6,41 @@ import { database, getAllAgents } from "../../firebase/firebase";
 import { toast } from "react-toastify";
 import Select from "react-select";
 import "./contactComp.css";
-import { arrayUnion, doc, getDoc, updateDoc } from "firebase/firestore";
+import { arrayUnion, doc, getDoc, writeBatch } from "firebase/firestore";
+import { useSelector } from "react-redux";
 
-const ChatAssignedModal = ({ selectedChat }) => {
-  const [open, setOpen] = React.useState(false);
+const ChatAssignedModal = ({
+  selectedChatId,
+  selectedChatName,
+  selectedChatAssigned,
+}) => {
+  const user = useSelector((state) => state.user.user);
+  const [open, setOpen] = useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
+  const [agentslist, setAgentslist] = useState([]);
+  const assignedTo = selectedChatAssigned?.assignedTo || {};
+  const [selectedData, setSelectedData] = useState({
+    name: assignedTo.name || " ",
+    email: assignedTo.email || " ",
+  });
+  const [isAlreadyAssigned, setIsAlreadyAssigned] = useState(
+    !!selectedChatAssigned?.isAssigned
+  );
+  const handleSelectChange = (selectedOptions) => {
+    setSelectedData(selectedOptions);
+  };
+
   const handleClickOpen = () => {
     setOpen(true);
   };
 
   const handleClose = () => {
     setOpen(false);
+    setSelectedData("");
+    setIsAlreadyAssigned(!!selectedChatAssigned?.isAssigned);
   };
-  const [agentslist, setAgentslist] = useState([]);
-  const [selectedData, setSelectedData] = useState("");
-  const handleSelectChange = (selectedOptions) => {
-    setSelectedData(selectedOptions);
-  };
+
   useEffect(() => {
     const getAgents = async () => {
       try {
@@ -35,53 +52,78 @@ const ChatAssignedModal = ({ selectedChat }) => {
         toast.error(error);
       }
     };
+
     getAgents();
   }, []);
-  let dummy = "ashutoshagent@gmail.com";
-  let isAdmin = true;
-  const assignHandleer = async (e) => {
+  const assignHandler = async (e) => {
     e.preventDefault();
-    const chatRef = doc(database, "WhatsappMessages", selectedChat.id);
+
+    if (!user.isAdmin) {
+      toast.error("You're not an Admin");
+      setSelectedData("");
+      handleClose();
+      return;
+    }
+
+    const agentsDocRef = doc(database, "Agents", selectedData.email);
+    const chatDocRef = doc(database, "WhatsappMessages", selectedChatId);
+
     const data = {
-      number: selectedChat.id,
-      chatRef: chatRef,
+      number: selectedChatId,
+      chatRef: chatDocRef,
     };
+
     const notifyData = {
-      text: `${selectedChat.name} ${selectedChat.id} Chat is assigned to ${dummy}`,
+      text: `${selectedChatName} (${selectedChatId}) Chat is assigned to you`,
       chatInfo: data,
-      path: "admin.reverr/contact",
+      path: "admin.reverr.io/contact2",
       timestamp: new Date(),
       read: false,
     };
-    if (isAdmin) {
-      try {
-        const agentsDocumentRef = doc(database, "Agents", dummy);
-        const agentsDocumentSnapshot = await getDoc(agentsDocumentRef);
 
-        if (agentsDocumentSnapshot.exists()) {
-          const assignedDoc = agentsDocumentSnapshot.data();
-          const isDataAssigned = assignedDoc.assignedChats
-            ? assignedDoc.assignedChats.some(
-                (chat) => chat.number === data.number
-              )
-            : false;
+    const chatAssigned = {
+      isAssigned: true,
+      assignedTo: selectedData,
+    };
+    try {
+      const [agentsDocumentSnapshot, chatDocumentSnapshot] = await Promise.all([
+        getDoc(agentsDocRef),
+        getDoc(chatDocRef),
+      ]);
 
-          if (!isDataAssigned) {
-            await updateDoc(agentsDocumentRef, {
-              assignedChats: arrayUnion(data),
-              notification: arrayUnion(notifyData),
-            });
-          }
-        } else {
-          console.error("Agents document does not exist");
+      if (agentsDocumentSnapshot.exists() && chatDocumentSnapshot.exists()) {
+        const assignedDoc = agentsDocumentSnapshot.data();
+        const chatDoc = chatDocumentSnapshot.data();
+
+        const isDataAssigned = (assignedDoc.assignedChats || []).some(
+          (chat) => chat.number === data.number
+        );
+        const isAssigned = (chatDoc.chatAssigned || {}).isAssigned || false;
+
+        if (!isDataAssigned && !isAssigned) {
+          const batch = writeBatch(database);
+
+          batch.update(agentsDocRef, {
+            assignedChats: arrayUnion(data),
+            notification: arrayUnion(notifyData),
+          });
+
+          batch.update(chatDocRef, {
+            chatAssigned: chatAssigned,
+          });
+
+          await batch.commit();
         }
-      } catch (error) {
-        console.error("Error updating assignedChat document:", error);
+        toast.success("Successfully assigned");
+      } else {
+        toast.error("Agents document does not exist");
       }
-    } else {
-      toast.error("Your not a Admin");
+    } catch (error) {
+      console.error("Error updating assignedChat document:", error);
     }
+
     setSelectedData("");
+    setIsAlreadyAssigned(false);
     handleClose();
   };
 
@@ -93,33 +135,48 @@ const ChatAssignedModal = ({ selectedChat }) => {
         open={open}
         aria-labelledby='responsive-dialog-title'
       >
-        <div className='edit-fotm'>
-          <div className='manage-header'>
-            <h3>Add Agent Form</h3>
-            <button onClick={handleClose}>Close</button>
+        {isAlreadyAssigned ? (
+          <div className='edit-fotm '>
+            <div className='manage-header'>
+              <h3>Agent that Assigned</h3>
+              <button onClick={handleClose}>Close</button>
+            </div>
+            <div>
+              <p>Already Assigned</p>
+              <button onClick={() => setIsAlreadyAssigned(false)}>
+                Change Assigned Agnet
+              </button>
+            </div>
           </div>
-          <form onSubmit={assignHandleer}>
-            <div className='input-feilds'>
-              <label>Select user</label>
-              <Select
-                isClearable
-                className='basic-single'
-                classNamePrefix='select'
-                name='edituser'
-                options={agentslist}
-                onChange={handleSelectChange}
-                value={selectedData}
-                getOptionLabel={(option) =>
-                  option.name ? ` ${option.name}` : ""
-                }
-                getOptionValue={(option) => option.email}
-              />
+        ) : (
+          <div className='edit-fotm'>
+            <div className='manage-header'>
+              <h3>Add Agent Form</h3>
+              <button onClick={handleClose}>Close</button>
             </div>
-            <div className='input-feilds'>
-              <button>Assigned</button>
-            </div>
-          </form>
-        </div>
+            <form onSubmit={assignHandler}>
+              <div className='input-feilds'>
+                <label>Select user</label>
+                <Select
+                  isClearable
+                  className='basic-single'
+                  classNamePrefix='select'
+                  name='edituser'
+                  options={agentslist}
+                  onChange={handleSelectChange}
+                  value={selectedData}
+                  getOptionLabel={(option) =>
+                    option.name ? ` ${option.name}` : ""
+                  }
+                  getOptionValue={(option) => option.email}
+                />
+              </div>
+              <div className='input-feilds'>
+                <button>Assigned</button>
+              </div>
+            </form>
+          </div>
+        )}
       </Dialog>
     </React.Fragment>
   );

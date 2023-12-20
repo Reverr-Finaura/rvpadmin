@@ -69,7 +69,7 @@ input {
     width: 100%;
     overflow-x: hidden;
     overflow-y: scroll;
-    height: calc(100% - 120px);
+    height: calc(100% - 102px);
 }
 
 .chat-btn {
@@ -120,14 +120,16 @@ p {
 }
 
 .newChat-wrapper {
-    margin-top: 20px;
+    margin-top: 10px;
     width: 95%;
+    height: 90%;
     border: 1px solid black;
 }
 
 .new-chat-box {
     display: flex;
-    height: 70vh;
+    /* height: 78vh; */
+    height: 100%;
 }
 
 .chatlist {
@@ -192,12 +194,11 @@ p {
 .cat-bodyuper {
     position: sticky;
     top: 0;
-    width: 95%;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 0.3);
-    padding: 10px 0;
+    padding: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -259,4 +260,10 @@ p {
 button {
     width: 150px;
     height: fit-content;
+}
+
+.already {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }

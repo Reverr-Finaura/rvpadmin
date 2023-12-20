@@ -3,8 +3,8 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../redux/userSlice";
 import { ToastContainer, toast } from "react-toastify";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth, getAllAgents } from "../../firebase/firebase";
+// import { signInWithEmailAndPassword } from "firebase/auth";
+import { getAllAgents } from "../../firebase/firebase";
 import "react-toastify/dist/ReactToastify.css";
 import "./signin.css";
 
@@ -32,8 +32,8 @@ const AgentSignIn = () => {
         (data) => data.email === email && data.password === password
       );
       if (filteredAgents.length) {
-        dispatch(login(email));
-        navigate("/contact2", { state: { isAgent: true } });
+        dispatch(login({ email, isAdmin: false, isAgent: true }));
+        navigate("/contact");
       } else {
         toast.error("Please enter a valid email or password !", {
           autoClose: 2000,
@@ -50,25 +50,25 @@ const AgentSignIn = () => {
 
   return (
     <>
-      <div className="SignIn_MainContainer">
+      <div className='SignIn_MainContainer'>
         <h1 style={{ color: "grey" }}>Agent</h1>
-        <div className="SignIn_Container">
+        <div className='SignIn_Container'>
           <p>SignIn</p>
           <input
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="Email"
+            placeholder='Email'
             value={email}
           />
           <input
-            type="password"
+            type='password'
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="Password"
+            placeholder='Password'
             value={password}
           />
-          <button onClick={checkEmailandPassword} className="SingIn_Btn">
+          <button onClick={checkEmailandPassword} className='SingIn_Btn'>
             Sign In
           </button>
-          <p className="admin_login_click" onClick={handleAdminLogin}>
+          <p className='admin_login_click' onClick={handleAdminLogin}>
             for Admin SignIn
           </p>
         </div>

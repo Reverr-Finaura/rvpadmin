@@ -1,13 +1,18 @@
 import { Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-const ProtectedRoute = ({ children }) => {
+export const AdminProtectRoutes = ({ children }) => {
   const user = useSelector((state) => state.user);
-  if (!user) {
-    return <Navigate to="/" replace />;
+  if (user) {
+    const admin = user.user.isAdmin;
+    return admin ? children : <Navigate to='/' />;
   }
-
-  return children;
 };
 
-export default ProtectedRoute;
+export const AgentProtectRoutes = ({ children }) => {
+  const user = useSelector((state) => state.user);
+  if (user) {
+    const admin = user.user.isAdmin || user.user.isAgent;
+    return admin ? children : <Navigate to='/' />;
+  }
+};

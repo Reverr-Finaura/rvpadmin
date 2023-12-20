@@ -11,3 +11,18 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.css-1rtlhx5-control {
+  position: static !important;
+}
+
+
+.css-6hp17o-MuiList-root-MuiMenu-list {
+  padding: 20px !important;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}

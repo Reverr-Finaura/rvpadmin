@@ -24,6 +24,13 @@ const EditUser = () => {
   const handleSelectChange = (selectedOptions) => {
     setSelectedData(selectedOptions);
   };
+  const customStyles = {
+    control: (provided, state) => ({
+      ...provided,
+      zIndex: "unset",
+    }),
+  };
+
   return (
     <div className='form-container'>
       <h3>Edit the user</h3>
@@ -34,6 +41,7 @@ const EditUser = () => {
             isClearable
             className='basic-single'
             classNamePrefix='select'
+            style={{ position: "static" }}
             name='edituser'
             options={users}
             onChange={handleSelectChange}
@@ -42,6 +50,7 @@ const EditUser = () => {
               `+` + option.id + (option.name ? ` (${option.name})` : "")
             }
             getOptionValue={(option) => option.id}
+            styles={customStyles} // Apply the custom styles here
           />
         </div>
       </div>

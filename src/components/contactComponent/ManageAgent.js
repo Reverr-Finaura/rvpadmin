@@ -98,6 +98,7 @@ const ManageAgent = () => {
           <thead>
             <tr>
               {showSelect && <th>Select</th>}
+              <th>S.No</th>
               <th>Name</th>
               <th>Email</th>
               <th>Password</th>
@@ -117,6 +118,7 @@ const ManageAgent = () => {
                       />
                     </td>
                   )}
+                  <td>{index + 1}</td>
                   <td>{item.name}</td>
                   <td>{item.email}</td>
                   <td>{item.password}</td>

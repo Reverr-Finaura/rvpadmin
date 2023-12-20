@@ -29,10 +29,7 @@ const EditAgent = ({ docId, docName, docEmail, docPassword }) => {
     setEmail("");
     setPassword("");
   };
-  // const updateUserData = async (authuser, email, password, data, docId) => {
-  //   await updateEmail(authuser, email);
-  //   await updatePassword(authuser, password);
-  // };
+
   const submit = async (e) => {
     e.preventDefault();
     if (!name || !email || !password) {
@@ -48,13 +45,6 @@ const EditAgent = ({ docId, docName, docEmail, docPassword }) => {
     };
     try {
       await updateDoc(doc(database, "Agents", docId), { ...data });
-      // const existingUser = await fetchSignInMethodsForEmail(auth, email);
-      // if (existingUser.length === 1) {
-      //   const authuser = auth.currentUser;
-      //   await updateUserData(authuser, email, password, data, docId);
-      // } else {
-      //   toast.error(`User ${email} already exists`);
-      // }
       toast.success("User has been successfully added");
       setLoadings(false);
       reset();

@@ -6,12 +6,12 @@
 }
 
 .left {
-    width: 200px;
+    width: 220px;
     height: 100%;
     border: 1px solid black;
 }
 
 .right {
-    width: calc(100% - 200px);
-    padding: 20px;
+    width: calc(100% - 220px);
+    padding: 20px 20px 0 20px;
 }

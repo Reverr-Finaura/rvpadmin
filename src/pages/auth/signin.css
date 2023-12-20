@@ -20,8 +20,8 @@
 
 .SignIn_Container input,
 p {
-  /* width: 100%; */
-  width: 80%;
+  width: 100%;
+  /* width: 80%; */
   margin: 0.5rem;
 }
 
@@ -30,6 +30,7 @@ p {
   font-size: large;
   font-weight: 300;
 }
+
 .SignIn_Container input,
 .SingIn_Btn {
   border: 1px solid grey;
@@ -44,6 +45,7 @@ p {
   font-weight: 300;
   border: 1px solid grey;
 }
+
 .admin_login_click {
   cursor: pointer;
   text-decoration: underline;

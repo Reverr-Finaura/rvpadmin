@@ -9,8 +9,8 @@ import UploadBlogs from "../pages/Upload Blogs/UploadBlogs";
 import UploadDocument from "../pages/Upload Document/UploadDocument";
 import UploadPPT from "../pages/Upload PPT/UploadPPT";
 import Webinar from "../pages/webinar/Webinar";
-import ProtectedRoute from "./ProtectedRoute";
-import PageNotFound from "../pages/auth/PageNotFound";
+import { Navigate } from "react-router-dom";
+import { AdminProtectRoutes, AgentProtectRoutes } from "./ProtectedRoute";
 
 const { Routes, Route } = require("react-router-dom");
 
@@ -22,83 +22,76 @@ const AppRoute = () => {
       <Route
         path='/dashboard'
         element={
-          <ProtectedRoute>
+          <AdminProtectRoutes>
             <Dashboard />
-          </ProtectedRoute>
+          </AdminProtectRoutes>
         }
       />
       <Route
         path='/update-mentor'
         element={
-          <ProtectedRoute>
+          <AdminProtectRoutes>
             <Mentor />
-          </ProtectedRoute>
+          </AdminProtectRoutes>
         }
       />
       <Route
         path='/view-mentors'
         element={
-          <ProtectedRoute>
+          <AdminProtectRoutes>
             <ViewMentors />
-          </ProtectedRoute>
+          </AdminProtectRoutes>
         }
       />
       <Route
         path='/webinar'
         element={
-          <ProtectedRoute>
+          <AdminProtectRoutes>
             <Webinar />
-          </ProtectedRoute>
+          </AdminProtectRoutes>
         }
       />
       <Route
         path='/create-deal'
         element={
-          <ProtectedRoute>
+          <AdminProtectRoutes>
             <CreateDeal />
-          </ProtectedRoute>
+          </AdminProtectRoutes>
         }
       />
       <Route
         path='/pptTemplate'
         element={
-          <ProtectedRoute>
+          <AdminProtectRoutes>
             <UploadPPT />
-          </ProtectedRoute>
+          </AdminProtectRoutes>
         }
       />
       <Route
         path='/documentTemplate'
         element={
-          <ProtectedRoute>
+          <AdminProtectRoutes>
             <UploadDocument />
-          </ProtectedRoute>
+          </AdminProtectRoutes>
         }
       ></Route>
       <Route
         path='/uploadBlogs'
         element={
-          <ProtectedRoute>
+          <AdminProtectRoutes>
             <UploadBlogs />
-          </ProtectedRoute>
+          </AdminProtectRoutes>
         }
       ></Route>
       <Route
-        path='/contact2'
+        path='/contact'
         element={
-          <ProtectedRoute>
+          <AgentProtectRoutes>
             <NewContact />
-          </ProtectedRoute>
+          </AgentProtectRoutes>
         }
       ></Route>
-      <Route
-        path='*'
-        element={
-          // <ProtectedRoute>
-          <PageNotFound />
-          // </ProtectedRoute>
-        }
-      />
+      <Route path='*' element={<Navigate to='/' />} />
     </Routes>
   );
 };
