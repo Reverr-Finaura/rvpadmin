@@ -56,7 +56,7 @@ const NewChatSection = () => {
       setChats(filteredChats);
     };
     getUser();
-  }, [agentsChat, users]);
+  }, []);
 
   const handleSelectChange = (selectedOptions) => {
     setCurrMessages(selectedOptions.messages);
