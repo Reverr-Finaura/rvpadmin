@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./contactComp.css";
 import { database, getMessage } from "../../firebase/firebase";
 import MsgView from "./msgview";
-import { doc, updateDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import Toggle from "react-toggle";
 import ChatAssignedModal from "./ChatAssignedModal";
 import { ToastContainer } from "react-toastify";
@@ -10,14 +10,14 @@ import { useSelector } from "react-redux";
 
 const NewChatSection = () => {
   const user = useSelector((state) => state.user.user);
-  const [users, setUsers] = useState([]);
   const [message, setMessage] = useState("");
   const [selectedData, setSelectedData] = useState(null);
   const [toogle, setToggle] = useState(false);
   const [inputSearch, setInputSearch] = useState("");
   const [list, setList] = useState([]);
-
   const [currMessages, setCurrMessages] = useState([]);
+
+  const [users, setUsers] = useState([]);
   useEffect(() => {
     const getUserMsg = async () => {
       try {
@@ -29,6 +29,35 @@ const NewChatSection = () => {
     };
     getUserMsg();
   }, []);
+  const [agentsChat, setAgentsChat] = useState([]);
+  useEffect(() => {
+    const getAgentsAssignedChat = async () => {
+      try {
+        const agents = await getDoc(doc(database, "Agents", user.email));
+        if (agents.exists()) {
+          setAgentsChat(agents.data().assignedChats);
+        }
+      } catch (error) {
+        new Error(error);
+      }
+    };
+    getAgentsAssignedChat();
+  }, []);
+
+  const [chats, setChats] = useState([]);
+
+  useEffect(() => {
+    const getUser = () => {
+      const filteredChats = users.filter((user) =>
+        agentsChat.some(
+          (agent) => parseInt(agent.number) === parseInt(user.number)
+        )
+      );
+      setChats(filteredChats);
+    };
+    getUser();
+  }, [agentsChat, users]);
+
   const handleSelectChange = (selectedOptions) => {
     setCurrMessages(selectedOptions.messages);
     setSelectedData(selectedOptions);
@@ -69,7 +98,13 @@ const NewChatSection = () => {
   };
   useEffect(() => {
     const searchFun = () => {
-      let search = [...users];
+      let search;
+      if (user.isAdmin) {
+        search = [...users];
+      }
+      if (user.isAgent) {
+        search = [...chats];
+      }
       if (inputSearch) {
         const lowerCaseSearch = inputSearch.toLowerCase().trim();
         search = search.filter((item) => {
@@ -84,7 +119,7 @@ const NewChatSection = () => {
       setList(search);
     };
     searchFun();
-  }, [inputSearch, users]);
+  }, [chats, inputSearch, user.isAdmin, user.isAgent, users]);
 
   return (
     <>

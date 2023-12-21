@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../redux/userSlice";
 import { ToastContainer, toast } from "react-toastify";
-// import { signInWithEmailAndPassword } from "firebase/auth";
 import { getAllAgents } from "../../firebase/firebase";
 import "react-toastify/dist/ReactToastify.css";
 import "./signin.css";
 
 const AgentSignIn = () => {
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.user);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [agents, setAgents] = useState([]);
@@ -21,6 +21,11 @@ const AgentSignIn = () => {
       setAgents([...results]);
     }
   };
+  useEffect(() => {
+    if (user !== null && user?.isAgent === true) {
+      navigate("/contact");
+    }
+  }, [navigate, user, user?.isAgent]);
 
   useEffect(() => {
     getAgents();

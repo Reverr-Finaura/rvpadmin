@@ -69,7 +69,7 @@ input {
     width: 100%;
     overflow-x: hidden;
     overflow-y: scroll;
-    height: calc(100% - 102px);
+    height: calc(100% - 111px);
 }
 
 .chat-btn {

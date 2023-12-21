@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getAdminsFromDatabase } from "../../firebase/firebase";
 import { login } from "../../redux/userSlice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./signin.css";
+
 const SignIn = () => {
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.user);
+  console.log(user);
   const [admins, setAdmins] = useState([]);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -18,6 +21,11 @@ const SignIn = () => {
       setAdmins([...results]);
     }
   };
+  useEffect(() => {
+    if (user !== null && user?.isAdmin === true) {
+      navigate("/dashboard");
+    }
+  }, [navigate, user, user?.isAdmin]);
 
   useEffect(() => {
     getAdmin();

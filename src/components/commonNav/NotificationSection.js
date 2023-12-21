@@ -20,7 +20,6 @@ const NotificationSection = ({
         if (notfidoc.exists()) {
           const notifications = notfidoc.data().notification;
           for (const notification of notifications) {
-            console.log(notification);
             if (notification.read === false) {
               await updateDoc(doc(database, "Agents", user.email), {
                 notification: notifications.map((n, index) =>

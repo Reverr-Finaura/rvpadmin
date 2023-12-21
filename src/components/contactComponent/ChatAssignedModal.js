@@ -129,7 +129,12 @@ const ChatAssignedModal = ({
 
   return (
     <React.Fragment>
-      <button onClick={handleClickOpen}>Assign To</button>
+      <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
+        {selectedChatAssigned && selectedChatAssigned.isAssigned && (
+          <span style={{ fontSize: "14px" }}>Already Assigned</span>
+        )}
+        <button onClick={handleClickOpen}>Assign To</button>
+      </div>
       <Dialog
         fullScreen={fullScreen}
         open={open}

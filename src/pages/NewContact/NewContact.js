@@ -20,9 +20,7 @@ import { useNavigate } from "react-router-dom";
 
 const NewContact = () => {
   const [section, setSection] = useState(1);
-  const location = useLocation();
   const user = useSelector((state) => state.user.user);
-  const isAgent = location.state?.isAgent || false;
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
