@@ -60,20 +60,36 @@ const MsgView = ({
                     flexDirection: "row-reverse",
                   }}
                 >
-                  <div className='message' style={{ backgroundColor: "grey" }}>
+                  <div
+                    className='message'
+                    style={{ backgroundColor: "rgba(255, 255, 0, 0.05)" }}
+                  >
                     {item.message &&
                       item.message.text &&
                       item.message.text.body && (
-                        <p>{item?.message?.text?.body}</p>
+                        <p style={{ padding: "5px", margin: 0 }}>
+                          {item?.message?.text?.body}
+                        </p>
                       )}
 
                     {item.message && item.message.template && (
                       <div className='template'>
                         <h5>Template Name :-</h5>
-                        <p>{item?.message?.template?.name}</p>
+                        <p style={{ padding: "5px", margin: 0 }}>
+                          {item?.message?.template?.name}
+                        </p>
                       </div>
                     )}
-                    <p>{moment(date).format("LLL")}</p>
+                    <p
+                      style={{
+                        padding: "5px",
+                        margin: 0,
+                        fontSize: "12px",
+                        color: "green",
+                      }}
+                    >
+                      {moment(date).format("LLL")}
+                    </p>
                   </div>
                 </div>
               ) : (
@@ -85,7 +101,9 @@ const MsgView = ({
                     }}
                   >
                     <div className='message'>
-                      <p>{item.usermessage}</p>
+                      <p style={{ padding: "5px", margin: 0 }}>
+                        {item.usermessage}
+                      </p>
                     </div>
                   </div>
                   {item.message &&
@@ -99,10 +117,23 @@ const MsgView = ({
                       >
                         <div
                           className='message'
-                          style={{ backgroundColor: "grey" }}
+                          style={{
+                            backgroundColor: "rgba(255, 255, 0, 0.05)",
+                          }}
                         >
-                          <p>{item.message.text.body}</p>
-                          <p>{moment(date).format("LLL")}</p>
+                          <p style={{ padding: "5px", margin: 0 }}>
+                            {item.message.text.body}
+                          </p>
+                          <p
+                            style={{
+                              padding: "5px",
+                              margin: 0,
+                              fontSize: "12px",
+                              color: "green",
+                            }}
+                          >
+                            {moment(date).format("LLL")}
+                          </p>
                         </div>
                       </div>
                     )}

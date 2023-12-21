@@ -1,6 +1,6 @@
 import { Menu, MenuItem } from "@mui/material";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import { database } from "../../firebase/firebase";
 import { useSelector } from "react-redux";
 import style from "../NewContactComponents/style.module.css";
@@ -13,29 +13,33 @@ const NotificationSection = ({
   setUnreadCount,
 }) => {
   const user = useSelector((state) => state.user.user);
-  useEffect(() => {
-    const fetchNotifications = async () => {
-      try {
-        const notfidoc = await getDoc(doc(database, "Agents", user.email));
-        if (notfidoc.exists()) {
-          const notifications = notfidoc.data().notification;
-          for (const notification of notifications) {
-            if (notification.read === false) {
-              await updateDoc(doc(database, "Agents", user.email), {
-                notification: notifications.map((n, index) =>
-                  n[index] === notification[index] ? { ...n, read: true } : n
-                ),
-              });
-            }
+
+  const fetchNotifications = useCallback(async () => {
+    try {
+      const notfidoc = await getDoc(doc(database, "Agents", user.email));
+      if (notfidoc.exists()) {
+        const notifications = notfidoc.data().notification;
+        for (const notification of notifications) {
+          if (notification.read === false) {
+            await updateDoc(doc(database, "Agents", user.email), {
+              notification: notifications.map((n, index) =>
+                n[index] === notification[index] ? { ...n, read: true } : n
+              ),
+            });
           }
-          setUnreadCount(0);
         }
-      } catch (error) {
-        console.error("An error occurred while fetching the document:", error);
+        setUnreadCount(0);
       }
-    };
-    fetchNotifications();
-  }, []);
+    } catch (error) {
+      console.error("An error occurred while fetching the document:", error);
+    }
+  }, [user, setUnreadCount]);
+
+  useEffect(() => {
+    if (anchorElUser) {
+      fetchNotifications();
+    }
+  }, [anchorElUser, fetchNotifications]);
 
   return (
     <Menu

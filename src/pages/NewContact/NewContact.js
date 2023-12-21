@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Navbar from "../../components/NewContactComponents/Navbar";
 import style from "./newcontact.module.css";
 import Sidebar from "../../components/NewContactComponents/Sidebar";
@@ -12,7 +12,6 @@ import NewChatSection from "../../components/contactComponent/NewChatSection";
 import EditUser from "../../components/contactComponent/EditUser";
 import AddAgent from "../../components/contactComponent/AddAgent";
 import ManageAgent from "../../components/contactComponent/ManageAgent";
-import { useLocation } from "react-router-dom";
 import CommonNav from "../../components/commonNav/CommonNav";
 import { logout } from "../../redux/userSlice";
 import { useDispatch, useSelector } from "react-redux";
