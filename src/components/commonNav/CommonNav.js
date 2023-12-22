@@ -45,7 +45,7 @@ const CommonNav = ({ handleLogout }) => {
   return (
     <div className={style.nav}>
       <div className={style.navCon} style={{ justifyContent: "space-between" }}>
-        <h3>Hi Agnet {user.email}</h3>
+        <h3>Hi Agent {user.email}</h3>
         <div style={{ display: "flex", gap: "20px" }}>
           <Box sx={{ flexGrow: 0 }}>
             <IconButton
