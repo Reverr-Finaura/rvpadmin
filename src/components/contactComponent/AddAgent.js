@@ -37,7 +37,6 @@ const AddAgent = () => {
     try {
       const existingUser = await fetchSignInMethodsForEmail(auth, email);
       if (existingUser.length === 0) {
-        // await createUserWithEmailAndPassword(auth, email, password);
         await setDoc(doc(database, "Agents", data.email), { ...data });
         toast.success("User has been successfully added");
       } else {

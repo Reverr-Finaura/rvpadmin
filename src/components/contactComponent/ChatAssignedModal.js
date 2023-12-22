@@ -13,7 +13,6 @@ const ChatAssignedModal = ({
   selectedChatId,
   selectedChatName,
   selectedChatAssigned,
-  getUserMsg,
 }) => {
   const user = useSelector((state) => state.user.user);
   const [open, setOpen] = useState(false);
@@ -121,7 +120,6 @@ const ChatAssignedModal = ({
     } catch (error) {
       console.error("Error updating assignedChat document:", error);
     }
-    getUserMsg();
     setSelectedData("");
     setIsAlreadyAssigned(false);
     handleClose();

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../redux/userSlice";
 import { ToastContainer, toast } from "react-toastify";
-import { getAllAgents } from "../../firebase/firebase";
+import { getAllAgentsForLogin } from "../../firebase/firebase";
 import "react-toastify/dist/ReactToastify.css";
 import "./signin.css";
 
@@ -16,7 +16,7 @@ const AgentSignIn = () => {
   const navigate = useNavigate();
 
   const getAgents = async () => {
-    const results = await getAllAgents();
+    const results = await getAllAgentsForLogin();
     if (results.length) {
       setAgents([...results]);
     }

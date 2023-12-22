@@ -9,9 +9,6 @@ const MsgToUser = () => {
   const [selectedData, setSelectedData] = useState(null);
   const [singleChat, setSingleChat] = useState(null);
   const [users, setUsers] = useState([]);
-  // var lastMessage;
-  // var messageDate;
-  // var currentDate;
   useEffect(() => {
     const getUserMsg = async () => {
       try {

@@ -15,17 +15,12 @@ const ManageAgent = () => {
   const [selectedData, setSelectedData] = useState([]);
 
   useEffect(() => {
-    const getAgents = async () => {
-      try {
-        const res = await getAllAgents();
-        if (res.length > 0) {
-          setdata(res);
-        }
-      } catch (error) {
-        toast.error(error);
-      }
+    const unsubscribeMessage = getAllAgents((userdata) => {
+      setdata(userdata);
+    });
+    return () => {
+      unsubscribeMessage();
     };
-    getAgents();
   }, []);
   const deleteAgnet = async (email) => {
     try {

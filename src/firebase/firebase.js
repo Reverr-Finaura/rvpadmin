@@ -12,6 +12,7 @@ import {
   where,
   query,
   getDoc,
+  onSnapshot,
 } from "firebase/firestore";
 
 import {
@@ -273,23 +274,48 @@ export const addDocumentInDatabase = async (uid, data) => {
 
 //get whatsmessage
 const whatsAppMessageCollectionRef = collection(database, "WhatsappMessages");
-export const getMessage = async () => {
-  try {
-    const data = await getDocs(query(whatsAppMessageCollectionRef));
-    const userdata = data.docs.map((doc) => ({
+
+export const getMessage = (callback) => {
+  const unsubscribe = onSnapshot(
+    query(whatsAppMessageCollectionRef),
+    (snapshot) => {
+      const userdata = snapshot.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+      callback(userdata);
+    }
+  );
+  return unsubscribe;
+};
+const AgentsCollectionref = collection(database, "Agents");
+export const getAllAgents = (callback) => {
+  const unsubscribe = onSnapshot(query(AgentsCollectionref), (snapshot) => {
+    const userdata = snapshot.docs.map((doc) => ({
       ...doc.data(),
       id: doc.id,
     }));
-    return userdata;
-  } catch (error) {
-    console.error("Error retrieving message from Firestore:", error);
-  }
+    callback(userdata);
+  });
+  return unsubscribe;
 };
-const AgentsCollectionref = collection(database, "Agents");
-export const getAllAgents = async () => {
+
+// const whatsAppMessageCollectionRef = collection(database, "WhatsappMessages");
+// export const getMessage = async () => {
+//   try {
+//     const data = await getDocs(query(whatsAppMessageCollectionRef));
+//     const userdata = data.docs.map((doc) => ({
+//       ...doc.data(),
+//       id: doc.id,
+//     }));
+//     return userdata;
+//   } catch (error) {
+//     console.error("Error retrieving message from Firestore:", error);
+//   }
+// };
+export const getAllAgentsForLogin = async () => {
   try {
     const data = await getDocs(query(AgentsCollectionref));
-
     const userdata = data.docs.map((doc) => ({
       ...doc.data(),
       id: doc.id,

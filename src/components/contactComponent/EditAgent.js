@@ -52,6 +52,7 @@ const EditAgent = ({ docId, docName, docEmail, docPassword }) => {
       setLoadings(false);
       console.error(error);
     }
+    handleClose();
   };
 
   return (

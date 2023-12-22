@@ -9,7 +9,6 @@ import { database } from "../../firebase/firebase";
 
 const CommonNav = ({ handleLogout }) => {
   const user = useSelector((state) => state.user.user);
-  console.log(user);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const handleOpenUserMenu = (event) => {
@@ -46,7 +45,7 @@ const CommonNav = ({ handleLogout }) => {
 
       return () => unsubscribe();
     }
-  }, [user]);
+  }, []);
 
   return (
     <div className={style.nav}>

@@ -13,7 +13,6 @@ const NotificationSection = ({
   setUnreadCount,
 }) => {
   const user = useSelector((state) => state.user.user);
-
   const fetchNotifications = useCallback(async () => {
     try {
       const notfidoc = await getDoc(doc(database, "Agents", user.email));
@@ -33,7 +32,7 @@ const NotificationSection = ({
     } catch (error) {
       console.error("An error occurred while fetching the document:", error);
     }
-  }, [user, setUnreadCount]);
+  }, []);
 
   useEffect(() => {
     if (anchorElUser) {
@@ -64,7 +63,7 @@ const NotificationSection = ({
         <button onClick={handleCloseUserMenu}>Close</button>
       </div>
       <div className={style.notificationlist}>
-        {notifydata.map((setting, index) => {
+        {notifydata.reverse().map((setting, index) => {
           const date = new Date(
             setting.timestamp.seconds * 1000 +
               setting.timestamp.nanoseconds / 1e6
@@ -72,11 +71,17 @@ const NotificationSection = ({
           return (
             <MenuItem
               key={index}
-              style={{ width: "100%" }}
+              style={{
+                width: "100%",
+                backgroundColor: "rgba(255, 255, 0, 0.05)",
+              }}
               className={style.notifybox}
             >
               <p className={style.info}>{setting.text}</p>
-              <p className={style.info} style={{ fontSize: "12px" }}>
+              <p
+                className={style.info}
+                style={{ fontSize: "12px", color: "green" }}
+              >
                 {moment(date).format("LLL")}
               </p>
             </MenuItem>

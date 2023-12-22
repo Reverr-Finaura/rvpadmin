@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./contactComp.css";
 import { database, getMessage } from "../../firebase/firebase";
 import MsgView from "./msgview";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { doc, onSnapshot, updateDoc } from "firebase/firestore";
 import Toggle from "react-toggle";
 import ChatAssignedModal from "./ChatAssignedModal";
 import { ToastContainer } from "react-toastify";
@@ -16,33 +16,25 @@ const NewChatSection = () => {
   const [inputSearch, setInputSearch] = useState("");
   const [list, setList] = useState([]);
   const [currMessages, setCurrMessages] = useState([]);
-
   const [users, setUsers] = useState([]);
-  const getUserMsg = async () => {
-    try {
-      const user = await getMessage();
-      setUsers(user);
-    } catch (error) {
-      new Error(error);
-    }
-  };
-  useEffect(() => {
-    getUserMsg();
-  }, []);
   const [agentsChat, setAgentsChat] = useState([]);
   useEffect(() => {
-    const getAgentsAssignedChat = async () => {
-      try {
-        const agents = await getDoc(doc(database, "Agents", user.email));
-        if (agents.exists()) {
-          setAgentsChat(agents.data().assignedChats);
+    const unsubscribeMessage = getMessage((userdata) => {
+      setUsers(userdata);
+    });
+    const unsubscribeAgentsChat = onSnapshot(
+      doc(database, "Agents", user.email),
+      (snapshot) => {
+        if (snapshot.exists()) {
+          setAgentsChat(snapshot.data().assignedChats);
         }
-      } catch (error) {
-        new Error(error);
       }
+    );
+    return () => {
+      unsubscribeMessage();
+      unsubscribeAgentsChat();
     };
-    getAgentsAssignedChat();
-  }, []);
+  }, [user.email]);
 
   const [chats, setChats] = useState([]);
 
@@ -56,11 +48,12 @@ const NewChatSection = () => {
       setChats(filteredChats);
     };
     getUser();
-  }, []);
+  }, [agentsChat, users]);
 
   const handleSelectChange = (selectedOptions) => {
     setCurrMessages(selectedOptions.messages);
     setSelectedData(selectedOptions);
+    setToggle(selectedOptions.stop);
   };
   const submit = async (e) => {
     if (e?.key === "Enter" || e === "Send") {
@@ -177,7 +170,6 @@ const NewChatSection = () => {
                     </div>
                     {user.isAdmin && (
                       <ChatAssignedModal
-                        getUserMsg={getUserMsg}
                         selectedChatId={selectedData.id}
                         selectedChatName={selectedData.name}
                         selectedChatAssigned={selectedData.chatAssigned}
@@ -246,3 +238,29 @@ const NewChatSection = () => {
 };
 
 export default NewChatSection;
+
+// const getUserMsg = async () => {
+//   try {
+//     const user = await getMessage();
+//     setUsers(user);
+//   } catch (error) {
+//     new Error(error);
+//   }
+// };
+// useEffect(() => {
+//   getUserMsg();
+// }, []);
+
+// useEffect(() => {
+//   const getAgentsAssignedChat = async () => {
+//     try {
+//       const agents = await getDoc(doc(database, "Agents", user.email));
+//       if (agents.exists()) {
+//         setAgentsChat(agents.data().assignedChats);
+//       }
+//     } catch (error) {
+//       new Error(error);
+//     }
+//   };
+//   getAgentsAssignedChat();
+// }, []);
