@@ -18,15 +18,15 @@ const NewChatSection = () => {
   const [currMessages, setCurrMessages] = useState([]);
 
   const [users, setUsers] = useState([]);
+  const getUserMsg = async () => {
+    try {
+      const user = await getMessage();
+      setUsers(user);
+    } catch (error) {
+      new Error(error);
+    }
+  };
   useEffect(() => {
-    const getUserMsg = async () => {
-      try {
-        const user = await getMessage();
-        setUsers(user);
-      } catch (error) {
-        new Error(error);
-      }
-    };
     getUserMsg();
   }, []);
   const [agentsChat, setAgentsChat] = useState([]);
@@ -177,6 +177,7 @@ const NewChatSection = () => {
                     </div>
                     {user.isAdmin && (
                       <ChatAssignedModal
+                        getUserMsg={getUserMsg}
                         selectedChatId={selectedData.id}
                         selectedChatName={selectedData.name}
                         selectedChatAssigned={selectedData.chatAssigned}

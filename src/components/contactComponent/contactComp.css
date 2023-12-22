@@ -89,16 +89,16 @@ input {
     align-items: center;
     justify-content: start;
     background: rgba(255, 255, 255, 0.03);
-    border-radius: 16px;
+    border-radius: 15px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(8.9px);
     -webkit-backdrop-filter: blur(8.9px);
     border: 1px solid rgba(255, 255, 255, 0.3);
     width: auto;
     max-width: 70%;
-    gap: 10px;
-    margin-left: 10px;
+    gap: 3px;
     margin-top: 5px;
+    padding: 5px;
 }
 
 .template {

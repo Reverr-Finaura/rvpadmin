@@ -13,6 +13,7 @@ const ChatAssignedModal = ({
   selectedChatId,
   selectedChatName,
   selectedChatAssigned,
+  getUserMsg,
 }) => {
   const user = useSelector((state) => state.user.user);
   const [open, setOpen] = useState(false);
@@ -60,7 +61,7 @@ const ChatAssignedModal = ({
 
     if (!user.isAdmin) {
       toast.error("You're not an Admin");
-      setSelectedData("");
+      setSelectedData();
       handleClose();
       return;
     }
@@ -83,24 +84,21 @@ const ChatAssignedModal = ({
 
     const chatAssigned = {
       isAssigned: true,
-      assignedTo: selectedData,
+      assignedTo: selectedData.email,
     };
     try {
       const [agentsDocumentSnapshot, chatDocumentSnapshot] = await Promise.all([
         getDoc(agentsDocRef),
         getDoc(chatDocRef),
       ]);
-
       if (agentsDocumentSnapshot.exists() && chatDocumentSnapshot.exists()) {
         const assignedDoc = agentsDocumentSnapshot.data();
-        const chatDoc = chatDocumentSnapshot.data();
-
+        // const chatDoc = chatDocumentSnapshot.data();
         const isDataAssigned = (assignedDoc.assignedChats || []).some(
           (chat) => chat.number === data.number
         );
-        const isAssigned = (chatDoc.chatAssigned || {}).isAssigned || false;
-
-        if (!isDataAssigned && !isAssigned) {
+        // const isAssigned = (chatDoc.chatAssigned || {}).isAssigned || false;
+        if (!isDataAssigned) {
           const batch = writeBatch(database);
 
           batch.update(agentsDocRef, {
@@ -113,15 +111,17 @@ const ChatAssignedModal = ({
           });
 
           await batch.commit();
+          toast.success("Successfully assigned");
+        } else {
+          toast.error("Not able to assign");
         }
-        toast.success("Successfully assigned");
       } else {
         toast.error("Agents document does not exist");
       }
     } catch (error) {
       console.error("Error updating assignedChat document:", error);
     }
-
+    getUserMsg();
     setSelectedData("");
     setIsAlreadyAssigned(false);
     handleClose();

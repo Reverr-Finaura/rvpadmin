@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import style from "../NewContactComponents/style.module.css";
 import { useSelector } from "react-redux";
 import { Box, IconButton } from "@mui/material";
-import { database } from "../../firebase/firebase";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { IoIosNotifications } from "react-icons/io";
 import NotificationSection from "./NotificationSection";
+import { database } from "../../firebase/firebase";
 
 const CommonNav = ({ handleLogout }) => {
   const user = useSelector((state) => state.user.user);
@@ -18,29 +18,34 @@ const CommonNav = ({ handleLogout }) => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
   const [notifydata, setNotifyData] = useState([]);
   const [unreadCount, setUnreadCount] = useState(0);
   const Agentref = collection(database, "Agents");
   useEffect(() => {
-    const agentQuery = query(Agentref, where("email", "==", user.email));
-    const unsubscribe = onSnapshot(agentQuery, (snapshot) => {
-      let tempCount = 0;
-      let msgs = [];
-      snapshot.forEach((doc) => {
-        const notificationData = doc.data().notification;
-        notificationData.forEach((notification) => {
-          msgs.push(notification);
-          if (!notification.read) {
-            tempCount++;
+    if (user && user.isAgent) {
+      const agentQuery = query(Agentref, where("email", "==", user.email));
+      const unsubscribe = onSnapshot(agentQuery, (snapshot) => {
+        let tempCount = 0;
+        let msgs = [];
+        snapshot.forEach((doc) => {
+          const notificationData = doc.data().notification;
+          if (notificationData) {
+            notificationData.forEach((notification) => {
+              msgs.push(notification);
+              if (!notification.read) {
+                tempCount++;
+              }
+            });
           }
         });
+        setNotifyData(msgs);
+        setUnreadCount(tempCount);
       });
 
-      setNotifyData(msgs);
-      setUnreadCount(tempCount);
-    });
-    return () => unsubscribe();
-  }, []);
+      return () => unsubscribe();
+    }
+  }, [user]);
 
   return (
     <div className={style.nav}>

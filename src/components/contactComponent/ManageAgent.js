@@ -6,8 +6,10 @@ import { ToastContainer, toast } from "react-toastify";
 import EditAgent from "./EditAgent";
 import ViewAgent from "./ViewAgent";
 import { MdDelete } from "react-icons/md";
+import { useSelector } from "react-redux";
 
 const ManageAgent = () => {
+  const user = useSelector((state) => state.user.user);
   const [data, setdata] = useState([]);
   const [showSelect, setShowSelect] = useState(false);
   const [selectedData, setSelectedData] = useState([]);
@@ -30,7 +32,7 @@ const ManageAgent = () => {
       const agentRef = doc(database, "Agents", email);
       const agentDoc = await getDoc(agentRef);
       const agentData = agentDoc.data();
-      if (agentData) {
+      if (agentData && user.isAdmin) {
         await deleteDoc(agentRef);
         setdata((prevData) => prevData.filter((item) => item.email !== email));
         toast.success("Agent has been successfully deleted");
