@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import style from "../NewContactComponents/style.module.css";
 import { useSelector } from "react-redux";
 import { Box, IconButton } from "@mui/material";
-import { doc, onSnapshot } from "firebase/firestore";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { IoIosNotifications } from "react-icons/io";
 import NotificationSection from "./NotificationSection";
 import { database } from "../../firebase/firebase";
@@ -14,37 +14,38 @@ const CommonNav = ({ handleLogout }) => {
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
+
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
   const [notifydata, setNotifyData] = useState([]);
   const [unreadCount, setUnreadCount] = useState(0);
+  const Agentref = collection(database, "Agents");
   useEffect(() => {
     if (user && user.isAgent) {
-      const unsubscribe = onSnapshot(
-        doc(database, "Agents", user.email),
-        (snapshot) => {
-          let tempCount = 0;
-          let msgs = [];
-          snapshot.forEach((doc) => {
-            const notificationData = doc.data().notification;
-            if (notificationData) {
-              notificationData.forEach((notification) => {
-                msgs.push(notification);
-                if (!notification.read) {
-                  tempCount++;
-                }
-              });
-            }
-          });
-          setNotifyData(msgs);
-          setUnreadCount(tempCount);
-        }
-      );
+      const agentQuery = query(Agentref, where("email", "==", user.email));
+      const unsubscribe = onSnapshot(agentQuery, (snapshot) => {
+        let tempCount = 0;
+        let msgs = [];
+        snapshot.forEach((doc) => {
+          const notificationData = doc.data().notification;
+          if (notificationData) {
+            notificationData.forEach((notification) => {
+              msgs.push(notification);
+              if (!notification.read) {
+                tempCount++;
+              }
+            });
+          }
+        });
+        setNotifyData(msgs);
+        setUnreadCount(tempCount);
+      });
 
       return () => unsubscribe();
     }
-  }, [user]);
+  }, [Agentref, user]);
 
   return (
     <div className={style.nav}>

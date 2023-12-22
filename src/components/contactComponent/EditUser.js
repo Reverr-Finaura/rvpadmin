@@ -1,6 +1,6 @@
 import Select from "react-select";
 import React, { useEffect, useState } from "react";
-import { getMessage } from "../../firebase/firebase";
+import { getAllMessage } from "../../firebase/firebase";
 import EditSection from "./EditSection";
 import "./contactComp.css";
 
@@ -10,7 +10,7 @@ const EditUser = () => {
   useEffect(() => {
     const getUserMsg = async () => {
       try {
-        const user = await getMessage();
+        const user = await getAllMessage();
         setUsers(user);
         console.log("running");
       } catch (error) {

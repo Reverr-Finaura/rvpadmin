@@ -80,14 +80,14 @@ const NotificationSection = ({
               <p className={style.info} style={{ fontSize: "14px", margin: 0 }}>
                 {setting.text}
                 <br />
-                <a
+                {/* <a
                   href={setting.path}
                   target='_blank'
                   style={{ fontSize: "10px", color: "green", margin: 0 }}
                   rel='noreferrer'
                 >
                   Go to Chat
-                </a>
+                </a> */}
               </p>
 
               <p

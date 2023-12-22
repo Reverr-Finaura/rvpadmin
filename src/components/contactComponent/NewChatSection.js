@@ -37,14 +37,15 @@ const NewChatSection = () => {
   }, [user.email]);
 
   const [chats, setChats] = useState([]);
-
   useEffect(() => {
     const getUser = () => {
+      console.log(agentsChat);
       const filteredChats = users.filter((user) =>
-        agentsChat.some(
-          (agent) => parseInt(agent.number) === parseInt(user.number)
-        )
+        agentsChat.some((agent) => {
+          return parseInt(agent.number) === parseInt(user.number);
+        })
       );
+      console.log(filteredChats);
       setChats(filteredChats);
     };
     getUser();

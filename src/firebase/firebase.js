@@ -301,18 +301,18 @@ export const getAllAgents = (callback) => {
 };
 
 // const whatsAppMessageCollectionRef = collection(database, "WhatsappMessages");
-// export const getMessage = async () => {
-//   try {
-//     const data = await getDocs(query(whatsAppMessageCollectionRef));
-//     const userdata = data.docs.map((doc) => ({
-//       ...doc.data(),
-//       id: doc.id,
-//     }));
-//     return userdata;
-//   } catch (error) {
-//     console.error("Error retrieving message from Firestore:", error);
-//   }
-// };
+export const getAllMessage = async () => {
+  try {
+    const data = await getDocs(query(whatsAppMessageCollectionRef));
+    const userdata = data.docs.map((doc) => ({
+      ...doc.data(),
+      id: doc.id,
+    }));
+    return userdata;
+  } catch (error) {
+    console.error("Error retrieving message from Firestore:", error);
+  }
+};
 export const getAllAgentsForLogin = async () => {
   try {
     const data = await getDocs(query(AgentsCollectionref));

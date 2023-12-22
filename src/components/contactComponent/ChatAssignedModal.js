@@ -2,7 +2,7 @@ import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Dialog from "@mui/material/Dialog";
 import React, { useEffect, useState } from "react";
-import { database, getAllAgents } from "../../firebase/firebase";
+import { database, getAllAgentsForLogin } from "../../firebase/firebase";
 import { toast } from "react-toastify";
 import Select from "react-select";
 import "./contactComp.css";
@@ -44,7 +44,7 @@ const ChatAssignedModal = ({
   useEffect(() => {
     const getAgents = async () => {
       try {
-        const res = await getAllAgents();
+        const res = await getAllAgentsForLogin();
         if (res.length > 0) {
           setAgentslist(res);
         }
@@ -78,7 +78,7 @@ const ChatAssignedModal = ({
         selectedChatId.slice(0, -10) + "-" + selectedChatId.slice(-10)
       })) Chat is assigned to you`,
       chatInfo: data,
-      path: "admin.reverr.io/contact2",
+      path: "admin.reverr.io/contact",
       timestamp: new Date(),
       read: false,
     };
