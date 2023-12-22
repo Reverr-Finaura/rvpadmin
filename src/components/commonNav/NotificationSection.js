@@ -5,7 +5,6 @@ import { database } from "../../firebase/firebase";
 import { useSelector } from "react-redux";
 import style from "../NewContactComponents/style.module.css";
 import moment from "moment";
-import { Link } from "react-router-dom";
 
 const NotificationSection = ({
   anchorElUser,
@@ -33,7 +32,7 @@ const NotificationSection = ({
     } catch (error) {
       console.error("An error occurred while fetching the document:", error);
     }
-  }, []);
+  }, [setUnreadCount, user.email]);
 
   useEffect(() => {
     if (anchorElUser) {
@@ -83,8 +82,9 @@ const NotificationSection = ({
                 <br />
                 <a
                   href={setting.path}
-                  target='blank'
+                  target='_blank'
                   style={{ fontSize: "10px", color: "green", margin: 0 }}
+                  rel='noreferrer'
                 >
                   Go to Chat
                 </a>
