@@ -1,10 +1,9 @@
 import React from "react";
 import style from "./style.module.css";
-import { useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Sidebar = ({ section, setSection, handleLogout }) => {
-  const location = useLocation();
-  const isAgent = location.state?.isAgent || false;
+  const user = useSelector((state) => state.user.user);
   return (
     <div className={style.sidemain}>
       <div className={style.sidemainmenu}>
@@ -80,7 +79,8 @@ const Sidebar = ({ section, setSection, handleLogout }) => {
         >
           Edit User
         </p>
-        {!isAgent && (
+
+        {user.isAdmin && (
           <p
             onClick={() => setSection(10)}
             style={{
@@ -91,7 +91,8 @@ const Sidebar = ({ section, setSection, handleLogout }) => {
             Create Agent
           </p>
         )}
-        {!isAgent && (
+
+        {user.isAdmin && (
           <p
             onClick={() => setSection(11)}
             style={{

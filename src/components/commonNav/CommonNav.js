@@ -9,6 +9,7 @@ import { database } from "../../firebase/firebase";
 
 const CommonNav = ({ handleLogout }) => {
   const user = useSelector((state) => state.user.user);
+  console.log(user);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const handleOpenUserMenu = (event) => {
@@ -50,7 +51,7 @@ const CommonNav = ({ handleLogout }) => {
   return (
     <div className={style.nav}>
       <div className={style.navCon} style={{ justifyContent: "space-between" }}>
-        <h3>Hi Agent {user.email}</h3>
+        <h3>Hi Agent {user.email.split("@")[0]}</h3>
         <div style={{ display: "flex", gap: "20px" }}>
           <Box sx={{ flexGrow: 0 }}>
             <IconButton
