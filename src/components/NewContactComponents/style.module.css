@@ -66,6 +66,7 @@
     padding: 10px !important;
     border-radius: 10px !important;
     border: 1px solid green !important;
+    position: relative !important;
 }
 
 .notifybox>p {

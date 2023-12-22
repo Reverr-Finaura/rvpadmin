@@ -14,23 +14,6 @@ const EditSection = ({
   setIsEdit,
   isEdit,
 }) => {
-  console.log(editUserType);
-  const [userdata, setUserdata] = useState({});
-
-  useEffect(() => {
-    if (selectedData) {
-      const getUserData = async () => {
-        const docRef = doc(database, "WhatsappMessages", selectedData?.id);
-        const docSnapshot = await getDoc(docRef);
-        if (docSnapshot.exists()) {
-          setUserdata({ ...docSnapshot.data(), id: docSnapshot.id });
-        }
-        console.log("running");
-      };
-      getUserData();
-    }
-  }, [selectedData]);
-
   const [tags, setTags] = useState({});
   useEffect(() => {
     const getTags = async () => {
@@ -41,7 +24,6 @@ const EditSection = ({
     };
     getTags();
   }, []);
-  // console.log(tags);
 
   const userType = [{ name: "founder" }, { name: "professional" }];
   const [name, setName] = useState(editName);

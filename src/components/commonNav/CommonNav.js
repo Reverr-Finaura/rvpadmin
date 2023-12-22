@@ -23,28 +23,26 @@ const CommonNav = ({ handleLogout }) => {
   const [unreadCount, setUnreadCount] = useState(0);
   const Agentref = collection(database, "Agents");
   useEffect(() => {
-    if (user && user.isAgent) {
-      const agentQuery = query(Agentref, where("email", "==", user.email));
-      const unsubscribe = onSnapshot(agentQuery, (snapshot) => {
-        let tempCount = 0;
-        let msgs = [];
-        snapshot.forEach((doc) => {
-          const notificationData = doc.data().notification;
-          if (notificationData) {
-            notificationData.forEach((notification) => {
-              msgs.push(notification);
-              if (!notification.read) {
-                tempCount++;
-              }
-            });
-          }
-        });
-        setNotifyData(msgs);
-        setUnreadCount(tempCount);
+    const agentQuery = query(Agentref, where("email", "==", user.email));
+    const unsubscribe = onSnapshot(agentQuery, (snapshot) => {
+      let tempCount = 0;
+      let msgs = [];
+      snapshot.forEach((doc) => {
+        const notificationData = doc.data().notification;
+        if (notificationData) {
+          notificationData.forEach((notification) => {
+            msgs.push(notification);
+            if (!notification.read) {
+              tempCount++;
+            }
+          });
+        }
       });
+      setNotifyData(msgs);
+      setUnreadCount(tempCount);
+    });
 
-      return () => unsubscribe();
-    }
+    return () => unsubscribe();
   }, [Agentref, user]);
 
   return (
@@ -58,10 +56,13 @@ const CommonNav = ({ handleLogout }) => {
               sx={{ p: 0 }}
               style={{ width: "fit-content", position: "relative" }}
             >
-              <IoIosNotifications />{" "}
+              <IoIosNotifications
+                style={{ color: `${unreadCount > 0 ? "#FF9800" : ""}` }}
+              />{" "}
               <span
                 style={{
                   position: "absolute",
+                  fontSize: "16px",
                   bottom: "10px",
                   left: "16px",
                   color: "red",
@@ -75,6 +76,7 @@ const CommonNav = ({ handleLogout }) => {
               handleCloseUserMenu={handleCloseUserMenu}
               notifydata={notifydata}
               setUnreadCount={setUnreadCount}
+              setNotifyData={setNotifyData}
             />
           </Box>
           <button onClick={handleLogout}>Logout</button>

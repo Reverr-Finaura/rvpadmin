@@ -5,12 +5,15 @@ import { database } from "../../firebase/firebase";
 import { useSelector } from "react-redux";
 import style from "../NewContactComponents/style.module.css";
 import moment from "moment";
+import { ImCross } from "react-icons/im";
+import { toast } from "react-toastify";
 
 const NotificationSection = ({
   anchorElUser,
   handleCloseUserMenu,
   notifydata,
   setUnreadCount,
+  setNotifyData,
 }) => {
   const user = useSelector((state) => state.user.user);
   const fetchNotifications = useCallback(async () => {
@@ -39,6 +42,20 @@ const NotificationSection = ({
       fetchNotifications();
     }
   }, [anchorElUser, fetchNotifications]);
+
+  const deleteNotifications = async (index) => {
+    try {
+      const newNotifications = notifydata.filter(
+        (notification, i) => i !== index
+      );
+      await updateDoc(doc(database, "Agents", user.email), {
+        notification: newNotifications,
+      });
+      setNotifyData(newNotifications);
+    } catch (error) {
+      console.error("An error occurred while updating the document:", error);
+    }
+  };
 
   return (
     <Menu
@@ -77,19 +94,18 @@ const NotificationSection = ({
               }}
               className={style.notifybox}
             >
+              <ImCross
+                style={{
+                  color: "red",
+                  position: "absolute",
+                  top: "-10px",
+                  right: 0,
+                }}
+                onClick={() => deleteNotifications(index)}
+              />
               <p className={style.info} style={{ fontSize: "14px", margin: 0 }}>
                 {setting.text}
-                <br />
-                {/* <a
-                  href={setting.path}
-                  target='_blank'
-                  style={{ fontSize: "10px", color: "green", margin: 0 }}
-                  rel='noreferrer'
-                >
-                  Go to Chat
-                </a> */}
               </p>
-
               <p
                 className={style.info}
                 style={{ fontSize: "12px", color: "green", margin: 0 }}

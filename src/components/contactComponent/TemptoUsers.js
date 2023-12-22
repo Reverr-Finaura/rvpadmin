@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
-import { database, getMessage, uploadMedia } from "../../firebase/firebase";
+import { database, getAllMessage, uploadMedia } from "../../firebase/firebase";
 import { ToastContainer, toast } from "react-toastify";
 import { doc, getDoc } from "firebase/firestore";
 
@@ -12,7 +12,7 @@ const TemptoUsers = () => {
   const [fileName, setFileName] = useState(null);
   const getUserMsg = async () => {
     try {
-      const user = await getMessage();
+      const user = await getAllMessage();
       setUsers(user);
     } catch (error) {
       new Error(error);

@@ -19,10 +19,9 @@ const ChatAssignedModal = ({
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
   const [agentslist, setAgentslist] = useState([]);
-  const assignedTo = selectedChatAssigned?.assignedTo || {};
   const [selectedData, setSelectedData] = useState({
-    name: assignedTo.name || " ",
-    email: assignedTo.email || " ",
+    name: selectedChatAssigned?.assignedTo?.name || " ",
+    email: selectedChatAssigned?.assignedTo?.email || " ",
   });
   const [isAlreadyAssigned, setIsAlreadyAssigned] = useState(
     !!selectedChatAssigned?.isAssigned
@@ -70,14 +69,14 @@ const ChatAssignedModal = ({
 
     const data = {
       number: selectedChatId,
+      name: selectedChatName,
       chatRef: chatDocRef,
     };
 
     const notifyData = {
-      text: `${selectedChatName} ((+${
+      text: `${selectedChatName} (+${
         selectedChatId.slice(0, -10) + "-" + selectedChatId.slice(-10)
-      })) Chat is assigned to you`,
-      chatInfo: data,
+      }) Chat is assigned to you`,
       path: "admin.reverr.io/contact",
       timestamp: new Date(),
       read: false,
@@ -85,7 +84,10 @@ const ChatAssignedModal = ({
 
     const chatAssigned = {
       isAssigned: true,
-      assignedTo: selectedData.email,
+      assignedTo: {
+        email: selectedData.email,
+        name: selectedData.name,
+      },
     };
     try {
       const [agentsDocumentSnapshot, chatDocumentSnapshot] = await Promise.all([

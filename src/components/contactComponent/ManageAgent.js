@@ -7,9 +7,9 @@ import EditAgent from "./EditAgent";
 import ViewAgent from "./ViewAgent";
 import { MdDelete } from "react-icons/md";
 import { useSelector } from "react-redux";
+import DeleteAgent from "./DeleteAgent";
 
 const ManageAgent = () => {
-  const user = useSelector((state) => state.user.user);
   const [data, setdata] = useState([]);
   const [showSelect, setShowSelect] = useState(false);
   const [selectedData, setSelectedData] = useState([]);
@@ -22,23 +22,6 @@ const ManageAgent = () => {
       unsubscribeMessage();
     };
   }, []);
-  const deleteAgnet = async (email) => {
-    try {
-      const agentRef = doc(database, "Agents", email);
-      const agentDoc = await getDoc(agentRef);
-      const agentData = agentDoc.data();
-      if (agentData && user.isAdmin) {
-        await deleteDoc(agentRef);
-        setdata((prevData) => prevData.filter((item) => item.email !== email));
-        toast.success("Agent has been successfully deleted");
-      } else {
-        toast.error("Agent not found");
-      }
-    } catch (error) {
-      console.log(error.message);
-      toast.error(error.message);
-    }
-  };
 
   const openSelector = () => {
     if (selectedData.length === 0) {
@@ -121,20 +104,20 @@ const ManageAgent = () => {
                   <td>{item.password}</td>
                   <td>
                     <div className='manage-btn'>
-                      <MdDelete
-                        onClick={() => deleteAgnet(item.email)}
-                      ></MdDelete>
+                      <DeleteAgent setdata={setdata} docEmail={item.email} />
                       <EditAgent
                         docId={item.id}
                         docName={item.name}
                         docEmail={item.email}
                         docPassword={item.password}
+                        docChatAssigned={item.assignedChats}
                       />
                       <ViewAgent
                         docId={item.id}
                         docName={item.name}
                         docEmail={item.email}
                         docPassword={item.password}
+                        docChatAssigned={item.assignedChats}
                       />
                     </div>
                   </td>

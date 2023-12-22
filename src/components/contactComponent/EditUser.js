@@ -1,24 +1,54 @@
 import Select from "react-select";
 import React, { useEffect, useState } from "react";
-import { getAllMessage } from "../../firebase/firebase";
+import { database, getMessage } from "../../firebase/firebase";
 import EditSection from "./EditSection";
 import "./contactComp.css";
+import { doc, getDoc, onSnapshot } from "firebase/firestore";
+import { useSelector } from "react-redux";
 
 const EditUser = () => {
+  const user = useSelector((state) => state.user.user);
   const [users, setUsers] = useState([]);
   const [isEdit, setIsEdit] = useState(false);
+  const [agentsChat, setAgentsChat] = useState([]);
   useEffect(() => {
-    const getUserMsg = async () => {
-      try {
-        const user = await getAllMessage();
-        setUsers(user);
-        console.log("running");
-      } catch (error) {
-        new Error(error);
+    const unsubscribeMessage = getMessage((userdata) => {
+      setUsers(userdata);
+    });
+    const unsubscribeAgentsChat = onSnapshot(
+      doc(database, "Agents", user.email),
+      (snapshot) => {
+        if (snapshot.exists()) {
+          const assignedChats = snapshot.data().assignedChats || [];
+          const fetchChatsPromises = assignedChats.map(async (item) => {
+            try {
+              const chatDocRef = doc(database, "WhatsappMessages", item.number);
+              const chatSnapshot = await getDoc(chatDocRef);
+              return { ...chatSnapshot.data(), id: chatSnapshot.id };
+            } catch (error) {
+              console.error("Error fetching chat:", error);
+              throw error;
+            }
+          });
+          Promise.allSettled(fetchChatsPromises)
+            .then((results) => {
+              const successfulChats = results
+                .filter((result) => result.status === "fulfilled")
+                .map((result) => result.value);
+
+              setAgentsChat(successfulChats);
+            })
+            .catch((error) => {
+              console.error("Error fetching chats:", error);
+            });
+        }
       }
+    );
+    return () => {
+      unsubscribeMessage();
+      unsubscribeAgentsChat();
     };
-    getUserMsg();
-  }, [isEdit]);
+  }, [user.email]);
 
   const [selectedData, setSelectedData] = useState("");
   const handleSelectChange = (selectedOptions) => {
@@ -43,14 +73,14 @@ const EditUser = () => {
             classNamePrefix='select'
             style={{ position: "static" }}
             name='edituser'
-            options={users}
+            options={user.isAdmin ? users : agentsChat}
             onChange={handleSelectChange}
             value={selectedData}
             getOptionLabel={(option) =>
               `+` + option.id + (option.name ? ` (${option.name})` : "")
             }
             getOptionValue={(option) => option.id}
-            styles={customStyles} // Apply the custom styles here
+            styles={customStyles}
           />
         </div>
       </div>

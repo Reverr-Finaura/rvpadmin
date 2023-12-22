@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./contactComp.css";
 import Select from "react-select";
-import { database, getMessage } from "../../firebase/firebase";
+import { database, getAllMessage, getMessage } from "../../firebase/firebase";
 import { doc, getDoc } from "firebase/firestore";
 
 const MsgtoUsers = () => {
@@ -37,7 +37,7 @@ const MsgtoUsers = () => {
 
   const getUserMsg = async () => {
     try {
-      const user = await getMessage();
+      const user = await getAllMessage();
       setUsers(user);
     } catch (error) {
       new Error(error);

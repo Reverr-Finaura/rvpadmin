@@ -4,7 +4,13 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import { GrView } from "react-icons/gr";
 
-const ViewAgent = ({ docId, docName, docEmail, docPassword }) => {
+const ViewAgent = ({
+  docId,
+  docName,
+  docEmail,
+  docPassword,
+  docChatAssigned,
+}) => {
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
@@ -30,10 +36,20 @@ const ViewAgent = ({ docId, docName, docEmail, docPassword }) => {
             <button onClick={handleClose}>Close</button>
           </div>
           <div>
-            <p>docId : {docId}</p>
             <p>Name : {docName}</p>
             <p>Email : {docEmail}</p>
             <p>Password : {docPassword}</p>
+            <p>Assigned :</p>
+            <ul>
+              {docChatAssigned &&
+                docChatAssigned.map((item, index) => (
+                  <li key={index}>
+                    <p>
+                      {item.name} <span>({item.number})</span>
+                    </p>
+                  </li>
+                ))}
+            </ul>
           </div>
         </div>
       </Dialog>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./contactComp.css";
 import Select from "react-select";
-import { database, getMessage, uploadMedia } from "../../firebase/firebase";
+import { database, getAllMessage, uploadMedia } from "../../firebase/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { ToastContainer, toast } from "react-toastify";
 
@@ -35,7 +35,7 @@ const TempToUser = () => {
   useEffect(() => {
     const getUserMsg = async () => {
       try {
-        const user = await getMessage();
+        const user = await getAllMessage();
         setUsers(user);
       } catch (error) {
         new Error(error);

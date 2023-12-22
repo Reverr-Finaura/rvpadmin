@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./contactComp.css";
 import { database, getMessage } from "../../firebase/firebase";
 import MsgView from "./msgview";
-import { doc, onSnapshot, updateDoc } from "firebase/firestore";
+import { doc, getDoc, onSnapshot, updateDoc } from "firebase/firestore";
 import Toggle from "react-toggle";
 import ChatAssignedModal from "./ChatAssignedModal";
 import { ToastContainer } from "react-toastify";
@@ -26,7 +26,28 @@ const NewChatSection = () => {
       doc(database, "Agents", user.email),
       (snapshot) => {
         if (snapshot.exists()) {
-          setAgentsChat(snapshot.data().assignedChats);
+          const assignedChats = snapshot.data().assignedChats || [];
+          const fetchChatsPromises = assignedChats.map(async (item) => {
+            try {
+              const chatDocRef = doc(database, "WhatsappMessages", item.number);
+              const chatSnapshot = await getDoc(chatDocRef);
+              return { ...chatSnapshot.data(), id: chatSnapshot.id };
+            } catch (error) {
+              console.error("Error fetching chat:", error);
+              throw error;
+            }
+          });
+          Promise.allSettled(fetchChatsPromises)
+            .then((results) => {
+              const successfulChats = results
+                .filter((result) => result.status === "fulfilled")
+                .map((result) => result.value);
+
+              setAgentsChat(successfulChats);
+            })
+            .catch((error) => {
+              console.error("Error fetching chats:", error);
+            });
         }
       }
     );
@@ -35,21 +56,6 @@ const NewChatSection = () => {
       unsubscribeAgentsChat();
     };
   }, [user.email]);
-
-  const [chats, setChats] = useState([]);
-  useEffect(() => {
-    const getUser = () => {
-      console.log(agentsChat);
-      const filteredChats = users.filter((user) =>
-        agentsChat.some((agent) => {
-          return parseInt(agent.number) === parseInt(user.number);
-        })
-      );
-      console.log(filteredChats);
-      setChats(filteredChats);
-    };
-    getUser();
-  }, [agentsChat, users]);
 
   const handleSelectChange = (selectedOptions) => {
     setCurrMessages(selectedOptions.messages);
@@ -74,9 +80,6 @@ const NewChatSection = () => {
       setMessage("");
     }
   };
-  useEffect(() => {
-    setToggle(selectedData?.stop);
-  }, [selectedData]);
 
   const handleToggleChange = async (e) => {
     e.preventDefault();
@@ -97,7 +100,7 @@ const NewChatSection = () => {
         search = [...users];
       }
       if (user.isAgent) {
-        search = [...chats];
+        search = [...agentsChat];
       }
       if (inputSearch) {
         const lowerCaseSearch = inputSearch.toLowerCase().trim();
@@ -113,7 +116,7 @@ const NewChatSection = () => {
       setList(search);
     };
     searchFun();
-  }, [chats, inputSearch, user.isAdmin, user.isAgent, users]);
+  }, [agentsChat, inputSearch, user.isAdmin, user.isAgent, users]);
 
   return (
     <>
@@ -173,7 +176,7 @@ const NewChatSection = () => {
                       <ChatAssignedModal
                         selectedChatId={selectedData.id}
                         selectedChatName={selectedData.name}
-                        selectedChatAssigned={selectedData.chatAssigned}
+                        selectedChatAssigned={selectedData?.chatAssigned}
                       />
                     )}
                   </div>
