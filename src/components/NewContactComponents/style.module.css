@@ -68,6 +68,10 @@
     border: 1px solid green !important;
 }
 
+.notifybox>p {
+    padding: 0;
+}
+
 .info {
     text-align: justify;
 }

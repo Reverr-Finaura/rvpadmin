@@ -74,7 +74,9 @@ const ChatAssignedModal = ({
     };
 
     const notifyData = {
-      text: `${selectedChatName} (${selectedChatId}) Chat is assigned to you`,
+      text: `${selectedChatName} ((+${
+        selectedChatId.slice(0, -10) + "-" + selectedChatId.slice(-10)
+      })) Chat is assigned to you`,
       chatInfo: data,
       path: "admin.reverr.io/contact2",
       timestamp: new Date(),

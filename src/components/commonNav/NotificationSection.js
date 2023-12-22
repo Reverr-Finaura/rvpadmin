@@ -5,6 +5,7 @@ import { database } from "../../firebase/firebase";
 import { useSelector } from "react-redux";
 import style from "../NewContactComponents/style.module.css";
 import moment from "moment";
+import { Link } from "react-router-dom";
 
 const NotificationSection = ({
   anchorElUser,
@@ -77,10 +78,21 @@ const NotificationSection = ({
               }}
               className={style.notifybox}
             >
-              <p className={style.info}>{setting.text}</p>
+              <p className={style.info} style={{ fontSize: "14px", margin: 0 }}>
+                {setting.text}
+                <br />
+                <a
+                  href={setting.path}
+                  target='blank'
+                  style={{ fontSize: "10px", color: "green", margin: 0 }}
+                >
+                  Go to Chat
+                </a>
+              </p>
+
               <p
                 className={style.info}
-                style={{ fontSize: "12px", color: "green" }}
+                style={{ fontSize: "12px", color: "green", margin: 0 }}
               >
                 {moment(date).format("LLL")}
               </p>
