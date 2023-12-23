@@ -18,6 +18,7 @@ const NewChatSection = ({ chatnumber }) => {
   const [currMessages, setCurrMessages] = useState([]);
   const [users, setUsers] = useState([]);
   const [agentsChat, setAgentsChat] = useState([]);
+
   useEffect(() => {
     if (chatnumber) {
       const getChat = async () => {

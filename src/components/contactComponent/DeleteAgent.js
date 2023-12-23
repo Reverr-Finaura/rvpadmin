@@ -52,7 +52,13 @@ const DeleteAgent = ({ setdata, docEmail, docName }) => {
             <h3>DeleteAgent </h3>
             <button onClick={handleClose}>Close</button>
           </div>
-          <form>
+          <form
+            style={{
+              display: "flex",
+              alignItem: "center",
+              justifyContent: "center",
+            }}
+          >
             <p>Do you want to this deleteAgnet {docName} ? </p>
             <button disabled={loadings} onClick={() => deleteAgnet(docEmail)}>
               Delete Agent
