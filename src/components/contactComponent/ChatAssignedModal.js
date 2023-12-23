@@ -116,7 +116,7 @@ const ChatAssignedModal = ({
           await batch.commit();
           toast.success("Successfully assigned");
         } else {
-          toast.error("Not able to assign");
+          toast.error("Alreaedy Assigned");
         }
       } else {
         toast.error("Agents document does not exist");

@@ -13,7 +13,6 @@ const EditAgent = ({ docId, docName, docChatAssigned }) => {
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
-
   const handleClickOpen = () => {
     setOpen(true);
   };
