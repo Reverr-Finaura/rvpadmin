@@ -34,15 +34,6 @@ const MsgToUser = () => {
     }
   }, [selectedData]);
 
-  // const lastMessage = singleChat?.messages[singleChat?.messages.length - 1];
-  // const messageDate = new Date(
-  //   lastMessage?.date?.seconds * 1000 + lastMessage?.date?.nanoseconds / 1e6
-  // );
-  // const currentDate = new Date();
-  // const timeDifferenceInHours = messageDate
-  //   ? Math.ceil(Math.abs(currentDate - messageDate) / (1000 * 60 * 60))
-  //   : null;
-
   function isWithin24Hours(singleChat) {
     const lastMessage = singleChat?.messages?.[singleChat?.messages.length - 1];
     if (!lastMessage) {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./contactComp.css";
 import Select from "react-select";
-import { database, getAllMessage, getMessage } from "../../firebase/firebase";
+import { database, getAllMessage } from "../../firebase/firebase";
 import { doc, getDoc } from "firebase/firestore";
 
 const MsgtoUsers = () => {
@@ -12,26 +12,30 @@ const MsgtoUsers = () => {
     setSelectedData(selectedOptions);
   };
 
-  let checked = [];
-  for (let i = 0; i < selectedData.length; i++) {
-    if (selectedData[i].messages) {
-      const lastMessage =
-        selectedData[i]?.messages[selectedData[i]?.messages.length - 1];
-      const messageDate = new Date(
-        lastMessage?.date?.seconds * 1000 + lastMessage?.date?.nanoseconds / 1e6
-      );
-      const currentDate = new Date();
-      const timeDifferenceInHours = Math.ceil(
-        Math.abs(currentDate - messageDate) / (1000 * 60 * 60)
-      );
-      if (timeDifferenceInHours < 24) {
-        checked.push(true);
+  function isWithin24Hours(selectedData) {
+    let checked = [];
+    for (let i = 0; i < selectedData.length; i++) {
+      if (selectedData[i].messages) {
+        const lastMessage =
+          selectedData[i]?.messages[selectedData[i]?.messages.length - 1];
+        const messageDate = new Date(
+          lastMessage?.date?.seconds * 1000 +
+            lastMessage?.date?.nanoseconds / 1e6
+        );
+        const currentDate = new Date();
+        const timeDifferenceInHours = Math.ceil(
+          Math.abs(currentDate - messageDate) / (1000 * 60 * 60)
+        );
+        if (timeDifferenceInHours < 24) {
+          checked.push(true);
+        } else {
+          checked.push(false);
+        }
       } else {
-        checked.push(false);
+        checked.push(true);
       }
-    } else {
-      checked.push(true);
     }
+    return checked;
   }
   const [users, setUsers] = useState([]);
 
@@ -84,8 +88,9 @@ const MsgtoUsers = () => {
     const numbers = selectedData.map((item) => item.id.slice(-10));
     const filteredCodes = [];
     const filteredNumbers = [];
-    for (let i = 0; i < checked.length; i++) {
-      if (checked[i] !== false) {
+    const checkedValue = isWithin24Hours(selectedData);
+    for (let i = 0; i < checkedValue.length; i++) {
+      if (checkedValue[i] !== false) {
         filteredCodes.push(codes[i]);
         filteredNumbers.push(numbers[i]);
       }
@@ -180,3 +185,25 @@ const MsgtoUsers = () => {
 };
 
 export default MsgtoUsers;
+
+// let checked = [];
+// for (let i = 0; i < selectedData.length; i++) {
+//   if (selectedData[i].messages) {
+//     const lastMessage =
+//       selectedData[i]?.messages[selectedData[i]?.messages.length - 1];
+//     const messageDate = new Date(
+//       lastMessage?.date?.seconds * 1000 + lastMessage?.date?.nanoseconds / 1e6
+//     );
+//     const currentDate = new Date();
+//     const timeDifferenceInHours = Math.ceil(
+//       Math.abs(currentDate - messageDate) / (1000 * 60 * 60)
+//     );
+//     if (timeDifferenceInHours < 24) {
+//       checked.push(true);
+//     } else {
+//       checked.push(false);
+//     }
+//   } else {
+//     checked.push(true);
+//   }
+// }
