@@ -20,23 +20,6 @@ const MsgToUser = () => {
     getUserMsg();
   }, []);
 
-  // useEffect(() => {
-  //   if (selectedData) {
-  //     const getSinglemsg = async () => {
-  //       const docRef = doc(
-  //         database,
-  //         "WhatsappMessages",
-  //         selectedData?.id || selectedData?.number
-  //       );
-  //       const docSnapshot = await getDoc(docRef);
-  //       if (docSnapshot.exists()) {
-  //         setSingleChat({ ...docSnapshot.data(), id: docSnapshot.id });
-  //       }
-  //     };
-  //     getSinglemsg();
-  //   }
-  // }, [selectedData]);
-
   function isWithin24Hours(singleChat) {
     const lastMessage = singleChat?.messages?.[singleChat?.messages.length - 1];
     if (!lastMessage) {
@@ -49,7 +32,7 @@ const MsgToUser = () => {
     const timeDifferenceInHours = Math.ceil(
       Math.abs(currentDate - messageDate) / (1000 * 60 * 60)
     );
-    return timeDifferenceInHours < 24;
+    return timeDifferenceInHours > 24;
   }
   const handleSelectChange = (selectedOptions) => {
     setSelectedData(selectedOptions);
@@ -74,6 +57,7 @@ const MsgToUser = () => {
         });
         console.log(res);
       } catch (error) {
+        console.log(within24Hours);
         console.error("Error sending message:", error);
       }
     } else {

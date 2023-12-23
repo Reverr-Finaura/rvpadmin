@@ -26,7 +26,7 @@ const MsgtoUsers = () => {
         const timeDifferenceInHours = Math.ceil(
           Math.abs(currentDate - messageDate) / (1000 * 60 * 60)
         );
-        if (timeDifferenceInHours < 24) {
+        if (timeDifferenceInHours > 24) {
           checked.push(true);
         } else {
           checked.push(false);
