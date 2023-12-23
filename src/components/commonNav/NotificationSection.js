@@ -107,11 +107,12 @@ const NotificationSection = ({
               <p className={style.info} style={{ fontSize: "14px", margin: 0 }}>
                 {setting.text}
                 <Link
-                  to={() =>
+                  to={() => {
                     navigate("/contact", {
                       state: { chatnumber: setting.number, section: 8 },
-                    })
-                  }
+                    });
+                    handleCloseUserMenu();
+                  }}
                   style={{ fontSize: "14px", margin: 0, color: "green" }}
                 >
                   {"->"}
