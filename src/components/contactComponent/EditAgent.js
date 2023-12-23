@@ -5,7 +5,7 @@ import { useTheme } from "@mui/material/styles";
 import { toast } from "react-toastify";
 import { database, getAllMessage } from "../../firebase/firebase";
 import "./contactComp.css";
-import { doc, updateDoc } from "firebase/firestore";
+import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 import { MdModeEdit } from "react-icons/md";
 import Select from "react-select";
 
@@ -68,14 +68,16 @@ const EditAgent = ({ docId, docName, docChatAssigned }) => {
         name: item.name,
         chatRef: doc(database, "WhatsappMessages", item.id || item.number),
       })),
-      notification: selectedData.map((item) => ({
-        text: `${item.name} (+${
-          item.number.slice(0, -10) + "-" + item.number.slice(-10)
-        }) Chat is assigned to you`,
-        path: "admin.reverr.io/contact",
-        timestamp: new Date(),
-        read: false,
-      })),
+      notification: arrayUnion(
+        selectedData.map((item) => ({
+          text: `${item.name} (+${
+            item.number.slice(0, -10) + "-" + item.number.slice(-10)
+          }) Chat is assigned to you`,
+          path: "admin.reverr.io/contact",
+          timestamp: new Date(),
+          read: false,
+        }))
+      ),
     };
 
     try {
