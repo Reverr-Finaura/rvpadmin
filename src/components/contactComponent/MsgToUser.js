@@ -26,7 +26,6 @@ const MsgToUser = () => {
       const getSinglemsg = async () => {
         const docRef = doc(database, "WhatsappMessages", selectedData?.id);
         const docSnapshot = await getDoc(docRef);
-
         if (docSnapshot.exists()) {
           setSingleChat({ ...docSnapshot.data(), id: docSnapshot.id });
         }
@@ -40,10 +39,9 @@ const MsgToUser = () => {
     lastMessage?.date?.seconds * 1000 + lastMessage?.date?.nanoseconds / 1e6
   );
   const currentDate = new Date();
-  // console.log(Math.ceil(Math.abs(currentDate - messageDate) / (1000 * 60 * 60)))
-  const timeDifferenceInHours = Math.ceil(
-    Math.abs(currentDate - messageDate) / (1000 * 60 * 60)
-  );
+  const timeDifferenceInHours = messageDate
+    ? Math.ceil(Math.abs(currentDate - messageDate) / (1000 * 60 * 60))
+    : null;
   const handleSelectChange = (selectedOptions) => {
     setSelectedData(selectedOptions);
   };

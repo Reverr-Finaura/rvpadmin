@@ -71,18 +71,6 @@ const MsgtoUsers = () => {
     getTags();
   }, []);
 
-  // useEffect(() => {
-  //   if (selectedTags) {
-  //     const filteredUsers = users.filter((user) => {
-  //       const userTags = user?.userTags || [];
-  //       return userTags.includes(selectedTags.label);
-  //     });
-  //     setUsers(filteredUsers);
-  //   } else {
-  //     getUserMsg();
-  //   }
-  // }, [selectedTags]);
-
   const selectAllUsers = () => {
     if (!selectTrue) {
       setSelectedData(users);
