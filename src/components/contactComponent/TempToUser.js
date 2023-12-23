@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
 import "./contactComp.css";
 import Select from "react-select";
-import { database, getAllMessage, uploadMedia } from "../../firebase/firebase";
-import { doc, getDoc } from "firebase/firestore";
+import { getAllMessage, uploadMedia } from "../../firebase/firebase";
 import { ToastContainer, toast } from "react-toastify";
 
 const TempToUser = () => {
   const [templateName, setTemplateName] = useState("");
   const [selectedData, setSelectedData] = useState(null);
   const [users, setUsers] = useState([]);
-  const [singleChat, setSingleChat] = useState(null);
+  // const [singleChat, setSingleChat] = useState(null);
   const [imageLink, setImageLink] = useState(null);
   const [loading, setLoading] = useState(false);
   const [btnDisable, setBtnDisable] = useState(false);
@@ -43,19 +42,19 @@ const TempToUser = () => {
     };
     getUserMsg();
   }, []);
-  useEffect(() => {
-    if (selectedData) {
-      const getSinglemsg = async () => {
-        const docRef = doc(database, "WhatsappMessages", selectedData?.id);
-        const docSnapshot = await getDoc(docRef);
+  // useEffect(() => {
+  //   if (selectedData) {
+  //     const getSinglemsg = async () => {
+  //       const docRef = doc(database, "WhatsappMessages", selectedData?.id);
+  //       const docSnapshot = await getDoc(docRef);
 
-        if (docSnapshot.exists()) {
-          setSingleChat({ ...docSnapshot.data(), id: docSnapshot.id });
-        }
-      };
-      getSinglemsg();
-    }
-  }, [selectedData]);
+  //       if (docSnapshot.exists()) {
+  //         setSingleChat({ ...docSnapshot.data(), id: docSnapshot.id });
+  //       }
+  //     };
+  //     getSinglemsg();
+  //   }
+  // }, [selectedData]);
 
   // const lastMessage = singleChat?.messages[singleChat?.messages.length - 1];
   // const messageDate = new Date(
