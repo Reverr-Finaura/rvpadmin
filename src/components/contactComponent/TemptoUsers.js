@@ -109,8 +109,8 @@ const TemptoUsers = () => {
   const getCodeAndNumber = () => {
     const codes = selectedData.map((item) => item.id.slice(0, -10));
     const numbers = selectedData.map((item) => item.id.slice(-10));
-    const filteredCodes = [];
-    const filteredNumbers = [];
+    // const filteredCodes = [];
+    // const filteredNumbers = [];
     // for (let i = 0; i < checked.length; i++) {
     //   if (checked[i] !== false) {
     //     filteredCodes.push(codes[i]);

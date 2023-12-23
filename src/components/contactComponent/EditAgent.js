@@ -64,20 +64,20 @@ const EditAgent = ({ docId, docName, docChatAssigned }) => {
         name: item.name,
         chatRef: doc(database, "WhatsappMessages", item.id || item.number),
       })),
-      notification: arrayUnion(
-        selectedData.map((item) => ({
-          text: `${item.name} (+${
-            item.number.slice(0, -10) + "-" + item.number.slice(-10)
-          }) Chat is assigned to you`,
-          path: "admin.reverr.io/contact",
-          timestamp: new Date(),
-          read: false,
-        }))
-      ),
+      notification: selectedData.map((item) => ({
+        text: `${item.name} (+${
+          item.number.slice(0, -10) + "-" + item.number.slice(-10)
+        }) Chat is assigned to you`,
+        path: "admin.reverr.io/contact",
+        timestamp: new Date(),
+        read: false,
+      })),
     };
-
+    console.log(data);
     try {
-      await updateDoc(doc(database, "Agents", docId), { ...data });
+      await updateDoc(doc(database, "Agents", docId), {
+        ...data,
+      });
       toast.success("User has been successfully added");
       setLoadings(false);
     } catch (error) {

@@ -6,7 +6,7 @@ import { deleteDoc, doc, getDoc } from "firebase/firestore";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
-const DeleteAgent = ({ setdata, docEmail }) => {
+const DeleteAgent = ({ setdata, docEmail, docName }) => {
   const user = useSelector((state) => state.user.user);
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
@@ -53,6 +53,7 @@ const DeleteAgent = ({ setdata, docEmail }) => {
             <button onClick={handleClose}>Close</button>
           </div>
           <form>
+            <p>Do you want to this deleteAgnet {docName} ? </p>
             <button disabled={loadings} onClick={() => deleteAgnet(docEmail)}>
               Delete Agent
             </button>

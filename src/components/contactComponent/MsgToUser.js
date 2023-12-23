@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./contactComp.css";
 import Select from "react-select";
-import { database, getAllMessage } from "../../firebase/firebase";
-import { doc, getDoc } from "firebase/firestore";
+import { getAllMessage } from "../../firebase/firebase";
 
 const MsgToUser = () => {
   const [message, setMessage] = useState("");
   const [selectedData, setSelectedData] = useState(null);
-  const [singleChat, setSingleChat] = useState(null);
+  // const [singleChat, setSingleChat] = useState(null);
   const [users, setUsers] = useState([]);
   useEffect(() => {
     const getUserMsg = async () => {
@@ -21,18 +20,22 @@ const MsgToUser = () => {
     getUserMsg();
   }, []);
 
-  useEffect(() => {
-    if (selectedData) {
-      const getSinglemsg = async () => {
-        const docRef = doc(database, "WhatsappMessages", selectedData?.id);
-        const docSnapshot = await getDoc(docRef);
-        if (docSnapshot.exists()) {
-          setSingleChat({ ...docSnapshot.data(), id: docSnapshot.id });
-        }
-      };
-      getSinglemsg();
-    }
-  }, [selectedData]);
+  // useEffect(() => {
+  //   if (selectedData) {
+  //     const getSinglemsg = async () => {
+  //       const docRef = doc(
+  //         database,
+  //         "WhatsappMessages",
+  //         selectedData?.id || selectedData?.number
+  //       );
+  //       const docSnapshot = await getDoc(docRef);
+  //       if (docSnapshot.exists()) {
+  //         setSingleChat({ ...docSnapshot.data(), id: docSnapshot.id });
+  //       }
+  //     };
+  //     getSinglemsg();
+  //   }
+  // }, [selectedData]);
 
   function isWithin24Hours(singleChat) {
     const lastMessage = singleChat?.messages?.[singleChat?.messages.length - 1];
@@ -61,7 +64,7 @@ const MsgToUser = () => {
       countryCode: selectedData.id.slice(0, -10),
       number: selectedData.id.slice(-10),
     };
-    const within24Hours = isWithin24Hours(singleChat);
+    const within24Hours = isWithin24Hours(selectedData);
     if (within24Hours) {
       try {
         const res = await fetch("https://server.reverr.io/sendwacustommsg   ", {

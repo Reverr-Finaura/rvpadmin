@@ -104,7 +104,11 @@ const ManageAgent = () => {
                   <td>{item.password}</td>
                   <td>
                     <div className='manage-btn'>
-                      <DeleteAgent setdata={setdata} docEmail={item.email} />
+                      <DeleteAgent
+                        setdata={setdata}
+                        docEmail={item.email}
+                        docName={item.name}
+                      />
                       <EditAgent
                         docId={item.id}
                         docName={item.name}
