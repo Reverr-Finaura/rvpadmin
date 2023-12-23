@@ -69,15 +69,6 @@ const AddUser = () => {
     }
   };
 
-  // useEffect(() => {
-  //   const sendTags = async () => {
-  //     await setDoc(doc(database, "meta", "tags"), {
-  //       initialTags,
-  //     });
-  //   };
-  //   sendTags();
-  // }, []);
-
   useEffect(() => {
     const getTags = async () => {
       const result = await getDoc(doc(database, "meta", "tags"));
@@ -87,7 +78,6 @@ const AddUser = () => {
     };
     getTags();
   }, []);
-  // console.log(tags.initialTags);
 
   return (
     <div>

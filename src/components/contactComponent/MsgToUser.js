@@ -34,14 +34,29 @@ const MsgToUser = () => {
     }
   }, [selectedData]);
 
-  const lastMessage = singleChat?.messages[singleChat?.messages.length - 1];
-  const messageDate = new Date(
-    lastMessage?.date?.seconds * 1000 + lastMessage?.date?.nanoseconds / 1e6
-  );
-  const currentDate = new Date();
-  const timeDifferenceInHours = messageDate
-    ? Math.ceil(Math.abs(currentDate - messageDate) / (1000 * 60 * 60))
-    : null;
+  // const lastMessage = singleChat?.messages[singleChat?.messages.length - 1];
+  // const messageDate = new Date(
+  //   lastMessage?.date?.seconds * 1000 + lastMessage?.date?.nanoseconds / 1e6
+  // );
+  // const currentDate = new Date();
+  // const timeDifferenceInHours = messageDate
+  //   ? Math.ceil(Math.abs(currentDate - messageDate) / (1000 * 60 * 60))
+  //   : null;
+
+  function isWithin24Hours(singleChat) {
+    const lastMessage = singleChat?.messages?.[singleChat?.messages.length - 1];
+    if (!lastMessage) {
+      return false;
+    }
+    const messageDate = new Date(
+      lastMessage.date.seconds * 1000 + lastMessage.date.nanoseconds / 1e6
+    );
+    const currentDate = new Date();
+    const timeDifferenceInHours = Math.ceil(
+      Math.abs(currentDate - messageDate) / (1000 * 60 * 60)
+    );
+    return timeDifferenceInHours < 24;
+  }
   const handleSelectChange = (selectedOptions) => {
     setSelectedData(selectedOptions);
   };
@@ -55,7 +70,8 @@ const MsgToUser = () => {
       countryCode: selectedData.id.slice(0, -10),
       number: selectedData.id.slice(-10),
     };
-    if (timeDifferenceInHours < 24) {
+    const within24Hours = isWithin24Hours(singleChat);
+    if (within24Hours) {
       try {
         const res = await fetch("https://server.reverr.io/sendwacustommsg   ", {
           method: "POST",
