@@ -41,9 +41,6 @@ const EditAgent = ({ docId, docName, docChatAssigned }) => {
   }, []);
   const [name, setName] = React.useState(docName);
   const [loadings, setLoadings] = React.useState(false);
-  const reset = () => {
-    setName("");
-  };
   const [selectedData, setSelectedData] = React.useState(docChatAssigned);
   const handleSelectChange = (selectedOptions) => {
     setSelectedData(selectedOptions);
@@ -84,7 +81,6 @@ const EditAgent = ({ docId, docName, docChatAssigned }) => {
       await updateDoc(doc(database, "Agents", docId), { ...data });
       toast.success("User has been successfully added");
       setLoadings(false);
-      reset();
     } catch (error) {
       setLoadings(false);
       console.error(error);
