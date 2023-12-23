@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import style from "../NewContactComponents/style.module.css";
 import moment from "moment";
 import { ImCross } from "react-icons/im";
-import { toast } from "react-toastify";
+import { Link, useNavigate } from "react-router-dom";
 
 const NotificationSection = ({
   anchorElUser,
@@ -15,6 +15,7 @@ const NotificationSection = ({
   setUnreadCount,
   setNotifyData,
 }) => {
+  const navigate = useNavigate();
   const user = useSelector((state) => state.user.user);
   const fetchNotifications = useCallback(async () => {
     try {
@@ -105,7 +106,18 @@ const NotificationSection = ({
               />
               <p className={style.info} style={{ fontSize: "14px", margin: 0 }}>
                 {setting.text}
+                <Link
+                  to={() =>
+                    navigate("/contact", {
+                      state: { chatnumber: setting.number, section: 8 },
+                    })
+                  }
+                  style={{ fontSize: "14px", margin: 0, color: "green" }}
+                >
+                  {"->"}
+                </Link>
               </p>
+
               <p
                 className={style.info}
                 style={{ fontSize: "12px", color: "green", margin: 0 }}

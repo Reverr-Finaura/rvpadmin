@@ -1,33 +1,68 @@
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
-import { database, getAllMessage, uploadMedia } from "../../firebase/firebase";
+import {
+  database,
+  getAllMessage,
+  getMessage,
+  uploadMedia,
+} from "../../firebase/firebase";
 import { ToastContainer, toast } from "react-toastify";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, onSnapshot } from "firebase/firestore";
+import { useSelector } from "react-redux";
 
 const TemptoUsers = () => {
+  const user = useSelector((state) => state.user.user);
   const [users, setUsers] = useState([]);
   const [imageLink, setImageLink] = useState(null);
   const [loading, setLoading] = useState(false);
   const [btnDisable, setBtnDisable] = useState(false);
   const [fileName, setFileName] = useState(null);
-  const getUserMsg = async () => {
-    try {
-      const user = await getAllMessage();
-      setUsers(user);
-    } catch (error) {
-      new Error(error);
-    }
-  };
+  const [agentsChat, setAgentsChat] = useState([]);
   useEffect(() => {
-    getUserMsg();
-  }, []);
+    const unsubscribeMessage = getMessage((userdata) => {
+      setUsers(userdata);
+    });
+    const unsubscribeAgentsChat = onSnapshot(
+      doc(database, "Agents", user.email),
+      (snapshot) => {
+        if (snapshot.exists()) {
+          const assignedChats = snapshot.data().assignedChats || [];
+          const fetchChatsPromises = assignedChats.map(async (item) => {
+            try {
+              const chatDocRef = doc(database, "WhatsappMessages", item.number);
+              const chatSnapshot = await getDoc(chatDocRef);
+              return { ...chatSnapshot.data(), id: chatSnapshot.id };
+            } catch (error) {
+              console.error("Error fetching chat:", error);
+              throw error;
+            }
+          });
+          Promise.allSettled(fetchChatsPromises)
+            .then((results) => {
+              const successfulChats = results
+                .filter((result) => result.status === "fulfilled")
+                .map((result) => result.value);
+
+              setAgentsChat(successfulChats);
+            })
+            .catch((error) => {
+              console.error("Error fetching chats:", error);
+            });
+        }
+      }
+    );
+    return () => {
+      unsubscribeMessage();
+      unsubscribeAgentsChat();
+    };
+  }, [user.email]);
 
   const [tags, setTags] = useState({});
   const [selectedTags, setSelectedTags] = useState();
 
   const handleTagSelectChange = (selectedOptions) => {
     setSelectedTags(selectedOptions);
-    const filteredUser = users.filter((user) => {
+    const filteredUser = (users ?? agentsChat).filter((user) => {
       const userTags = user?.userTags || [];
       return userTags.some((userTag) =>
         selectedOptions.some((selectedTag) => selectedTag.label === userTag)
@@ -44,18 +79,6 @@ const TemptoUsers = () => {
     };
     getTags();
   }, []);
-
-  // useEffect(() => {
-  //   if (selectedTags) {
-  //     const filteredUsers = users.filter((user) => {
-  //       const userTags = user?.userTags || [];
-  //       return userTags.includes(selectedTags.label);
-  //     });
-  //     setUsers(filteredUsers);
-  //   } else {
-  //     getUserMsg();
-  //   }
-  // }, [selectedTags]);
 
   const [selectTrue, setSelectedTrue] = useState(false);
   const [templateName, setTemplateName] = useState("");
@@ -89,34 +112,9 @@ const TemptoUsers = () => {
     setSelectedData([]);
     setSelectedTrue(false);
   };
-
-  // let checked = [];
-  // for (let i = 0; i < selectedData.length; i++) {
-  //   const lastMessage =
-  //     selectedData[i]?.messages[selectedData[i]?.messages.length - 1];
-  //   const messageDate = new Date(
-  //     lastMessage?.date?.seconds * 1000 + lastMessage?.date?.nanoseconds / 1e6
-  //   );
-  //   const currentDate = new Date();
-  //   const timeDifferenceInHours =
-  //     (currentDate - messageDate) / (1000 * 60 * 60);
-  //   if (timeDifferenceInHours >= 24) {
-  //     checked.push(true);
-  //   } else {
-  //     checked.push(false);
-  //   }
-  // }
   const getCodeAndNumber = () => {
     const codes = selectedData.map((item) => item.id.slice(0, -10));
     const numbers = selectedData.map((item) => item.id.slice(-10));
-    // const filteredCodes = [];
-    // const filteredNumbers = [];
-    // for (let i = 0; i < checked.length; i++) {
-    //   if (checked[i] !== false) {
-    //     filteredCodes.push(codes[i]);
-    //     filteredNumbers.push(numbers[i]);
-    //   }
-    // }
     return {
       codes,
       numbers,
@@ -124,7 +122,7 @@ const TemptoUsers = () => {
   };
   const selectAllUsers = () => {
     if (!selectTrue) {
-      setSelectedData(users);
+      setSelectedData(user.isAdmin ? users : agentsChat);
     } else {
       setSelectedData([]);
     }
@@ -182,35 +180,7 @@ const TemptoUsers = () => {
         Reset();
         console.error("Error sending message:", error);
       }
-      // setTimeout(() => {
-      //   setSelectedTrue(false);
-      //   setTemplateName("");
-      //   setSelectedData([]);
-      // }, 1000);
     }
-    // if (!selectedData) {
-    //   return;
-    // }
-    // const { codes, numbers } = getCodeAndNumber();
-    // const data = {
-    //   templateName: templateName,
-    //   countryCodes: codes,
-    //   numbers: numbers,
-    // };
-    // try {
-    //   const res = await fetch("https://server.reverr.io/sendwamutm", {
-    //     method: "POST",
-    //     headers: { "Content-Type": "application/json" },
-    //     body: JSON.stringify(data),
-    //   });
-    //   console.log(res);
-    // } catch (error) {
-    //   console.error("Error sending message:", error);
-    // }
-    // setTimeout(() => {
-    //   setSelectedTrue(false);
-    //   setTemplateName("");
-    // }, 1000);
   };
   return (
     <div className='form-container'>
@@ -236,7 +206,7 @@ const TemptoUsers = () => {
           <Select
             isMulti
             name='colors'
-            options={users}
+            options={user.isAdmin ? users : agentsChat}
             className='basic-multi-select'
             classNamePrefix='select'
             onChange={handleSelectChange}

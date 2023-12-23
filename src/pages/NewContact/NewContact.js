@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../../components/NewContactComponents/Navbar";
 import style from "./newcontact.module.css";
 import Sidebar from "../../components/NewContactComponents/Sidebar";
@@ -15,12 +15,12 @@ import ManageAgent from "../../components/contactComponent/ManageAgent";
 import CommonNav from "../../components/commonNav/CommonNav";
 import { logout } from "../../redux/userSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const NewContact = () => {
   const [section, setSection] = useState(1);
+  const { chatnumber, section: tab } = useLocation();
   const user = useSelector((state) => state.user.user);
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -33,6 +33,12 @@ const NewContact = () => {
     dispatch(logout());
     navigate("/");
   };
+
+  useEffect(() => {
+    if (tab) {
+      setSection(tab);
+    }
+  }, [tab]);
 
   return (
     <>
@@ -49,7 +55,7 @@ const NewContact = () => {
           {section === 4 && <TemptoUsers />}
           {section === 6 && <AddUser />}
           {section === 7 && <CSVAdduser />}
-          {section === 8 && <NewChatSection />}
+          {section === 8 && <NewChatSection chatnumber={chatnumber} />}
           {section === 9 && <EditUser />}
           {section === 10 && <AddAgent />}
           {section === 11 && <ManageAgent />}

@@ -69,6 +69,7 @@ const EditAgent = ({ docId, docName, docChatAssigned }) => {
           item.number.slice(0, -10) + "-" + item.number.slice(-10)
         }) Chat is assigned to you`,
         path: "admin.reverr.io/contact",
+        number: item.number,
         timestamp: new Date(),
         read: false,
       })),

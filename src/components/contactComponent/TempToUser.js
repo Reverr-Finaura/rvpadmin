@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from "react";
 import "./contactComp.css";
 import Select from "react-select";
-import { getAllMessage, uploadMedia } from "../../firebase/firebase";
+import { database, getMessage, uploadMedia } from "../../firebase/firebase";
 import { ToastContainer, toast } from "react-toastify";
+import { doc, getDoc, onSnapshot } from "firebase/firestore";
+import { useSelector } from "react-redux";
 
 const TempToUser = () => {
+  const user = useSelector((state) => state.user.user);
   const [templateName, setTemplateName] = useState("");
   const [selectedData, setSelectedData] = useState(null);
   const [users, setUsers] = useState([]);
-  // const [singleChat, setSingleChat] = useState(null);
   const [imageLink, setImageLink] = useState(null);
   const [loading, setLoading] = useState(false);
   const [btnDisable, setBtnDisable] = useState(false);
   const [fileName, setFileName] = useState(null);
+  const [agentsChat, setAgentsChat] = useState([]);
 
   const handleFileChange = async (e) => {
     if (e.target.files) {
@@ -32,37 +35,43 @@ const TempToUser = () => {
   };
 
   useEffect(() => {
-    const getUserMsg = async () => {
-      try {
-        const user = await getAllMessage();
-        setUsers(user);
-      } catch (error) {
-        new Error(error);
+    const unsubscribeMessage = getMessage((userdata) => {
+      setUsers(userdata);
+    });
+    const unsubscribeAgentsChat = onSnapshot(
+      doc(database, "Agents", user.email),
+      (snapshot) => {
+        if (snapshot.exists()) {
+          const assignedChats = snapshot.data().assignedChats || [];
+          const fetchChatsPromises = assignedChats.map(async (item) => {
+            try {
+              const chatDocRef = doc(database, "WhatsappMessages", item.number);
+              const chatSnapshot = await getDoc(chatDocRef);
+              return { ...chatSnapshot.data(), id: chatSnapshot.id };
+            } catch (error) {
+              console.error("Error fetching chat:", error);
+              throw error;
+            }
+          });
+          Promise.allSettled(fetchChatsPromises)
+            .then((results) => {
+              const successfulChats = results
+                .filter((result) => result.status === "fulfilled")
+                .map((result) => result.value);
+
+              setAgentsChat(successfulChats);
+            })
+            .catch((error) => {
+              console.error("Error fetching chats:", error);
+            });
+        }
       }
+    );
+    return () => {
+      unsubscribeMessage();
+      unsubscribeAgentsChat();
     };
-    getUserMsg();
-  }, []);
-  // useEffect(() => {
-  //   if (selectedData) {
-  //     const getSinglemsg = async () => {
-  //       const docRef = doc(database, "WhatsappMessages", selectedData?.id);
-  //       const docSnapshot = await getDoc(docRef);
-
-  //       if (docSnapshot.exists()) {
-  //         setSingleChat({ ...docSnapshot.data(), id: docSnapshot.id });
-  //       }
-  //     };
-  //     getSinglemsg();
-  //   }
-  // }, [selectedData]);
-
-  // const lastMessage = singleChat?.messages[singleChat?.messages.length - 1];
-  // const messageDate = new Date(
-  //   lastMessage?.date?.seconds * 1000 + lastMessage?.date?.nanoseconds / 1e6
-  // );
-  // const currentDate = new Date();
-  // const timeDifferenceInHours = (currentDate - messageDate) / (1000 * 60 * 60);
-  // console.log(timeDifferenceInHours);
+  }, [user.email]);
   const handleSelectChange = (selectedOptions) => {
     setSelectedData(selectedOptions);
   };
@@ -99,7 +108,6 @@ const TempToUser = () => {
         };
       }
       setBtnDisable(true);
-      // console.log(data)
       toast.success("Sending Template To users");
       try {
         if (imageLink != null) {
@@ -131,11 +139,6 @@ const TempToUser = () => {
         console.error("Error sending message:", error);
         Reset();
       }
-
-      // setTimeout(() => {
-      //   setTemplateName("");
-      //   setSelectedData(null);
-      // }, 1000);
     }
   };
   return (
@@ -149,7 +152,7 @@ const TempToUser = () => {
             className='basic-single'
             classNamePrefix='select'
             name='user'
-            options={users}
+            options={user.isAdmin ? users : agentsChat}
             onChange={handleSelectChange} // Handle selection changes
             value={selectedData}
             getOptionLabel={(option) =>

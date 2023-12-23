@@ -77,6 +77,7 @@ const ChatAssignedModal = ({
       text: `${selectedChatName} (+${
         selectedChatId.slice(0, -10) + "-" + selectedChatId.slice(-10)
       }) Chat is assigned to you`,
+      number: selectedChatId,
       path: "admin.reverr.io/contact",
       timestamp: new Date(),
       read: false,

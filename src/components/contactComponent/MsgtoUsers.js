@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
 import "./contactComp.css";
 import Select from "react-select";
-import { database, getAllMessage } from "../../firebase/firebase";
-import { doc, getDoc } from "firebase/firestore";
+import { database, getMessage } from "../../firebase/firebase";
+import { doc, getDoc, onSnapshot } from "firebase/firestore";
+import { useSelector } from "react-redux";
 
 const MsgtoUsers = () => {
+  const user = useSelector((state) => state.user.user);
   const [message, setMessage] = useState("");
   const [selectTrue, setSelectedTrue] = useState(false);
   const [selectedData, setSelectedData] = useState([]);
   const handleSelectChange = (selectedOptions) => {
     setSelectedData(selectedOptions);
   };
-
   function isWithin24Hours(selectedData) {
     let checked = [];
     for (let i = 0; i < selectedData.length; i++) {
@@ -38,25 +39,52 @@ const MsgtoUsers = () => {
     return checked;
   }
   const [users, setUsers] = useState([]);
-
-  const getUserMsg = async () => {
-    try {
-      const user = await getAllMessage();
-      setUsers(user);
-    } catch (error) {
-      new Error(error);
-    }
-  };
+  const [agentsChat, setAgentsChat] = useState([]);
   useEffect(() => {
-    getUserMsg();
-  }, []);
+    const unsubscribeMessage = getMessage((userdata) => {
+      setUsers(userdata);
+    });
+    const unsubscribeAgentsChat = onSnapshot(
+      doc(database, "Agents", user.email),
+      (snapshot) => {
+        if (snapshot.exists()) {
+          const assignedChats = snapshot.data().assignedChats || [];
+          const fetchChatsPromises = assignedChats.map(async (item) => {
+            try {
+              const chatDocRef = doc(database, "WhatsappMessages", item.number);
+              const chatSnapshot = await getDoc(chatDocRef);
+              return { ...chatSnapshot.data(), id: chatSnapshot.id };
+            } catch (error) {
+              console.error("Error fetching chat:", error);
+              throw error;
+            }
+          });
+          Promise.allSettled(fetchChatsPromises)
+            .then((results) => {
+              const successfulChats = results
+                .filter((result) => result.status === "fulfilled")
+                .map((result) => result.value);
+
+              setAgentsChat(successfulChats);
+            })
+            .catch((error) => {
+              console.error("Error fetching chats:", error);
+            });
+        }
+      }
+    );
+    return () => {
+      unsubscribeMessage();
+      unsubscribeAgentsChat();
+    };
+  }, [user.email]);
 
   const [tags, setTags] = useState({});
   const [selectedTags, setSelectedTags] = useState([]);
 
   const handleTagSelectChange = (selectedOptions) => {
     setSelectedTags(selectedOptions);
-    const filteredUser = users.filter((user) => {
+    const filteredUser = (users ?? agentsChat).filter((user) => {
       const userTags = user?.userTags || [];
       return userTags.some((userTag) =>
         selectedOptions.some((selectedTag) => selectedTag.label === userTag)
@@ -77,7 +105,7 @@ const MsgtoUsers = () => {
 
   const selectAllUsers = () => {
     if (!selectTrue) {
-      setSelectedData(users);
+      setSelectedData(user.isAdmin ? users : agentsChat);
     } else {
       setSelectedData([]);
     }
@@ -151,7 +179,7 @@ const MsgtoUsers = () => {
           <Select
             isMulti
             name='colors'
-            options={users}
+            options={user.isAdmin ? users : agentsChat}
             className='basic-multi-select'
             classNamePrefix='select'
             onChange={handleSelectChange}

@@ -8,7 +8,7 @@ import ChatAssignedModal from "./ChatAssignedModal";
 import { ToastContainer } from "react-toastify";
 import { useSelector } from "react-redux";
 
-const NewChatSection = () => {
+const NewChatSection = ({ chatnumber }) => {
   const user = useSelector((state) => state.user.user);
   const [message, setMessage] = useState("");
   const [selectedData, setSelectedData] = useState(null);
@@ -18,6 +18,23 @@ const NewChatSection = () => {
   const [currMessages, setCurrMessages] = useState([]);
   const [users, setUsers] = useState([]);
   const [agentsChat, setAgentsChat] = useState([]);
+  useEffect(() => {
+    if (chatnumber) {
+      const getChat = async () => {
+        const chat = await getDoc(
+          doc(database, "WhatsappMessages", chatnumber)
+        );
+        if (chat.exists()) {
+          const selectedOptions = chat.data();
+          setCurrMessages(selectedOptions.messages);
+          setSelectedData(selectedOptions);
+          setToggle(selectedOptions.stop);
+        }
+      };
+      getChat();
+    }
+  }, [chatnumber]);
+
   useEffect(() => {
     const unsubscribeMessage = getMessage((userdata) => {
       setUsers(userdata);
