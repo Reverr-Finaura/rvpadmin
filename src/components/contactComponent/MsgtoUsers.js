@@ -84,7 +84,8 @@ const MsgtoUsers = () => {
 
   const handleTagSelectChange = (selectedOptions) => {
     setSelectedTags(selectedOptions);
-    const filteredUser = (users ?? agentsChat).filter((user) => {
+    const selectuser = user.isAdmin ? users : agentsChat;
+    const filteredUser = selectuser.filter((user) => {
       const userTags = user?.userTags || [];
       return userTags.some((userTag) =>
         selectedOptions.some((selectedTag) => selectedTag.label === userTag)

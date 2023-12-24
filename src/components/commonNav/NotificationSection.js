@@ -50,7 +50,7 @@ const NotificationSection = ({
         (notification, i) => i !== index
       );
       await updateDoc(doc(database, "Agents", user.email), {
-        notification: newNotifications,
+        notification: newNotifications.reverse(),
       });
       setNotifyData(newNotifications);
     } catch (error) {

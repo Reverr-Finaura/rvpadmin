@@ -51,11 +51,11 @@ const EditAgent = ({ docId, docName, docChatAssigned }) => {
       return;
     }
     setLoadings(true);
-    if (!selectedData || selectedData.length === 0) {
-      toast.error("No selected data");
-      setLoadings(false);
-      return;
-    }
+    // if (!selectedData || selectedData.length === 0) {
+    //   toast.error("No selected data");
+    //   setLoadings(false);
+    //   return;
+    // }
     const data = {
       name: name,
       isAgent: true,
@@ -78,6 +78,7 @@ const EditAgent = ({ docId, docName, docChatAssigned }) => {
     try {
       await updateDoc(doc(database, "Agents", docId), {
         ...data,
+        notification: arrayUnion(...data.notification),
       });
       toast.success("User has been successfully added");
       setLoadings(false);

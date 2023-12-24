@@ -143,7 +143,7 @@ const TempToUser = () => {
   };
   return (
     <div className='form-container'>
-      <h3>Send Template to Mutiple user</h3>
+      <h3>Send Template to single user</h3>
       <form onSubmit={submit}>
         <div className='input-feilds'>
           <label>Select user</label>

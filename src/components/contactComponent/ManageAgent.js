@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./contactComp.css";
 import { database, getAllAgents } from "../../firebase/firebase";
-import { deleteDoc, doc, getDoc } from "firebase/firestore";
+import { deleteDoc, doc } from "firebase/firestore";
 import { ToastContainer, toast } from "react-toastify";
 import EditAgent from "./EditAgent";
 import ViewAgent from "./ViewAgent";
-import { MdDelete } from "react-icons/md";
-import { useSelector } from "react-redux";
 import DeleteAgent from "./DeleteAgent";
 
 const ManageAgent = () => {
@@ -43,14 +41,24 @@ const ManageAgent = () => {
     setShowSelect(true);
     setSelectedData(data.map((item) => item.id));
   };
-  const deleteHandler = () => {
-    if (selectedData.length > 0) {
-      selectedData.map(async (item) => {
-        await deleteDoc(doc(database, "Agents", item.id));
-      });
-      toast.success("All selected Agents has been deleted succesfully");
-    } else {
-      toast.error("Please Selected data");
+  const deleteHandler = async (e) => {
+    e.preventDefault();
+    try {
+      if (!Array.isArray(selectedData)) {
+        throw new Error("Selected data is not an array");
+      }
+      if (selectedData.length > 0) {
+        const deletePromises = selectedData.map((item) =>
+          deleteDoc(doc(database, "Agents", item.id))
+        );
+        await Promise.all(deletePromises);
+        toast.success("All selected Agents have been deleted successfully");
+      } else {
+        toast.error("Please select data");
+      }
+    } catch (error) {
+      console.error("Error in deleteHandler:", error.message);
+      toast.error("An error occurred while deleting Agents");
     }
   };
 
@@ -92,6 +100,7 @@ const ManageAgent = () => {
                   {showSelect && (
                     <td>
                       <input
+                        style={{ height: "fit-content" }}
                         type='checkbox'
                         onChange={() => datahandler(item.id)}
                         checked={selectedData.includes(item.id)}

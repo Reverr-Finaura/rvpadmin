@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./contactComp.css";
 import Select from "react-select";
-import { database, getAllMessage, getMessage } from "../../firebase/firebase";
+import { database, getMessage } from "../../firebase/firebase";
 import { useSelector } from "react-redux";
 import { doc, getDoc, onSnapshot } from "firebase/firestore";
 
