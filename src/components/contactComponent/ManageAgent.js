@@ -57,24 +57,24 @@ const ManageAgent = () => {
   return (
     <div>
       <div>
-        <div className='manage-header'>
+        <div className="manage-header">
           <h3>Manage Agents</h3>
-          <div className='manage-btn'>
+          <div className="manage-btn">
             {selectedData.length > 0 && (
               <>
                 <button onClick={deleteHandler}>Delete Selected</button>
                 <button onClick={() => setSelectedData([])}>
-                  UnSelected All
+                  Deselect All
                 </button>
               </>
             )}
+            <button onClick={selectedAllHandler}>Select All</button>
             <button onClick={openSelector}>
               {showSelect ? "Close" : "Open to Select"}
             </button>
-            <button onClick={selectedAllHandler}>Select All</button>
           </div>
         </div>
-        <table id='customers'>
+        <table id="customers">
           <thead>
             <tr>
               {showSelect && <th>Select</th>}
@@ -92,7 +92,7 @@ const ManageAgent = () => {
                   {showSelect && (
                     <td>
                       <input
-                        type='checkbox'
+                        type="checkbox"
                         onChange={() => datahandler(item.id)}
                         checked={selectedData.includes(item.id)}
                       />
@@ -103,7 +103,7 @@ const ManageAgent = () => {
                   <td>{item.email}</td>
                   <td>{item.password}</td>
                   <td>
-                    <div className='manage-btn'>
+                    <div className="manage-btn">
                       <DeleteAgent
                         setdata={setdata}
                         docEmail={item.email}

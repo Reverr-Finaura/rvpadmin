@@ -94,31 +94,31 @@ const EditAgent = ({ docId, docName, docChatAssigned }) => {
       <Dialog
         fullScreen={fullScreen}
         open={open}
-        aria-labelledby='responsive-dialog-title'
+        aria-labelledby="responsive-dialog-title"
       >
-        <div className='edit-fotm'>
-          <div className='manage-header'>
+        <div className="edit-fotm">
+          <div className="manage-header">
             <h3>Edit Agent Form</h3>
             <button onClick={handleClose}>Close</button>
           </div>
           <form onSubmit={submit}>
-            <div className='input-feilds'>
+            <div className="input-feilds">
               <label>Name</label>
               <input
-                type='type'
-                placeholder='Enter a Name'
+                type="type"
+                placeholder="Enter a Name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
             </div>
-            <div className='input-feilds'>
+            <div className="input-feilds">
               <label>Select user</label>
               <Select
                 isMulti
-                name='colors'
+                name="colors"
                 options={users}
-                className='basic-multi-select'
-                classNamePrefix='select'
+                className="basic-multi-select"
+                classNamePrefix="select"
                 onChange={handleSelectChange}
                 value={selectedData}
                 getOptionLabel={(option) =>
@@ -127,7 +127,7 @@ const EditAgent = ({ docId, docName, docChatAssigned }) => {
                 getOptionValue={(option) => option.id || option.number}
               />
             </div>
-            <div className='input-feilds'>
+            <div className="input-feilds">
               <button disabled={loadings}>Edit Agent</button>
             </div>
           </form>

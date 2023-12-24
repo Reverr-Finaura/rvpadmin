@@ -48,7 +48,13 @@ const CommonNav = ({ handleLogout }) => {
   return (
     <div className={style.nav}>
       <div className={style.navCon} style={{ justifyContent: "space-between" }}>
-        <h3>Hi Agent {user.email.split("@")[0]}</h3>
+        <h3
+          style={{
+            marginLeft: "20px",
+          }}
+        >
+          Hi Agent {user.email.split("@")[0]}
+        </h3>
         <div style={{ display: "flex", gap: "20px" }}>
           <Box sx={{ flexGrow: 0 }}>
             <IconButton
@@ -79,7 +85,14 @@ const CommonNav = ({ handleLogout }) => {
               setNotifyData={setNotifyData}
             />
           </Box>
-          <button onClick={handleLogout}>Logout</button>
+          <button
+            onClick={handleLogout}
+            style={{
+              marginRight: "20px",
+            }}
+          >
+            Logout
+          </button>
         </div>
       </div>
     </div>
