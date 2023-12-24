@@ -133,6 +133,7 @@ const TempToUser = () => {
           );
           // console.log(res);
           toast.success("Template send!");
+          console.log(res);
           Reset();
         }
       } catch (error) {
@@ -142,16 +143,21 @@ const TempToUser = () => {
     }
   };
   return (
+<<<<<<< HEAD
     <div className='form-container'>
       <h3>Send Template to single user</h3>
+=======
+    <div className="form-container">
+      <h3>Send Template to Single user</h3>
+>>>>>>> 025bc24188bb49a837d6c43d2a253e1615f41e84
       <form onSubmit={submit}>
-        <div className='input-feilds'>
+        <div className="input-feilds">
           <label>Select user</label>
           <Select
             isClearable
-            className='basic-single'
-            classNamePrefix='select'
-            name='user'
+            className="basic-single"
+            classNamePrefix="select"
+            name="user"
             options={user.isAdmin ? users : agentsChat}
             onChange={handleSelectChange} // Handle selection changes
             value={selectedData}
@@ -161,14 +167,14 @@ const TempToUser = () => {
             getOptionValue={(option) => option.id}
           />
         </div>
-        <div className='input-feilds'>
+        <div className="input-feilds">
           <label>Template</label>
           <textarea
             rows={10}
             value={templateName}
             onChange={(e) => setTemplateName(e.target.value)}
           ></textarea>
-          <input type='file' value={fileName} onChange={handleFileChange} />
+          <input type="file" value={fileName} onChange={handleFileChange} />
         </div>
         <button disabled={btnDisable}>Send Message</button>
       </form>

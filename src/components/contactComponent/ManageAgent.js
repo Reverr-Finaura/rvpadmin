@@ -72,14 +72,14 @@ const ManageAgent = () => {
               <>
                 <button onClick={deleteHandler}>Delete Selected</button>
                 <button onClick={() => setSelectedData([])}>
-                  UnSelected All
+                  Deselect All
                 </button>
               </>
             )}
+            <button onClick={selectedAllHandler}>Select All</button>
             <button onClick={openSelector}>
               {showSelect ? "Close" : "Open to Select"}
             </button>
-            <button onClick={selectedAllHandler}>Select All</button>
           </div>
         </div>
         <table id='customers'>

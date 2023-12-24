@@ -45,10 +45,10 @@ const DeleteAgent = ({ setdata, docEmail, docName }) => {
       <Dialog
         fullScreen={fullScreen}
         open={open}
-        aria-labelledby='responsive-dialog-title'
+        aria-labelledby="responsive-dialog-title"
       >
-        <div className='edit-fotm'>
-          <div className='manage-header'>
+        <div className="edit-fotm">
+          <div className="manage-header">
             <h3>DeleteAgent </h3>
             <button onClick={handleClose}>Close</button>
           </div>
@@ -59,7 +59,7 @@ const DeleteAgent = ({ setdata, docEmail, docName }) => {
               justifyContent: "center",
             }}
           >
-            <p>Do you want to this deleteAgnet {docName} ? </p>
+            <p>Do you want to this delete agent {docName} ? </p>
             <button disabled={loadings} onClick={() => deleteAgnet(docEmail)}>
               Delete Agent
             </button>
