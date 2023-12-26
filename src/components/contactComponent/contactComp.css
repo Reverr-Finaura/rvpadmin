@@ -255,8 +255,8 @@ p {
     max-width: auto;
     min-width: 480px;
     padding: 20px;
-    height: auto;
-    min-height: 400px;
+    height: fit-content;
+    max-height: 400px;
 }
 
 button {

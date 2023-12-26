@@ -53,7 +53,7 @@ const CommonNav = ({ handleLogout }) => {
             marginLeft: "20px",
           }}
         >
-          Hi Agent {user.email.split("@")[0]}
+          Agent Dashboard
         </h3>
         <div style={{ display: "flex", gap: "20px" }}>
           <Box sx={{ flexGrow: 0 }}>

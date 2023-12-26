@@ -134,7 +134,18 @@ const ChatAssignedModal = ({
     <React.Fragment>
       <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
         {selectedChatAssigned && selectedChatAssigned.isAssigned && (
-          <span style={{ fontSize: "14px" }}>Already Assigned</span>
+          <span style={{ fontSize: "14px" }}>
+            Assigned to{" "}
+            <span
+              style={{
+                color: "green",
+                fontWeight: "bold",
+                textTransform: "capitalize",
+              }}
+            >
+              {selectedChatAssigned.assignedTo.name}
+            </span>
+          </span>
         )}
         <button onClick={handleClickOpen}>Assign To</button>
       </div>
