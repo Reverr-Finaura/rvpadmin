@@ -1,25 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./contactComp.css";
-import { database, getAllAgents } from "../../firebase/firebase";
+import { database } from "../../firebase/firebase";
 import { deleteDoc, doc } from "firebase/firestore";
 import { ToastContainer, toast } from "react-toastify";
 import EditAgent from "./EditAgent";
 import ViewAgent from "./ViewAgent";
 import DeleteAgent from "./DeleteAgent";
+import { useSelector } from "react-redux";
 
 const ManageAgent = () => {
-  const [data, setdata] = useState([]);
   const [showSelect, setShowSelect] = useState(false);
   const [selectedData, setSelectedData] = useState([]);
-
-  useEffect(() => {
-    const unsubscribeMessage = getAllAgents((userdata) => {
-      setdata(userdata);
-    });
-    return () => {
-      unsubscribeMessage();
-    };
-  }, []);
+  const allagents = useSelector((state) => state.contact.allAgents);
 
   const openSelector = () => {
     if (selectedData.length === 0) {
@@ -39,7 +31,7 @@ const ManageAgent = () => {
 
   const selectedAllHandler = () => {
     setShowSelect(true);
-    setSelectedData(data.map((item) => item.id));
+    setSelectedData(allagents.map((item) => item.id));
   };
   const deleteHandler = async (e) => {
     e.preventDefault();
@@ -94,7 +86,7 @@ const ManageAgent = () => {
             </tr>
           </thead>
           <tbody>
-            {data.map((item, index) => {
+            {allagents.map((item, index) => {
               return (
                 <tr key={index}>
                   {showSelect && (
@@ -113,11 +105,7 @@ const ManageAgent = () => {
                   <td>{item.password}</td>
                   <td>
                     <div className='manage-btn'>
-                      <DeleteAgent
-                        setdata={setdata}
-                        docEmail={item.email}
-                        docName={item.name}
-                      />
+                      <DeleteAgent docEmail={item.email} docName={item.name} />
                       <EditAgent
                         docId={item.id}
                         docName={item.name}

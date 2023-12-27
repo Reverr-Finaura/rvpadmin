@@ -1,55 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./contactComp.css";
 import Select from "react-select";
-import { database, getMessage } from "../../firebase/firebase";
 import { useSelector } from "react-redux";
-import { doc, getDoc, onSnapshot } from "firebase/firestore";
 
 const MsgToUser = () => {
   const user = useSelector((state) => state.user.user);
+  const adminChats = useSelector((state) => state.contact.allAdminChats);
+  const agentsChats = useSelector((state) => state.contact.allAgentsChats);
   const [message, setMessage] = useState("");
   const [selectedData, setSelectedData] = useState(null);
-  const [users, setUsers] = useState([]);
-  const [agentsChat, setAgentsChat] = useState([]);
-  useEffect(() => {
-    const unsubscribeMessage = getMessage((userdata) => {
-      setUsers(userdata);
-    });
-    const unsubscribeAgentsChat = onSnapshot(
-      doc(database, "Agents", user.email),
-      (snapshot) => {
-        if (snapshot.exists()) {
-          const assignedChats = snapshot.data().assignedChats || [];
-          const fetchChatsPromises = assignedChats.map(async (item) => {
-            try {
-              const chatDocRef = doc(database, "WhatsappMessages", item.number);
-              const chatSnapshot = await getDoc(chatDocRef);
-              return { ...chatSnapshot.data(), id: chatSnapshot.id };
-            } catch (error) {
-              console.error("Error fetching chat:", error);
-              throw error;
-            }
-          });
-          Promise.allSettled(fetchChatsPromises)
-            .then((results) => {
-              const successfulChats = results
-                .filter((result) => result.status === "fulfilled")
-                .map((result) => result.value);
-
-              setAgentsChat(successfulChats);
-            })
-            .catch((error) => {
-              console.error("Error fetching chats:", error);
-            });
-        }
-      }
-    );
-    return () => {
-      unsubscribeMessage();
-      unsubscribeAgentsChat();
-    };
-  }, [user.email]);
-
   function isWithin24Hours(singleChat) {
     const lastMessage = singleChat?.messages?.[singleChat?.messages.length - 1];
     if (!lastMessage) {
@@ -110,7 +69,7 @@ const MsgToUser = () => {
             className='basic-single'
             classNamePrefix='select'
             name='user'
-            options={user.isAdmin ? users : agentsChat}
+            options={user.isAdmin ? adminChats : agentsChats}
             onChange={handleSelectChange}
             value={selectedData}
             getOptionLabel={(option) =>

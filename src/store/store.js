@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import investorDealReducer from "../redux/createDealSlice";
+import contactReducer from "../redux/contactSlice";
 import userReducer from "../redux/userSlice";
 import {
   persistStore,
@@ -25,6 +26,7 @@ export const store = configureStore({
   reducer: {
     user: UserpersistedReducer,
     investorDeals: investorDealReducer,
+    contact: contactReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

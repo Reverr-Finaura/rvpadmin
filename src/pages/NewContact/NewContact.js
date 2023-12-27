@@ -16,13 +16,26 @@ import CommonNav from "../../components/commonNav/CommonNav";
 import { logout } from "../../redux/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
+import { doc, getDoc, onSnapshot } from "firebase/firestore";
+import {
+  database,
+  getAllAgents,
+  getAllMessage,
+  getMessage,
+} from "../../firebase/firebase";
+import {
+  setAdminChats,
+  setAgentChats,
+  setAllAgent,
+  setEditAgentsChats,
+} from "../../redux/contactSlice";
 
 const NewContact = () => {
-  const [section, setSection] = useState(1);
-  const { chatnumber, section: tab } = useLocation();
-  const user = useSelector((state) => state.user.user);
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.user);
+  const [section, setSection] = useState(1);
+  const { state } = useLocation();
 
   const handleAgentLogout = () => {
     dispatch(logout());
@@ -35,10 +48,95 @@ const NewContact = () => {
   };
 
   useEffect(() => {
-    if (tab) {
-      setSection(tab);
+    if (state.section) {
+      setSection(state.section);
     }
-  }, [tab]);
+  }, [state.section]);
+  useEffect(() => {
+    let unsubscribeMessage;
+    let unsubscribeAgentsChat;
+
+    if (user.isAdmin) {
+      unsubscribeMessage = getMessage((userdata) => {
+        dispatch(setAdminChats(userdata));
+      });
+    }
+
+    if (user.isAgent) {
+      unsubscribeAgentsChat = onSnapshot(
+        doc(database, "Agents", user.email),
+        (snapshot) => {
+          if (snapshot.exists()) {
+            const assignedChats = snapshot.data().assignedChats || [];
+            const fetchChatsPromises = assignedChats.map(async (item) => {
+              try {
+                const chatDocRef = doc(
+                  database,
+                  "WhatsappMessages",
+                  item.number
+                );
+                const chatSnapshot = await getDoc(chatDocRef);
+                return { ...chatSnapshot.data(), id: chatSnapshot.id };
+              } catch (error) {
+                console.error("Error fetching chat:", error);
+                throw error;
+              }
+            });
+
+            Promise.allSettled(fetchChatsPromises)
+              .then((results) => {
+                const successfulChats = results
+                  .filter((result) => result.status === "fulfilled")
+                  .map((result) => result.value);
+
+                dispatch(setAgentChats(successfulChats));
+              })
+              .catch((error) => {
+                console.error("Error fetching chats:", error);
+              });
+          }
+        }
+      );
+    }
+
+    return () => {
+      if (unsubscribeMessage) {
+        unsubscribeMessage();
+      }
+      if (unsubscribeAgentsChat) {
+        unsubscribeAgentsChat();
+      }
+    };
+  }, []);
+  useEffect(() => {
+    const unsubscribeMessage = getAllAgents((userdata) => {
+      dispatch(setAllAgent(userdata));
+    });
+    return () => {
+      unsubscribeMessage();
+    };
+  }, []);
+  useEffect(() => {
+    const getUserMsg = async () => {
+      try {
+        const user = await getAllMessage();
+        dispatch(
+          setEditAgentsChats(
+            user.map((userMsg) => ({
+              id: userMsg.number,
+              number: userMsg.number,
+              name: userMsg.name,
+            }))
+          )
+        );
+      } catch (error) {
+        new Error(error);
+      }
+    };
+    if (user.isAdmin) {
+      getUserMsg();
+    }
+  }, [user.isAdmin]);
 
   return (
     <>
@@ -55,7 +153,7 @@ const NewContact = () => {
           {section === 4 && <TemptoUsers />}
           {section === 6 && <AddUser />}
           {section === 7 && <CSVAdduser />}
-          {section === 8 && <NewChatSection chatnumber={chatnumber} />}
+          {section === 8 && <NewChatSection chatnumber={state.chatnumber} />}
           {section === 9 && <EditUser />}
           {section === 10 && <AddAgent />}
           {section === 11 && <ManageAgent />}

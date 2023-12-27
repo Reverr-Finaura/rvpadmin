@@ -32,7 +32,7 @@ const Sidebar = ({ section, setSection, handleLogout }) => {
           }}
           className={style.optionitem}
         >
-          Send template to single user
+          Send template to Single user
         </p>
         <p
           onClick={() => setSection(4)}

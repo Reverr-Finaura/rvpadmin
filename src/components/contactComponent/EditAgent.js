@@ -3,41 +3,24 @@ import Dialog from "@mui/material/Dialog";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import { toast } from "react-toastify";
-import { database, getAllMessage } from "../../firebase/firebase";
+import { database } from "../../firebase/firebase";
 import "./contactComp.css";
 import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 import { MdModeEdit } from "react-icons/md";
 import Select from "react-select";
+import { useSelector } from "react-redux";
 
 const EditAgent = ({ docId, docName, docChatAssigned }) => {
+  const editAgentsChats = useSelector((state) => state.contact.editAgentsChats);
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
   const handleClickOpen = () => {
     setOpen(true);
   };
-
   const handleClose = () => {
     setOpen(false);
   };
-  const [users, setUsers] = React.useState([]);
-  React.useEffect(() => {
-    const getUserMsg = async () => {
-      try {
-        const user = await getAllMessage();
-        setUsers(
-          user.map((userMsg) => ({
-            id: userMsg.number,
-            number: userMsg.number,
-            name: userMsg.name,
-          }))
-        );
-      } catch (error) {
-        new Error(error);
-      }
-    };
-    getUserMsg();
-  }, []);
   const [name, setName] = React.useState(docName);
   const [loadings, setLoadings] = React.useState(false);
   const [selectedData, setSelectedData] = React.useState(docChatAssigned);
@@ -51,11 +34,6 @@ const EditAgent = ({ docId, docName, docChatAssigned }) => {
       return;
     }
     setLoadings(true);
-    // if (!selectedData || selectedData.length === 0) {
-    //   toast.error("No selected data");
-    //   setLoadings(false);
-    //   return;
-    // }
     const data = {
       name: name,
       isAgent: true,
@@ -117,7 +95,7 @@ const EditAgent = ({ docId, docName, docChatAssigned }) => {
               <Select
                 isMulti
                 name='colors'
-                options={users}
+                options={editAgentsChats}
                 className='basic-multi-select'
                 classNamePrefix='select'
                 onChange={handleSelectChange}

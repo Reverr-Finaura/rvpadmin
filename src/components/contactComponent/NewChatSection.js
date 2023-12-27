@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./contactComp.css";
-import { database, getMessage } from "../../firebase/firebase";
+import { database } from "../../firebase/firebase";
 import MsgView from "./msgview";
-import { doc, getDoc, onSnapshot, updateDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import Toggle from "react-toggle";
 import ChatAssignedModal from "./ChatAssignedModal";
 import { ToastContainer } from "react-toastify";
@@ -10,14 +10,14 @@ import { useSelector } from "react-redux";
 
 const NewChatSection = ({ chatnumber }) => {
   const user = useSelector((state) => state.user.user);
+  const adminChats = useSelector((state) => state.contact.allAdminChats);
+  const agentsChats = useSelector((state) => state.contact.allAgentsChats);
   const [message, setMessage] = useState("");
   const [selectedData, setSelectedData] = useState(null);
   const [toogle, setToggle] = useState(false);
   const [inputSearch, setInputSearch] = useState("");
   const [list, setList] = useState([]);
   const [currMessages, setCurrMessages] = useState([]);
-  const [users, setUsers] = useState([]);
-  const [agentsChat, setAgentsChat] = useState([]);
 
   useEffect(() => {
     if (chatnumber) {
@@ -26,7 +26,7 @@ const NewChatSection = ({ chatnumber }) => {
           doc(database, "WhatsappMessages", chatnumber)
         );
         if (chat.exists()) {
-          const selectedOptions = chat.data();
+          const selectedOptions = { ...chat.data(), id: chat.id };
           setCurrMessages(selectedOptions.messages);
           setSelectedData(selectedOptions);
           setToggle(selectedOptions.stop);
@@ -35,45 +35,6 @@ const NewChatSection = ({ chatnumber }) => {
       getChat();
     }
   }, [chatnumber]);
-
-  useEffect(() => {
-    const unsubscribeMessage = getMessage((userdata) => {
-      setUsers(userdata);
-    });
-    const unsubscribeAgentsChat = onSnapshot(
-      doc(database, "Agents", user.email),
-      (snapshot) => {
-        if (snapshot.exists()) {
-          const assignedChats = snapshot.data().assignedChats || [];
-          const fetchChatsPromises = assignedChats.map(async (item) => {
-            try {
-              const chatDocRef = doc(database, "WhatsappMessages", item.number);
-              const chatSnapshot = await getDoc(chatDocRef);
-              return { ...chatSnapshot.data(), id: chatSnapshot.id };
-            } catch (error) {
-              console.error("Error fetching chat:", error);
-              throw error;
-            }
-          });
-          Promise.allSettled(fetchChatsPromises)
-            .then((results) => {
-              const successfulChats = results
-                .filter((result) => result.status === "fulfilled")
-                .map((result) => result.value);
-
-              setAgentsChat(successfulChats);
-            })
-            .catch((error) => {
-              console.error("Error fetching chats:", error);
-            });
-        }
-      }
-    );
-    return () => {
-      unsubscribeMessage();
-      unsubscribeAgentsChat();
-    };
-  }, [user.email]);
 
   const handleSelectChange = (selectedOptions) => {
     setCurrMessages(selectedOptions.messages);
@@ -115,10 +76,10 @@ const NewChatSection = ({ chatnumber }) => {
     const searchFun = () => {
       let search;
       if (user.isAdmin) {
-        search = [...users];
+        search = [...adminChats];
       }
       if (user.isAgent) {
-        search = [...agentsChat];
+        search = [...agentsChats];
       }
       if (inputSearch) {
         const lowerCaseSearch = inputSearch.toLowerCase().trim();
@@ -134,7 +95,7 @@ const NewChatSection = ({ chatnumber }) => {
       setList(search);
     };
     searchFun();
-  }, [agentsChat, inputSearch, user.isAdmin, user.isAgent, users]);
+  }, [adminChats, agentsChats, inputSearch, user.isAdmin, user.isAgent]);
 
   return (
     <>
@@ -260,29 +221,3 @@ const NewChatSection = ({ chatnumber }) => {
 };
 
 export default NewChatSection;
-
-// const getUserMsg = async () => {
-//   try {
-//     const user = await getMessage();
-//     setUsers(user);
-//   } catch (error) {
-//     new Error(error);
-//   }
-// };
-// useEffect(() => {
-//   getUserMsg();
-// }, []);
-
-// useEffect(() => {
-//   const getAgentsAssignedChat = async () => {
-//     try {
-//       const agents = await getDoc(doc(database, "Agents", user.email));
-//       if (agents.exists()) {
-//         setAgentsChat(agents.data().assignedChats);
-//       }
-//     } catch (error) {
-//       new Error(error);
-//     }
-//   };
-//   getAgentsAssignedChat();
-// }, []);

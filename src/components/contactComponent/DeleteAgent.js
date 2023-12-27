@@ -2,11 +2,11 @@ import { Dialog, useMediaQuery, useTheme } from "@mui/material";
 import React from "react";
 import { MdDelete } from "react-icons/md";
 import { database } from "../../firebase/firebase";
-import { deleteDoc, doc, getDoc } from "firebase/firestore";
+import { deleteDoc, doc, getDoc, updateDoc } from "firebase/firestore";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
-const DeleteAgent = ({ setdata, docEmail, docName }) => {
+const DeleteAgent = ({ docEmail, docName }) => {
   const user = useSelector((state) => state.user.user);
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
@@ -22,17 +22,32 @@ const DeleteAgent = ({ setdata, docEmail, docName }) => {
   const deleteAgnet = async (email) => {
     try {
       setLoadings(true);
-      const agentRef = doc(database, "Agents", email);
-      const agentDoc = await getDoc(agentRef);
+      const agentDoc = await getDoc(doc(database, "Agents", email));
       const agentData = agentDoc.data();
       if (agentData && user.isAdmin) {
-        await deleteDoc(agentRef);
-        setdata((prevData) => prevData.filter((item) => item.email !== email));
+        const assignedChatsList = agentData.assignedChats || [];
+        const deleteAssignedChats = assignedChatsList.map(async (chat) => {
+          try {
+            const chatDocRef = doc(database, "WhatsappMessages", chat.number);
+            await updateDoc(chatDocRef, {
+              chatAssigned: {
+                assignedTo: null,
+                isAssigned: false,
+              },
+            });
+          } catch (error) {
+            console.error("Error in updating chat:", error);
+            throw error;
+          }
+        });
+        await Promise.allSettled(deleteAssignedChats);
+        await deleteDoc(doc(database, "Agents", email));
         toast.success("Agent has been successfully deleted");
       } else {
         toast.error("Agent not found");
       }
       setLoadings(false);
+      handleClose();
     } catch (error) {
       setLoadings(false);
       console.log(error.message);
