@@ -122,7 +122,6 @@ const NewContact = () => {
       }
     };
   }, []);
-
   useEffect(() => {
     const getUserMsg = async () => {
       try {

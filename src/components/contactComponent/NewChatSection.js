@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./contactComp.css";
 import { database } from "../../firebase/firebase";
 import MsgView from "./msgview";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 import Toggle from "react-toggle";
 import ChatAssignedModal from "./ChatAssignedModal";
 import { ToastContainer } from "react-toastify";
