@@ -91,7 +91,14 @@ const AppRoute = () => {
           </AgentProtectRoutes>
         }
       ></Route>
-      <Route path='*' element={<Navigate to='/' />} />
+      <Route
+        path='*'
+        element={
+          <AgentProtectRoutes>
+            <Navigate to='/' />
+          </AgentProtectRoutes>
+        }
+      />
     </Routes>
   );
 };

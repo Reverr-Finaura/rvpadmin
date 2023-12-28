@@ -36,6 +36,7 @@ const NewContact = () => {
   const user = useSelector((state) => state.user.user);
   const [section, setSection] = useState(1);
   const { state } = useLocation();
+  console.log(state);
 
   const handleAgentLogout = () => {
     dispatch(logout());
@@ -48,10 +49,10 @@ const NewContact = () => {
   };
 
   useEffect(() => {
-    if (state.section) {
-      setSection(state.section);
+    if (state !== null && state?.section) {
+      setSection(state?.section);
     }
-  }, [state.section]);
+  }, [state, state?.section]);
   useEffect(() => {
     let unsubscribeMessage;
     let unsubscribeAgentsChat;
@@ -109,13 +110,19 @@ const NewContact = () => {
     };
   }, []);
   useEffect(() => {
-    const unsubscribeMessage = getAllAgents((userdata) => {
-      dispatch(setAllAgent(userdata));
-    });
+    let unsubscribeMessage;
+    if (user.isAdmin) {
+      unsubscribeMessage = getAllAgents((userdata) => {
+        dispatch(setAllAgent(userdata));
+      });
+    }
     return () => {
-      unsubscribeMessage();
+      if (unsubscribeMessage) {
+        unsubscribeMessage();
+      }
     };
   }, []);
+
   useEffect(() => {
     const getUserMsg = async () => {
       try {
@@ -153,7 +160,11 @@ const NewContact = () => {
           {section === 4 && <TemptoUsers />}
           {section === 6 && <AddUser />}
           {section === 7 && <CSVAdduser />}
-          {section === 8 && <NewChatSection chatnumber={state.chatnumber} />}
+          {section === 8 && (
+            <NewChatSection
+              chatnumber={state && state?.chatnumber ? state?.chatnumber : null}
+            />
+          )}
           {section === 9 && <EditUser />}
           {section === 10 && <AddAgent />}
           {section === 11 && <ManageAgent />}

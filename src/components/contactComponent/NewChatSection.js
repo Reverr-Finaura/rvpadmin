@@ -19,22 +19,34 @@ const NewChatSection = ({ chatnumber }) => {
   const [list, setList] = useState([]);
   const [currMessages, setCurrMessages] = useState([]);
 
+  // useEffect(() => {
+  //   if (chatnumber) {
+  //     const getChat = async () => {
+  //       const chat = await getDoc(
+  //         doc(database, "WhatsappMessages", chatnumber)
+  //       );
+  //       if (chat.exists()) {
+  //         const selectedOptions = { ...chat.data(), id: chat.id };
+  //         setCurrMessages(selectedOptions.messages);
+  //         setSelectedData(selectedOptions);
+  //         setToggle(selectedOptions.stop);
+  //       }
+  //     };
+  //     getChat();
+  //   }
+  // }, [chatnumber]);
+
   useEffect(() => {
     if (chatnumber) {
-      const getChat = async () => {
-        const chat = await getDoc(
-          doc(database, "WhatsappMessages", chatnumber)
-        );
-        if (chat.exists()) {
-          const selectedOptions = { ...chat.data(), id: chat.id };
-          setCurrMessages(selectedOptions.messages);
-          setSelectedData(selectedOptions);
-          setToggle(selectedOptions.stop);
-        }
-      };
-      getChat();
+      const selectedOptions = user.isAdmin
+        ? adminChats.filter((chat) => chat.id === chatnumber)[0]
+        : agentsChats.filter((chat) => chat.id === chatnumber)[0];
+      setCurrMessages(selectedOptions.messages);
+      setSelectedData(selectedOptions);
+      setToggle(selectedOptions.stop);
     }
-  }, [chatnumber]);
+  }, [adminChats, agentsChats, chatnumber, user.isAdmin]);
+  console.log(selectedData);
 
   const handleSelectChange = (selectedOptions) => {
     setCurrMessages(selectedOptions.messages);
