@@ -115,13 +115,16 @@ const NewChatSection = ({ chatnumber }) => {
     };
     searchFun();
   }, [
-    // adminChats,
-    // agentsChats,
+    adminChats,
+    agentsChats,
     inputSearch,
     sortedMsg,
     user.isAdmin,
     user.isAgent,
   ]);
+  console.log(
+    list[0]?.messages?.[list[0]?.messages.length - 1].usermessgae || null
+  );
 
   return (
     <>
@@ -151,10 +154,30 @@ const NewChatSection = ({ chatnumber }) => {
                     color: selectedData?.id === user?.id ? "white" : "black",
                   }}
                 >
-                  <p>{user.name ? `${user.name}` : ""}</p>
-                  <span>
-                    {user.id &&
-                      `+${user.id.slice(0, -10) + "-" + user.id.slice(-10)}`}
+                  <p
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "5px",
+                      color: selectedData?.id === user?.id ? "white" : "black",
+                    }}
+                  >
+                    {user.name ? `${user.name}` : ""}
+                    <span style={{ fontSize: "10px" }}>
+                      {user.id &&
+                        `(+${
+                          user.id.slice(0, -10) + "-" + user.id.slice(-10)
+                        })`}
+                    </span>
+                  </p>
+                  <span
+                    style={{
+                      color: selectedData?.id === user?.id ? "white" : "green",
+                    }}
+                  >
+                    {user.messages[user.messages.length - 1].usermessgae
+                      ? `${user.messages[user.messages.length - 1].usermessgae}`
+                      : "No messages from user Side"}
                   </span>
                 </div>
               );
