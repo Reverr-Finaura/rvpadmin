@@ -98,7 +98,7 @@ const NewChatSection = ({ chatnumber }) => {
         search = [...sortedMsg];
       }
       if (user.isAgent) {
-        search = [...agentsChats];
+        search = [...sortedMsg];
       }
       if (inputSearch) {
         const lowerCaseSearch = inputSearch.toLowerCase().trim();
@@ -114,7 +114,14 @@ const NewChatSection = ({ chatnumber }) => {
       setList(search);
     };
     searchFun();
-  }, [adminChats, agentsChats, inputSearch, user.isAdmin, user.isAgent]);
+  }, [
+    // adminChats,
+    // agentsChats,
+    inputSearch,
+    sortedMsg,
+    user.isAdmin,
+    user.isAgent,
+  ]);
 
   return (
     <>
