@@ -170,15 +170,23 @@ const NewChatSection = ({ chatnumber }) => {
                         })`}
                     </span>
                   </p>
-                  <span
-                    style={{
-                      color: selectedData?.id === user?.id ? "white" : "green",
-                    }}
-                  >
-                    {user.messages[user.messages.length - 1].usermessgae
-                      ? `${user.messages[user.messages.length - 1].usermessgae}`
-                      : "No messages from user Side"}
-                  </span>
+                  {user?.messages?.length > 0 ? (
+                    <span
+                      style={{
+                        color:
+                          selectedData?.id === user?.id ? "white" : "green",
+                      }}
+                    >
+                      {user?.messages[user?.messages?.length - 1]?.usermessgae
+                        ? `${
+                            user?.messages[user?.messages?.length - 1]
+                              ?.usermessgae
+                          }`
+                        : "No messages from user Side"}
+                    </span>
+                  ) : (
+                    <span>No messages from user Side</span>
+                  )}
                 </div>
               );
             })}
