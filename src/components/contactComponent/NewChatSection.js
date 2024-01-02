@@ -18,23 +18,31 @@ const NewChatSection = ({ chatnumber }) => {
   const [inputSearch, setInputSearch] = useState("");
   const [list, setList] = useState([]);
   const [currMessages, setCurrMessages] = useState([]);
+  const [sortedMsg, setSortedMsg] = useState([]);
 
-  // useEffect(() => {
-  //   if (chatnumber) {
-  //     const getChat = async () => {
-  //       const chat = await getDoc(
-  //         doc(database, "WhatsappMessages", chatnumber)
-  //       );
-  //       if (chat.exists()) {
-  //         const selectedOptions = { ...chat.data(), id: chat.id };
-  //         setCurrMessages(selectedOptions.messages);
-  //         setSelectedData(selectedOptions);
-  //         setToggle(selectedOptions.stop);
-  //       }
-  //     };
-  //     getChat();
-  //   }
-  // }, [chatnumber]);
+  useEffect(() => {
+    const sortMsg = () => {
+      const msg = user.isAdmin ? [...adminChats] : [...agentsChats];
+      const sortedChats = [...msg].sort((a, b) => {
+        const lastMessageA = a?.messages?.[a?.messages.length - 1];
+        const lastMessageB = b?.messages?.[b?.messages.length - 1];
+        if (!lastMessageA || !lastMessageB) {
+          return 0;
+        }
+        const dateA = new Date(
+          lastMessageA.date.seconds * 1000 + lastMessageA.date.nanoseconds / 1e6
+        );
+        const dateB = new Date(
+          lastMessageB.date.seconds * 1000 + lastMessageB.date.nanoseconds / 1e6
+        );
+
+        return dateB - dateA;
+      });
+      setSortedMsg(sortedChats);
+    };
+
+    sortMsg();
+  }, [adminChats, agentsChats, user.isAdmin]);
 
   useEffect(() => {
     if (chatnumber) {
@@ -46,7 +54,6 @@ const NewChatSection = ({ chatnumber }) => {
       setToggle(selectedOptions.stop);
     }
   }, [adminChats, agentsChats, chatnumber, user.isAdmin]);
-  console.log(selectedData);
 
   const handleSelectChange = (selectedOptions) => {
     setCurrMessages(selectedOptions.messages);
@@ -88,7 +95,7 @@ const NewChatSection = ({ chatnumber }) => {
     const searchFun = () => {
       let search;
       if (user.isAdmin) {
-        search = [...adminChats];
+        search = [...sortedMsg];
       }
       if (user.isAgent) {
         search = [...agentsChats];
@@ -175,10 +182,10 @@ const NewChatSection = ({ chatnumber }) => {
                     <p>
                       <span
                         style={{
-                          color: `${toogle ? "green" : "red"} `,
+                          color: `${toogle ? "red" : "green"} `,
                         }}
                       >
-                        {toogle ? " Start Chat" : "End Chat"}
+                        {toogle ? " End Chat" : "Start Chat"}
                       </span>
                     </p>
                     <Toggle
