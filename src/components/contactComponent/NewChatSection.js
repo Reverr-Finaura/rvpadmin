@@ -130,15 +130,15 @@ const NewChatSection = ({ chatnumber }) => {
     <>
       <ToastContainer />
       <h3>User Chat Section</h3>
-      <div className='newChat-wrapper'>
-        <div className='new-chat-box'>
-          <div className='chatlist'>
-            <div className='chatserach'>
+      <div className="newChat-wrapper">
+        <div className="new-chat-box">
+          <div className="chatlist">
+            <div className="chatserach">
               <label>Search User</label>
               <input
-                type='text'
+                type="text"
                 value={inputSearch}
-                placeholder='Search the User with name & number'
+                placeholder="Search the User with name & number"
                 onChange={(e) => setInputSearch(e.target.value)}
               />
             </div>
@@ -146,7 +146,7 @@ const NewChatSection = ({ chatnumber }) => {
               return (
                 <div
                   key={index}
-                  className='numberitem'
+                  className="numberitem"
                   onClick={() => handleSelectChange(user)}
                   style={{
                     backgroundColor:
@@ -183,11 +183,11 @@ const NewChatSection = ({ chatnumber }) => {
               );
             })}
           </div>
-          <div className='chat-body'>
+          <div className="chat-body">
             {selectedData !== null ? (
               <>
-                <div className='cat-bodyuper'>
-                  <div className='chat-actions'>
+                <div className="cat-bodyuper">
+                  <div className="chat-actions">
                     <div>
                       <p style={{ width: "100%", margin: 0 }}>
                         {selectedData.name ? ` ${selectedData.name}  ` : ""}
@@ -208,7 +208,7 @@ const NewChatSection = ({ chatnumber }) => {
                       />
                     )}
                   </div>
-                  <div className='chat-actions'>
+                  <div className="chat-actions">
                     <p>
                       <span
                         style={{
@@ -231,11 +231,11 @@ const NewChatSection = ({ chatnumber }) => {
                   selectedData={selectedData}
                   setSelectedData={setSelectedData}
                 />
-                <div className='chat-btn'>
+                <div className="chat-btn">
                   <input
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
-                    className='sendMessage'
+                    className="sendMessage"
                     onKeyUp={submit}
                     disabled={!toogle}
                   />
