@@ -217,7 +217,15 @@ const NewChatSection = ({ chatnumber }) => {
                       )}
                     </p>
                   ) : (
-                    <span>No messages from user Side</span>
+                    <span
+                      style={{
+                        color:
+                          selectedData?.id === user?.id ? "white" : "green",
+                        fontSize: "10px",
+                      }}
+                    >
+                      No messages from user Side
+                    </span>
                   )}
                 </div>
               );
