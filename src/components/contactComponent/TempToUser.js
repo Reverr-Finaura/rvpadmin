@@ -15,18 +15,26 @@ const TempToUser = () => {
   const [loading, setLoading] = useState(false);
   const [btnDisable, setBtnDisable] = useState(false);
   const [fileName, setFileName] = useState(null);
+  const [videoLink, setVideoLink] = useState(null);
 
   const handleFileChange = async (e) => {
     if (e.target.files) {
       try {
         setLoading(true);
-        const file = e.target.files[0];
+        const fileURL = e.target.files[0];
+        const checkFileType = fileURL.type;
+        if (checkFileType.startsWith("image/")) {
+          const link = await uploadMedia(fileURL, "WhatsappTemplateImages");
+          setImageLink(link);
+          setVideoLink(null);
+        } else if (checkFileType.startsWith("video/")) {
+          const link = await uploadMedia(fileURL, "WhatsappTemplateImages");
+          setVideoLink(link);
+          setImageLink(null);
+        }
         setFileName(e.target.value);
-        const link = await uploadMedia(file, "WhatsappTemplateImages");
-        console.log(link);
-        setImageLink(link);
         setLoading(false);
-        toast.success("Image uploaded!");
+        toast.success("Media uploaded!");
       } catch (error) {
         console.error(error);
       }
@@ -42,6 +50,7 @@ const TempToUser = () => {
     setFileName("");
     setTemplateName("");
     setSelectedData(null);
+    setVideoLink(null);
   };
   const submit = async (e) => {
     e.preventDefault();
@@ -53,7 +62,14 @@ const TempToUser = () => {
         return;
       }
       var data;
-      if (imageLink != null) {
+      if (videoLink !== null) {
+        data = {
+          templateName: templateName,
+          countryCode: selectedData.id.slice(0, -10),
+          number: selectedData.id.slice(-10),
+          video: videoLink,
+        };
+      } else if (imageLink != null) {
         data = {
           templateName: templateName,
           countryCode: selectedData.id.slice(0, -10),
@@ -70,30 +86,29 @@ const TempToUser = () => {
       setBtnDisable(true);
       toast.success("Sending Template To users");
       try {
-        if (imageLink != null) {
-          const res = await fetch(
-            "https://server.reverr.io/sendwatemplatemsgimg",
-            {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(data),
-            }
-          );
-          // console.log(res);
+        if (videoLink != null && imageLink === null) {
+          await fetch("https://server.reverr.io/sendwatemplatemsgvideo", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+          });
+          Reset();
+          toast.success("Template send!");
+        } else if (imageLink != null && videoLink === null) {
+          await fetch("https://server.reverr.io/sendwatemplatemsgimg", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+          });
           Reset();
           toast.success("Template send!");
         } else {
-          const res = await fetch(
-            "https://server.reverr.io/sendwatemplatemsg",
-            {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(data),
-            }
-          );
-          // console.log(res);
+          await fetch("https://server.reverr.io/sendwatemplatemsg", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+          });
           toast.success("Template send!");
-          console.log(res);
           Reset();
         }
       } catch (error) {
@@ -114,7 +129,7 @@ const TempToUser = () => {
             classNamePrefix='select'
             name='user'
             options={user.isAdmin ? adminChats : agentsChats}
-            onChange={handleSelectChange} // Handle selection changes
+            onChange={handleSelectChange}
             value={selectedData}
             getOptionLabel={(option) =>
               `+` + option.id + (option.name ? ` (${option.name})` : "")

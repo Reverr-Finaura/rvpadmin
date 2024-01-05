@@ -122,9 +122,11 @@ const NewChatSection = ({ chatnumber }) => {
     user.isAdmin,
     user.isAgent,
   ]);
-  console.log(
-    list[0]?.messages?.[list[0]?.messages.length - 1].usermessgae || null
-  );
+  function splittheParagraph(text) {
+    const words = text.split(" ");
+    const limitedText = words.slice(0, 9).join(" ");
+    return limitedText;
+  }
 
   return (
     <>
@@ -171,21 +173,59 @@ const NewChatSection = ({ chatnumber }) => {
                     </span>
                   </p>
                   {user?.messages?.length > 0 ? (
+                    <p
+                      style={{
+                        color:
+                          selectedData?.id === user?.id ? "white" : "green",
+                        fontSize: "10px",
+                      }}
+                    >
+                      {user?.messages[user?.messages?.length - 1]
+                        ?.usermessage === null ? (
+                        <span>
+                          {user?.messages[user?.messages?.length - 1].message &&
+                            user?.messages[user?.messages?.length - 1].message
+                              .text &&
+                            user?.messages[user?.messages?.length - 1].message
+                              .text.body &&
+                            `${splittheParagraph(
+                              user?.messages[user?.messages?.length - 1].message
+                                .text.body
+                            )}`}
+
+                          {user?.messages[user?.messages?.length - 1].message &&
+                            user?.messages[user?.messages?.length - 1].message
+                              .template &&
+                            `${
+                              "Template name : " +
+                              user?.messages[user?.messages?.length - 1].message
+                                .template.name
+                            }`}
+                        </span>
+                      ) : (
+                        <span>
+                          {user?.messages[user?.messages?.length - 1].message &&
+                            user?.messages[user?.messages?.length - 1].message
+                              .text &&
+                            user?.messages[user?.messages?.length - 1].message
+                              .text.body &&
+                            `${splittheParagraph(
+                              user?.messages[user?.messages?.length - 1].message
+                                .text.body
+                            )}`}
+                        </span>
+                      )}
+                    </p>
+                  ) : (
                     <span
                       style={{
                         color:
                           selectedData?.id === user?.id ? "white" : "green",
+                        fontSize: "10px",
                       }}
                     >
-                      {user?.messages[user?.messages?.length - 1]?.usermessgae
-                        ? `${
-                            user?.messages[user?.messages?.length - 1]
-                              ?.usermessgae
-                          }`
-                        : "No messages from user Side"}
+                      No messages from user Side
                     </span>
-                  ) : (
-                    <span>No messages from user Side</span>
                   )}
                 </div>
               );

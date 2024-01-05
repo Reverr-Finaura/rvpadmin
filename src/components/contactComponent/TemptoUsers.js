@@ -10,6 +10,7 @@ const TemptoUsers = () => {
   const adminChats = useSelector((state) => state.contact.allAdminChats);
   const agentsChats = useSelector((state) => state.contact.allAgentsChats);
   const [imageLink, setImageLink] = useState(null);
+  const [videoLink, setVideoLink] = useState(null);
   const [loading, setLoading] = useState(false);
   const [btnDisable, setBtnDisable] = useState(false);
   const [fileName, setFileName] = useState(null);
@@ -45,13 +46,20 @@ const TemptoUsers = () => {
     if (e.target.files) {
       try {
         setLoading(true);
-        const file = e.target.files[0];
+        const fileURL = e.target.files[0];
+        const checkFileType = fileURL.type;
+        if (checkFileType.startsWith("image/")) {
+          const link = await uploadMedia(fileURL, "WhatsappTemplateImages");
+          setImageLink(link);
+          setVideoLink(null);
+        } else if (checkFileType.startsWith("video/")) {
+          const link = await uploadMedia(fileURL, "WhatsappTemplateImages");
+          setVideoLink(link);
+          setImageLink(null);
+        }
         setFileName(e.target.value);
-        const link = await uploadMedia(file, "WhatsappTemplateImages");
-        console.log(link);
-        setImageLink(link);
         setLoading(false);
-        toast.success("Image uploaded!");
+        toast.success("Media uploaded!");
       } catch (error) {
         console.error(error);
       }
@@ -68,6 +76,7 @@ const TemptoUsers = () => {
     setTemplateName("");
     setSelectedData([]);
     setSelectedTrue(false);
+    setVideoLink(null);
   };
   const getCodeAndNumber = () => {
     const codes = selectedData.map((item) => item.id.slice(0, -10));
@@ -96,40 +105,52 @@ const TemptoUsers = () => {
       }
       const { codes, numbers } = getCodeAndNumber();
       var data;
-      if (imageLink != null) {
+      if (videoLink !== null) {
         data = {
           templateName: templateName,
-          countryCodes: codes,
-          numbers: numbers,
+          countryCode: codes,
+          number: numbers,
+          video: videoLink,
+        };
+      } else if (imageLink != null) {
+        data = {
+          templateName: templateName,
+          countryCode: codes,
+          number: numbers,
           image: imageLink,
         };
       } else {
         data = {
           templateName: templateName,
-          countryCodes: codes,
-          numbers: numbers,
+          countryCode: codes,
+          number: numbers,
         };
       }
       setBtnDisable(true);
-      // console.log(data)
       toast.success("Sending Template To users");
       try {
-        if (imageLink != null) {
-          const res = await fetch("https://server.reverr.io/sendwamutmimg", {
+        if (videoLink != null && imageLink === null) {
+          await fetch("https://server.reverr.io/sendwamutmvideo", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data),
           });
-          // console.log(res);
+          Reset();
+          toast.success("Template send!");
+        } else if (imageLink != null && videoLink === null) {
+          await fetch("https://server.reverr.io/sendwamutmimg", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+          });
           Reset();
           toast.success("Template send!");
         } else {
-          const res = await fetch("https://server.reverr.io/sendwamutm", {
+          await fetch("https://server.reverr.io/sendwamutm", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data),
           });
-          // console.log(res);
           Reset();
           toast.success("Template send!");
         }
@@ -199,5 +220,3 @@ const TemptoUsers = () => {
 };
 
 export default TemptoUsers;
-
-//hello_world
