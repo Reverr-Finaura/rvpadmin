@@ -62,14 +62,14 @@ const TempToUser = () => {
         return;
       }
       var data;
-      if (videoLink !== null) {
+      if (videoLink !== null && imageLink === null) {
         data = {
           templateName: templateName,
           countryCode: selectedData.id.slice(0, -10),
           number: selectedData.id.slice(-10),
           video: videoLink,
         };
-      } else if (imageLink != null) {
+      } else if (imageLink != null && videoLink === null) {
         data = {
           templateName: templateName,
           countryCode: selectedData.id.slice(0, -10),
