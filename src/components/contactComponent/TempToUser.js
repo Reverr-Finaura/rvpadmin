@@ -32,7 +32,8 @@ const TempToUser = () => {
           setVideoLink(link);
           setImageLink(null);
         }
-        setFileName(e.target.value);
+
+        // setFileName(e.target.value);
         setLoading(false);
         toast.success("Media uploaded!");
       } catch (error) {
@@ -118,16 +119,16 @@ const TempToUser = () => {
     }
   };
   return (
-    <div className='form-container'>
+    <div className="form-container">
       <h3>Send Template to single user</h3>
       <form onSubmit={submit}>
-        <div className='input-feilds'>
+        <div className="input-feilds">
           <label>Select user</label>
           <Select
             isClearable
-            className='basic-single'
-            classNamePrefix='select'
-            name='user'
+            className="basic-single"
+            classNamePrefix="select"
+            name="user"
             options={user.isAdmin ? adminChats : agentsChats}
             onChange={handleSelectChange}
             value={selectedData}
@@ -137,14 +138,14 @@ const TempToUser = () => {
             getOptionValue={(option) => option.id}
           />
         </div>
-        <div className='input-feilds'>
+        <div className="input-feilds">
           <label>Template</label>
           <textarea
             rows={10}
             value={templateName}
             onChange={(e) => setTemplateName(e.target.value)}
           ></textarea>
-          <input type='file' value={fileName} onChange={handleFileChange} />
+          <input type="file" onChange={handleFileChange} />
         </div>
         <button disabled={btnDisable}>Send Message</button>
       </form>
