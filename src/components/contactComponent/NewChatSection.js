@@ -67,6 +67,7 @@ const NewChatSection = ({ chatnumber }) => {
         countryCode: selectedData.id.slice(0, -10),
         number: selectedData.id.slice(-10),
       };
+      console.log(data)
       if (selectedData) {
         const res = await fetch("https://server.reverr.io/sendwacustommsg", {
           method: "POST",
@@ -280,12 +281,14 @@ const NewChatSection = ({ chatnumber }) => {
                   setSelectedData={setSelectedData}
                 />
                 <div className="chat-btn">
-                  <input
+                  <textarea
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     className="sendMessage"
-                    onKeyUp={submit}
+                    placeholder="Type a message..."
                     disabled={!toogle}
+                    rows={5}
+                    cols={30}
                   />
                   <button
                     onClick={() => submit("Send")}
