@@ -108,21 +108,21 @@ const TemptoUsers = () => {
       if (videoLink !== null) {
         data = {
           templateName: templateName,
-          countryCode: codes,
+          countryCodes: codes,
           numbers: numbers,
           video: videoLink,
         };
       } else if (imageLink != null) {
         data = {
           templateName: templateName,
-          countryCode: codes,
+          countryCodes: codes,
           numbers: numbers,
           image: imageLink,
         };
       } else {
         data = {
           templateName: templateName,
-          countryCode: codes,
+          countryCodes: codes,
           numbers: numbers,
         };
       }
