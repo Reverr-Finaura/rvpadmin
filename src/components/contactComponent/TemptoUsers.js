@@ -109,21 +109,21 @@ const TemptoUsers = () => {
         data = {
           templateName: templateName,
           countryCode: codes,
-          number: numbers,
+          numbers: numbers,
           video: videoLink,
         };
       } else if (imageLink != null) {
         data = {
           templateName: templateName,
           countryCode: codes,
-          number: numbers,
+          numbers: numbers,
           image: imageLink,
         };
       } else {
         data = {
           templateName: templateName,
           countryCode: codes,
-          number: numbers,
+          numbers: numbers,
         };
       }
       setBtnDisable(true);
