@@ -26,8 +26,12 @@ const NewChatSection = ({ chatnumber }) => {
       const sortedChats = [...msg].sort((a, b) => {
         const lastMessageA = a?.messages?.[a?.messages.length - 1];
         const lastMessageB = b?.messages?.[b?.messages.length - 1];
-        if (!lastMessageA || !lastMessageB) {
+        if (!lastMessageA && !lastMessageB) {
           return 0;
+        } else if (!lastMessageA) {
+          return 1;
+        } else if (!lastMessageB) {
+          return -1;
         }
         const dateA = new Date(
           lastMessageA.date.seconds * 1000 + lastMessageA.date.nanoseconds / 1e6
@@ -38,7 +42,9 @@ const NewChatSection = ({ chatnumber }) => {
 
         return dateB - dateA;
       });
-      setSortedMsg(sortedChats);
+      if (sortedChats.length > 0) {
+        setSortedMsg(sortedChats);
+      }
     };
 
     sortMsg();
@@ -67,16 +73,19 @@ const NewChatSection = ({ chatnumber }) => {
         countryCode: selectedData.id.slice(0, -10),
         number: selectedData.id.slice(-10),
       };
-      console.log(data)
-      if (selectedData) {
-        const res = await fetch("https://server.reverr.io/sendwacustommsg", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
-        });
-        console.log(res);
-      }
       setMessage("");
+      if (selectedData) {
+        try {
+          const res = await fetch("https://server.reverr.io/sendwacustommsg", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+          });
+        } catch (error) {
+          console.error(error);
+          throw error;
+        }
+      }
     }
   };
 
@@ -123,25 +132,19 @@ const NewChatSection = ({ chatnumber }) => {
     user.isAdmin,
     user.isAgent,
   ]);
-  function splittheParagraph(text) {
-    const words = text.split(" ");
-    const limitedText = words.slice(0, 9).join(" ");
-    return limitedText;
-  }
-
   return (
     <>
       <ToastContainer />
       <h3>User Chat Section</h3>
-      <div className="newChat-wrapper">
-        <div className="new-chat-box">
-          <div className="chatlist">
-            <div className="chatserach">
+      <div className='newChat-wrapper'>
+        <div className='new-chat-box'>
+          <div className='chatlist'>
+            <div className='chatserach'>
               <label>Search User</label>
               <input
-                type="text"
+                type='text'
                 value={inputSearch}
-                placeholder="Search the User with name & number"
+                placeholder='Search the User with name & number'
                 onChange={(e) => setInputSearch(e.target.value)}
               />
             </div>
@@ -149,7 +152,7 @@ const NewChatSection = ({ chatnumber }) => {
               return (
                 <div
                   key={index}
-                  className="numberitem"
+                  className='numberitem'
                   onClick={() => handleSelectChange(user)}
                   style={{
                     backgroundColor:
@@ -189,10 +192,9 @@ const NewChatSection = ({ chatnumber }) => {
                               .text &&
                             user?.messages[user?.messages?.length - 1].message
                               .text.body &&
-                            `${splittheParagraph(
-                              user?.messages[user?.messages?.length - 1].message
-                                .text.body
-                            )}`}
+                            `${user?.messages[
+                              user?.messages?.length - 1
+                            ].message.text.body.substring(0, 20)}...`}
 
                           {user?.messages[user?.messages?.length - 1].message &&
                             user?.messages[user?.messages?.length - 1].message
@@ -205,15 +207,18 @@ const NewChatSection = ({ chatnumber }) => {
                         </span>
                       ) : (
                         <span>
+                          {`${user?.messages[
+                            user?.messages?.length - 1
+                          ].usermessage.substring(0, 20)}...
+                            `}
                           {user?.messages[user?.messages?.length - 1].message &&
                             user?.messages[user?.messages?.length - 1].message
                               .text &&
                             user?.messages[user?.messages?.length - 1].message
                               .text.body &&
-                            `${splittheParagraph(
-                              user?.messages[user?.messages?.length - 1].message
-                                .text.body
-                            )}`}
+                            `${user?.messages[
+                              user?.messages?.length - 1
+                            ].message.text.body.substring(0, 20)}...`}
                         </span>
                       )}
                     </p>
@@ -232,11 +237,11 @@ const NewChatSection = ({ chatnumber }) => {
               );
             })}
           </div>
-          <div className="chat-body">
+          <div className='chat-body'>
             {selectedData !== null ? (
               <>
-                <div className="cat-bodyuper">
-                  <div className="chat-actions">
+                <div className='cat-bodyuper'>
+                  <div className='chat-actions'>
                     <div>
                       <p style={{ width: "100%", margin: 0 }}>
                         {selectedData.name ? ` ${selectedData.name}  ` : ""}
@@ -257,7 +262,7 @@ const NewChatSection = ({ chatnumber }) => {
                       />
                     )}
                   </div>
-                  <div className="chat-actions">
+                  <div className='chat-actions'>
                     <p>
                       <span
                         style={{
@@ -280,15 +285,14 @@ const NewChatSection = ({ chatnumber }) => {
                   selectedData={selectedData}
                   setSelectedData={setSelectedData}
                 />
-                <div className="chat-btn">
+                <div className='chat-btn'>
                   <textarea
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
-                    className="sendMessage"
-                    placeholder="Type a message..."
+                    className='sendMessage'
+                    placeholder='Type a message...'
                     disabled={!toogle}
                     rows={5}
-                    cols={30}
                   />
                   <button
                     onClick={() => submit("Send")}
