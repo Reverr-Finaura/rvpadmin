@@ -103,6 +103,16 @@ const Sidebar = ({ section, setSection, handleLogout }) => {
             Manage Agents
           </p>
         )}
+
+        <p
+          onClick={() => setSection(12)}
+          style={{
+            backgroundColor: `${section === 12 ? "green " : ""}`,
+          }}
+          className={style.optionitem}
+        >
+          Feedback
+        </p>
       </div>
     </div>
   );

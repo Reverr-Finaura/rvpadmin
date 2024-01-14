@@ -300,6 +300,18 @@ export const getAllAgents = (callback) => {
   return unsubscribe;
 };
 
+const FeedbackCollectionref = collection(database, "Feedback");
+export const getAllfeedBack = (callback) => {
+  const unsubscribe = onSnapshot(query(FeedbackCollectionref), (snapshot) => {
+    const userdata = snapshot.docs.map((doc) => ({
+      ...doc.data(),
+      id: doc.id,
+    }));
+    callback(userdata);
+  });
+  return unsubscribe;
+};
+
 // const whatsAppMessageCollectionRef = collection(database, "WhatsappMessages");
 export const getAllMessage = async () => {
   try {

@@ -21,6 +21,7 @@ import {
   database,
   getAllAgents,
   getAllMessage,
+  getAllfeedBack,
   getMessage,
 } from "../../firebase/firebase";
 import {
@@ -28,7 +29,9 @@ import {
   setAgentChats,
   setAllAgent,
   setEditAgentsChats,
+  setFeedBack,
 } from "../../redux/contactSlice";
+import FeedBack from "../../components/contactComponent/FeedBack";
 
 const NewContact = () => {
   const navigate = useNavigate();
@@ -123,6 +126,19 @@ const NewContact = () => {
     };
   }, []);
   useEffect(() => {
+    let unsubscribeFeedback;
+    if (user.isAdmin) {
+      unsubscribeFeedback = getAllfeedBack((userdata) => {
+        dispatch(setFeedBack(userdata));
+      });
+    }
+    return () => {
+      if (unsubscribeFeedback) {
+        unsubscribeFeedback();
+      }
+    };
+  }, []);
+  useEffect(() => {
     const getUserMsg = async () => {
       try {
         const user = await getAllMessage();
@@ -167,6 +183,7 @@ const NewContact = () => {
           {section === 9 && <EditUser />}
           {section === 10 && <AddAgent />}
           {section === 11 && <ManageAgent />}
+          {section === 12 && <FeedBack />}
         </div>
       </div>
     </>

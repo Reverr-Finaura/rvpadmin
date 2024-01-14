@@ -5,6 +5,7 @@ const initialState = {
   allAgentsChats: [],
   allAgents: [],
   editAgentsChats: [],
+  allfeedback: [],
 };
 
 export const contactSlice = createSlice({
@@ -23,9 +24,17 @@ export const contactSlice = createSlice({
     setEditAgentsChats: (state, action) => {
       state.editAgentsChats = action.payload;
     },
+    setFeedBack: (state, action) => {
+      state.allfeedback = action.payload;
+    },
   },
 });
 
-export const { setAdminChats, setAgentChats, setAllAgent, setEditAgentsChats } =
-  contactSlice.actions;
+export const {
+  setAdminChats,
+  setAgentChats,
+  setAllAgent,
+  setEditAgentsChats,
+  setFeedBack,
+} = contactSlice.actions;
 export default contactSlice.reducer;
