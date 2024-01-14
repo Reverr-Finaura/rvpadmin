@@ -71,6 +71,7 @@ const TempToUser = () => {
           video: videoLink,
         };
       } else if (imageLink != null) {
+        console.log(imageLink);
         data = {
           templateName: templateName,
           countryCode: selectedData.id.slice(0, -10),
@@ -96,11 +97,15 @@ const TempToUser = () => {
           Reset();
           toast.success("Template send!");
         } else if (imageLink != null && videoLink === null) {
-          await fetch("https://server.reverr.io/sendwatemplatemsgimg", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data),
-          });
+          const res = await fetch(
+            "https://server.reverr.io/sendwatemplatemsgimg",
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(data),
+            }
+          );
+          console.log(res);
           Reset();
           toast.success("Template send!");
         } else {
@@ -119,16 +124,16 @@ const TempToUser = () => {
     }
   };
   return (
-    <div className="form-container">
+    <div className='form-container'>
       <h3>Send Template to single user</h3>
       <form onSubmit={submit}>
-        <div className="input-feilds">
+        <div className='input-feilds'>
           <label>Select user</label>
           <Select
             isClearable
-            className="basic-single"
-            classNamePrefix="select"
-            name="user"
+            className='basic-single'
+            classNamePrefix='select'
+            name='user'
             options={user.isAdmin ? adminChats : agentsChats}
             onChange={handleSelectChange}
             value={selectedData}
@@ -138,14 +143,14 @@ const TempToUser = () => {
             getOptionValue={(option) => option.id}
           />
         </div>
-        <div className="input-feilds">
+        <div className='input-feilds'>
           <label>Template</label>
           <textarea
             rows={10}
             value={templateName}
             onChange={(e) => setTemplateName(e.target.value)}
           ></textarea>
-          <input type="file" onChange={handleFileChange} />
+          <input type='file' onChange={handleFileChange} />
         </div>
         <button disabled={btnDisable}>Send Message</button>
       </form>

@@ -138,11 +138,12 @@ const TemptoUsers = () => {
           Reset();
           toast.success("Template send!");
         } else if (imageLink != null && videoLink === null) {
-          await fetch("https://server.reverr.io/sendwamutmimg", {
+          const res = await fetch("https://server.reverr.io/sendwamutmimg", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data),
           });
+          console.log(res);
           Reset();
           toast.success("Template send!");
         } else {

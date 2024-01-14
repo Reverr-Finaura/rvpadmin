@@ -89,6 +89,53 @@ const CSVAdduser = () => {
       toast.success("All CSV file user have been successfully Added");
     }
   };
+  // const handleEdit = async (e) => {
+  //   e.preventDefault();
+  //   console.log("coming to this edit");
+  //   try {
+  //     const userDocRef = doc(database, "WhatsappMessages", "919599341246");
+  //     await updateDoc(userDocRef, {
+  //       profile: false,
+  //     });
+  //     toast.success("Updated");
+  //   } catch (error) {
+  //     console.error("Error adding document: ", error);
+  //   }
+  // };
+  // const editPprofiler = async (e) => {
+  //   e.preventDefault();
+  //   toast.info("uploading Users please wait...");
+  //   var twenty = data.length / 5;
+  //   var fourty = twenty * 2;
+  //   var sixty = twenty * 3;
+  //   var eighty = twenty * 4;
+  //   for (let i = 0; i < data.length; i++) {
+  //     const rowData = data[i];
+  //     const userdata = {
+  //       [headers[0]]: rowData[headers[0]],
+  //       [headers[1]]: rowData[headers[1]],
+  //       [headers[2]]: rowData[headers[2]],
+  //     };
+  //     try {
+  //       const userDocRef = doc(database, "WhatsappMessages", userdata.number);
+  //       await updateDoc(userDocRef, {
+  //         profile: false,
+  //       });
+  //       if (i == Math.round(twenty)) {
+  //         toast.info("uploaded 20%...");
+  //       } else if (i == Math.round(fourty)) {
+  //         toast.info("uploaded 40%...");
+  //       } else if (i == Math.round(sixty)) {
+  //         toast.info("uploaded 60%...");
+  //       } else if (i == Math.round(eighty)) {
+  //         toast.info("uploaded 80%...");
+  //       }
+  //     } catch (error) {
+  //       console.error("Error adding document: ", error);
+  //     }
+  //   }
+  //   toast.success("All CSV file user have been successfully Updated");
+  // };
   return (
     <div>
       <div>
@@ -102,6 +149,9 @@ const CSVAdduser = () => {
             <button>Add CSV User</button>
           </div>
         </form>
+        {/* <div className='input-feilds'>
+          <button onClick={editPprofiler}>Edit Maurice User</button>
+        </div> */}
       </div>
       <ToastContainer />
     </div>
