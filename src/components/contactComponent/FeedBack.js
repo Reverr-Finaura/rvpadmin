@@ -31,6 +31,7 @@ const FeedBack = () => {
     setShowSelect(true);
     setSelectedData(allfeedback.map((item) => item.id));
   };
+  console.log(selectedData);
   const deleteHandler = async (e) => {
     e.preventDefault();
     try {
@@ -39,16 +40,16 @@ const FeedBack = () => {
       }
       if (selectedData.length > 0) {
         const deletePromises = selectedData.map((item) =>
-          deleteDoc(doc(database, "Agents", item.id))
+          deleteDoc(doc(database, "Feedback", item))
         );
         await Promise.all(deletePromises);
-        toast.success("All selected Agents have been deleted successfully");
+        toast.success("All selected Feedback have been deleted successfully");
       } else {
         toast.error("Please select data");
       }
     } catch (error) {
       console.error("Error in deleteHandler:", error.message);
-      toast.error("An error occurred while deleting Agents");
+      toast.error("An error occurred while deleting Feedback");
     }
   };
   return (
