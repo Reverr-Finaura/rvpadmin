@@ -11,7 +11,7 @@ const MsgView = ({
   setSelectedData,
   selectedData,
 }) => {
-  const Messagesref = collection(database, "WhatsappMessages");
+  // const Messagesref = collection(database, "WhatsappMessages");
   const ref = useRef(null);
   useEffect(() => {
     if (currMessages && currMessages.length) {
@@ -24,20 +24,19 @@ const MsgView = ({
 
   useEffect(() => {
     const messageQuery = query(
-      Messagesref,
+      collection(database, "WhatsappMessages"),
       where("number", "==", selectedData.id)
     );
     const unsubscribe = onSnapshot(messageQuery, (snapshot) => {
       var msgs = [];
       snapshot.forEach((doc) => {
         msgs = doc.data().messages;
-
         setSelectedData({ ...doc.data(), id: doc.id });
       });
       setCurrMessages(msgs);
     });
     return () => unsubscribe();
-  }, []);
+  }, [selectedData.id, setCurrMessages, setSelectedData]);
 
   return (
     <div className='messagelist'>

@@ -244,7 +244,12 @@ const NewChatSection = ({ chatnumber }) => {
                   <div className='chat-actions'>
                     <div>
                       <p style={{ width: "100%", margin: 0 }}>
-                        {selectedData.name ? ` ${selectedData.name}  ` : ""}
+                        {selectedData.name ? ` ${selectedData.name}  ` : ""}{" "}
+                        {`(${
+                          selectedData.userType
+                            ? selectedData.userType.toUpperCase()
+                            : ""
+                        })`}
                       </p>
                       <span style={{ fontSize: "12px" }}>
                         {`(+${
