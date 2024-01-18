@@ -78,6 +78,8 @@ const CSVAdduser = () => {
           } else if (i == Math.round(eighty)) {
             toast.info("uploaded 80%...");
           }
+          setData(null);
+          setHeaders(null);
         } catch (error) {
           console.error("Error adding document: ", error);
           toast.error(
@@ -89,19 +91,7 @@ const CSVAdduser = () => {
       toast.success("All CSV file user have been successfully Added");
     }
   };
-  // const handleEdit = async (e) => {
-  //   e.preventDefault();
-  //   console.log("coming to this edit");
-  //   try {
-  //     const userDocRef = doc(database, "WhatsappMessages", "919599341246");
-  //     await updateDoc(userDocRef, {
-  //       profile: false,
-  //     });
-  //     toast.success("Updated");
-  //   } catch (error) {
-  //     console.error("Error adding document: ", error);
-  //   }
-  // };
+
   // const editPprofiler = async (e) => {
   //   e.preventDefault();
   //   toast.info("uploading Users please wait...");
@@ -149,9 +139,6 @@ const CSVAdduser = () => {
             <button>Add CSV User</button>
           </div>
         </form>
-        {/* <div className='input-feilds'>
-          <button onClick={editPprofiler}>Edit Maurice User</button>
-        </div> */}
       </div>
       <ToastContainer />
     </div>
