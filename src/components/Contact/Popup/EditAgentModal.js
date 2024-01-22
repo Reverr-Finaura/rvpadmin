@@ -110,7 +110,7 @@ const EditAgentModal = ({ docId, docName, docChatAssigned }) => {
               />
             </div>
             <div className={style.formbutton}>
-              <button>Send Message</button>
+              <button disabled={loadings}>Send Message</button>
             </div>
           </form>
         </div>
