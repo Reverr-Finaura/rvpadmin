@@ -60,6 +60,7 @@ const CSVAdduser = () => {
           [headers[1]]: rowData[headers[1]],
           [headers[2]]: rowData[headers[2]],
           [headers[3]]: formattedtags.map((tag) => tag.label),
+          messages: [],
           profile: false,
           stop: false,
           exits: "true",

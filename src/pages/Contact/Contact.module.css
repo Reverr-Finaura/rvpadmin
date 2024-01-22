@@ -1,0 +1,20 @@
+.main {
+    width: 100%;
+    height: calc(100vh - 87px);
+    display: flex;
+    position: relative;
+}
+
+.left {
+    background-color: white;
+    position: sticky;
+    top: 100px;
+}
+
+.right {
+    width: 100%;
+    height: 100%;
+    background: var(--Main-Background, #F4F5FA);
+    padding: 40px 40px 0 40px;
+    overflow-y: scroll;
+}

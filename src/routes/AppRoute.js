@@ -11,6 +11,7 @@ import UploadPPT from "../pages/Upload PPT/UploadPPT";
 import Webinar from "../pages/webinar/Webinar";
 import { Navigate } from "react-router-dom";
 import { AdminProtectRoutes, AgentProtectRoutes } from "./ProtectedRoute";
+import Contact from "../pages/Contact/Contact";
 
 const { Routes, Route } = require("react-router-dom");
 
@@ -88,6 +89,14 @@ const AppRoute = () => {
         element={
           <AgentProtectRoutes>
             <NewContact />
+          </AgentProtectRoutes>
+        }
+      ></Route>
+      <Route
+        path='/designContact'
+        element={
+          <AgentProtectRoutes>
+            <Contact />
           </AgentProtectRoutes>
         }
       ></Route>

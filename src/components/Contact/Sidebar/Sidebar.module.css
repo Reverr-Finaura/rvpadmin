@@ -1,0 +1,40 @@
+.sideBarWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 8px;
+    transition: 0.4s;
+}
+
+.sideBarMenuItemfalse {
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 12px;
+    max-width: 237px;
+}
+
+.sideBarMenuItemtrue {
+    padding: 8px 10px;
+    border-radius: 12px;
+    max-width: 237px;
+}
+
+.sidebarContant {
+    display: flex;
+    gap: 10px;
+}
+
+.sidebarContant>img {
+    width: 24px;
+    height: 24px;
+    object-fit: cover;
+}
+
+.sidebarContant>p {
+    margin: 0;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}

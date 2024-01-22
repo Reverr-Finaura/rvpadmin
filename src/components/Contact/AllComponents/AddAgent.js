@@ -1,9 +1,9 @@
-import { doc, setDoc } from "firebase/firestore";
 import React from "react";
-import { ToastContainer, toast } from "react-toastify";
+import style from "./style.module.css";
+import { toast } from "react-toastify";
 import { fetchSignInMethodsForEmail } from "firebase/auth";
-import { auth, database } from "../../firebase/firebase";
-import "./contactComp.css";
+import { auth, database } from "../../../firebase/firebase";
+import { doc, setDoc } from "firebase/firestore";
 
 const AddAgent = () => {
   const [name, setName] = React.useState("");
@@ -33,7 +33,6 @@ const AddAgent = () => {
       password: password,
       isAgent: true,
     };
-    console.log(data);
     try {
       const existingUser = await fetchSignInMethodsForEmail(auth, email);
       if (existingUser.length === 0) {
@@ -51,11 +50,13 @@ const AddAgent = () => {
   };
 
   return (
-    <div>
-      <div>
-        <h3>Add Agent Form</h3>
-        <form onSubmit={submit}>
-          <div className='input-feilds'>
+    <div className={style.Wrapper}>
+      <div className={style.agentContainer}>
+        <div className={style.heading}>
+          <h3>Add User Form</h3>
+        </div>
+        <form>
+          <div className={style.inputField}>
             <label>Name</label>
             <input
               type='type'
@@ -64,7 +65,7 @@ const AddAgent = () => {
               onChange={(e) => setName(e.target.value)}
             />
           </div>
-          <div className='input-feilds'>
+          <div className={style.inputField}>
             <label>Email</label>
             <input
               type='email'
@@ -73,7 +74,7 @@ const AddAgent = () => {
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
-          <div className='input-feilds'>
+          <div className={style.inputField}>
             <label>Password</label>
             <input
               type='password'
@@ -82,12 +83,11 @@ const AddAgent = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          <div className='input-feilds'>
-            <button disabled={loadings}>Add Agent</button>
+          <div className={style.formbutton}>
+            <button>Send Message</button>
           </div>
         </form>
       </div>
-      <ToastContainer />
     </div>
   );
 };
