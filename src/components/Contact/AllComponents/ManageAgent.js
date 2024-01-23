@@ -7,6 +7,7 @@ import style from "./style.module.css";
 import EditAgentModal from "../Popup/EditAgentModal";
 import ViewAgentModal from "../Popup/ViewAgentModal";
 import DeleteAgentModal from "../Popup/DeleteAgentModal";
+import Pagination from "../Navbar/Pagination";
 
 const ManageAgent = () => {
   const [showSelect, setShowSelect] = useState(false);
@@ -52,6 +53,15 @@ const ManageAgent = () => {
       toast.error("An error occurred while deleting Agents");
     }
   };
+  const [page, setPage] = useState(1);
+  const itemsPerPage = 10;
+  const totalItems = allagents.length;
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  const currentPage = parseInt(page || 1);
+  const paginatedAgent = allagents.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
   return (
     <div className={style.tableWrapper}>
@@ -67,66 +77,74 @@ const ManageAgent = () => {
           {showSelect ? "Close" : "Open to Select"}
         </button>
       </div>
-      <div className={style.tableContainer}>
+      <div className={style.tableContainer} style={{ height: "75vh" }}>
         <div className={style.tableheading}>
           <h3>Manage Agent</h3>
         </div>
-        <table id={style.allagentTable}>
-          <thead>
-            <tr>
-              {showSelect && <th>Select</th>}
-              <th>S.No</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Password</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {allagents.map((item, index) => {
-              return (
-                <tr key={index}>
-                  {showSelect && (
+        <div style={{ height: "85%" }}>
+          <table className={style.allTable}>
+            <thead>
+              <tr>
+                {showSelect && <th>Select</th>}
+                <th>S.No</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Password</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {paginatedAgent.map((item, index) => {
+                return (
+                  <tr key={index}>
+                    {showSelect && (
+                      <td>
+                        <input
+                          style={{ height: "fit-content" }}
+                          type='checkbox'
+                          onChange={() => datahandler(item.id)}
+                          checked={selectedData.includes(item.id)}
+                        />
+                      </td>
+                    )}
+                    <td>{index + 1}.</td>
+                    <td>{item.name}</td>
+                    <td>{item.email}</td>
+                    <td>{item.password}</td>
                     <td>
-                      <input
-                        style={{ height: "fit-content" }}
-                        type='checkbox'
-                        onChange={() => datahandler(item.id)}
-                        checked={selectedData.includes(item.id)}
-                      />
+                      <div className={style.agentAction}>
+                        <DeleteAgentModal
+                          docEmail={item.email}
+                          docName={item.name}
+                        />
+                        <EditAgentModal
+                          docId={item.id}
+                          docName={item.name}
+                          docEmail={item.email}
+                          docPassword={item.password}
+                          docChatAssigned={item.assignedChats}
+                        />
+                        <ViewAgentModal
+                          docId={item.id}
+                          docName={item.name}
+                          docEmail={item.email}
+                          docPassword={item.password}
+                          docChatAssigned={item.assignedChats}
+                        />
+                      </div>
                     </td>
-                  )}
-                  <td>{index + 1}.</td>
-                  <td>{item.name}</td>
-                  <td>{item.email}</td>
-                  <td>{item.password}</td>
-                  <td>
-                    <div className={style.agentAction}>
-                      <DeleteAgentModal
-                        docEmail={item.email}
-                        docName={item.name}
-                      />
-                      <EditAgentModal
-                        docId={item.id}
-                        docName={item.name}
-                        docEmail={item.email}
-                        docPassword={item.password}
-                        docChatAssigned={item.assignedChats}
-                      />
-                      <ViewAgentModal
-                        docId={item.id}
-                        docName={item.name}
-                        docEmail={item.email}
-                        docPassword={item.password}
-                        docChatAssigned={item.assignedChats}
-                      />
-                    </div>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+        <Pagination
+          data={allagents}
+          currentPage={currentPage}
+          totalPages={totalPages}
+          setPage={setPage}
+        />
       </div>
     </div>
   );

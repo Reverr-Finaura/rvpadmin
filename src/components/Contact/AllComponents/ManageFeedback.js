@@ -82,7 +82,7 @@ const ManageFeedback = () => {
           <h3>Manage Feedback</h3>
         </div>
         <div style={{ height: "85%" }}>
-          <table id={style.allFeedbackTable}>
+          <table className={style.allTable}>
             <thead>
               <tr>
                 {showSelect && <th>Select</th>}
@@ -141,6 +141,7 @@ const ManageFeedback = () => {
           </table>
         </div>
         <Pagination
+          data={allfeedback}
           currentPage={currentPage}
           totalPages={totalPages}
           setPage={setPage}

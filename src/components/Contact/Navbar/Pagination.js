@@ -1,10 +1,10 @@
 import style from "../AllComponents/style.module.css";
 
-function Pagination({ currentPage, totalPages, setPage }) {
+function Pagination({ data, currentPage, totalPages, setPage }) {
   return (
     <div className={style.bottomTable}>
-      <div>
-        <p>Showing 1 to 10 of 90 entries</p>
+      <div className={style.pagecontent}>
+        <p>Showing 1 to 10 of {data.length} entries</p>
       </div>
       <div className={style.pagebutton}>
         {currentPage > 1 && (
