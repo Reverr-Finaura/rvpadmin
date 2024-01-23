@@ -81,7 +81,7 @@ const ManageAgent = () => {
         <div className={style.tableheading}>
           <h3>Manage Agent</h3>
         </div>
-        <div style={{ height: "85%" }}>
+        <div style={{ height: "84%" }}>
           <table className={style.allTable}>
             <thead>
               <tr>
