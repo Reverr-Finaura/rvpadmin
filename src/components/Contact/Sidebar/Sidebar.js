@@ -63,7 +63,6 @@ const sideBarList = [
 ];
 
 const Sidebar = ({ section, setSection }) => {
-  const user = useSelector((state) => state.user.user);
   const [sideBarOpen, setSidebarOpen] = useState(true);
   return (
     <div

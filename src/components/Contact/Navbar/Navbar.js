@@ -50,6 +50,8 @@ const Navbar = ({ handleAdminLogout, handleAgentLogout }) => {
             <img
               src={logoutIcon}
               alt='profile'
+              className={style.notification}
+              style={{ backgroundColor: "transparent" }}
               onClick={() => {
                 user.isAdmin ? handleAdminLogout() : handleAgentLogout();
               }}

@@ -8,13 +8,13 @@
 
 .sideBarMenuItemfalse {
     width: 100%;
-    padding: 8px 10px;
+    padding: 5px 10px;
     border-radius: 12px;
     max-width: 237px;
 }
 
 .sideBarMenuItemtrue {
-    padding: 8px 10px;
+    padding: 5px 10px;
     border-radius: 12px;
     max-width: 237px;
 }
@@ -22,6 +22,7 @@
 .sidebarContant {
     display: flex;
     gap: 10px;
+    align-items: center;
 }
 
 .sidebarContant>img {

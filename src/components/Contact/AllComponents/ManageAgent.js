@@ -39,8 +39,8 @@ const ManageAgent = () => {
         throw new Error("Selected data is not an array");
       }
       if (selectedData.length > 0) {
-        const deletePromises = selectedData.map((item) =>
-          deleteDoc(doc(database, "Agents", item.id))
+        const deletePromises = selectedData.map(
+          async (item) => await deleteDoc(doc(database, "Agents", item.id))
         );
         await Promise.all(deletePromises);
         toast.success("All selected Agents have been deleted successfully");
