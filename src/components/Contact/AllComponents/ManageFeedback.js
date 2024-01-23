@@ -6,6 +6,7 @@ import { database } from "../../../firebase/firebase";
 import style from "./style.module.css";
 import DeleteFeedbackModal from "../Popup/DeleteFeedbackModal";
 import ViewFeedbackModal from "../Popup/ViewFeedbackModal";
+import Pagination from "../Navbar/Pagination";
 
 const ManageFeedback = () => {
   const [showSelect, setShowSelect] = useState(false);
@@ -53,6 +54,14 @@ const ManageFeedback = () => {
       toast.error("An error occurred while deleting Feedback");
     }
   };
+  const [page, setPage] = useState(1);
+  const itemsPerPage = 6;
+  const totalPages = 10;
+  const currentPage = parseInt(page || 1);
+  const paginatedFeedback = allfeedback.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
   return (
     <div className={style.tableWrapper}>
       <div className={style.tableAction}>
@@ -71,63 +80,70 @@ const ManageFeedback = () => {
         <div className={style.tableheading}>
           <h3>Manage Feedback</h3>
         </div>
-        <table id={style.allFeedbackTable}>
-          <thead>
-            <tr>
-              {showSelect && <th>Select</th>}
-              <th>Id</th>
-              <th>Phone</th>
-              <th>Recommendation</th>
-              <th>Review</th>
-              <th>Experience</th>
-              <th>Highlights</th>
-              <th>Rating</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {allfeedback.map((item, index) => {
-              return (
-                <tr key={index}>
-                  {showSelect && (
+        <div style={{ height: "85%" }}>
+          <table id={style.allFeedbackTable}>
+            <thead>
+              <tr>
+                {showSelect && <th>Select</th>}
+                <th>Id</th>
+                <th>Phone</th>
+                <th>Recommendation</th>
+                <th>Review</th>
+                <th>Experience</th>
+                <th>Highlights</th>
+                <th>Rating</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {paginatedFeedback.map((item, index) => {
+                return (
+                  <tr key={index}>
+                    {showSelect && (
+                      <td>
+                        <input
+                          style={{ height: "fit-content" }}
+                          type='checkbox'
+                          onChange={() => datahandler(item.id)}
+                          checked={selectedData.includes(item.id)}
+                        />
+                      </td>
+                    )}
+                    <td style={{ width: "20%" }}>{item.id}</td>
+                    <td>{item.Phone}</td>
+                    <td>{item.recommendation}</td>
+                    <td>{item.review}</td>
+                    <td>{item.experience}</td>
+                    <td>{item.highlights}</td>
+                    <td>{item.rating}</td>
                     <td>
-                      <input
-                        style={{ height: "fit-content" }}
-                        type='checkbox'
-                        onChange={() => datahandler(item.id)}
-                        checked={selectedData.includes(item.id)}
-                      />
+                      <div className={style.agentAction}>
+                        <DeleteFeedbackModal
+                          docId={item.id}
+                          docPhone={item.Phone}
+                        />
+                        <ViewFeedbackModal
+                          docId={item.id}
+                          docPhone={item.Phone}
+                          docRecommendation={item.recommendation}
+                          docReview={item.review}
+                          docExperience={item.experience}
+                          docHighlights={item.highlights}
+                          docRating={item.rating}
+                        />
+                      </div>
                     </td>
-                  )}
-                  <td style={{ width: "20%" }}>{item.id}</td>
-                  <td>{item.Phone}</td>
-                  <td>{item.recommendation}</td>
-                  <td>{item.review}</td>
-                  <td>{item.experience}</td>
-                  <td>{item.highlights}</td>
-                  <td>{item.rating}</td>
-                  <td>
-                    <div className={style.agentAction}>
-                      <DeleteFeedbackModal
-                        docId={item.id}
-                        docPhone={item.Phone}
-                      />
-                      <ViewFeedbackModal
-                        docId={item.id}
-                        docPhone={item.Phone}
-                        docRecommendation={item.recommendation}
-                        docReview={item.review}
-                        docExperience={item.experience}
-                        docHighlights={item.highlights}
-                        docRating={item.rating}
-                      />
-                    </div>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          setPage={setPage}
+        />
       </div>
     </div>
   );

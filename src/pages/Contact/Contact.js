@@ -30,6 +30,7 @@ import AddAgent from "../../components/Contact/AllComponents/AddAgent";
 import ManageAgent from "../../components/Contact/AllComponents/ManageAgent";
 import ManageFeedback from "../../components/Contact/AllComponents/ManageFeedback";
 import AddCSVuser from "../../components/Contact/AllComponents/AddCSVuser";
+import ChatWithUser from "../../components/Contact/AllComponents/ChatWithUser";
 
 const Contact = () => {
   const navigate = useNavigate();
@@ -160,7 +161,10 @@ const Contact = () => {
 
   return (
     <>
-      <Navbar />
+      <Navbar
+        handleAdminLogout={handleAdminLogout}
+        handleAgentLogout={handleAgentLogout}
+      />
       <div className={style.main}>
         <div className={style.left}>
           <Sidebar section={section} setSection={setSection} />
@@ -172,6 +176,11 @@ const Contact = () => {
           {section === 4 && <TemplateToUsers />}
           {section === 5 && <AddUser />}
           {section === 6 && <AddCSVuser />}
+          {section === 7 && (
+            <ChatWithUser
+              chatnumber={state && state?.chatnumber ? state?.chatnumber : null}
+            />
+          )}
           {section === 8 && <EditUser />}
           {section === 9 && <AddAgent />}
           {section === 10 && <ManageAgent />}

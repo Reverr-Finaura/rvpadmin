@@ -3,6 +3,7 @@ import style from "./style.module.css";
 import Select from "react-select";
 import { useSelector } from "react-redux";
 import { selectStyles } from "../../../utils";
+import { ToastContainer, toast } from "react-toastify";
 
 const MessageToUser = () => {
   const user = useSelector((state) => state.user.user);
@@ -46,12 +47,14 @@ const MessageToUser = () => {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data),
         });
+        toast.success("Successfully send");
         console.log(res);
       } catch (error) {
-        console.log(within24Hours);
+        toast.error("Error sending message");
         console.error("Error sending message:", error);
       }
     } else {
+      toast.error("can't send message because 24 hours is not completed");
       console.log("can't send message because 24 hours is not completed");
     }
     setTimeout(() => {
@@ -94,6 +97,7 @@ const MessageToUser = () => {
           <button>Send Message</button>
         </div>
       </form>
+      <ToastContainer />
     </div>
   );
 };

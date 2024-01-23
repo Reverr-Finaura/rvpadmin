@@ -88,14 +88,6 @@ const AppRoute = () => {
         path='/contact'
         element={
           <AgentProtectRoutes>
-            <NewContact />
-          </AgentProtectRoutes>
-        }
-      ></Route>
-      <Route
-        path='/designContact'
-        element={
-          <AgentProtectRoutes>
             <Contact />
           </AgentProtectRoutes>
         }

@@ -61,10 +61,10 @@ const EditAgentModal = ({ docId, docName, docChatAssigned }) => {
         notification: arrayUnion(...data.notification),
       });
       toast.success("User has been successfully added");
-      setLoadings(false);
     } catch (error) {
-      setLoadings(false);
       console.error(error);
+    } finally {
+      setLoadings(false);
     }
     handleClose();
   };

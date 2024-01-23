@@ -1,0 +1,436 @@
+.chatWrapper {
+    width: 100%;
+    display: flex;
+    gap: 20px;
+}
+
+.chatLeft {
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+    width: 30%;
+    height: 80vh;
+}
+
+
+.chatList {
+    background-color: #fff;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    overflow-y: scroll;
+}
+
+.chatserach {
+    position: sticky;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 999;
+    background-color: white;
+    padding: 20px;
+    border-radius: 12px;
+}
+
+.contactHeading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.contactHeading>p {
+    color: var(--Black-90, #2C2D33);
+    font-family: Poppins;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin: 0;
+    width: max-content;
+}
+
+.contactHeading>.number {
+    color: var(--Black-20, #A6A8B1);
+    font-family: Poppins;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin: 0;
+    width: max-content;
+}
+
+.contactListItem {
+    width: 100%;
+    padding: 10px 20px;
+    border-bottom: 1px solid var(--Stroke, #F1F3F9);
+    cursor: pointer;
+}
+
+.contactListItem>p {
+    color: var(--Black-60, #45464E);
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.contactListItem>p>span {
+    color: var(--Black-30, #8B8D97);
+    font-family: Inter;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+
+/* rightside */
+.chatRight {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 70%;
+    height: 78vh;
+}
+
+.rightSideHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.assigendButton {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    border-radius: 8px;
+    padding: 5px;
+    background: var(--Secondary-20, #FEF5EA);
+}
+
+.assigendButton>p {
+    color: var(--Black-100, #1C1D22);
+    font-family: Inter;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.endChat {
+    display: flex;
+    width: 161px;
+    height: 36px;
+    padding: 12px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 12px;
+    background: var(--Primary, #5570F1);
+}
+
+.endChat>p {
+    width: max-content;
+    margin: 0;
+    color: #FFF;
+    text-align: center;
+    font-family: Inter;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.chatMessage {
+    background-color: #fff;
+    width: 100%;
+    height: 92.5%;
+    border-radius: 12px;
+
+}
+
+.chatHeader {
+    position: sticky;
+    top: 0;
+    border-bottom: 1px solid var(--Stroke, #F1F3F9);
+    padding: 16px 21px 16px 21px;
+    display: flex;
+    justify-content: space-between;
+    height: 80px;
+}
+
+.chatHeaderleft {
+    display: flex;
+    gap: 10px;
+}
+
+.chatHeaderleftContent>p {
+    color: var(--Black-60, #45464E);
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.chatHeaderleftContent>span {
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--Primary-30, #B6BFE8);
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.chatHeaderleft>p {
+    color: var(--Primary-100, #5570F1);
+    text-align: right;
+    font-family: Inter;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.chatHeaderleft>p>span {
+    padding: 2px 7px;
+    border-radius: 8px;
+    background: var(--Secondary-20, #FEF5EA);
+    color: var(--Black-100, #1C1D22);
+    text-align: right;
+    font-family: Inter;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.chatbuttonContainer {
+    padding: 10px 21px 10px 21px;
+    position: sticky;
+    bottom: 0;
+}
+
+.chatbuttonbox {
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+    height: 51px;
+    border: 1px solid var(--Grey, #E1E2E9);
+    padding: 10px 10px 10px 50px;
+}
+
+.chatbuttonbox>textarea {
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    color: var(--Black-40, #6E7079);
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chatbuttonbox>textarea:placeholder-shown {
+    color: var(--Black-40, #6E7079);
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.chatbuttonSend {
+    outline: none;
+    border: none;
+    width: max-content;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    border-radius: 6px;
+    background: var(--Secondary-30, #FFF2E2);
+    padding: 8px 16px;
+    color: var(--Black-100, #1C1D22);
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.chatbuttonSend>img {
+    width: 18px;
+    object-fit: cover;
+    height: 18px;
+}
+
+.allMessagebody {
+    padding: 15px 22px;
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: calc(100% - 150px);
+}
+
+.groupMessageContainer {
+    width: 100%;
+}
+
+.groupedMessagesMaindate {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.groupedMessagesMaindate>p {
+    border-radius: 8px;
+    background: var(--Main-Background, #F4F5FA);
+    margin: 0;
+    padding: 8px 12px;
+    width: max-content;
+    color: var(--Black-100, #1C1D22);
+    text-align: right;
+    font-family: Inter;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.senderMessageBox {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.recevierbox {
+    display: flex;
+    flex-direction: row;
+}
+
+.messagebox {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    justify-content: start;
+    max-width: 70%;
+    gap: 3px;
+    margin-top: 5px;
+
+}
+
+.recevierMessageBox {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: start;
+    gap: 10px;
+
+}
+
+.messageboxcontent {
+    max-width: 100%;
+    padding: 12px;
+    border-radius: 16px 16px 0px 16px;
+    background: var(--Secondary-50, #FFEAD1);
+}
+
+.recevierboxcontent {
+    max-width: 100%;
+    padding: 12px;
+    border-radius: 16px 16px 16px 0px;
+    background: var(--Primary-100, #5570F1);
+}
+
+.messageboxcontent>p {
+    margin: 0;
+    /* padding: 5px; */
+    color: var(--Black-100, #1C1D22);
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+}
+
+.recevierboxcontent>p {
+    margin: 0;
+    color: var(--White, #FFF);
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+}
+
+.templatebox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.templatebox>p {
+    width: max-content;
+    margin: 0;
+    color: var(--Black-100, #1C1D22);
+    font-family: Inter;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+}
+
+.templatebox>h6 {
+    color: var(--Black-80, #33343A);
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.timeandDate {
+    margin-top: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.timeandDate>p {
+    padding: 0;
+    margin: 0;
+    color: var(--Black-30, #8B8D97);
+    font-family: Inter;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.sendBox {
+    display: flex;
+    width: 20px;
+    height: 20px;
+    padding: 4px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background: var(--Secondary-50, #FFEAD1);
+}
