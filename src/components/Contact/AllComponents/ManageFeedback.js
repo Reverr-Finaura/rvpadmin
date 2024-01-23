@@ -55,8 +55,9 @@ const ManageFeedback = () => {
     }
   };
   const [page, setPage] = useState(1);
-  const itemsPerPage = 6;
-  const totalPages = 10;
+  const itemsPerPage = 10;
+  const totalItems = allfeedback.length;
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
   const currentPage = parseInt(page || 1);
   const paginatedFeedback = allfeedback.slice(
     (currentPage - 1) * itemsPerPage,

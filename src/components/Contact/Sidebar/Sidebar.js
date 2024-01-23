@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import style from "./Sidebar.module.css";
-import { useSelector } from "react-redux";
 import userIcon from "../../../utils/Image/Sidebar/2 User.png";
 import menu from "../../../utils/Image/Sidebar/Menu.png";
 
