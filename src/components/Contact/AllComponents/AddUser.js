@@ -13,6 +13,7 @@ const AddUser = () => {
   const [code, setCode] = useState("");
   const [number, setNumber] = useState("");
   const [selectedData, setSelectedData] = useState("");
+  const [loadings, setLoadings] = React.useState(false);
   const handleSelectChange = (selectedOptions) => {
     setSelectedData(selectedOptions);
   };
@@ -53,6 +54,7 @@ const AddUser = () => {
   };
   const submit = async (e) => {
     e.preventDefault();
+    setLoadings(true);
     if (number.length === 10 && code) {
       const data = {
         name: name,
@@ -64,9 +66,18 @@ const AddUser = () => {
         stop: false,
         exits: "true",
       };
-      await setDoc(doc(database, "WhatsappMessages", data.number), { ...data });
-      toast.success("User have been successfully Added");
-      reset();
+      try {
+        await setDoc(doc(database, "WhatsappMessages", data.number), {
+          ...data,
+        });
+        toast.success("User have been successfully Added");
+      } catch (error) {
+        toast.error("Error adding in user");
+        console.error(error);
+      } finally {
+        setLoadings(false);
+        reset();
+      }
     }
   };
 
@@ -148,7 +159,7 @@ const AddUser = () => {
           </div>
         </div>
         <div className={style.formbutton}>
-          <button>Send Message</button>
+          <button>Add User</button>
         </div>
       </form>
       <ToastContainer />

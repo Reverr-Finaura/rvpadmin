@@ -398,6 +398,7 @@
 }
 
 .messageboxcontent>p {
+    width: 100%;
     margin: 0;
     /* padding: 5px; */
     color: var(--Black-100, #1C1D22);

@@ -169,15 +169,7 @@ const ChatWithUser = ({ chatnumber }) => {
                       selectedData?.id === user?.id ? "#F7F7FC" : "",
                   }}
                 >
-                  <p
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "5px",
-                    }}
-                  >
-                    {user.name ? `${user.name}` : ""}
-                  </p>
+                  <p>{user.name ? `${user.name}` : ""}</p>
                   {user?.messages && user?.messages?.length > 0 ? (
                     <p>
                       {user?.messages[user?.messages?.length - 1]
@@ -214,7 +206,7 @@ const ChatWithUser = ({ chatnumber }) => {
                               .text.body &&
                             `${user?.messages[
                               user?.messages?.length - 1
-                            ].message.text.body.substring(0, 30)}...`}
+                            ].message.text.body.substring(0, 25)}...`}
                         </span>
                       )}
                     </p>

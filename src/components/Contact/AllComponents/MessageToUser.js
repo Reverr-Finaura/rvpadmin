@@ -13,6 +13,9 @@ const MessageToUser = () => {
   const [selectedData, setSelectedData] = useState(null);
 
   function isWithin24Hours(singleChat) {
+    if (singleChat?.messages.length === 0) {
+      return true;
+    }
     const lastMessage = singleChat?.messages?.[singleChat?.messages.length - 1];
     if (!lastMessage) {
       return false;

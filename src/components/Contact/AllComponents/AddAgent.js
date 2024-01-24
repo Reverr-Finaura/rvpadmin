@@ -41,11 +41,11 @@ const AddAgent = () => {
       } else {
         toast.error(`Agent ${email} already exists`);
       }
+    } catch (error) {
+      console.error(error);
+    } finally {
       setLoadings(false);
       reset();
-    } catch (error) {
-      setLoadings(false);
-      console.error(error);
     }
   };
 
@@ -55,7 +55,7 @@ const AddAgent = () => {
         <div className={style.heading}>
           <h3>Add User Form</h3>
         </div>
-        <form>
+        <form onSubmit={submit}>
           <div className={style.inputField}>
             <label>Name</label>
             <input
@@ -84,7 +84,7 @@ const AddAgent = () => {
             />
           </div>
           <div className={style.formbutton}>
-            <button>Send Message</button>
+            <button disabled={loadings}>Add Agent</button>
           </div>
         </form>
       </div>

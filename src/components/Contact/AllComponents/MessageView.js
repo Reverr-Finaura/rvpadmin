@@ -25,13 +25,9 @@ const MessageView = ({
       const groupedMessages = messages.reduce((accumulator, item) => {
         const maindate =
           item.date && item.date.seconds
-            ? new Date(
-                item.date.seconds * 1000 + item.date.nanoseconds / 1e6
-              ).toDateString()
+            ? new Date(item.date.seconds * 1000 + item.date.nanoseconds / 1e6)
             : item.date && item.date._seconds
-            ? new Date(
-                item.date._seconds * 1000 + item.date._nanoseconds / 1e6
-              ).toDateString()
+            ? new Date(item.date._seconds * 1000 + item.date._nanoseconds / 1e6)
             : null;
 
         if (maindate) {
@@ -70,7 +66,11 @@ const MessageView = ({
             <div ref={ref} key={index}>
               <div className={style.groupMessageContainer}>
                 <div className={style.groupedMessagesMaindate}>
-                  <p>{chat.maindate}</p>
+                  <p>
+                    {chat.maindate === new Date()
+                      ? "Today"
+                      : `${moment(chat.maindate).format("ll")}`}
+                  </p>
                 </div>
                 <React.Fragment>
                   {chat.messages &&
@@ -105,7 +105,7 @@ const MessageView = ({
                                 </div>
                                 <div className={style.timeandDate}>
                                   <p style={{ textAlign: "end" }}>
-                                    {moment(date).format("LLL")}
+                                    {moment(date).format("LT")}
                                   </p>
                                   <div className={style.sendBox}>
                                     <img src={checkIcon} alt='' />
@@ -121,7 +121,7 @@ const MessageView = ({
                                     <p>{item.usermessage}</p>
                                   </div>
                                   <div className={style.timeandDate}>
-                                    <p>{moment(date).format("LLL")}</p>
+                                    <p>{moment(date).format("LT")}</p>
                                   </div>
                                 </div>
                               </div>
@@ -135,7 +135,7 @@ const MessageView = ({
                                       </div>
                                       <div className={style.timeandDate}>
                                         <p style={{ textAlign: "end" }}>
-                                          {moment(date).format("LLL")}
+                                          {moment(date).format("LT")}
                                         </p>
                                         <div className={style.sendBox}>
                                           <img src={checkIcon} alt='' />

@@ -121,7 +121,7 @@ const AddCSVuser = () => {
           />
         </div>
         <div className={style.formcsvbutton}>
-          <button>Send Message</button>
+          <button>Submit</button>
         </div>
       </form>
     </div>
