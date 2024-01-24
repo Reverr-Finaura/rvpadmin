@@ -20,12 +20,35 @@ const AssignedModal = ({
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
   const [agentslist, setAgentslist] = useState([]);
   const [selectedData, setSelectedData] = useState({
-    name: selectedChatAssigned?.assignedTo?.name || " ",
-    email: selectedChatAssigned?.assignedTo?.email || " ",
+    name:
+      selectedChatAssigned && selectedChatAssigned.assignedTo
+        ? selectedChatAssigned.assignedTo.name
+        : " ",
+    email:
+      selectedChatAssigned && selectedChatAssigned.assignedTo
+        ? selectedChatAssigned.assignedTo.email
+        : " ",
   });
   const [isAlreadyAssigned, setIsAlreadyAssigned] = useState(
-    !!selectedChatAssigned?.isAssigned
+    selectedChatAssigned && selectedChatAssigned.isAssigned
   );
+
+  useEffect(() => {
+    setSelectedData({
+      name:
+        selectedChatAssigned && selectedChatAssigned.assignedTo
+          ? selectedChatAssigned.assignedTo.name
+          : " ",
+      email:
+        selectedChatAssigned && selectedChatAssigned.assignedTo
+          ? selectedChatAssigned.assignedTo.email
+          : " ",
+    });
+    setIsAlreadyAssigned(
+      selectedChatAssigned && selectedChatAssigned.isAssigned
+    );
+  }, [selectedChatAssigned]);
+
   const handleSelectChange = (selectedOptions) => {
     setSelectedData(selectedOptions);
   };
@@ -36,8 +59,10 @@ const AssignedModal = ({
 
   const handleClose = () => {
     setOpen(false);
-    setSelectedData("");
-    setIsAlreadyAssigned(!!selectedChatAssigned?.isAssigned);
+    setSelectedData({});
+    setIsAlreadyAssigned(
+      selectedChatAssigned && selectedChatAssigned.isAssigned
+    );
   };
 
   useEffect(() => {

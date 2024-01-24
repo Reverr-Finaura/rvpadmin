@@ -56,10 +56,11 @@ const AddUser = () => {
     if (number.length === 10 && code) {
       const data = {
         name: name,
-        number: code.toString() + number.toString(),
+        number: code.trim.toString() + number.trim.toString(),
         userType: selectedData.name,
         userTags: selectedTags.map((item) => item.label),
-        profile: true,
+        messages: [],
+        profile: false,
         stop: false,
         exits: "true",
       };

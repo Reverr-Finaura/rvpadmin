@@ -7,9 +7,9 @@
 .chatLeft {
     display: flex;
     flex-direction: column;
-    gap: 35px;
+    gap: 10px;
     width: 30%;
-    height: 80vh;
+    height: 82vh;
 }
 
 
@@ -48,6 +48,35 @@
     line-height: normal;
     margin: 0;
     width: max-content;
+}
+
+.serachbox {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    padding: 6px 15px;
+    border-radius: 6.812px;
+    border: 0.851px solid var(--Black-1, #CFD3D4);
+}
+
+.serachbox>input {
+    border: none;
+    outline: none;
+    color: var(--Black-2, #ABAFB1);
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.serachbox>input:placeholder-shown {
+    color: var(--Black-2, #ABAFB1);
+    font-family: Inter;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
 }
 
 .contactHeading>.number {
@@ -93,13 +122,23 @@
     flex-direction: column;
     gap: 10px;
     width: 70%;
-    height: 78vh;
+    height: 82vh;
 }
 
 .rightSideHeader {
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+.rightSideHeader>h5 {
+    color: var(--Black-60, #45464E);
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
 }
 
 .assigendButton {

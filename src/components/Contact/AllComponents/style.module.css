@@ -228,38 +228,6 @@
     line-height: normal;
 }
 
-/* #allagentTable {
-    border-collapse: collapse;
-    width: 100%;
-}
-
-#allagentTable thead {
-    border-bottom: 1px solid #E6EFF5;
-}
-
-#allagentTable tbody tr {
-    border-bottom: 1px solid #E6EFF5;
-}
-
-#allagentTable td,
-#allagentTable th {
-    width: 20%;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    color: #232323;
-    font-family: Inter;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    text-align: left;
-}
-
-#allagentTable th {
-    color: #718EBF;
-
-} */
-
 .allTable {
     border-collapse: collapse;
     width: 100%;

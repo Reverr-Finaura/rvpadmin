@@ -4,6 +4,7 @@ import { database } from "../../../firebase/firebase";
 import { useSelector } from "react-redux";
 import style from "./chat.module.css";
 import sendIcon from "../../../utils/Image/Send.png";
+import searchIcon from "../../../utils/Image/Search.png";
 import MessageView from "./MessageView";
 import Toggle from "react-toggle";
 import AssignedModal from "../Popup/AssignedModal";
@@ -146,81 +147,85 @@ const ChatWithUser = ({ chatnumber }) => {
                 {list.length > 0 ? list.length : 0}
               </p>
             </div>
-            <input
-              type='text'
-              value={inputSearch}
-              placeholder='Search'
-              onChange={(e) => setInputSearch(e.target.value)}
-            />
+            <div className={style.serachbox}>
+              <img src={searchIcon} alt='serach' />
+              <input
+                type='text'
+                value={inputSearch}
+                placeholder='Search'
+                onChange={(e) => setInputSearch(e.target.value)}
+              />
+            </div>
           </div>
-          {list.map((user, index) => {
-            return (
-              <div
-                key={index}
-                className={style.contactListItem}
-                onClick={() => handleSelectChange(user)}
-                style={{
-                  backgroundColor:
-                    selectedData?.id === user?.id ? "#F7F7FC" : "",
-                }}
-              >
-                <p
+          {list &&
+            list.map((user, index) => {
+              return (
+                <div
+                  key={index}
+                  className={style.contactListItem}
+                  onClick={() => handleSelectChange(user)}
                   style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "5px",
+                    backgroundColor:
+                      selectedData?.id === user?.id ? "#F7F7FC" : "",
                   }}
                 >
-                  {user.name ? `${user.name}` : ""}
-                </p>
-                {user?.messages?.length > 0 ? (
-                  <p>
-                    {user?.messages[user?.messages?.length - 1]?.usermessage ===
-                    null ? (
-                      <span>
-                        {user?.messages[user?.messages?.length - 1].message &&
-                          user?.messages[user?.messages?.length - 1].message
-                            .text &&
-                          user?.messages[user?.messages?.length - 1].message
-                            .text.body &&
-                          `${user?.messages[
-                            user?.messages?.length - 1
-                          ].message.text.body.substring(0, 20)}...`}
-
-                        {user?.messages[user?.messages?.length - 1].message &&
-                          user?.messages[user?.messages?.length - 1].message
-                            .template &&
-                          `${
-                            "Template name : " +
+                  <p
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "5px",
+                    }}
+                  >
+                    {user.name ? `${user.name}` : ""}
+                  </p>
+                  {user?.messages && user?.messages?.length > 0 ? (
+                    <p>
+                      {user?.messages[user?.messages?.length - 1]
+                        ?.usermessage === null ? (
+                        <span>
+                          {user?.messages[user?.messages?.length - 1].message &&
                             user?.messages[user?.messages?.length - 1].message
-                              .template.name
-                          }`}
-                      </span>
-                    ) : (
-                      <span>
-                        {`${user?.messages[
-                          user?.messages?.length - 1
-                        ].usermessage.substring(0, 20)}...
-                            `}
-                        {user?.messages[user?.messages?.length - 1].message &&
-                          user?.messages[user?.messages?.length - 1].message
-                            .text &&
-                          user?.messages[user?.messages?.length - 1].message
-                            .text.body &&
-                          `${user?.messages[
+                              .text &&
+                            user?.messages[user?.messages?.length - 1].message
+                              .text.body &&
+                            `${user?.messages[
+                              user?.messages?.length - 1
+                            ].message.text.body.substring(0, 20)}...`}
+
+                          {user?.messages[user?.messages?.length - 1].message &&
+                            user?.messages[user?.messages?.length - 1].message
+                              .template &&
+                            `${
+                              "Template name : " +
+                              user?.messages[user?.messages?.length - 1].message
+                                .template.name
+                            }`}
+                        </span>
+                      ) : (
+                        <span>
+                          {`${user?.messages[
                             user?.messages?.length - 1
-                          ].message.text.body.substring(0, 30)}...`}
-                      </span>
-                    )}
-                  </p>
-                ) : (
-                  <p>
-                    <span>No messages from user Side</span>
-                  </p>
-                )}
-              </div>
-            );
-          })}
+                          ].usermessage.substring(0, 20)}...
+                            `}
+                          {user?.messages[user?.messages?.length - 1].message &&
+                            user?.messages[user?.messages?.length - 1].message
+                              .text &&
+                            user?.messages[user?.messages?.length - 1].message
+                              .text.body &&
+                            `${user?.messages[
+                              user?.messages?.length - 1
+                            ].message.text.body.substring(0, 30)}...`}
+                        </span>
+                      )}
+                    </p>
+                  ) : (
+                    <p>
+                      <span>No messages from user Side</span>
+                    </p>
+                  )}
+                </div>
+              );
+            })}
         </div>
       </div>
       <div className={style.chatRight}>
@@ -278,13 +283,13 @@ const ChatWithUser = ({ chatnumber }) => {
                   </div>
                 </div>
                 <div className={style.chatHeaderleft}>
-                  {selectedData?.chatAssigned &&
-                    selectedData?.chatAssigned.isAssigned && (
+                  {selectedData.chatAssigned &&
+                    selectedData.chatAssigned.isAssigned && (
                       <p>
                         Assigned To{" "}
                         <span>
                           {" "}
-                          {selectedData?.chatAssigned?.assignedTo.name}
+                          {selectedData.chatAssigned.assignedTo.name}
                         </span>
                       </p>
                     )}
