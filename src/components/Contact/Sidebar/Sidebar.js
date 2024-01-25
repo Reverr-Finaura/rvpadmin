@@ -26,75 +26,6 @@ import menu from "../../../utils/Image/Sidebar/Menu.png";
 import logoutIcon from "../../../utils/Image/Logout.png";
 import { useSelector } from "react-redux";
 
-const sideBarList = [
-  {
-    section: 1,
-    icon: signleUserIcon,
-    name: "Message To Single User",
-    activeIcon: signleUserActiveIcon,
-  },
-  {
-    section: 2,
-    icon: multiplyUserIcon,
-    name: "Message To Multiple Users",
-    activeIcon: multiplyUserActiveIcon,
-  },
-  {
-    section: 3,
-    icon: signleTemplateIcon,
-    name: "Template To Single User",
-    activeIcon: signleTemplateActiveIcon,
-  },
-  {
-    section: 4,
-    icon: multiplyTemplateIcon,
-    name: "Template To Multiple Users ",
-    activeIcon: multiplyTemplateActiveIcon,
-  },
-  {
-    section: 7,
-    icon: chatIcon,
-    name: "Chat With User",
-    activeIcon: chatActiveIcon,
-  },
-  {
-    section: 5,
-    icon: addUserIcon,
-    name: "Add User",
-    activeIcon: addUserActiveIcon,
-  },
-  {
-    section: 6,
-    icon: addCSVUserIcon,
-    name: "Add CSV User",
-    activeIcon: addCSVUserActiveIcon,
-  },
-  {
-    section: 8,
-    icon: editUserIcon,
-    name: "Edit User",
-    activeIcon: editUserActiveIcon,
-  },
-  {
-    section: 9,
-    icon: createUserAgentIcon,
-    name: "Create Agent ",
-    activeIcon: createUserAgentActiveIcon,
-  },
-  {
-    section: 10,
-    icon: manageAgentIcon,
-    name: "Manage Agent",
-    activeIcon: manageAgentActiveIcon,
-  },
-  {
-    section: 11,
-    icon: feedbackIcon,
-    name: "Feedback",
-    activeIcon: feedbackActiveIcon,
-  },
-];
-
 const Sidebar = ({
   section,
   setSection,
@@ -102,6 +33,97 @@ const Sidebar = ({
   handleAgentLogout,
 }) => {
   const user = useSelector((state) => state.user.user);
+  const sideBarList = [
+    {
+      section: 1,
+      icon: signleUserIcon,
+      name: "Message To Single User",
+      activeIcon: signleUserActiveIcon,
+      forAdmin: true,
+      forAgent: true,
+    },
+    {
+      section: 2,
+      icon: multiplyUserIcon,
+      name: "Message To Multiple Users",
+      activeIcon: multiplyUserActiveIcon,
+      forAdmin: true,
+      forAgent: true,
+    },
+    {
+      section: 3,
+      icon: signleTemplateIcon,
+      name: "Template To Single User",
+      activeIcon: signleTemplateActiveIcon,
+      forAdmin: true,
+      forAgent: true,
+    },
+    {
+      section: 4,
+      icon: multiplyTemplateIcon,
+      name: "Template To Multiple Users ",
+      activeIcon: multiplyTemplateActiveIcon,
+      forAdmin: true,
+      forAgent: true,
+    },
+    {
+      section: 7,
+      icon: chatIcon,
+      name: "Chat With User",
+      activeIcon: chatActiveIcon,
+      forAdmin: true,
+      forAgent: true,
+    },
+    {
+      section: 5,
+      icon: addUserIcon,
+      name: "Add User",
+      activeIcon: addUserActiveIcon,
+      forAdmin: true,
+      forAgent: true,
+    },
+    {
+      section: 6,
+      icon: addCSVUserIcon,
+      name: "Add CSV User",
+      activeIcon: addCSVUserActiveIcon,
+      forAdmin: true,
+      forAgent: true,
+    },
+    {
+      section: 8,
+      icon: editUserIcon,
+      name: "Edit User",
+      activeIcon: editUserActiveIcon,
+      forAdmin: true,
+      forAgent: true,
+    },
+    {
+      section: 9,
+      icon: createUserAgentIcon,
+      name: "Create Agent ",
+      activeIcon: createUserAgentActiveIcon,
+      forAdmin: true,
+      forAgent: false,
+    },
+    {
+      section: 10,
+      icon: manageAgentIcon,
+      name: "Manage Agent",
+      activeIcon: manageAgentActiveIcon,
+      forAdmin: true,
+      forAgent: false,
+    },
+    {
+      section: 11,
+      icon: feedbackIcon,
+      name: "Feedback",
+      activeIcon: feedbackActiveIcon,
+      forAdmin: true,
+      forAgent: true,
+    },
+  ];
+
   const [sideBarOpen, setSidebarOpen] = useState(true);
   return (
     <div
@@ -122,68 +144,78 @@ const Sidebar = ({
         </div>
         {sideBarOpen ? (
           <>
-            {sideBarList.map((sideBar) => {
-              return (
-                <div
-                  key={sideBar.section}
-                  className={style.sideBarMenuItemtrue}
-                  onClick={() => setSection(sideBar.section)}
-                  style={{
-                    backgroundColor: `${
-                      section === sideBar.section ? "#5570F1 " : ""
-                    }`,
-                  }}
-                >
-                  <div className={style.sidebarContant}>
-                    <img
-                      src={
-                        section === sideBar.section
-                          ? sideBar.activeIcon
-                          : sideBar.icon
-                      }
-                      alt={sideBar.name}
-                    />
-                  </div>
-                </div>
-              );
-            })}
-          </>
-        ) : (
-          <>
-            {sideBarList.map((sideBar) => {
-              return (
-                <div
-                  key={sideBar.section}
-                  className={style.sideBarMenuItemfalse}
-                  onClick={() => setSection(sideBar.section)}
-                  style={{
-                    backgroundColor: `${
-                      section === sideBar.section ? "#5570F1 " : ""
-                    }`,
-                  }}
-                >
-                  <div className={style.sidebarContant}>
-                    <img
-                      src={
-                        section === sideBar.section
-                          ? sideBar.activeIcon
-                          : sideBar.icon
-                      }
-                      alt={sideBar.name}
-                    />
-                    <p
+            {sideBarList
+              .filter((sideBar) =>
+                user.isAdmin ? sideBar.forAdmin : sideBar.forAgent
+              )
+              .map((sideBar) => {
+                return (
+                  <>
+                    <div
+                      key={sideBar.section}
+                      className={style.sideBarMenuItemtrue}
+                      onClick={() => setSection(sideBar.section)}
                       style={{
-                        color: `${
-                          section === sideBar.section ? "#fff" : "#53545C"
+                        backgroundColor: `${
+                          section === sideBar.section ? "#5570F1 " : ""
                         }`,
                       }}
                     >
-                      {sideBar.name}
-                    </p>
+                      <div className={style.sidebarContant}>
+                        <img
+                          src={
+                            section === sideBar.section
+                              ? sideBar.activeIcon
+                              : sideBar.icon
+                          }
+                          alt={sideBar.name}
+                        />
+                      </div>
+                    </div>
+                  </>
+                );
+              })}
+          </>
+        ) : (
+          <>
+            {sideBarList
+              .filter((sideBar) =>
+                user.isAdmin ? sideBar.forAdmin : sideBar.forAgent
+              )
+              .map((sideBar) => {
+                return (
+                  <div
+                    key={sideBar.section}
+                    className={style.sideBarMenuItemfalse}
+                    onClick={() => setSection(sideBar.section)}
+                    style={{
+                      backgroundColor: `${
+                        section === sideBar.section ? "#5570F1 " : ""
+                      }`,
+                    }}
+                  >
+                    <div className={style.sidebarContant}>
+                      <img
+                        src={
+                          section === sideBar.section
+                            ? sideBar.activeIcon
+                            : sideBar.icon
+                        }
+                        alt={sideBar.name}
+                      />
+                      <p
+                        style={{
+                          color: `${
+                            section === sideBar.section ? "#fff" : "#53545C"
+                          }`,
+                        }}
+                      >
+                        {sideBar.name}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
           </>
         )}
       </div>

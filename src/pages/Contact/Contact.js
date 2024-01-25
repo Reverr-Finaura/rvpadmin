@@ -31,7 +31,6 @@ import ManageAgent from "../../components/Contact/AllComponents/ManageAgent";
 import ManageFeedback from "../../components/Contact/AllComponents/ManageFeedback";
 import AddCSVuser from "../../components/Contact/AllComponents/AddCSVuser";
 import ChatWithUser from "../../components/Contact/AllComponents/ChatWithUser";
-import { toast } from "react-toastify";
 
 const Contact = () => {
   const navigate = useNavigate();
@@ -127,11 +126,10 @@ const Contact = () => {
   }, []);
   useEffect(() => {
     let unsubscribeFeedback;
-    if (user.isAdmin) {
-      unsubscribeFeedback = getAllfeedBack((userdata) => {
-        dispatch(setFeedBack(userdata));
-      });
-    }
+    unsubscribeFeedback = getAllfeedBack((userdata) => {
+      dispatch(setFeedBack(userdata));
+    });
+
     return () => {
       if (unsubscribeFeedback) {
         unsubscribeFeedback();

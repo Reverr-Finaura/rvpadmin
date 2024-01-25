@@ -4,6 +4,7 @@ import profileIcon from "../../../utils/Image/profile.png";
 import notification from "../../../utils/Image/notification.png";
 import style from "./Navbar.module.css";
 import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const navBarlist = [
   { link: "/dashboard", name: "Dashboard" },
@@ -13,28 +14,31 @@ const navBarlist = [
   { link: "/update-mentor", name: "Update mentor details" },
   { link: "/view-mentors", name: "View all mentors" },
   { link: "/documentTemplate", name: "Upload Document Templates" },
-  { link: "/designContact", name: "WhatsApp CRM" },
+  { link: "/contact", name: "WhatsApp CRM" },
 ];
 const Navbar = () => {
+  const user = useSelector((state) => state.user.user);
   return (
     <div className={style.navbarWrapper}>
       <div className={style.navbarContainer}>
         <div className={style.navbarLogo}>
           <img src={logo} alt='logo' />
         </div>
-        <div className={style.navMenu}>
-          {navBarlist.map((navBar, indexedDB) => {
-            return (
-              <NavLink
-                to={navBar.link}
-                style={{ textDecoration: "none" }}
-                key={indexedDB}
-              >
-                <p className={style.navMenuName}>{navBar.name}</p>
-              </NavLink>
-            );
-          })}
-        </div>
+        {user.isAdmin && (
+          <div className={style.navMenu}>
+            {navBarlist.map((navBar, indexedDB) => {
+              return (
+                <NavLink
+                  to={navBar.link}
+                  style={{ textDecoration: "none" }}
+                  key={indexedDB}
+                >
+                  <p className={style.navMenuName}>{navBar.name}</p>
+                </NavLink>
+              );
+            })}
+          </div>
+        )}
         <div className={style.navbarProfile}>
           <div className={style.notificationsection}>
             <img

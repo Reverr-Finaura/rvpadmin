@@ -261,7 +261,10 @@ const ChatWithUser = ({ chatnumber }) => {
       <div className={style.chatRight}>
         <div
           className={style.rightSideHeader}
-          style={{ visibility: `${selectedData !== null ? " " : "hidden"}` }}
+          style={{
+            visibility: `${selectedData !== null ? " " : "hidden"}`,
+            justifyContent: `${user.isAdmin ? "space-between" : "flex-end"}`,
+          }}
         >
           {user.isAdmin && selectedData !== null && (
             <AssignedModal
