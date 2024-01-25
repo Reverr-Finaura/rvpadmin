@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { selectStyles } from "../../../utils";
 import { doc, getDoc } from "firebase/firestore";
 import { database } from "../../../firebase/firebase";
+import { ToastContainer, toast } from "react-toastify";
 
 const MessageToUsers = () => {
   const user = useSelector((state) => state.user.user);
@@ -13,33 +14,41 @@ const MessageToUsers = () => {
   const [message, setMessage] = useState("");
   const [selectTrue, setSelectedTrue] = useState(false);
   const [selectedData, setSelectedData] = useState([]);
+  const [loadings, setLoadings] = React.useState(false);
   const handleSelectChange = (selectedOptions) => {
     setSelectedData(selectedOptions);
   };
-  function isWithin24Hours(selectedData) {
+  function isWithin24HoursMultiple(selectedData) {
     let checked = [];
     for (let i = 0; i < selectedData.length; i++) {
-      if (selectedData[i].messages) {
-        const lastMessage =
-          selectedData[i]?.messages[selectedData[i]?.messages.length - 1];
-        const messageDate = new Date(
-          lastMessage?.date?.seconds * 1000 +
-            lastMessage?.date?.nanoseconds / 1e6
-        );
-        const currentDate = new Date();
-        const timeDifferenceInHours = Math.ceil(
-          Math.abs(currentDate - messageDate) / (1000 * 60 * 60)
-        );
-        if (timeDifferenceInHours > 24) {
-          checked.push(true);
-        } else {
-          checked.push(false);
-        }
-      } else {
-        checked.push(true);
-      }
+      const value = isWithin24Hours(selectedData[i]);
+      checked.push({ value: value, number: selectedData[i].number });
     }
     return checked;
+  }
+  function isWithin24Hours(singleChat) {
+    if (singleChat?.messages.length === 0) {
+      return true;
+    }
+    let lastMessage;
+    const lengthOfMessages = singleChat?.messages.length;
+    for (let i = lengthOfMessages - 1; i >= 0; i--) {
+      if (singleChat?.messages[i].usermessage !== null) {
+        lastMessage = singleChat?.messages[i];
+        break;
+      }
+    }
+    if (lastMessage === undefined) {
+      return false;
+    }
+    const messageDate = new Date(
+      lastMessage.date.seconds * 1000 + lastMessage.date.nanoseconds / 1e6
+    );
+    const currentDate = new Date();
+    const timeDifferenceInHours = Math.ceil(
+      Math.abs(currentDate - messageDate) / (1000 * 60 * 60)
+    );
+    return timeDifferenceInHours < 24;
   }
 
   const [tags, setTags] = useState({});
@@ -80,11 +89,13 @@ const MessageToUsers = () => {
     const numbers = selectedData.map((item) => item.id.slice(-10));
     const filteredCodes = [];
     const filteredNumbers = [];
-    const checkedValue = isWithin24Hours(selectedData);
+    const checkedValue = isWithin24HoursMultiple(selectedData);
     for (let i = 0; i < checkedValue.length; i++) {
-      if (checkedValue[i] !== false) {
+      if (checkedValue[i].value !== false) {
         filteredCodes.push(codes[i]);
         filteredNumbers.push(numbers[i]);
+      } else {
+        toast.error("Can't send message to " + checkedValue[i].number);
       }
     }
     return {
@@ -94,6 +105,7 @@ const MessageToUsers = () => {
   };
   const submit = async (e) => {
     e.preventDefault();
+    setLoadings(true);
     if (!selectedData) {
       return;
     }
@@ -112,12 +124,14 @@ const MessageToUsers = () => {
       console.log(res);
     } catch (error) {
       console.error("Error sending message:", error);
+    } finally {
+      setLoadings(false);
+      setTimeout(() => {
+        setSelectedTrue(false);
+        setMessage("");
+        setSelectedData([]);
+      }, 1000);
     }
-    setTimeout(() => {
-      setSelectedTrue(false);
-      setMessage("");
-      setSelectedData([]);
-    }, 1000);
   };
   return (
     <div className={style.container}>
@@ -173,9 +187,10 @@ const MessageToUsers = () => {
           ></textarea>
         </div>
         <div className={style.formbutton}>
-          <button>Send Message</button>
+          <button disabled={loadings}>Send Message</button>
         </div>
       </form>
+      <ToastContainer />
     </div>
   );
 };

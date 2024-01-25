@@ -12,6 +12,7 @@ const EditUser = () => {
   const user = useSelector((state) => state.user.user);
   const adminChats = useSelector((state) => state.contact.allAdminChats);
   const agentsChats = useSelector((state) => state.contact.allAgentsChats);
+  const [loadings, setLoadings] = React.useState(false);
   const userType = [{ name: "founder" }, { name: "professional" }];
   const [selectedData, setSelectedData] = useState("");
   const [tags, setTags] = useState({});
@@ -62,6 +63,7 @@ const EditUser = () => {
   };
   const submit = async (e) => {
     e.preventDefault();
+    setLoadings(true);
     const data = {
       name: name,
       userType: userTypes.name,
@@ -77,6 +79,8 @@ const EditUser = () => {
       toast.success("User have been successfully edited");
     } catch (error) {
       console.log("Error updating tags document:", error);
+    } finally {
+      setLoadings(false);
     }
   };
   useEffect(() => {
@@ -158,7 +162,7 @@ const EditUser = () => {
           </div>
         </div>
         <div className={style.formbutton}>
-          <button>Send Message</button>
+          <button disabled={loadings}>Send Message</button>
         </div>
       </form>
       <ToastContainer />

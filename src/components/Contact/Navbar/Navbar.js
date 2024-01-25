@@ -1,10 +1,9 @@
 import React from "react";
 import logo from "../../../utils/Image/Logo.png";
-import logoutIcon from "../../../utils/Image/Logout.png";
+import profileIcon from "../../../utils/Image/profile.png";
 import notification from "../../../utils/Image/notification.png";
 import style from "./Navbar.module.css";
 import { NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 const navBarlist = [
   { link: "/dashboard", name: "Dashboard" },
@@ -16,8 +15,7 @@ const navBarlist = [
   { link: "/documentTemplate", name: "Upload Document Templates" },
   { link: "/designContact", name: "WhatsApp CRM" },
 ];
-const Navbar = ({ handleAdminLogout, handleAgentLogout }) => {
-  const user = useSelector((state) => state.user.user);
+const Navbar = () => {
   return (
     <div className={style.navbarWrapper}>
       <div className={style.navbarContainer}>
@@ -48,13 +46,10 @@ const Navbar = ({ handleAdminLogout, handleAgentLogout }) => {
           <div className={style.vertical}></div>
           <div className={style.notificationsection}>
             <img
-              src={logoutIcon}
+              src={profileIcon}
               alt='profile'
               className={style.notification}
               style={{ backgroundColor: "transparent" }}
-              onClick={() => {
-                user.isAdmin ? handleAdminLogout() : handleAgentLogout();
-              }}
             />
           </div>
         </div>

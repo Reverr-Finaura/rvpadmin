@@ -12,6 +12,7 @@ import Pagination from "../Navbar/Pagination";
 const ManageAgent = () => {
   const [showSelect, setShowSelect] = useState(false);
   const [selectedData, setSelectedData] = useState([]);
+  const [loadings, setLoadings] = React.useState(false);
   const allagents = useSelector((state) => state.contact.allAgents);
 
   const openSelector = () => {
@@ -35,6 +36,7 @@ const ManageAgent = () => {
   };
   const deleteHandler = async (e) => {
     e.preventDefault();
+    setLoadings(true);
     try {
       if (!Array.isArray(selectedData)) {
         throw new Error("Selected data is not an array");
@@ -51,6 +53,8 @@ const ManageAgent = () => {
     } catch (error) {
       console.error("Error in deleteHandler:", error.message);
       toast.error("An error occurred while deleting Agents");
+    } finally {
+      setLoadings(false);
     }
   };
   const [page, setPage] = useState(1);
@@ -68,7 +72,9 @@ const ManageAgent = () => {
       <div className={style.tableAction}>
         {selectedData.length > 0 && (
           <>
-            <button onClick={deleteHandler}>Delete Selected</button>
+            <button onClick={deleteHandler} disabled={loadings}>
+              Delete Selected
+            </button>
             <button onClick={() => setSelectedData([])}>Deselect All</button>
           </>
         )}

@@ -21,7 +21,7 @@ import {
   getAllfeedBack,
   getMessage,
 } from "../../firebase/firebase";
-import { doc, getDoc, onSnapshot, updateDoc } from "firebase/firestore";
+import { doc, getDoc, onSnapshot } from "firebase/firestore";
 import TemplateToUser from "../../components/Contact/AllComponents/TemplateToUser";
 import TemplateToUsers from "../../components/Contact/AllComponents/TemplateToUsers";
 import AddUser from "../../components/Contact/AllComponents/AddUser";
@@ -31,6 +31,7 @@ import ManageAgent from "../../components/Contact/AllComponents/ManageAgent";
 import ManageFeedback from "../../components/Contact/AllComponents/ManageFeedback";
 import AddCSVuser from "../../components/Contact/AllComponents/AddCSVuser";
 import ChatWithUser from "../../components/Contact/AllComponents/ChatWithUser";
+import { toast } from "react-toastify";
 
 const Contact = () => {
   const navigate = useNavigate();
@@ -161,13 +162,15 @@ const Contact = () => {
 
   return (
     <>
-      <Navbar
-        handleAdminLogout={handleAdminLogout}
-        handleAgentLogout={handleAgentLogout}
-      />
+      <Navbar />
       <div className={style.main}>
         <div className={style.left}>
-          <Sidebar section={section} setSection={setSection} />
+          <Sidebar
+            section={section}
+            setSection={setSection}
+            handleAdminLogout={handleAdminLogout}
+            handleAgentLogout={handleAgentLogout}
+          />
         </div>
         <div className={style.right}>
           {section === 1 && <MessageToUser />}

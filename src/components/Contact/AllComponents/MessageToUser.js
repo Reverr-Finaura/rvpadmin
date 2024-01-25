@@ -11,13 +11,21 @@ const MessageToUser = () => {
   const agentsChats = useSelector((state) => state.contact.allAgentsChats);
   const [message, setMessage] = useState("");
   const [selectedData, setSelectedData] = useState(null);
+  const [loadings, setLoadings] = React.useState(false);
 
   function isWithin24Hours(singleChat) {
     if (singleChat?.messages.length === 0) {
       return true;
     }
-    const lastMessage = singleChat?.messages?.[singleChat?.messages.length - 1];
-    if (!lastMessage) {
+    let lastMessage;
+    const lengthOfMessages = singleChat?.messages.length;
+    for (let i = lengthOfMessages - 1; i >= 0; i--) {
+      if (singleChat?.messages[i].usermessage !== null) {
+        lastMessage = singleChat?.messages[i];
+        break;
+      }
+    }
+    if (lastMessage === undefined) {
       return false;
     }
     const messageDate = new Date(
@@ -27,13 +35,15 @@ const MessageToUser = () => {
     const timeDifferenceInHours = Math.ceil(
       Math.abs(currentDate - messageDate) / (1000 * 60 * 60)
     );
-    return timeDifferenceInHours > 24;
+    return timeDifferenceInHours < 24;
   }
+
   const handleSelectChange = (selectedOptions) => {
     setSelectedData(selectedOptions);
   };
   const submit = async (e) => {
     e.preventDefault();
+    setLoadings(true);
     if (!selectedData) {
       return;
     }
@@ -60,6 +70,7 @@ const MessageToUser = () => {
       toast.error("can't send message because 24 hours is not completed");
       console.log("can't send message because 24 hours is not completed");
     }
+    setLoadings(false);
     setTimeout(() => {
       setMessage("");
       setSelectedData(null);
@@ -97,7 +108,7 @@ const MessageToUser = () => {
           ></textarea>
         </div>
         <div className={style.formbutton}>
-          <button>Send Message</button>
+          <button disabled={loadings}>Send Message</button>
         </div>
       </form>
       <ToastContainer />

@@ -10,13 +10,14 @@
 .navbarContainer {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     padding: 18px 18px 18px 38px;
 
 }
 
 .navMenu {
     display: flex;
-    padding-left: 73px;
+    /* padding-left: 73px; */
     gap: 28px;
     align-items: center;
 }

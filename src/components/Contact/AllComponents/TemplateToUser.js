@@ -34,10 +34,11 @@ const TemplateToUser = () => {
           setVideoLink(link);
           setImageLink(null);
         }
-        setLoading(false);
         toast.success("Media uploaded!");
       } catch (error) {
         console.error(error);
+      } finally {
+        setLoading(false);
       }
     }
   };
@@ -55,7 +56,6 @@ const TemplateToUser = () => {
   };
   const submit = async (e) => {
     e.preventDefault();
-
     if (loading) {
       toast.error("Uploading image please wait...");
     } else {
@@ -71,7 +71,6 @@ const TemplateToUser = () => {
           video: videoLink,
         };
       } else if (imageLink != null) {
-        console.log(imageLink);
         data = {
           templateName: templateName,
           countryCode: selectedData.id.slice(0, -10),
@@ -94,19 +93,13 @@ const TemplateToUser = () => {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data),
           });
-          Reset();
           toast.success("Template send!");
         } else if (imageLink != null && videoLink === null) {
-          const res = await fetch(
-            "https://server.reverr.io/sendwatemplatemsgimg",
-            {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(data),
-            }
-          );
-          console.log(res);
-          Reset();
+          await fetch("https://server.reverr.io/sendwatemplatemsgimg", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+          });
           toast.success("Template send!");
         } else {
           await fetch("https://server.reverr.io/sendwatemplatemsg", {
@@ -115,11 +108,12 @@ const TemplateToUser = () => {
             body: JSON.stringify(data),
           });
           toast.success("Template send!");
-          Reset();
         }
       } catch (error) {
         console.error("Error sending message:", error);
+      } finally {
         Reset();
+        setBtnDisable(false);
       }
     }
   };

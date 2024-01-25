@@ -159,7 +159,7 @@ const AddUser = () => {
           </div>
         </div>
         <div className={style.formbutton}>
-          <button>Add User</button>
+          <button disabled={loadings}>Add User</button>
         </div>
       </form>
       <ToastContainer />

@@ -62,11 +62,11 @@ const TemplateToUsers = () => {
           setVideoLink(link);
           setImageLink(null);
         }
-
-        setLoading(false);
         toast.success("Media uploaded!");
       } catch (error) {
         console.error(error);
+      } finally {
+        setLoading(false);
       }
     }
   };
@@ -102,6 +102,7 @@ const TemplateToUsers = () => {
 
   const submit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     if (loading) {
       toast.error("Uploading image please wait...");
     } else {
@@ -140,16 +141,13 @@ const TemplateToUsers = () => {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data),
           });
-          Reset();
           toast.success("Template send!");
         } else if (imageLink != null && videoLink === null) {
-          const res = await fetch("https://server.reverr.io/sendwamutmimg", {
+          await fetch("https://server.reverr.io/sendwamutmimg", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data),
           });
-          console.log(res);
-          Reset();
           toast.success("Template send!");
         } else {
           await fetch("https://server.reverr.io/sendwamutm", {
@@ -157,12 +155,14 @@ const TemplateToUsers = () => {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data),
           });
-          Reset();
           toast.success("Template send!");
         }
       } catch (error) {
-        Reset();
         console.error("Error sending message:", error);
+      } finally {
+        Reset();
+        setBtnDisable(false);
+        setLoading(false);
       }
     }
   };

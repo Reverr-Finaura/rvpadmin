@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import style from "./style.module.css";
 import Papa from "papaparse";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import { arrayUnion, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { database } from "../../../firebase/firebase";
 import uploadicon from "../../../utils/Image/upload.png";
@@ -11,6 +11,7 @@ const AddCSVuser = () => {
   const [headers, setHeaders] = useState(null);
   const [file, setFile] = useState(null);
   const [filename, setFilename] = useState(null);
+  const [loadings, setLoadings] = React.useState(false);
 
   const handleFileChange = async (e) => {
     if (e.target.files) {
@@ -35,6 +36,7 @@ const AddCSVuser = () => {
   };
   const submit = async (e) => {
     e.preventDefault();
+    setLoadings(true);
     if (data && data.length > 0) {
       toast.info("uploading Users please wait...");
       var twenty = data.length / 5;
@@ -65,11 +67,30 @@ const AddCSVuser = () => {
           [headers[1]]: rowData[headers[1]],
           [headers[2]]: rowData[headers[2]],
           [headers[3]]: formattedtags.map((tag) => tag.label),
-          messages: [],
+          messages: [
+            {
+              date: new Date(),
+              message: {
+                messaging_product: "whatsapp",
+                preview_url: false,
+                recipient_type: "individual",
+                text: {
+                  body: "Upload from CSV...",
+                },
+                to: "917354327090",
+                type: "text",
+                messageId:
+                  "wamid.HBgMOTE3MzU0MzI3MDkwFQIAERgSOUFBMDIyOEZGMjJGRTNCNkY4AA==",
+                status: "success",
+                usermessage: null,
+              },
+            },
+          ],
           profile: false,
           stop: false,
           exits: "true",
         };
+        console.log(userdata);
         try {
           await setDoc(doc(database, "WhatsappMessages", userdata.number), {
             ...userdata,
@@ -84,6 +105,7 @@ const AddCSVuser = () => {
           } else if (i === Math.round(eighty)) {
             toast.info("uploaded 80%...");
           }
+          toast.success("All CSV file user have been successfully Added");
           setData(null);
           setHeaders(null);
         } catch (error) {
@@ -92,9 +114,10 @@ const AddCSVuser = () => {
             `Error adding user: ${userdata.name} ,${userdata.number}`,
             error
           );
+        } finally {
+          setLoadings(false);
         }
       }
-      toast.success("All CSV file user have been successfully Added");
     }
   };
   return (
@@ -114,16 +137,16 @@ const AddCSVuser = () => {
           <input
             type='file'
             accept='.csv'
-            value={file}
             onChange={handleFileChange}
             id='csv'
             style={{ display: "none" }}
           />
         </div>
         <div className={style.formcsvbutton}>
-          <button>Submit</button>
+          <button disabled={loadings}>Submit</button>
         </div>
       </form>
+      <ToastContainer />
     </div>
   );
 };

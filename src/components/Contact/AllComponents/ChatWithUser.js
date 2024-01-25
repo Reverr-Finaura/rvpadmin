@@ -172,10 +172,13 @@ const ChatWithUser = ({ chatnumber }) => {
                   <p>{user.name ? `${user.name}` : ""}</p>
                   {user?.messages && user?.messages?.length > 0 ? (
                     <p>
-                      {user?.messages[user?.messages?.length - 1]
+                      {user?.messages &&
+                      user?.messages[user?.messages?.length - 1]
                         ?.usermessage === null ? (
                         <span>
-                          {user?.messages[user?.messages?.length - 1].message &&
+                          {user?.messages &&
+                            user?.messages[user?.messages?.length - 1]
+                              .message &&
                             user?.messages[user?.messages?.length - 1].message
                               .text &&
                             user?.messages[user?.messages?.length - 1].message
@@ -195,11 +198,17 @@ const ChatWithUser = ({ chatnumber }) => {
                         </span>
                       ) : (
                         <span>
-                          {`${user?.messages[
-                            user?.messages?.length - 1
-                          ].usermessage.substring(0, 20)}...
+                          {user?.messages[user?.messages?.length - 1]
+                            .usermessage !== undefined &&
+                            user?.messages[user?.messages?.length - 1]
+                              .usermessage !== null &&
+                            `${user?.messages[
+                              user?.messages?.length - 1
+                            ].usermessage.substring(0, 20)}...
                             `}
-                          {user?.messages[user?.messages?.length - 1].message &&
+                          {user?.messages &&
+                            user?.messages[user?.messages?.length - 1]
+                              .message &&
                             user?.messages[user?.messages?.length - 1].message
                               .text &&
                             user?.messages[user?.messages?.length - 1].message

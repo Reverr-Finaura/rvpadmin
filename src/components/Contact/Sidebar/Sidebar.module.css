@@ -1,20 +1,30 @@
 .sideBarWrapper {
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: start;
-    gap: 8px;
+    justify-content: space-between;
     transition: 0.4s;
+}
+
+.sidebarMenuContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: space-between;
+    gap: 7px;
+
 }
 
 .sideBarMenuItemfalse {
     width: 100%;
-    padding: 5px 10px;
+    padding: 6px 10px;
     border-radius: 12px;
     max-width: 237px;
 }
 
 .sideBarMenuItemtrue {
-    padding: 5px 10px;
+    padding: 6px 10px;
     border-radius: 12px;
     max-width: 237px;
 }
@@ -23,11 +33,12 @@
     display: flex;
     gap: 10px;
     align-items: center;
+    cursor: pointer;
 }
 
 .sidebarContant>img {
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
     object-fit: cover;
 }
 

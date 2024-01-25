@@ -21,13 +21,18 @@ const MessageView = ({
         return;
       }
       const messages = doc.data().messages;
+      console.log(messages);
       setSelectedData({ ...doc.data(), id: doc.id });
       const groupedMessages = messages.reduce((accumulator, item) => {
         const maindate =
           item.date && item.date.seconds
-            ? new Date(item.date.seconds * 1000 + item.date.nanoseconds / 1e6)
+            ? new Date(
+                item.date.seconds * 1000 + item.date.nanoseconds / 1e6
+              ).toDateString()
             : item.date && item.date._seconds
-            ? new Date(item.date._seconds * 1000 + item.date._nanoseconds / 1e6)
+            ? new Date(
+                item.date._seconds * 1000 + item.date._nanoseconds / 1e6
+              ).toDateString()
             : null;
 
         if (maindate) {
@@ -66,11 +71,7 @@ const MessageView = ({
             <div ref={ref} key={index}>
               <div className={style.groupMessageContainer}>
                 <div className={style.groupedMessagesMaindate}>
-                  <p>
-                    {chat.maindate === new Date()
-                      ? "Today"
-                      : `${moment(chat.maindate).format("ll")}`}
-                  </p>
+                  <p>{chat.maindate}</p>
                 </div>
                 <React.Fragment>
                   {chat.messages &&
@@ -115,16 +116,19 @@ const MessageView = ({
                             </div>
                           ) : (
                             <div>
-                              <div className={style.recevierbox}>
-                                <div className={style.recevierMessageBox}>
-                                  <div className={style.recevierboxcontent}>
-                                    <p>{item.usermessage}</p>
+                              {item.usermessage !== null &&
+                                item.usermessage !== undefined && (
+                                  <div className={style.recevierbox}>
+                                    <div className={style.recevierMessageBox}>
+                                      <div className={style.recevierboxcontent}>
+                                        <p>{item.usermessage}</p>
+                                      </div>
+                                      <div className={style.timeandDate}>
+                                        <p>{moment(date).format("LT")}</p>
+                                      </div>
+                                    </div>
                                   </div>
-                                  <div className={style.timeandDate}>
-                                    <p>{moment(date).format("LT")}</p>
-                                  </div>
-                                </div>
-                              </div>
+                                )}
                               {item.message &&
                                 item.message.text &&
                                 item.message.text.body && (
