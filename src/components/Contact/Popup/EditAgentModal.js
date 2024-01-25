@@ -8,7 +8,7 @@ import ReactSelect from "react-select";
 import { MdModeEdit } from "react-icons/md";
 import close from "../../../utils/Image/Close.png";
 import style from "./popup.module.css";
-import { selectStyles2, selectStyles3 } from "../../../utils";
+import { selectStyles3 } from "../../../utils";
 
 const EditAgentModal = ({ docId, docName, docChatAssigned }) => {
   const editAgentsChats = useSelector((state) => state.contact.editAgentsChats);
