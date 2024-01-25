@@ -9,7 +9,6 @@ import uploadicon from "../../../utils/Image/upload.png";
 const AddCSVuser = () => {
   const [data, setData] = useState(null);
   const [headers, setHeaders] = useState(null);
-  const [file, setFile] = useState(null);
   const [filename, setFilename] = useState(null);
   const [loadings, setLoadings] = React.useState(false);
 
@@ -17,7 +16,6 @@ const AddCSVuser = () => {
     if (e.target.files) {
       try {
         const fileURl = e.target.files[0];
-        setFile(fileURl);
         setFilename(fileURl.name);
         const results = await new Promise((resolve) =>
           Papa.parse(fileURl, {
@@ -90,12 +88,11 @@ const AddCSVuser = () => {
           stop: false,
           exits: "true",
         };
-        console.log(userdata);
         try {
           await setDoc(doc(database, "WhatsappMessages", userdata.number), {
             ...userdata,
           });
-          console.log(i, i === twenty, data.length / 5);
+          // console.log(i, i === twenty, data.length / 5);
           if (i === Math.round(twenty)) {
             toast.info("uploaded 20%...");
           } else if (i === Math.round(fourty)) {

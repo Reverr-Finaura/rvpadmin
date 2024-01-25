@@ -27,10 +27,11 @@ const DeleteFeedbackModal = ({ docId, docPhone }) => {
       setLoadings(true);
       await deleteDoc(doc(database, "Feedback", docId));
       toast.success("Feed has been successfully deleted");
+    } catch (error) {
+      toast.error("Error in deleting feedback");
+    } finally {
       setLoadings(false);
       handleClose();
-    } catch (error) {
-      setLoadings(false);
     }
   };
   return (
@@ -39,7 +40,7 @@ const DeleteFeedbackModal = ({ docId, docPhone }) => {
       <Dialog
         fullScreen={fullScreen}
         open={open}
-        aria-labelledby="responsive-dialog-title"
+        aria-labelledby='responsive-dialog-title'
       >
         <div className={style.modalform}>
           <div className={style.modalheading}>
@@ -47,7 +48,7 @@ const DeleteFeedbackModal = ({ docId, docPhone }) => {
             <img
               src={close}
               onClick={handleClose}
-              alt="close"
+              alt='close'
               className={style.closeModal}
             />
           </div>

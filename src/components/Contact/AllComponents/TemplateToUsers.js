@@ -15,7 +15,6 @@ const TemplateToUsers = () => {
   const [videoLink, setVideoLink] = useState(null);
   const [loading, setLoading] = useState(false);
   const [btnDisable, setBtnDisable] = useState(false);
-  const [file, setFile] = useState(null);
   const [filename, setFilename] = useState(null);
   const [tags, setTags] = useState({});
   const [selectedTags, setSelectedTags] = useState();
@@ -50,7 +49,6 @@ const TemplateToUsers = () => {
       try {
         setLoading(true);
         const fileURL = e.target.files[0];
-        setFile(fileURL);
         setFilename(fileURL.name);
         const checkFileType = fileURL.type;
         if (checkFileType.startsWith("image/")) {

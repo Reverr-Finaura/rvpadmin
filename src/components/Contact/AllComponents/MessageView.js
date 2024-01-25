@@ -21,7 +21,6 @@ const MessageView = ({
         return;
       }
       const messages = doc.data().messages;
-      console.log(messages);
       setSelectedData({ ...doc.data(), id: doc.id });
       const groupedMessages = messages.reduce((accumulator, item) => {
         const maindate =

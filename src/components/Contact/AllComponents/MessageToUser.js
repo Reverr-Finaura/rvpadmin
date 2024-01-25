@@ -55,20 +55,19 @@ const MessageToUser = () => {
     const within24Hours = isWithin24Hours(selectedData);
     if (within24Hours) {
       try {
-        const res = await fetch("https://server.reverr.io/sendwacustommsg   ", {
+        await fetch("https://server.reverr.io/sendwacustommsg   ", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data),
         });
         toast.success("Successfully send");
-        console.log(res);
       } catch (error) {
         toast.error("Error sending message");
         console.error("Error sending message:", error);
       }
     } else {
-      toast.error("can't send message because 24 hours is not completed");
-      console.log("can't send message because 24 hours is not completed");
+      toast.error("Can't send message because 24 hours is not completed");
+      console.log("Can't send message because 24 hours is not completed");
     }
     setLoadings(false);
     setTimeout(() => {
@@ -86,9 +85,9 @@ const MessageToUser = () => {
           <label>Select user</label>
           <Select
             isClearable
-            className="basic-single"
-            classNamePrefix="select"
-            name="user"
+            className='basic-single'
+            classNamePrefix='select'
+            name='user'
             options={user.isAdmin ? adminChats : agentsChats}
             onChange={handleSelectChange}
             value={selectedData}

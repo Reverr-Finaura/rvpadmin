@@ -62,7 +62,7 @@ const EditAgentModal = ({ docId, docName, docChatAssigned }) => {
       });
       toast.success("User has been successfully added");
     } catch (error) {
-      console.error(error);
+      toast.error("Error in adding user");
     } finally {
       setLoadings(false);
     }

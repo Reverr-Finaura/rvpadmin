@@ -51,12 +51,13 @@ const DeleteAgentModal = ({ docEmail, docName }) => {
       } else {
         toast.error("Agent not found");
       }
-      setLoadings(false);
-      handleClose();
     } catch (error) {
-      setLoadings(false);
       console.log(error.message);
       toast.error(error.message);
+    } finally {
+      setLoadings(false);
+      setLoadings(false);
+      handleClose();
     }
   };
   return (
@@ -65,7 +66,7 @@ const DeleteAgentModal = ({ docEmail, docName }) => {
       <Dialog
         fullScreen={fullScreen}
         open={open}
-        aria-labelledby="responsive-dialog-title"
+        aria-labelledby='responsive-dialog-title'
       >
         <div className={style.modalform}>
           <div className={style.modalheading}>
@@ -73,7 +74,7 @@ const DeleteAgentModal = ({ docEmail, docName }) => {
             <img
               src={close}
               onClick={handleClose}
-              alt="close"
+              alt='close'
               className={style.closeModal}
             />
           </div>

@@ -116,12 +116,11 @@ const MessageToUsers = () => {
       numbers: numbers,
     };
     try {
-      const res = await fetch("https://server.reverr.io/sendwamucm ", {
+      await fetch("https://server.reverr.io/sendwamucm ", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
-      console.log(res);
     } catch (error) {
       console.error("Error sending message:", error);
     } finally {
@@ -142,10 +141,10 @@ const MessageToUsers = () => {
         <div className={style.inputField}>
           <label>Select User Tags</label>
           <Select
-            name="tags"
+            name='tags'
             isMulti
             isClearable
-            classNamePrefix="select"
+            classNamePrefix='select'
             styles={selectStyles}
             options={tags.initialTags}
             onChange={handleTagSelectChange}
@@ -158,10 +157,10 @@ const MessageToUsers = () => {
           <label>Select Mutiple user</label>
           <Select
             isMulti
-            name="colors"
+            name='colors'
             options={user.isAdmin ? adminChats : agentsChats}
-            className="basic-multi-select"
-            classNamePrefix="select"
+            className='basic-multi-select'
+            classNamePrefix='select'
             onChange={handleSelectChange}
             styles={selectStyles}
             value={selectedData}
@@ -172,7 +171,7 @@ const MessageToUsers = () => {
           />
         </div>
         <div className={style.inputField}>
-          <button type="button" onClick={selectAllUsers}>
+          <button type='button' onClick={selectAllUsers}>
             {selectTrue === true
               ? "All user are selected"
               : "All user are not selected"}
