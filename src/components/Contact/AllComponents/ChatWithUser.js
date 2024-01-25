@@ -68,13 +68,17 @@ const ChatWithUser = ({ chatnumber }) => {
   };
   const submit = async (e) => {
     if (e?.key === "Enter" || e === "Send") {
+      if (!selectedData) {
+        return;
+      }
       const data = {
         text: message,
         countryCode: selectedData.id.slice(0, -10),
         number: selectedData.id.slice(-10),
       };
       setMessage("");
-      if (selectedData) {
+      const within24Hours = isWithin24Hours(selectedData);
+      if (within24Hours) {
         try {
           await fetch("https://server.reverr.io/sendwacustommsg", {
             method: "POST",
@@ -83,12 +87,37 @@ const ChatWithUser = ({ chatnumber }) => {
           });
           toast.success("Success sent");
         } catch (error) {
+          toast.error("can't send message because 24 hours is not completed");
           console.error(error);
           throw error;
         }
       }
     }
   };
+  function isWithin24Hours(singleChat) {
+    if (singleChat?.messages.length === 0) {
+      return true;
+    }
+    let lastMessage;
+    const lengthOfMessages = singleChat?.messages.length;
+    for (let i = lengthOfMessages - 1; i >= 0; i--) {
+      if (singleChat?.messages[i].usermessage !== null) {
+        lastMessage = singleChat?.messages[i];
+        break;
+      }
+    }
+    if (lastMessage === undefined) {
+      return false;
+    }
+    const messageDate = new Date(
+      lastMessage.date.seconds * 1000 + lastMessage.date.nanoseconds / 1e6
+    );
+    const currentDate = new Date();
+    const timeDifferenceInHours = Math.ceil(
+      Math.abs(currentDate - messageDate) / (1000 * 60 * 60)
+    );
+    return timeDifferenceInHours < 24;
+  }
 
   const handleToggleChange = async (e) => {
     e.preventDefault();
