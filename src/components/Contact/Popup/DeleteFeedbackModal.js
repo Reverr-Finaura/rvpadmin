@@ -39,23 +39,38 @@ const DeleteFeedbackModal = ({ docId, docPhone }) => {
       <Dialog
         fullScreen={fullScreen}
         open={open}
-        aria-labelledby='responsive-dialog-title'
+        aria-labelledby="responsive-dialog-title"
       >
         <div className={style.modalform}>
           <div className={style.modalheading}>
             <h3>Delete Feedback</h3>
-            <img src={close} onClick={handleClose} alt='close' />
+            <img
+              src={close}
+              onClick={handleClose}
+              alt="close"
+              className={style.closeModal}
+            />
           </div>
           <form>
-            <p>Do you want to this feedback of {docPhone} ? </p>
+            <p>Do you want to Delete this feedback of {docPhone} ? </p>
             <div className={style.deleteAgnetbutton}>
-              <button disabled={loadings} onClick={() => deleteFeedback()}>
+              <button
+                disabled={loadings}
+                onClick={(e) => deleteFeedback(e)}
+                style={{
+                  cursor: "pointer",
+                }}
+              >
                 Yes
               </button>
               <button
                 disabled={loadings}
                 onClick={handleClose}
-                style={{ backgroundColor: "transparent", color: "black" }}
+                style={{
+                  backgroundColor: "transparent",
+                  color: "black",
+                  cursor: "pointer",
+                }}
               >
                 No
               </button>

@@ -1,62 +1,62 @@
 .navbarWrapper {
-    width: 100%;
-    height: 87px;
-    background-color: #ffff;
-    position: sticky;
-    top: 0;
-    z-index: 10;
+  width: 100%;
+  height: 87px;
+  background-color: #ffff;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 .navbarContainer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 18px 18px 18px 38px;
-
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 18px 18px 38px;
 }
 
 .navMenu {
-    display: flex;
-    /* padding-left: 73px; */
-    gap: 28px;
-    align-items: center;
+  display: flex;
+  /* padding-left: 73px; */
+  gap: 28px;
+  align-items: center;
+  margin-left: 40px;
 }
 
 .navMenuName {
-    color: var(--Second-text-color, #737373);
-    font-family: Inter;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 28px;
-    letter-spacing: 0.2px;
-    margin: 0;
+  color: var(--Second-text-color, #737373);
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 28px;
+  letter-spacing: 0.2px;
+  margin: 0;
 }
 
 .navbarProfile {
-    display: flex;
-    align-items: center;
-    padding-left: 20px;
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
 }
 
 .notificationsection {
-    padding: 0 12px;
+  padding: 0 12px;
 }
 
 .vertical {
-    width: 2px;
-    height: 32px;
-    border: 1px solid #E3E3E3;
-    background: #E3E3E3;
+  width: 2px;
+  height: 32px;
+  border: 1px solid #e3e3e3;
+  background: #e3e3e3;
 }
 
 .notification {
-    background-color: #F5F7FA;
-    padding: 12px 13px;
-    border-radius: 50%;
-    object-fit: cover;
+  background-color: #f5f7fa;
+  padding: 12px 13px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 img {
-    object-fit: cover;
+  object-fit: cover;
 }

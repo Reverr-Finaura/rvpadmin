@@ -136,16 +136,16 @@ const MessageToUsers = () => {
   return (
     <div className={style.container}>
       <div className={style.heading}>
-        <h3>Send Message to single user</h3>
+        <h3>Send Message to Multiple Users</h3>
       </div>
       <form onSubmit={submit}>
         <div className={style.inputField}>
           <label>Select User Tags</label>
           <Select
-            name='tags'
+            name="tags"
             isMulti
             isClearable
-            classNamePrefix='select'
+            classNamePrefix="select"
             styles={selectStyles}
             options={tags.initialTags}
             onChange={handleTagSelectChange}
@@ -158,10 +158,10 @@ const MessageToUsers = () => {
           <label>Select Mutiple user</label>
           <Select
             isMulti
-            name='colors'
+            name="colors"
             options={user.isAdmin ? adminChats : agentsChats}
-            className='basic-multi-select'
-            classNamePrefix='select'
+            className="basic-multi-select"
+            classNamePrefix="select"
             onChange={handleSelectChange}
             styles={selectStyles}
             value={selectedData}
@@ -172,7 +172,7 @@ const MessageToUsers = () => {
           />
         </div>
         <div className={style.inputField}>
-          <button type='button' onClick={selectAllUsers}>
+          <button type="button" onClick={selectAllUsers}>
             {selectTrue === true
               ? "All user are selected"
               : "All user are not selected"}

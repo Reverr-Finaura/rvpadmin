@@ -79,16 +79,16 @@ const MessageToUser = () => {
   return (
     <div className={style.container}>
       <div className={style.heading}>
-        <h3>Send Message to single user</h3>
+        <h3>Send Message to Single user</h3>
       </div>
       <form onSubmit={submit}>
         <div className={style.inputField}>
           <label>Select user</label>
           <Select
             isClearable
-            className='basic-single'
-            classNamePrefix='select'
-            name='user'
+            className="basic-single"
+            classNamePrefix="select"
+            name="user"
             options={user.isAdmin ? adminChats : agentsChats}
             onChange={handleSelectChange}
             value={selectedData}

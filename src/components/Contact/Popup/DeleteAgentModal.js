@@ -65,12 +65,17 @@ const DeleteAgentModal = ({ docEmail, docName }) => {
       <Dialog
         fullScreen={fullScreen}
         open={open}
-        aria-labelledby='responsive-dialog-title'
+        aria-labelledby="responsive-dialog-title"
       >
         <div className={style.modalform}>
           <div className={style.modalheading}>
             <h3>Delete Agent</h3>
-            <img src={close} onClick={handleClose} alt='close' />
+            <img
+              src={close}
+              onClick={handleClose}
+              alt="close"
+              className={style.closeModal}
+            />
           </div>
           <form>
             <p>Do you want to this delete agent {docName} ? </p>

@@ -120,16 +120,16 @@ const TemplateToUser = () => {
   return (
     <div className={style.container}>
       <div className={style.heading}>
-        <h3>Send Template to single user</h3>
+        <h3>Send Template to Single user</h3>
       </div>
       <form onSubmit={submit}>
         <div className={style.inputField}>
           <label>Select user</label>
           <Select
             isClearable
-            className='basic-single'
-            classNamePrefix='select'
-            name='user'
+            className="basic-single"
+            classNamePrefix="select"
+            name="user"
             options={user.isAdmin ? adminChats : agentsChats}
             onChange={handleSelectChange}
             value={selectedData}
@@ -149,16 +149,16 @@ const TemplateToUser = () => {
           ></textarea>
         </div>
         <div className={style.inputField}>
-          <label htmlFor='templateUser' className={style.fileUpload}>
+          <label htmlFor="templateUser" className={style.fileUpload}>
             <div className={style.fileuploadContent}>
               <button>Select file</button>
               <p> Upload file {filename && `: ${filename}`}</p>
             </div>
           </label>
           <input
-            type='file'
+            type="file"
             onChange={handleFileChange}
-            id='templateUser'
+            id="templateUser"
             style={{ display: "none" }}
           />
         </div>

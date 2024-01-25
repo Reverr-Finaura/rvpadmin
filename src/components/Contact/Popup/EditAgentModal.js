@@ -75,19 +75,24 @@ const EditAgentModal = ({ docId, docName, docChatAssigned }) => {
       <Dialog
         fullScreen={fullScreen}
         open={open}
-        aria-labelledby='responsive-dialog-title'
+        aria-labelledby="responsive-dialog-title"
       >
         <div className={style.modalform}>
           <div className={style.modalheading}>
             <h3>Edit Agent</h3>
-            <img src={close} onClick={handleClose} alt='close' />
+            <img
+              src={close}
+              onClick={handleClose}
+              alt="close"
+              className={style.closeModal}
+            />
           </div>
           <form onSubmit={submit}>
             <div className={style.inputField}>
               <label>Name</label>
               <input
-                type='type'
-                placeholder='Enter a Name'
+                type="type"
+                placeholder="Enter a Name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
@@ -96,10 +101,10 @@ const EditAgentModal = ({ docId, docName, docChatAssigned }) => {
               <label>Assigned user</label>
               <ReactSelect
                 isMulti
-                name='colors'
+                name="colors"
                 options={editAgentsChats}
-                className='basic-multi-select'
-                classNamePrefix='select'
+                className="basic-multi-select"
+                classNamePrefix="select"
                 onChange={handleSelectChange}
                 value={selectedData}
                 styles={selectStyles2}
@@ -110,7 +115,7 @@ const EditAgentModal = ({ docId, docName, docChatAssigned }) => {
               />
             </div>
             <div className={style.formbutton}>
-              <button disabled={loadings}>Send Message</button>
+              <button disabled={loadings}>Edit</button>
             </div>
           </form>
         </div>

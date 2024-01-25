@@ -32,12 +32,17 @@ const ViewFeedbackModal = ({
       <Dialog
         fullScreen={fullScreen}
         open={open}
-        aria-labelledby='responsive-dialog-title'
+        aria-labelledby="responsive-dialog-title"
       >
         <div className={style.modalform}>
           <div className={style.modalheading}>
             <h3>View Feedback</h3>
-            <img src={close} onClick={handleClose} alt='close' />
+            <img
+              src={close}
+              onClick={handleClose}
+              alt="close"
+              className={style.closeModal}
+            />
           </div>
           <div className={style.Info}>
             {Object.keys({

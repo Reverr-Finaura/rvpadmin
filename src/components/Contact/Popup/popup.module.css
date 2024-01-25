@@ -1,180 +1,185 @@
 .modalform {
-    min-width: 480px;
-    width: 100%;
-    padding: 35px;
+  min-width: 480px;
+  width: 100%;
+  padding: 35px;
 }
 
 .modalheading {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
 }
 
-.modalheading>h3 {
-    color: #232323;
-    font-family: Inter;
-    font-size: 22.667px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
+.modalheading > h3 {
+  color: #232323;
+  font-family: Inter;
+  font-size: 22.667px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
 }
 
 .inputField {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
-.inputField>label {
-    color: #232323;
-    font-family: Inter;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 40px;
+.inputField > label {
+  color: #232323;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 40px;
 }
 
-.inputField>input {
-    height: 50px;
-    padding-left: 10px;
-    border: 1px solid #DFEAF2;
-    outline: none;
-    border-radius: 15px;
+.inputField > input {
+  height: 50px;
+  padding-left: 10px;
+  border: 1px solid #dfeaf2;
+  outline: none;
+  border-radius: 15px;
 }
 
 .formbutton {
-    margin-top: 30px;
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
+  margin-top: 30px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
 }
 
-.formbutton>button {
-    padding: 12px 28px;
-    border-radius: 15px;
-    background: #1814F3;
-    color: #FFF;
-    text-align: center;
-    font-family: Inter;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    width: max-content;
-    border: none;
-    outline: none;
+.formbutton > button {
+  padding: 12px 28px;
+  border-radius: 15px;
+  background: #1814f3;
+  color: #fff;
+  text-align: center;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  width: max-content;
+  border: none;
+  outline: none;
+  cursor: pointer;
 }
 
 .deleteAgnetbutton {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.deleteAgnetbutton>button {
-    padding: 10px 28px;
-    border-radius: 15px;
-    background: #1814F3;
-    color: #FFF;
-    text-align: center;
-    font-family: Inter;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    width: max-content;
-    border: none;
-    outline: none;
-    border: 0.85px dashed #1814F3;
-    width: 138.833px;
+.deleteAgnetbutton > button {
+  padding: 10px 28px;
+  border-radius: 15px;
+  background: #1814f3;
+  color: #fff;
+  text-align: center;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  width: max-content;
+  border: none;
+  outline: none;
+  border: 0.85px dashed #1814f3;
+  width: 138.833px;
 }
 
 .Info {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.Info>p {
-    color: #232323;
-    font-family: Inter;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
+.Info > p {
+  color: #232323;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
 .infobox {
-    border-radius: 7px;
-    border: 1px solid #DFEAF2;
-    background: #FFF;
-    padding: 5px 10px;
-    color: #718EBF;
-    font-family: Inter;
-    font-size: 15px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    width: max-content;
+  border-radius: 7px;
+  border: 1px solid #dfeaf2;
+  background: #fff;
+  padding: 5px 10px;
+  color: #718ebf;
+  font-family: Inter;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  width: max-content;
 }
 
-.Info>ul {
-    margin: 0;
+.Info > ul {
+  margin: 0;
 }
 
-.Info>ul>li {
-    list-style: none;
+.Info > ul > li {
+  list-style: none;
 }
 
 .assigendButton {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    border-radius: 8px;
-    padding: 5px;
-    background: var(--Secondary-20, #FEF5EA);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  border-radius: 8px;
+  padding: 5px;
+  background: var(--Secondary-20, #fef5ea);
 }
 
-.assigendButton>p {
-    color: var(--Black-100, #1C1D22);
-    font-family: Inter;
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
+.assigendButton > p {
+  color: var(--Black-100, #1c1d22);
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
 .already {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
-.already>p {
-    width: max-content;
+.already > p {
+  width: max-content;
 }
 
-.already>.assigendButton {
-    margin-top: 30px;
-    display: flex;
+.already > .assigendButton {
+  margin-top: 30px;
+  display: flex;
 }
 
-.assigendButton>button {
-    padding: 12px 28px;
-    border-radius: 15px;
-    background: #1814F3;
-    color: #FFF;
-    text-align: center;
-    font-family: Inter;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    width: max-content;
-    border: none;
-    outline: none;
+.assigendButton > button {
+  padding: 12px 28px;
+  border-radius: 15px;
+  background: #1814f3;
+  color: #fff;
+  text-align: center;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  width: max-content;
+  border: none;
+  outline: none;
+}
+
+.closeModal {
+  cursor: pointer;
 }

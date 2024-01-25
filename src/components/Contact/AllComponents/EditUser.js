@@ -37,6 +37,12 @@ const EditUser = () => {
   const handleUserTypeChange = (selectedOptions) => {
     setUsertypes(selectedOptions);
   };
+  const reset = () => {
+    setName("");
+    setUsertypes();
+    setSelectedTags();
+    setSelectedData("");
+  };
   const handleTagSelectChange = async (selectedOptions) => {
     if (selectedOptions) {
       const formattedSelectedTags = selectedOptions.map((option) => ({
@@ -81,6 +87,7 @@ const EditUser = () => {
       console.log("Error updating tags document:", error);
     } finally {
       setLoadings(false);
+      reset();
     }
   };
   useEffect(() => {
@@ -106,10 +113,10 @@ const EditUser = () => {
             <label>Select user</label>
             <ReactSelect
               isClearable
-              className='basic-single'
-              classNamePrefix='select'
+              className="basic-single"
+              classNamePrefix="select"
               style={{ position: "static" }}
-              name='edituser'
+              name="edituser"
               options={user.isAdmin ? adminChats : agentsChats}
               onChange={handleSelectChange}
               value={selectedData}
@@ -124,9 +131,9 @@ const EditUser = () => {
             <label>User Type</label>
             <ReactSelect
               isClearable
-              className='basic-single'
-              classNamePrefix='select'
-              name='usersMessage'
+              className="basic-single"
+              classNamePrefix="select"
+              name="usersMessage"
               options={userType}
               onChange={handleUserTypeChange}
               value={userTypes}
@@ -140,8 +147,8 @@ const EditUser = () => {
           <div className={style.inputField}>
             <label>Edit User Name</label>
             <input
-              type='text'
-              placeholder='Enter User Name'
+              type="text"
+              placeholder="Enter User Name"
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
@@ -149,7 +156,7 @@ const EditUser = () => {
           <div className={style.inputField}>
             <label>Tags</label>
             <CreatableSelect
-              className='basic-multi-select'
+              className="basic-multi-select"
               isClearable
               isMulti={true}
               options={tags.initialTags}
@@ -162,7 +169,7 @@ const EditUser = () => {
           </div>
         </div>
         <div className={style.formbutton}>
-          <button disabled={loadings}>Send Message</button>
+          <button disabled={loadings}>Edit</button>
         </div>
       </form>
       <ToastContainer />

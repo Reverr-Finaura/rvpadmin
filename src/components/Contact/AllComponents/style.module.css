@@ -1,410 +1,406 @@
 .Wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .container {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    width: 100%;
-    border-radius: 25px;
-    padding: 40px;
-    background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  border-radius: 25px;
+  padding: 40px;
+  background-color: #fff;
 }
 
 .heading {
-    width: max-content;
-    padding: 8px;
-    border-bottom: 2px solid #1814F3;
+  width: max-content;
+  padding: 8px;
+  border-bottom: 2px solid #1814f3;
 }
 
-.heading>h3 {
-    color: #1814F3;
-    font-family: Inter;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
+.heading > h3 {
+  color: #1814f3;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
 }
 
-.container>form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    width: 100%;
+.container > form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
 }
 
 .inputField {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
-.inputField>label {
-    color: #232323;
-    font-family: Inter;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 40px;
+.inputField > label {
+  color: #232323;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 40px;
 }
 
-.inputField>textarea {
-    width: 100%;
-    margin: 0;
-    border-radius: 15px;
-    border: 1px solid #DFEAF2;
-    background: #FFF;
+.inputField > textarea {
+  width: 100%;
+  margin: 0;
+  border-radius: 15px;
+  border: 1px solid #dfeaf2;
+  background: #fff;
 }
 
-.inputField>textarea:focus {
-    border: 1px solid #1814F3;
+.inputField > textarea:focus {
+  border: 1px solid #1814f3;
 }
 
 .fileUpload {
-    width: 480px;
-    padding: 20px 30px;
-    border-radius: 2.367px;
-    border: 0.592px dashed #454545;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #3A3A3A;
-    text-align: center;
-    font-size: 9.469px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    gap: 10px;
+  width: 480px;
+  padding: 20px 30px;
+  border-radius: 2.367px;
+  border: 0.592px dashed #454545;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #3a3a3a;
+  text-align: center;
+  font-size: 9.469px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  gap: 10px;
 }
 
 .fileuploadContent {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
-.fileuploadContent>p {
-    color: #3A3A3A;
-    text-align: center;
-    font-size: 9.469px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    margin: 0;
-    width: max-content;
+.fileuploadContent > p {
+  color: #3a3a3a;
+  text-align: center;
+  font-size: 9.469px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 0;
+  width: max-content;
 }
 
-.fileuploadContent>button {
-    width: 79.892px;
-    padding: 5.918px;
-    border-radius: 2.367px;
-    background: #5570F1;
-    color: #FFF;
-    border: none;
-    outline: none;
-    font-size: 9.469px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
+.fileuploadContent > button {
+  width: 79.892px;
+  padding: 5.918px;
+  border-radius: 2.367px;
+  background: #5570f1;
+  color: #fff;
+  border: none;
+  outline: none;
+  font-size: 9.469px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
-.inputField>button {
-    padding: 12px 28px;
-    border-radius: 15px;
-    background: #1814F3;
-    color: #FFF;
-    text-align: center;
-    font-family: Inter;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    width: max-content;
-    border: none;
-    outline: none;
+.inputField > button {
+  padding: 12px 28px;
+  border-radius: 15px;
+  background: #1814f3;
+  color: #fff;
+  text-align: center;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  width: max-content;
+  border: none;
+  outline: none;
 }
 
 .formbutton {
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
 }
 
-.formbutton>button {
-    padding: 12px 28px;
-    border-radius: 15px;
-    background: #1814F3;
-    color: #FFF;
-    text-align: center;
-    font-family: Inter;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    width: max-content;
-    border: none;
-    outline: none;
+.formbutton > button {
+  padding: 12px 28px;
+  border-radius: 15px;
+  background: #1814f3;
+  color: #fff;
+  text-align: center;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  width: max-content;
+  border: none;
+  outline: none;
+  cursor: pointer;
 }
 
 .adduserForm {
-    padding: 0 80px;
+  padding: 0 80px;
 }
 
 .doubleField {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
 }
 
-.inputField>input {
-    height: 50px;
-    padding-left: 10px;
-    border: 1px solid #DFEAF2;
-    outline: none;
-    border-radius: 15px;
+.inputField > input {
+  height: 50px;
+  padding-left: 10px;
+  border: 1px solid #dfeaf2;
+  outline: none;
+  border-radius: 15px;
 }
 
 .agentContainer {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    width: 50%;
-    border-radius: 25px;
-    padding: 40px;
-    background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 50%;
+  border-radius: 25px;
+  padding: 40px;
+  background-color: #fff;
 }
 
 .tableWrapper {
-    width: 100%;
+  width: 100%;
 }
 
 .tableAction {
-    width: 100%;
-    display: flex;
-    gap: 10px;
-    justify-content: flex-end;
-    margin-bottom: 10px;
-
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-bottom: 10px;
 }
 
-.tableAction>button {
-    width: max-content;
-    border: none;
-    outline: none;
-    border-radius: 8px;
-    background: var(--Secondary-20, #FEF5EA);
+.tableAction > button {
+  width: max-content;
+  border: none;
+  outline: none;
+  border-radius: 8px;
+  background: var(--Secondary-20, #fef5ea);
 
-    color: var(--Black-100, #1C1D22);
-    font-family: Inter;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
+  color: var(--Black-100, #1c1d22);
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
 .tableContainer {
-    width: 100%;
-    padding: 10px 20px;
-    background-color: #fff;
-    border-radius: 25px;
+  width: 100%;
+  padding: 10px 20px;
+  background-color: #fff;
+  border-radius: 25px;
 }
 
 .tableheading {
-    width: max-content;
-    padding: 8px;
+  width: max-content;
+  padding: 8px;
 }
 
-.tableheading>h3 {
-    color: black;
-    font-family: Inter;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
+.tableheading > h3 {
+  color: black;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
 }
 
 .allTable {
-    border-collapse: collapse;
-    width: 100%;
+  border-collapse: collapse;
+  width: 100%;
 }
 
 .allTable thead {
-    border-bottom: 1px solid #E6EFF5;
+  border-bottom: 1px solid #e6eff5;
 }
 
 .allTable tbody tr {
-    border-bottom: 1px solid #E6EFF5;
+  border-bottom: 1px solid #e6eff5;
 }
 
 .allTable td,
 .allTable th {
-    width: 12%;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    color: #232323;
-    font-family: Inter;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    text-align: left;
+  width: 12%;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  color: #232323;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-align: left;
 }
 
 .allTable th {
-    color: #718EBF;
-
+  color: #718ebf;
 }
 
 .bottomTable {
-    position: sticky;
-    bottom: 0;
-    padding: 10px 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-    border-top: 1px solid #E7E7E7;
-
+  position: sticky;
+  bottom: 0;
+  padding: 10px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  border-top: 1px solid #e7e7e7;
 }
 
-.pagecontent>p {
-    color: var(--Secondary-300, #BABABA);
-    text-align: center;
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    letter-spacing: -0.24px;
-    margin: 0;
-    padding: 0;
-    width: max-content;
+.pagecontent > p {
+  color: var(--Secondary-300, #bababa);
+  text-align: center;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.24px;
+  margin: 0;
+  padding: 0;
+  width: max-content;
 }
 
 .pagebutton {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .pagebtn {
-    border-radius: 4px;
-    border-radius: 4px;
-    border: 1px solid var(--Secondary-200, #E7E7E7);
-    display: flex;
-    padding: 10px 15px;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-    text-align: center;
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    letter-spacing: -0.24px;
+  border-radius: 4px;
+  border-radius: 4px;
+  border: 1px solid var(--Secondary-200, #e7e7e7);
+  display: flex;
+  padding: 10px 15px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  text-align: center;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.24px;
 }
 
 .pagebtnNext {
-    color: var(--Secondary-300, #BABABA);
-    text-align: center;
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    letter-spacing: -0.24px;
+  color: var(--Secondary-300, #bababa);
+  text-align: center;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.24px;
 }
 
-
 .agentAction {
-    border: 1px solid #1814F3;
-    display: flex;
-    justify-content: space-around;
-    padding: 5px;
-    border-radius: 25px;
-    width: 140px;
+  border: 1px solid #1814f3;
+  display: flex;
+  justify-content: space-around;
+  padding: 5px;
+  border-radius: 25px;
+  width: 140px;
 }
 
 .csvform {
-    display: flex;
-    flex-direction: column;
-    width: max-content;
+  display: flex;
+  flex-direction: column;
+  width: max-content;
 }
 
 .csvfileUpload {
-    width: 463px;
-    height: 259px;
-    padding: 66px 189px;
-    border-radius: 2.367px;
-    border: 0.592px dashed #454545;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #3A3A3A;
-    text-align: center;
-    font-size: 9.469px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    gap: 10px;
+  width: 463px;
+  height: 259px;
+  padding: 66px 189px;
+  border-radius: 2.367px;
+  border: 0.592px dashed #454545;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #3a3a3a;
+  text-align: center;
+  font-size: 9.469px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  gap: 10px;
 }
 
 .csvfileuploadContent {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
-.csvfileuploadContent>p {
-    color: #3A3A3A;
-    text-align: center;
-    font-family: Inter;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    margin: 0;
-    width: max-content;
+.csvfileuploadContent > p {
+  color: #3a3a3a;
+  text-align: center;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 0;
+  width: max-content;
 }
 
-.csvfileuploadContent>button {
-    width: 135px;
-    padding: 12px;
-    border-radius: 4px;
-    background: #5570F1;
-    color: #FFF;
-    border: none;
-    outline: none;
-    font-size: 9.469px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
+.csvfileuploadContent > button {
+  width: 135px;
+  padding: 12px;
+  border-radius: 4px;
+  background: #5570f1;
+  color: #fff;
+  border: none;
+  outline: none;
+  font-size: 9.469px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
 .formcsvbutton {
-    width: 100%;
-    display: flex;
-
+  width: 100%;
+  display: flex;
 }
 
-.formcsvbutton>button {
-    padding: 12px 28px;
-    border-radius: 15px;
-    background: #1814F3;
-    color: #FFF;
-    text-align: center;
-    font-family: Inter;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    width: max-content;
-    border: none;
-    outline: none;
+.formcsvbutton > button {
+  padding: 12px 28px;
+  border-radius: 15px;
+  background: #1814f3;
+  color: #fff;
+  text-align: center;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  width: max-content;
+  border: none;
+  outline: none;
 }
