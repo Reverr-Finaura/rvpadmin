@@ -8,7 +8,7 @@ import ReactSelect from "react-select";
 import { MdModeEdit } from "react-icons/md";
 import close from "../../../utils/Image/Close.png";
 import style from "./popup.module.css";
-import { selectStyles2 } from "../../../utils";
+import { selectStyles2, selectStyles3 } from "../../../utils";
 
 const EditAgentModal = ({ docId, docName, docChatAssigned }) => {
   const editAgentsChats = useSelector((state) => state.contact.editAgentsChats);
@@ -75,7 +75,7 @@ const EditAgentModal = ({ docId, docName, docChatAssigned }) => {
       <Dialog
         fullScreen={fullScreen}
         open={open}
-        aria-labelledby="responsive-dialog-title"
+        aria-labelledby='responsive-dialog-title'
       >
         <div className={style.modalform}>
           <div className={style.modalheading}>
@@ -83,7 +83,7 @@ const EditAgentModal = ({ docId, docName, docChatAssigned }) => {
             <img
               src={close}
               onClick={handleClose}
-              alt="close"
+              alt='close'
               className={style.closeModal}
             />
           </div>
@@ -91,23 +91,23 @@ const EditAgentModal = ({ docId, docName, docChatAssigned }) => {
             <div className={style.inputField}>
               <label>Name</label>
               <input
-                type="type"
-                placeholder="Enter a Name"
+                type='type'
+                placeholder='Enter a Name'
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
             </div>
-            <div className={style.inputField}>
+            <div className={style.inputField} style={{ height: "150px" }}>
               <label>Assigned user</label>
               <ReactSelect
                 isMulti
-                name="colors"
+                name='colors'
                 options={editAgentsChats}
-                className="basic-multi-select"
-                classNamePrefix="select"
+                className='basic-multi-select'
+                classNamePrefix='select'
                 onChange={handleSelectChange}
                 value={selectedData}
-                styles={selectStyles2}
+                styles={selectStyles3}
                 getOptionLabel={(option) =>
                   `+` + option.number + (option.name ? ` (${option.name})` : "")
                 }

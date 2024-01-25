@@ -30,7 +30,7 @@ const ViewAgentModal = ({
       <Dialog
         fullScreen={fullScreen}
         open={open}
-        aria-labelledby="responsive-dialog-title"
+        aria-labelledby='responsive-dialog-title'
       >
         <div className={style.modalform}>
           <div className={style.modalheading}>
@@ -38,21 +38,26 @@ const ViewAgentModal = ({
             <img
               src={close}
               onClick={handleClose}
-              alt="close"
+              alt='close'
               className={style.closeModal}
             />
           </div>
           <div className={style.Info}>
             <p>
-              Name : <span className={style.infobox}>{docName}</span>
+              <strong>Name :</strong>{" "}
+              <span className={style.infobox}>{docName}</span>
             </p>
             <p>
-              Email : <span className={style.infobox}>{docEmail}</span>
+              <strong>Email :</strong>{" "}
+              <span className={style.infobox}>{docEmail}</span>
             </p>
             <p>
-              Password : <span className={style.infobox}>{docPassword}</span>
+              <strong>Password :</strong>{" "}
+              <span className={style.infobox}>{docPassword}</span>
             </p>
-            <p>Assigned :</p>
+            <p>
+              <strong>Assigned :</strong>{" "}
+            </p>
             <ul className={style.list}>
               {docChatAssigned &&
                 docChatAssigned.map((item, index) => (

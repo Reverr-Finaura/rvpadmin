@@ -92,9 +92,11 @@ const ManageFeedback = () => {
               <tr>
                 {showSelect && <th>Select</th>}
                 <th>Id</th>
+                <th>Name</th>
                 <th>Phone</th>
-                <th>Recommendation</th>
                 <th>Review</th>
+                <th>Recommendation</th>
+                <th>Like</th>
                 <th>Experience</th>
                 <th>Highlights</th>
                 <th>Rating</th>
@@ -115,27 +117,31 @@ const ManageFeedback = () => {
                         />
                       </td>
                     )}
-                    <td style={{ width: "20%" }}>{item.id}</td>
+                    <td style={{ width: "16%" }}>{item.id}</td>
+                    <td>{item.Name}</td>
                     <td>{item.Phone}</td>
-                    <td>{item.recommendation}</td>
-                    <td>{item.review}</td>
+                    <td style={{ width: "16%" }}>{item.review}</td>
+                    <td style={{ width: "12%" }}>{item.recommendation}</td>
+                    <td>{item.likes.length}</td>
                     <td>{item.experience}</td>
                     <td>{item.highlights}</td>
                     <td>{item.rating}</td>
-                    <td>
+                    <td style={{ width: "16%" }}>
                       <div className={style.agentAction}>
                         <DeleteFeedbackModal
                           docId={item.id}
                           docPhone={item.Phone}
                         />
                         <ViewFeedbackModal
-                          docId={item.id}
-                          docPhone={item.Phone}
-                          docRecommendation={item.recommendation}
-                          docReview={item.review}
-                          docExperience={item.experience}
-                          docHighlights={item.highlights}
-                          docRating={item.rating}
+                          Id={item.id}
+                          Name={item.Name}
+                          Likes={item.likes.length}
+                          Phone={item.Phone}
+                          Recommendation={item.recommendation}
+                          Review={item.review}
+                          Experience={item.experience}
+                          Highlights={item.highlights}
+                          Rating={item.rating}
                         />
                       </div>
                     </td>

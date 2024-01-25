@@ -271,7 +271,7 @@ const ChatWithUser = ({ chatnumber }) => {
             />
           )}
           <div className={style.endChat}>
-            <p>END CHAT</p>
+            <p>{toogle ? " END CHAT" : "START CHAT"}</p>
             <Toggle
               checked={toogle}
               icons={false}

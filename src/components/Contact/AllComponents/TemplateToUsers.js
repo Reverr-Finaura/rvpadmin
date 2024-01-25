@@ -175,11 +175,11 @@ const TemplateToUsers = () => {
         <div className={style.inputField}>
           <label>Select User Tags</label>
           <Select
-            name="tags"
+            name='tags'
             isClearable
             isMulti
-            className="basic-multi-select"
-            classNamePrefix="select"
+            className='basic-multi-select'
+            classNamePrefix='select'
             options={tags.initialTags}
             onChange={handleTagSelectChange}
             value={selectedTags}
@@ -192,10 +192,10 @@ const TemplateToUsers = () => {
           <label>Select Mutiple user</label>
           <Select
             isMulti
-            name="colors"
+            name='colors'
             options={user.isAdmin ? adminChats : agentsChats}
-            className="basic-multi-select"
-            classNamePrefix="select"
+            className='basic-multi-select'
+            classNamePrefix='select'
             onChange={handleSelectChange}
             value={selectedData}
             styles={selectStyles}
@@ -206,7 +206,7 @@ const TemplateToUsers = () => {
           />
         </div>
         <div className={style.inputField}>
-          <button type="button" onClick={selectAllUsers}>
+          <button type='button' onClick={selectAllUsers}>
             {selectTrue === true
               ? "All user are selected"
               : "All user are not selected"}
@@ -222,17 +222,16 @@ const TemplateToUsers = () => {
         </div>
 
         <div className={style.inputField}>
-          <label htmlFor="templateUser" className={style.fileUpload}>
+          <label htmlFor='templateUser' className={style.fileUpload}>
             <div className={style.fileuploadContent}>
               <button>Select file</button>
               <p> Upload file {filename && `: ${filename}`}</p>
             </div>
           </label>
           <input
-            type="file"
-            value={file}
+            type='file'
             onChange={handleFileChange}
-            id="templateUser"
+            id='templateUser'
             style={{ display: "none" }}
           />
         </div>

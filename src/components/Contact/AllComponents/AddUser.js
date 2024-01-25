@@ -58,7 +58,7 @@ const AddUser = () => {
     if (number.length === 10 && code) {
       const data = {
         name: name,
-        number: code.trim.toString() + number.trim.toString(),
+        number: code.toString() + number.toString(),
         userType: selectedData.name,
         userTags: selectedTags.map((item) => item.label),
         messages: [],

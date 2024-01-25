@@ -5,13 +5,15 @@ import style from "./popup.module.css";
 import close from "../../../utils/Image/Close.png";
 
 const ViewFeedbackModal = ({
-  docId,
-  docPhone,
-  docRecommendation,
-  docReview,
-  docExperience,
-  docHighlights,
-  docRating,
+  Id,
+  Name,
+  Phone,
+  Recommendation,
+  Likes,
+  Review,
+  Experience,
+  Highlights,
+  Rating,
 }) => {
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
@@ -32,7 +34,7 @@ const ViewFeedbackModal = ({
       <Dialog
         fullScreen={fullScreen}
         open={open}
-        aria-labelledby="responsive-dialog-title"
+        aria-labelledby='responsive-dialog-title'
       >
         <div className={style.modalform}>
           <div className={style.modalheading}>
@@ -40,19 +42,21 @@ const ViewFeedbackModal = ({
             <img
               src={close}
               onClick={handleClose}
-              alt="close"
+              alt='close'
               className={style.closeModal}
             />
           </div>
           <div className={style.Info}>
             {Object.keys({
-              docId,
-              docPhone,
-              docRecommendation,
-              docReview,
-              docExperience,
-              docHighlights,
-              docRating,
+              Id,
+              Name,
+              Phone,
+              Recommendation,
+              Likes,
+              Review,
+              Experience,
+              Highlights,
+              Rating,
             }).map((key) => (
               <p key={key}>
                 <strong>{key.charAt(0).toUpperCase() + key.slice(1)}:</strong>{" "}

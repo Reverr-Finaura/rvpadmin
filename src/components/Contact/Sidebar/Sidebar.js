@@ -30,25 +30,25 @@ const sideBarList = [
   {
     section: 1,
     icon: signleUserIcon,
-    name: "Send Message To Single User",
+    name: "Message To Single User",
     activeIcon: signleUserActiveIcon,
   },
   {
     section: 2,
     icon: multiplyUserIcon,
-    name: "Send Message To Multiple Users",
+    name: "Message To Multiple Users",
     activeIcon: multiplyUserActiveIcon,
   },
   {
     section: 3,
     icon: signleTemplateIcon,
-    name: "Send Template To Single User",
+    name: "Template To Single User",
     activeIcon: signleTemplateActiveIcon,
   },
   {
     section: 4,
     icon: multiplyTemplateIcon,
-    name: "Send Template To Multiple Users ",
+    name: "Template To Multiple Users ",
     activeIcon: multiplyTemplateActiveIcon,
   },
   {
