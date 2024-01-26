@@ -22,6 +22,10 @@ const MessageView = ({
       }
       const messages = doc.data().messages;
       setSelectedData({ ...doc.data(), id: doc.id });
+      if (!messages) {
+        setAllMessages([]);
+        return;
+      }
       const groupedMessages = messages.reduce((accumulator, item) => {
         const maindate =
           item.date && item.date.seconds
@@ -49,7 +53,6 @@ const MessageView = ({
       setCurrMessages(messages);
       setAllMessages(groupedMessages);
     });
-
     return () => unsubscribe();
   }, [selectedData.id, setCurrMessages, setSelectedData]);
 
