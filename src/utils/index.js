@@ -9,6 +9,7 @@ export const selectStyles = {
   container: (base) => ({
     ...base,
     width: "50%",
+
     backgroundColor: "transparent",
   }),
   control: (base) => ({
@@ -17,6 +18,7 @@ export const selectStyles = {
     border: "1px solid #DFEAF2",
     borderRadius: "15px",
     width: "100%",
+    height: "50px",
     textAlign: "left",
     cursor: "pointer",
   }),
@@ -63,6 +65,7 @@ export const selectStyles2 = {
     border: "1px solid #DFEAF2",
     borderRadius: "15px",
     width: "100%",
+    height: "50px",
     textAlign: "left",
     cursor: "pointer",
   }),

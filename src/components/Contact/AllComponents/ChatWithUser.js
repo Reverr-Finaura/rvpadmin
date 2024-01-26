@@ -7,6 +7,7 @@ import sendIcon from "../../../utils/Image/Send.png";
 import searchIcon from "../../../utils/Image/Search.png";
 import MessageView from "./MessageView";
 import Toggle from "react-toggle";
+import "react-toggle/style.css";
 import AssignedModal from "../Popup/AssignedModal";
 import { ToastContainer, toast } from "react-toastify";
 

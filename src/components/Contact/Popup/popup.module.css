@@ -51,6 +51,7 @@
 }
 
 .formbutton>button {
+  margin-top: 10px;
   padding: 12px 28px;
   border-radius: 15px;
   background: #1814f3;

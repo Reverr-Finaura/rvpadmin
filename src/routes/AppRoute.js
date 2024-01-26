@@ -4,7 +4,6 @@ import CreateDeal from "../pages/createDeal/CreateDeal";
 import Dashboard from "../pages/dashboard/Dashboard";
 import Mentor from "../pages/mentordetails/Mentor";
 import ViewMentors from "../pages/mentordetails/ViewMentors";
-import NewContact from "../pages/NewContact/NewContact";
 import UploadBlogs from "../pages/Upload Blogs/UploadBlogs";
 import UploadDocument from "../pages/Upload Document/UploadDocument";
 import UploadPPT from "../pages/Upload PPT/UploadPPT";

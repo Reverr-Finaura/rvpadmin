@@ -91,7 +91,7 @@ const ManageFeedback = () => {
             <thead>
               <tr>
                 {showSelect && <th>Select</th>}
-                <th>Id</th>
+                {/* <th>Id</th> */}
                 <th>Name</th>
                 <th>Phone</th>
                 <th>Review</th>
@@ -117,16 +117,16 @@ const ManageFeedback = () => {
                         />
                       </td>
                     )}
-                    <td style={{ width: "16%" }}>{item.id}</td>
+                    {/* <td style={{ width: "16%" }}>{item.id}</td> */}
                     <td>{item.Name}</td>
                     <td>{item.Phone}</td>
-                    <td style={{ width: "16%" }}>{item.review}</td>
+                    <td style={{ width: "18%" }}>{item.review}</td>
                     <td style={{ width: "12%" }}>{item.recommendation}</td>
                     <td>{item.likes.length}</td>
                     <td>{item.experience}</td>
                     <td>{item.highlights}</td>
                     <td>{item.rating}</td>
-                    <td style={{ width: "16%" }}>
+                    <td style={{ width: "18%" }}>
                       <div className={style.agentAction}>
                         <DeleteFeedbackModal
                           docId={item.id}
