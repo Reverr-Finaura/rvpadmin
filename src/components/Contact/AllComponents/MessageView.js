@@ -61,6 +61,7 @@ const MessageView = ({
       });
     }
   }, [currMessages]);
+
   return (
     <div className={style.allMessagebody}>
       {allMessages &&
