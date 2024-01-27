@@ -1,6 +1,5 @@
 import React from "react";
 import logo from "../../../utils/Image/Logo.png";
-import profileIcon from "../../../utils/Image/profile.png";
 import notification from "../../../utils/Image/notification.png";
 import style from "./Navbar.module.css";
 import { NavLink } from "react-router-dom";
@@ -45,15 +44,6 @@ const Navbar = () => {
               src={notification}
               alt='notification'
               className={style.notification}
-            />
-          </div>
-          <div className={style.vertical}></div>
-          <div className={style.notificationsection}>
-            <img
-              src={profileIcon}
-              alt='profile'
-              className={style.notification}
-              style={{ backgroundColor: "transparent" }}
             />
           </div>
         </div>

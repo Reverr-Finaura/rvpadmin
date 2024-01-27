@@ -128,6 +128,7 @@ const ChatWithUser = ({ chatnumber }) => {
       await updateDoc(doc(database, "WhatsappMessages", selectedData?.id), {
         stop: temp,
       });
+      toast.success(`Now chat is ${toogle ? "unavailable" : "available"}`);
     } catch (error) {
       console.log(error);
     }

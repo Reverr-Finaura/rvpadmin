@@ -119,7 +119,7 @@ const AddCSVuser = () => {
   };
   return (
     <div className={style.Wrapper}>
-      <form className={style.csvform} onSubmit={submit}>
+      <form className={style.csvform}>
         <div className={style.heading}>
           <h3>Add User through CSV File </h3>
         </div>
@@ -128,7 +128,7 @@ const AddCSVuser = () => {
             <div className={style.csvfileuploadContent}>
               <img src={uploadicon} alt='' />
               <p> Upload Your CSV File Here{filename && `: ${filename}`}</p>
-              <button>Select file</button>
+              <div className={style.uploadCSvButton}>Select file</div>
             </div>
           </label>
           <input
@@ -140,7 +140,9 @@ const AddCSVuser = () => {
           />
         </div>
         <div className={style.formcsvbutton}>
-          <button disabled={loadings}>Submit</button>
+          <button disabled={loadings} onClick={submit}>
+            Submit
+          </button>
         </div>
       </form>
       <ToastContainer />

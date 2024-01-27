@@ -14,6 +14,22 @@
   padding: 18px 18px 18px 38px;
 }
 
+.navbarLogo {
+
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+}
+
+.navbarLogo>img {
+  filter: drop-shadow(0 0 0.75rem #5570F1);
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
 .navMenu {
   display: flex;
   /* padding-left: 73px; */

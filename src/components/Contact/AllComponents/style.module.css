@@ -99,7 +99,7 @@
   width: max-content;
 }
 
-.fileuploadContent>button {
+.fileuploadContent>.uploadButton {
   width: 79.892px;
   padding: 5.918px;
   border-radius: 2.367px;
@@ -372,7 +372,7 @@
   width: max-content;
 }
 
-.csvfileuploadContent>button {
+.csvfileuploadContent>.uploadCSvButton {
   width: 135px;
   padding: 12px;
   border-radius: 4px;

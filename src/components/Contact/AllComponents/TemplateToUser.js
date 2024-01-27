@@ -122,7 +122,7 @@ const TemplateToUser = () => {
       <div className={style.heading}>
         <h3>Send Template to Single user</h3>
       </div>
-      <form onSubmit={submit}>
+      <form>
         <div className={style.inputField}>
           <label>Select user</label>
           <Select
@@ -149,21 +149,23 @@ const TemplateToUser = () => {
           ></textarea>
         </div>
         <div className={style.inputField}>
-          <label htmlFor='templateUser' className={style.fileUpload}>
+          <label htmlFor='templateSingleUser' className={style.fileUpload}>
             <div className={style.fileuploadContent}>
-              <button>Select file</button>
+              <div className={style.uploadButton}>Select file</div>
               <p> Upload file {filename && `: ${filename}`}</p>
             </div>
           </label>
           <input
             type='file'
             onChange={handleFileChange}
-            id='templateUser'
+            id='templateSingleUser'
             style={{ display: "none" }}
           />
         </div>
         <div className={style.formbutton}>
-          <button disabled={btnDisable}>Send Message</button>
+          <button disabled={btnDisable} onClick={submit}>
+            Send Message
+          </button>
         </div>
       </form>
       <ToastContainer />
