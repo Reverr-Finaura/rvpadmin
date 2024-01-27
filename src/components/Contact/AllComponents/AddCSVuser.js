@@ -77,8 +77,7 @@ const AddCSVuser = () => {
                 },
                 to: "917354327090",
                 type: "text",
-                messageId:
-                  "wamid.HBgMOTE3MzU0MzI3MDkwFQIAERgSOUFBMDIyOEZGMjJGRTNCNkY4AA==",
+                messageId: "1",
                 status: "success",
                 usermessage: null,
               },
@@ -92,7 +91,6 @@ const AddCSVuser = () => {
           await setDoc(doc(database, "WhatsappMessages", userdata.number), {
             ...userdata,
           });
-          // console.log(i, i === twenty, data.length / 5);
           if (i === Math.round(twenty)) {
             toast.info("uploaded 20%...");
           } else if (i === Math.round(fourty)) {
