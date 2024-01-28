@@ -42,8 +42,8 @@ const ManageFeedback = () => {
         throw new Error("Selected data is not an array");
       }
       if (selectedData.length > 0) {
-        const deletePromises = selectedData.map((item) =>
-          deleteDoc(doc(database, "Feedback", item))
+        const deletePromises = selectedData.map(
+          async (item) => await deleteDoc(doc(database, "Feedback", item))
         );
         await Promise.all(deletePromises);
         toast.success("All selected Feedback have been deleted successfully");
