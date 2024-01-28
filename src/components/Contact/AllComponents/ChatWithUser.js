@@ -228,7 +228,7 @@ const ChatWithUser = ({ chatnumber }) => {
                             }`}
                         </span>
                       ) : (
-                        <span>
+                        <span style={{ color: "purple" }}>
                           {user?.messages[user?.messages?.length - 1]
                             .usermessage !== undefined &&
                             user?.messages[user?.messages?.length - 1]
