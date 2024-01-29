@@ -10,6 +10,7 @@ import Toggle from "react-toggle";
 import "react-toggle/style.css";
 import AssignedModal from "../Popup/AssignedModal";
 import { ToastContainer, toast } from "react-toastify";
+import logo from "../../../utils/Image/Logo.png";
 
 const ChatWithUser = ({ chatnumber }) => {
   const user = useSelector((state) => state.user.user);
@@ -367,14 +368,14 @@ const ChatWithUser = ({ chatnumber }) => {
               </div>
             </>
           ) : (
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <p>"Please select any Chat"</p>
+            <div className={style.blankContainer}>
+              <img src={logo} alt='logo' />
+              <h3>Welcome to Reverr</h3>
+              <p>
+                " Please select a chat of your choice to have a one-on-one
+                conversation. Answer their questions, help them with their
+                tasks, and simplify the process. "
+              </p>
             </div>
           )}
         </div>

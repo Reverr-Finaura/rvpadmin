@@ -150,29 +150,27 @@ const Sidebar = ({
               )
               .map((sideBar) => {
                 return (
-                  <>
-                    <div
-                      key={sideBar.section}
-                      className={style.sideBarMenuItemtrue}
-                      onClick={() => setSection(sideBar.section)}
-                      style={{
-                        backgroundColor: `${
-                          section === sideBar.section ? "#5570F1 " : ""
-                        }`,
-                      }}
-                    >
-                      <div className={style.sidebarContant}>
-                        <img
-                          src={
-                            section === sideBar.section
-                              ? sideBar.activeIcon
-                              : sideBar.icon
-                          }
-                          alt={sideBar.name}
-                        />
-                      </div>
+                  <div
+                    key={sideBar.section}
+                    className={style.sideBarMenuItemtrue}
+                    onClick={() => setSection(sideBar.section)}
+                    style={{
+                      backgroundColor: `${
+                        section === sideBar.section ? "#5570F1 " : ""
+                      }`,
+                    }}
+                  >
+                    <div className={style.sidebarContant}>
+                      <img
+                        src={
+                          section === sideBar.section
+                            ? sideBar.activeIcon
+                            : sideBar.icon
+                        }
+                        alt={sideBar.name}
+                      />
                     </div>
-                  </>
+                  </div>
                 );
               })}
           </>

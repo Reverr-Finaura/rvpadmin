@@ -96,8 +96,8 @@ const Navbar = () => {
                 style={{
                   position: "absolute",
                   fontSize: "14px",
-                  top: "0px",
-                  left: "16px",
+                  top: "5px",
+                  left: "35px",
                   color: "red",
                 }}
               >
