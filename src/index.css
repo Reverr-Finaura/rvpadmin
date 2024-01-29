@@ -29,6 +29,11 @@ code {
   border-radius: 35px !important;
 }
 
+.css-3dzjca-MuiPaper-root-MuiPopover-paper-MuiMenu-paper {
+  min-width: 400px !important;
+  overflow-y: scroll;
+}
+
 * {
   padding: 0;
   margin: 0;

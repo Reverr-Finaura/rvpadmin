@@ -1,12 +1,13 @@
 import { Menu, MenuItem } from "@mui/material";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import React, { useCallback, useEffect } from "react";
-import { database } from "../../firebase/firebase";
 import { useSelector } from "react-redux";
-import style from "../NewContactComponents/style.module.css";
 import moment from "moment";
 import { ImCross } from "react-icons/im";
 import { Link } from "react-router-dom";
+import { database } from "../../../firebase/firebase";
+import style from "./Navbar.module.css";
+import close from "../../../utils/Image/Close.png";
 
 const NotificationSection = ({
   anchorElUser,
@@ -76,8 +77,8 @@ const NotificationSection = ({
       className={style.notificationbox}
     >
       <div className={style.notificationheader}>
-        <h2>Notification</h2>
-        <button onClick={handleCloseUserMenu}>Close</button>
+        <h3>Notification</h3>
+        <img src={close} onClick={handleCloseUserMenu} alt='close' />
       </div>
       <div className={style.notificationlist}>
         {notifydata.reverse().map((setting, index) => {
@@ -87,43 +88,26 @@ const NotificationSection = ({
           ).toString();
           const goChat = {
             chatnumber: setting.number,
-            section: 8,
+            section: 7,
           };
           return (
-            <MenuItem
-              key={index}
-              style={{
-                width: "100%",
-                backgroundColor: "rgba(255, 255, 0, 0.05)",
-              }}
-              className={style.notifybox}
-            >
-              <ImCross
-                style={{
-                  color: "red",
-                  position: "absolute",
-                  top: "-10px",
-                  right: 0,
-                }}
-                onClick={() => deleteNotifications(index)}
-              />
-              <p className={style.info} style={{ fontSize: "14px", margin: 0 }}>
-                {setting.text}
-                <Link
-                  to='/contact'
-                  state={goChat}
-                  style={{ fontSize: "14px", margin: 0, color: "green" }}
-                >
-                  {"->"}
-                </Link>
-              </p>
-
-              <p
-                className={style.info}
-                style={{ fontSize: "12px", color: "green", margin: 0 }}
+            <MenuItem key={index} className={style.notifybox}>
+              <Link
+                to='/contact'
+                state={goChat}
+                className={style.content}
+                style={{ textDecoration: "none", margin: 0 }}
               >
-                {moment(date).format("LLL")}
-              </p>
+                <p className={style.info}>{setting.text}</p>
+                <p className={style.date}>{moment(date).format("LLL")}</p>
+              </Link>
+              <div className={style.cross}>
+                <img
+                  src={close}
+                  onClick={() => deleteNotifications(index)}
+                  alt='close'
+                />
+              </div>
             </MenuItem>
           );
         })}

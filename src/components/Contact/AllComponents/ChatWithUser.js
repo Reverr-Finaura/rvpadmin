@@ -197,7 +197,12 @@ const ChatWithUser = ({ chatnumber }) => {
                   onClick={() => handleSelectChange(user)}
                   style={{
                     backgroundColor:
-                      selectedData?.id === user?.id ? "#F7F7FC" : "",
+                      selectedData?.id !== user?.id
+                        ? user?.messages[user?.messages?.length - 1]
+                            ?.usermessage === null
+                          ? "transparent"
+                          : "#AED3F1"
+                        : "#F7F7FC",
                   }}
                 >
                   <p>{user.name ? `${user.name}` : ""}</p>
@@ -228,7 +233,12 @@ const ChatWithUser = ({ chatnumber }) => {
                             }`}
                         </span>
                       ) : (
-                        <span style={{ color: "purple" }}>
+                        <span
+                          style={{
+                            fontWeight: "600",
+                            fontSize: "12px",
+                          }}
+                        >
                           {user?.messages[user?.messages?.length - 1]
                             .usermessage !== undefined &&
                             user?.messages[user?.messages?.length - 1]
