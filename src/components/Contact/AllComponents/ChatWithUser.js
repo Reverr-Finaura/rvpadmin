@@ -198,10 +198,12 @@ const ChatWithUser = ({ chatnumber }) => {
                   style={{
                     backgroundColor:
                       selectedData?.id !== user?.id
-                        ? user?.messages[user?.messages?.length - 1]
-                            ?.usermessage === null
-                          ? "transparent"
-                          : "#AED3F1"
+                        ? user?.messages?.length > 0
+                          ? user?.messages[user?.messages?.length - 1]
+                              ?.usermessage === null
+                            ? "transparent"
+                            : "#AED3F1"
+                          : ""
                         : "#F7F7FC",
                   }}
                 >

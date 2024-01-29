@@ -3,7 +3,6 @@ import { doc, getDoc, updateDoc } from "firebase/firestore";
 import React, { useCallback, useEffect } from "react";
 import { useSelector } from "react-redux";
 import moment from "moment";
-import { ImCross } from "react-icons/im";
 import { Link } from "react-router-dom";
 import { database } from "../../../firebase/firebase";
 import style from "./Navbar.module.css";
