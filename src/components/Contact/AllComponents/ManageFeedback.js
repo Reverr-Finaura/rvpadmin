@@ -11,7 +11,7 @@ import Pagination from "../Navbar/Pagination";
 const ManageFeedback = () => {
   const [showSelect, setShowSelect] = useState(false);
   const [selectedData, setSelectedData] = useState([]);
-  const [loadings, setLoadings] = React.useState(false);
+  const [loadings, setLoadings] = useState(false);
   const allfeedback = useSelector((state) => state.contact.allfeedback);
 
   const openSelector = () => {

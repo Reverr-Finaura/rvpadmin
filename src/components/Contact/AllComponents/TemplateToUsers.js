@@ -234,7 +234,7 @@ const TemplateToUsers = () => {
         </div>
         <div className={style.formbutton}>
           <button disabled={btnDisable} onClick={submit}>
-            Send Message
+            Send Template
           </button>
         </div>
       </form>
