@@ -34,6 +34,7 @@ const DeleteAgentModal = ({ docEmail, docName }) => {
         const deleteAssignedChats = assignedChatsList.map(async (chat) => {
           try {
             const chatDocRef = doc(database, "WhatsappMessages", chat.number);
+            console.log("chatDocRef:", chatDocRef);
             await updateDoc(chatDocRef, {
               chatAssigned: {
                 assignedTo: null,
@@ -57,7 +58,7 @@ const DeleteAgentModal = ({ docEmail, docName }) => {
     } finally {
       setLoadings(false);
       setLoadings(false);
-      handleClose();
+      handleClose(e);
     }
   };
   return (
@@ -66,7 +67,7 @@ const DeleteAgentModal = ({ docEmail, docName }) => {
       <Dialog
         fullScreen={fullScreen}
         open={open}
-        aria-labelledby='responsive-dialog-title'
+        aria-labelledby="responsive-dialog-title"
       >
         <div className={style.modalform}>
           <div className={style.modalheading}>
@@ -74,14 +75,14 @@ const DeleteAgentModal = ({ docEmail, docName }) => {
             <img
               src={close}
               onClick={handleClose}
-              alt='close'
+              alt="close"
               className={style.closeModal}
             />
           </div>
           <form>
             <p>Do you want to this delete agent {docName} ? </p>
             <div className={style.deleteAgnetbutton}>
-              <button disabled={loadings} onClick={() => deleteAgnet()}>
+              <button disabled={loadings} onClick={(e) => deleteAgnet(e)}>
                 Yes
               </button>
               <button
