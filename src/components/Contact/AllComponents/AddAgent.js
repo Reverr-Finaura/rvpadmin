@@ -1,6 +1,6 @@
 import React from "react";
 import style from "./style.module.css";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import { fetchSignInMethodsForEmail } from "firebase/auth";
 import { auth, database } from "../../../firebase/firebase";
 import { doc, setDoc } from "firebase/firestore";
@@ -53,7 +53,7 @@ const AddAgent = () => {
     <div className={style.Wrapper}>
       <div className={style.agentContainer}>
         <div className={style.heading}>
-          <h3>Add Agent</h3>
+          <h3>Add Agent </h3>
         </div>
         <form onSubmit={submit}>
           <div className={style.inputField}>
@@ -88,6 +88,7 @@ const AddAgent = () => {
           </div>
         </form>
       </div>
+      <ToastContainer />
     </div>
   );
 };

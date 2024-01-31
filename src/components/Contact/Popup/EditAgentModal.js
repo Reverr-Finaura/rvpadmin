@@ -71,11 +71,16 @@ const EditAgentModal = ({ docId, docName, docChatAssigned }) => {
 
   return (
     <React.Fragment>
-      <MdModeEdit onClick={handleClickOpen}></MdModeEdit>
+      <MdModeEdit
+        onClick={handleClickOpen}
+        style={{
+          cursor: "pointer",
+        }}
+      ></MdModeEdit>
       <Dialog
         fullScreen={fullScreen}
         open={open}
-        aria-labelledby='responsive-dialog-title'
+        aria-labelledby="responsive-dialog-title"
       >
         <div className={style.modalform}>
           <div className={style.modalheading}>
@@ -83,7 +88,7 @@ const EditAgentModal = ({ docId, docName, docChatAssigned }) => {
             <img
               src={close}
               onClick={handleClose}
-              alt='close'
+              alt="close"
               className={style.closeModal}
             />
           </div>
@@ -91,8 +96,8 @@ const EditAgentModal = ({ docId, docName, docChatAssigned }) => {
             <div className={style.inputField}>
               <label>Name</label>
               <input
-                type='type'
-                placeholder='Enter a Name'
+                type="type"
+                placeholder="Enter a Name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
@@ -101,10 +106,10 @@ const EditAgentModal = ({ docId, docName, docChatAssigned }) => {
               <label>Assigned user</label>
               <ReactSelect
                 isMulti
-                name='colors'
+                name="colors"
                 options={editAgentsChats}
-                className='basic-multi-select'
-                classNamePrefix='select'
+                className="basic-multi-select"
+                classNamePrefix="select"
                 onChange={handleSelectChange}
                 value={selectedData}
                 styles={selectStyles3}

@@ -55,7 +55,8 @@ const DeleteFeedbackModal = ({ docId, docPhone }) => {
           <form>
             <p>Do you want to Delete this feedback of {docPhone} ? </p>
             <div className={style.deleteAgnetbutton}>
-              <button
+              <div
+                className={style.yesButton}
                 disabled={loadings}
                 onClick={(e) => deleteFeedback(e)}
                 style={{
@@ -63,8 +64,9 @@ const DeleteFeedbackModal = ({ docId, docPhone }) => {
                 }}
               >
                 Yes
-              </button>
-              <button
+              </div>
+              <div
+                className={style.yesButton}
                 disabled={loadings}
                 onClick={handleClose}
                 style={{
@@ -74,7 +76,7 @@ const DeleteFeedbackModal = ({ docId, docPhone }) => {
                 }}
               >
                 No
-              </button>
+              </div>
             </div>
           </form>
         </div>

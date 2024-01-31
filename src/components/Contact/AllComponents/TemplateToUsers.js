@@ -6,6 +6,7 @@ import { database, uploadMedia } from "../../../firebase/firebase";
 import style from "./style.module.css";
 import Select from "react-select";
 import { selectStyles } from "../../../utils";
+import uploadicon from "../../../utils/Image/upload.png";
 
 const TemplateToUsers = () => {
   const user = useSelector((state) => state.user.user);
@@ -102,7 +103,7 @@ const TemplateToUsers = () => {
     e.preventDefault();
     setLoading(true);
     if (loading) {
-      toast.error("Uploading image please wait...");
+      toast.error("Please wait while media is uploading");
     } else {
       if (!selectedData) {
         return;
@@ -173,11 +174,11 @@ const TemplateToUsers = () => {
         <div className={style.inputField}>
           <label>Select User Tags</label>
           <Select
-            name='tags'
+            name="tags"
             isClearable
             isMulti
-            className='basic-multi-select'
-            classNamePrefix='select'
+            className="basic-multi-select"
+            classNamePrefix="select"
             options={tags.initialTags}
             onChange={handleTagSelectChange}
             value={selectedTags}
@@ -190,10 +191,10 @@ const TemplateToUsers = () => {
           <label>Select Mutiple user</label>
           <Select
             isMulti
-            name='colors'
+            name="colors"
             options={user.isAdmin ? adminChats : agentsChats}
-            className='basic-multi-select'
-            classNamePrefix='select'
+            className="basic-multi-select"
+            classNamePrefix="select"
             onChange={handleSelectChange}
             value={selectedData}
             styles={selectStyles}
@@ -204,10 +205,8 @@ const TemplateToUsers = () => {
           />
         </div>
         <div className={style.inputField}>
-          <button type='button' onClick={selectAllUsers}>
-            {selectTrue === true
-              ? "All user are selected"
-              : "All user are not selected"}
+          <button type="button" onClick={selectAllUsers}>
+            {selectTrue === true ? "Deselect All user" : "Select All user"}
           </button>
         </div>
         <div className={style.inputField}>
@@ -219,16 +218,16 @@ const TemplateToUsers = () => {
           ></textarea>
         </div>
         <div className={style.inputField}>
-          <label htmlFor='templateUser' className={style.fileUpload}>
+          <label htmlFor="templateUser" className={style.fileUpload}>
             <div className={style.fileuploadContent}>
-              <div className={style.uploadButton}>Select file</div>
-              <p> Upload file {filename && `: ${filename}`}</p>
+              <img src={uploadicon} alt="" />
+              <p> Upload file {filename && `: ${filename.substring(0, 20)}`}</p>
             </div>
           </label>
           <input
-            type='file'
+            type="file"
             onChange={handleFileChange}
-            id='templateUser'
+            id="templateUser"
             style={{ display: "none" }}
           />
         </div>

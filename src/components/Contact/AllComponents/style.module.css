@@ -78,6 +78,7 @@
   font-weight: 400;
   line-height: normal;
   gap: 10px;
+  cursor: pointer;
 }
 
 .fileuploadContent {
@@ -91,9 +92,9 @@
 .fileuploadContent > p {
   color: #3a3a3a;
   text-align: center;
-  font-size: 9.469px;
+  font-size: 12px;
   font-style: normal;
-  font-weight: 400;
+  font-weight: 500;
   line-height: normal;
   margin: 0;
   width: max-content;
@@ -127,6 +128,7 @@
   width: max-content;
   border: none;
   outline: none;
+  cursor: pointer;
 }
 
 .formbutton {
@@ -206,6 +208,7 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  cursor: pointer;
 }
 
 .tableContainer {
@@ -349,6 +352,7 @@
   font-weight: 400;
   line-height: normal;
   gap: 10px;
+  cursor: pointer;
 }
 
 .csvfileuploadContent {

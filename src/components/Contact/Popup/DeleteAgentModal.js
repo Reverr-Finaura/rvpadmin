@@ -23,7 +23,7 @@ const DeleteAgentModal = ({ docEmail, docName }) => {
     e.preventDefault();
     setOpen(false);
   };
-  const deleteAgnet = async (e) => {
+  const deleteAgent = async (e) => {
     e.preventDefault();
     try {
       setLoadings(true);
@@ -50,20 +50,24 @@ const DeleteAgentModal = ({ docEmail, docName }) => {
         await deleteDoc(doc(database, "Agents", docEmail));
         toast.success("Agent has been successfully deleted");
       } else {
-        toast.error("Agent not found");
+        toast.error("Agent not found or user is not an admin");
       }
     } catch (error) {
-      console.log(error.message);
-      toast.error(error.message);
+      console.error("Error in deleteAgent:", error);
+      toast.error("Failed to delete agent. Please try again.");
     } finally {
-      setLoadings(false);
       setLoadings(false);
       handleClose(e);
     }
   };
   return (
     <React.Fragment>
-      <MdDelete onClick={handleClickOpen}></MdDelete>
+      <MdDelete
+        onClick={handleClickOpen}
+        style={{
+          cursor: "pointer",
+        }}
+      ></MdDelete>
       <Dialog
         fullScreen={fullScreen}
         open={open}
@@ -82,16 +86,21 @@ const DeleteAgentModal = ({ docEmail, docName }) => {
           <form>
             <p>Do you want to this delete agent {docName} ? </p>
             <div className={style.deleteAgnetbutton}>
-              <button disabled={loadings} onClick={(e) => deleteAgnet(e)}>
+              <div
+                className={style.yesButton}
+                disabled={loadings}
+                onClick={(e) => deleteAgent(e)}
+              >
                 Yes
-              </button>
-              <button
+              </div>
+              <div
+                className={style.yesButton}
                 disabled={loadings}
                 onClick={handleClose}
                 style={{ backgroundColor: "transparent", color: "black" }}
               >
                 No
-              </button>
+              </div>
             </div>
           </form>
         </div>

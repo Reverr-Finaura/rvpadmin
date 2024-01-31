@@ -171,16 +171,8 @@ const MessageToUsers = () => {
           />
         </div>
         <div className={style.inputField}>
-          <button
-            type="button"
-            onClick={selectAllUsers}
-            style={{
-              cursor: "pointer",
-            }}
-          >
-            {selectTrue === true
-              ? "All user are selected"
-              : "All user are not selected"}
+          <button type="button" onClick={selectAllUsers}>
+            {selectTrue === true ? "Deselect All user" : "Select All user"}
           </button>
         </div>
         <div className={style.inputField}>
