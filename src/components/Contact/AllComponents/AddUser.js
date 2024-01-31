@@ -93,15 +93,15 @@ const AddUser = () => {
   return (
     <div className={style.container}>
       <div className={style.heading}>
-        <h3>Add User Form</h3>
+        <h3>Add User</h3>
       </div>
       <form className={style.adduserForm} onSubmit={submit}>
         <div className={style.doubleField}>
           <div className={style.inputField}>
             <label>Name</label>
             <input
-              type='type'
-              placeholder='Enter a Name'
+              type="type"
+              placeholder="Enter a Name"
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
@@ -110,9 +110,9 @@ const AddUser = () => {
             <label>User Type</label>
             <ReactSelect
               isClearable
-              className='basic-single'
-              classNamePrefix='select'
-              name='usersMessage'
+              className="basic-single"
+              classNamePrefix="select"
+              name="usersMessage"
               options={userType}
               onChange={handleSelectChange}
               value={selectedData}
@@ -126,8 +126,8 @@ const AddUser = () => {
           <div className={style.inputField}>
             <label>Country Codes</label>
             <input
-              type='number'
-              placeholder='Enter a Number'
+              type="number"
+              placeholder="Enter a Number"
               value={code}
               onChange={(e) => setCode(e.target.value)}
             />
@@ -135,8 +135,8 @@ const AddUser = () => {
           <div className={style.inputField}>
             <label>Number</label>
             <input
-              type='number'
-              placeholder='Enter a Number'
+              type="number"
+              placeholder="Enter a Number"
               value={number}
               onChange={(e) => setNumber(e.target.value)}
             />
@@ -146,7 +146,7 @@ const AddUser = () => {
           <div className={style.inputField}>
             <label>Tags</label>
             <CreatableSelect
-              className='basic-multi-select'
+              className="basic-multi-select"
               isClearable
               isMulti={true}
               options={tags.initialTags}
