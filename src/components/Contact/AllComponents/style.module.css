@@ -20,7 +20,7 @@
   border-bottom: 2px solid #1814f3;
 }
 
-.heading>h3 {
+.heading > h3 {
   color: #1814f3;
   font-family: Inter;
   font-size: 16px;
@@ -29,7 +29,7 @@
   line-height: normal;
 }
 
-.container>form {
+.container > form {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -42,7 +42,7 @@
   flex-direction: column;
 }
 
-.inputField>label {
+.inputField > label {
   color: #232323;
   font-family: Inter;
   font-size: 16px;
@@ -51,7 +51,7 @@
   line-height: 40px;
 }
 
-.inputField>textarea {
+.inputField > textarea {
   width: 100%;
   margin: 0;
   border-radius: 15px;
@@ -59,7 +59,7 @@
   background: #fff;
 }
 
-.inputField>textarea:focus {
+.inputField > textarea:focus {
   border: 1px solid #1814f3;
 }
 
@@ -88,7 +88,7 @@
   gap: 8px;
 }
 
-.fileuploadContent>p {
+.fileuploadContent > p {
   color: #3a3a3a;
   text-align: center;
   font-size: 9.469px;
@@ -99,7 +99,7 @@
   width: max-content;
 }
 
-.fileuploadContent>.uploadButton {
+.fileuploadContent > .uploadButton {
   width: 79.892px;
   padding: 5.918px;
   border-radius: 2.367px;
@@ -113,7 +113,7 @@
   line-height: normal;
 }
 
-.inputField>button {
+.inputField > button {
   padding: 12px 28px;
   border-radius: 15px;
   background: #1814f3;
@@ -135,7 +135,7 @@
   justify-content: flex-end;
 }
 
-.formbutton>button {
+.formbutton > button {
   margin-top: 10px;
   padding: 12px 28px;
   border-radius: 15px;
@@ -163,7 +163,7 @@
   gap: 30px;
 }
 
-.inputField>input {
+.inputField > input {
   height: 50px;
   padding-left: 10px;
   border: 1px solid #dfeaf2;
@@ -193,7 +193,7 @@
   margin-bottom: 10px;
 }
 
-.tableAction>button {
+.tableAction > button {
   width: max-content;
   border: none;
   outline: none;
@@ -220,7 +220,7 @@
   padding: 8px;
 }
 
-.tableheading>h3 {
+.tableheading > h3 {
   color: black;
   font-family: Inter;
   font-size: 16px;
@@ -271,7 +271,7 @@
   border-top: 1px solid #e7e7e7;
 }
 
-.pagecontent>p {
+.pagecontent > p {
   color: var(--Secondary-300, #bababa);
   text-align: center;
   font-size: 12px;
@@ -360,7 +360,7 @@
   gap: 8px;
 }
 
-.csvfileuploadContent>p {
+.csvfileuploadContent > p {
   color: #3a3a3a;
   text-align: center;
   font-family: Inter;
@@ -372,7 +372,7 @@
   width: max-content;
 }
 
-.csvfileuploadContent>.uploadCSvButton {
+.csvfileuploadContent > .uploadCSvButton {
   width: 135px;
   padding: 12px;
   border-radius: 4px;
@@ -391,7 +391,7 @@
   display: flex;
 }
 
-.formcsvbutton>button {
+.formcsvbutton > button {
   padding: 12px 28px;
   border-radius: 15px;
   background: #1814f3;
@@ -405,4 +405,5 @@
   width: max-content;
   border: none;
   outline: none;
+  cursor: pointer;
 }

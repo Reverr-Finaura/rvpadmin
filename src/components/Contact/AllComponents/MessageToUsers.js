@@ -141,10 +141,10 @@ const MessageToUsers = () => {
         <div className={style.inputField}>
           <label>Select User Tags</label>
           <Select
-            name='tags'
+            name="tags"
             isMulti
             isClearable
-            classNamePrefix='select'
+            classNamePrefix="select"
             styles={selectStyles}
             options={tags.initialTags}
             onChange={handleTagSelectChange}
@@ -157,10 +157,10 @@ const MessageToUsers = () => {
           <label>Select Mutiple user</label>
           <Select
             isMulti
-            name='colors'
+            name="colors"
             options={user.isAdmin ? adminChats : agentsChats}
-            className='basic-multi-select'
-            classNamePrefix='select'
+            className="basic-multi-select"
+            classNamePrefix="select"
             onChange={handleSelectChange}
             styles={selectStyles}
             value={selectedData}
@@ -171,7 +171,13 @@ const MessageToUsers = () => {
           />
         </div>
         <div className={style.inputField}>
-          <button type='button' onClick={selectAllUsers}>
+          <button
+            type="button"
+            onClick={selectAllUsers}
+            style={{
+              cursor: "pointer",
+            }}
+          >
             {selectTrue === true
               ? "All user are selected"
               : "All user are not selected"}

@@ -53,14 +53,14 @@ const AddAgent = () => {
     <div className={style.Wrapper}>
       <div className={style.agentContainer}>
         <div className={style.heading}>
-          <h3>Add User Form</h3>
+          <h3>Add Agent</h3>
         </div>
         <form onSubmit={submit}>
           <div className={style.inputField}>
             <label>Name</label>
             <input
-              type='type'
-              placeholder='Enter a Name'
+              type="type"
+              placeholder="Enter a Name"
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
@@ -68,8 +68,8 @@ const AddAgent = () => {
           <div className={style.inputField}>
             <label>Email</label>
             <input
-              type='email'
-              placeholder='Enter a Email'
+              type="email"
+              placeholder="Enter a Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -77,8 +77,8 @@ const AddAgent = () => {
           <div className={style.inputField}>
             <label>Password</label>
             <input
-              type='password'
-              placeholder='Enter a password'
+              type="password"
+              placeholder="Enter a password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
