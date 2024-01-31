@@ -125,8 +125,11 @@ const AddCSVuser = () => {
           <label htmlFor='csv' className={style.csvfileUpload}>
             <div className={style.csvfileuploadContent}>
               <img src={uploadicon} alt='' />
-              <p> Upload Your CSV File Here{filename && `: ${filename}`}</p>
-              <div className={style.uploadCSvButton}>Select file</div>
+              <p>
+                {" "}
+                Upload Your CSV File Here
+                {filename && `: ${filename.substring(0, 20)}`}
+              </p>
             </div>
           </label>
           <input

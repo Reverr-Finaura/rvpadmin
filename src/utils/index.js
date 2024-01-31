@@ -18,7 +18,7 @@ export const selectStyles = {
     border: "1px solid #DFEAF2",
     borderRadius: "15px",
     width: "100%",
-    height: "50px",
+    minHeight: "50px",
     textAlign: "left",
     cursor: "pointer",
   }),
@@ -84,6 +84,7 @@ export const selectStyles2 = {
   }),
   valueContainer: (base) => ({
     ...base,
+    height: "auto",
   }),
   menu: (base) => ({
     ...base,

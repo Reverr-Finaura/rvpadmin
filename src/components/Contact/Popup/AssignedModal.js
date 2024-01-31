@@ -199,7 +199,7 @@ const AssignedModal = ({
               <p>Already Assigned</p>
               <div className={style.assigendButton}>
                 <button onClick={() => setIsAlreadyAssigned(false)}>
-                  Change Assigned Agnet
+                  Change Assigned Agent
                 </button>
               </div>
             </div>

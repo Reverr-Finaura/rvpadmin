@@ -6,6 +6,7 @@ import { database, uploadMedia } from "../../../firebase/firebase";
 import style from "./style.module.css";
 import Select from "react-select";
 import { selectStyles } from "../../../utils";
+import uploadicon from "../../../utils/Image/upload.png";
 
 const TemplateToUsers = () => {
   const user = useSelector((state) => state.user.user);
@@ -221,8 +222,8 @@ const TemplateToUsers = () => {
         <div className={style.inputField}>
           <label htmlFor='templateUser' className={style.fileUpload}>
             <div className={style.fileuploadContent}>
-              <div className={style.uploadButton}>Select file</div>
-              <p> Upload file {filename && `: ${filename}`}</p>
+              <img src={uploadicon} alt='' />
+              <p> Upload file {filename && `: ${filename.substring(0, 20)}`}</p>
             </div>
           </label>
           <input

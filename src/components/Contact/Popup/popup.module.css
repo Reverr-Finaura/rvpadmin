@@ -74,7 +74,7 @@
   justify-content: space-between;
 }
 
-.deleteAgnetbutton>button {
+.deleteAgnetbutton>.yesButton {
   padding: 10px 28px;
   border-radius: 15px;
   background: #1814f3;
