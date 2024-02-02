@@ -26,11 +26,16 @@ const ViewAgentModal = ({
   };
   return (
     <React.Fragment>
-      <GrView onClick={handleClickOpen}></GrView>
+      <GrView
+        onClick={handleClickOpen}
+        style={{
+          cursor: "pointer",
+        }}
+      ></GrView>
       <Dialog
         fullScreen={fullScreen}
         open={open}
-        aria-labelledby='responsive-dialog-title'
+        aria-labelledby="responsive-dialog-title"
       >
         <div className={style.modalform}>
           <div className={style.modalheading}>
@@ -38,7 +43,7 @@ const ViewAgentModal = ({
             <img
               src={close}
               onClick={handleClose}
-              alt='close'
+              alt="close"
               className={style.closeModal}
             />
           </div>

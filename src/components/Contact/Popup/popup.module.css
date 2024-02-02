@@ -11,7 +11,7 @@
   margin-bottom: 10px;
 }
 
-.modalheading>h3 {
+.modalheading > h3 {
   color: #232323;
   font-family: Inter;
   font-size: 22.667px;
@@ -26,7 +26,7 @@
   flex-direction: column;
 }
 
-.inputField>label {
+.inputField > label {
   color: #232323;
   font-family: Inter;
   font-size: 16px;
@@ -35,7 +35,7 @@
   line-height: 40px;
 }
 
-.inputField>input {
+.inputField > input {
   height: 50px;
   padding-left: 10px;
   border: 1px solid #dfeaf2;
@@ -50,7 +50,7 @@
   justify-content: flex-end;
 }
 
-.formbutton>button {
+.formbutton > button {
   margin-top: 10px;
   padding: 12px 28px;
   border-radius: 15px;
@@ -74,7 +74,7 @@
   justify-content: space-between;
 }
 
-.deleteAgnetbutton>.yesButton {
+.deleteAgnetbutton > .yesButton {
   padding: 10px 28px;
   border-radius: 15px;
   background: #1814f3;
@@ -90,6 +90,7 @@
   outline: none;
   border: 0.85px dashed #1814f3;
   width: 138.833px;
+  cursor: pointer;
 }
 
 .Info {
@@ -98,7 +99,7 @@
   gap: 10px;
 }
 
-.Info>p {
+.Info > p {
   color: #232323;
   font-family: Inter;
   font-size: 16px;
@@ -121,11 +122,11 @@
   width: max-content;
 }
 
-.Info>ul {
+.Info > ul {
   margin: 0;
 }
 
-.Info>ul>li {
+.Info > ul > li {
   list-style: none;
 }
 
@@ -139,7 +140,7 @@
   background: var(--Secondary-20, #fef5ea);
 }
 
-.assigendButton>p {
+.assigendButton > p {
   color: var(--Black-100, #1c1d22);
   font-family: Inter;
   font-size: 12px;
@@ -156,16 +157,16 @@
   flex-direction: column;
 }
 
-.already>p {
+.already > p {
   width: max-content;
 }
 
-.already>.assigendButton {
+.already > .assigendButton {
   margin-top: 30px;
   display: flex;
 }
 
-.assigendButton>button {
+.assigendButton > button {
   padding: 12px 28px;
   border-radius: 15px;
   background: #1814f3;

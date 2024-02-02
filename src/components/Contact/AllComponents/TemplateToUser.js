@@ -58,7 +58,7 @@ const TemplateToUser = () => {
   const submit = async (e) => {
     e.preventDefault();
     if (loading) {
-      toast.error("Uploading image please wait...");
+      toast.error("Please wait while media is uploading");
     } else {
       if (!selectedData) {
         return;
@@ -128,9 +128,9 @@ const TemplateToUser = () => {
           <label>Select user</label>
           <Select
             isClearable
-            className='basic-single'
-            classNamePrefix='select'
-            name='user'
+            className="basic-single"
+            classNamePrefix="select"
+            name="user"
             options={user.isAdmin ? adminChats : agentsChats}
             onChange={handleSelectChange}
             value={selectedData}
@@ -150,16 +150,16 @@ const TemplateToUser = () => {
           ></textarea>
         </div>
         <div className={style.inputField}>
-          <label htmlFor='templateSingleUser' className={style.fileUpload}>
+          <label htmlFor="templateSingleUser" className={style.fileUpload}>
             <div className={style.fileuploadContent}>
-              <img src={uploadicon} alt='' />
+              <img src={uploadicon} alt="" />
               <p> Upload file {filename && `: ${filename.substring(0, 20)}`}</p>
             </div>
           </label>
           <input
-            type='file'
+            type="file"
             onChange={handleFileChange}
-            id='templateSingleUser'
+            id="templateSingleUser"
             style={{ display: "none" }}
           />
         </div>

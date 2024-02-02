@@ -38,7 +38,7 @@ const AddCSVuser = () => {
     e.preventDefault();
     setLoadings(true);
     if (data && data.length > 0) {
-      toast.info("uploading Users please wait...");
+      toast.info("Uploading users please wait...");
       var twenty = data.length / 5;
       var fourty = twenty * 2;
       var sixty = twenty * 3;
@@ -129,9 +129,9 @@ const AddCSVuser = () => {
           <h3>Add User through CSV File </h3>
         </div>
         <div className={style.inputField}>
-          <label htmlFor='csv' className={style.csvfileUpload}>
+          <label htmlFor="csv" className={style.csvfileUpload}>
             <div className={style.csvfileuploadContent}>
-              <img src={uploadicon} alt='' />
+              <img src={uploadicon} alt="" />
               <p>
                 {" "}
                 Upload Your CSV File Here
@@ -140,10 +140,10 @@ const AddCSVuser = () => {
             </div>
           </label>
           <input
-            type='file'
-            accept='.csv'
+            type="file"
+            accept=".csv"
             onChange={handleFileChange}
-            id='csv'
+            id="csv"
             style={{ display: "none" }}
           />
         </div>

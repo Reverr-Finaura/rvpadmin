@@ -129,7 +129,7 @@ const ChatWithUser = ({ chatnumber }) => {
       await updateDoc(doc(database, "WhatsappMessages", selectedData?.id), {
         stop: temp,
       });
-      toast.success(`Now chat is ${toogle ? "unavailable" : "available"}`);
+      toast.success(`Chat is ${toogle ? "disabled" : "enabled"}`);
     } catch (error) {
       console.log(error);
     }
@@ -180,11 +180,11 @@ const ChatWithUser = ({ chatnumber }) => {
               </p>
             </div>
             <div className={style.serachbox}>
-              <img src={searchIcon} alt='serach' />
+              <img src={searchIcon} alt="serach" />
               <input
-                type='text'
+                type="text"
                 value={inputSearch}
-                placeholder='Search'
+                placeholder="Search"
                 onChange={(e) => setInputSearch(e.target.value)}
               />
             </div>
@@ -313,14 +313,14 @@ const ChatWithUser = ({ chatnumber }) => {
                     </p>
                     <span style={{ fontSize: "12px" }}>
                       <svg
-                        xmlns='http://www.w3.org/2000/svg'
-                        width='12'
-                        height='13'
-                        viewBox='0 0 12 13'
-                        fill='none'
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="12"
+                        height="13"
+                        viewBox="0 0 12 13"
+                        fill="none"
                       >
-                        <circle cx='6' cy='6.5' r='6' fill='#F7F7FC' />
-                        <circle cx='6' cy='6.5' r='4' fill='#5570F1' />
+                        <circle cx="6" cy="6.5" r="6" fill="#F7F7FC" />
+                        <circle cx="6" cy="6.5" r="4" fill="#5570F1" />
                       </svg>
                       {`(+${
                         selectedData.id.slice(0, -10) +
@@ -354,7 +354,7 @@ const ChatWithUser = ({ chatnumber }) => {
                   <textarea
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
-                    placeholder='Your message'
+                    placeholder="Your message"
                     disabled={!toogle}
                   />
                   <button
@@ -362,14 +362,14 @@ const ChatWithUser = ({ chatnumber }) => {
                     onClick={() => submit("Send")}
                     disabled={!toogle}
                   >
-                    Send <img src={sendIcon} alt='' />
+                    Send <img src={sendIcon} alt="" />
                   </button>
                 </div>
               </div>
             </>
           ) : (
             <div className={style.blankContainer}>
-              <img src={logo} alt='logo' />
+              <img src={logo} alt="logo" />
               <h3>Welcome to Reverr</h3>
               <p>
                 " Please select a chat of your choice to have a one-on-one

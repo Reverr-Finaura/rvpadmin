@@ -56,16 +56,21 @@ const DeleteAgentModal = ({ docEmail, docName }) => {
       toast.error("Failed to delete agent. Please try again.");
     } finally {
       setLoadings(false);
-      handleClose();
+      handleClose(e);
     }
   };
   return (
     <React.Fragment>
-      <MdDelete onClick={handleClickOpen}></MdDelete>
+      <MdDelete
+        onClick={handleClickOpen}
+        style={{
+          cursor: "pointer",
+        }}
+      ></MdDelete>
       <Dialog
         fullScreen={fullScreen}
         open={open}
-        aria-labelledby='responsive-dialog-title'
+        aria-labelledby="responsive-dialog-title"
       >
         <div className={style.modalform}>
           <div className={style.modalheading}>
@@ -73,7 +78,7 @@ const DeleteAgentModal = ({ docEmail, docName }) => {
             <img
               src={close}
               onClick={handleClose}
-              alt='close'
+              alt="close"
               className={style.closeModal}
             />
           </div>
@@ -83,7 +88,7 @@ const DeleteAgentModal = ({ docEmail, docName }) => {
               <div
                 className={style.yesButton}
                 disabled={loadings}
-                onClick={() => deleteAgent()}
+                onClick={(e) => deleteAgent(e)}
               >
                 Yes
               </div>
