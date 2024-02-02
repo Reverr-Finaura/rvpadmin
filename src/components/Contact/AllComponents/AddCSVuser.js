@@ -5,8 +5,10 @@ import { ToastContainer, toast } from "react-toastify";
 import { arrayUnion, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { database } from "../../../firebase/firebase";
 import uploadicon from "../../../utils/Image/upload.png";
+import { useSelector } from "react-redux";
 
 const AddCSVuser = () => {
+  const allChats = useSelector((state) => state.contact.allAdminChats);
   const [data, setData] = useState(null);
   const [headers, setHeaders] = useState(null);
   const [filename, setFilename] = useState(null);
@@ -62,7 +64,7 @@ const AddCSVuser = () => {
         }
         const userdata = {
           [headers[0]]: rowData[headers[0]],
-          [headers[1]]: rowData[headers[1]],
+          [headers[1]]: rowData[headers[1]].trim(),
           [headers[2]]: rowData[headers[2]],
           [headers[3]]: formattedtags.map((tag) => tag.label),
           messages: [
@@ -88,9 +90,14 @@ const AddCSVuser = () => {
           exits: "true",
         };
         try {
-          await setDoc(doc(database, "WhatsappMessages", userdata.number), {
-            ...userdata,
-          });
+          if (allChats.some((x) => x.number === userdata.number)) {
+            toast.error(`User ${userdata.name} already present`);
+          } else {
+            await setDoc(doc(database, "WhatsappMessages", userdata.number), {
+              ...userdata,
+            });
+            toast.success(`User ${userdata.name} successfully added`);
+          }
           if (i === Math.round(twenty)) {
             toast.info("uploaded 20%...");
           } else if (i === Math.round(fourty)) {
@@ -100,7 +107,6 @@ const AddCSVuser = () => {
           } else if (i === Math.round(eighty)) {
             toast.info("uploaded 80%...");
           }
-          toast.success("All CSV file user have been successfully Added");
           setData(null);
           setHeaders(null);
         } catch (error) {
@@ -113,6 +119,7 @@ const AddCSVuser = () => {
           setLoadings(false);
         }
       }
+      toast.success(`All CSV file user have been successfully Added`);
     }
   };
   return (

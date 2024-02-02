@@ -2,9 +2,15 @@ import { Dialog, useMediaQuery, useTheme } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import style from "./popup.module.css";
-import { arrayUnion, doc, getDoc, writeBatch } from "firebase/firestore";
+import {
+  arrayUnion,
+  doc,
+  getDoc,
+  updateDoc,
+  writeBatch,
+} from "firebase/firestore";
 import { database, getAllAgentsForLogin } from "../../../firebase/firebase";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import ReactSelect from "react-select";
 import close from "../../../utils/Image/Close.png";
 
@@ -79,12 +85,36 @@ const AssignedModal = ({
 
     getAgents();
   }, []);
+  const removeAssginedAgents = async (e) => {
+    e.preventDefault();
+    setLoadings(true);
+    if (!user.isAdmin) {
+      toast.error("You're not an Admin");
+      handleClose();
+      return;
+    }
+    const chatDocRef = doc(database, "WhatsappMessages", selectedChatId);
+    try {
+      await updateDoc(chatDocRef, {
+        chatAssigned: {
+          assignedTo: null,
+          isAssigned: false,
+        },
+      });
+      toast.success("Assigned Agent has been successfully removed");
+    } catch (error) {
+      console.error("Error in deleteAgent:", error);
+      toast.error("Failed to remove assigend agent. Please try again.");
+    } finally {
+      handleClose();
+      setLoadings(false);
+    }
+  };
   const assignHandler = async (e) => {
     e.preventDefault();
     setLoadings(true);
     if (!user.isAdmin) {
       toast.error("You're not an Admin");
-      setSelectedData();
       handleClose();
       return;
     }
@@ -201,6 +231,12 @@ const AssignedModal = ({
                 <button onClick={() => setIsAlreadyAssigned(false)}>
                   Change Assigned Agent
                 </button>
+                <button
+                  onClick={(e) => removeAssginedAgents(e)}
+                  style={{ backgroundColor: "red" }}
+                >
+                  Remove Assigned Agent
+                </button>
               </div>
             </div>
           </div>
@@ -233,6 +269,7 @@ const AssignedModal = ({
             </form>
           </div>
         )}
+        <ToastContainer />
       </Dialog>
     </React.Fragment>
   );

@@ -3,7 +3,7 @@ import { deleteDoc, doc, getDoc, updateDoc } from "firebase/firestore";
 import React from "react";
 import { useSelector } from "react-redux";
 import { database } from "../../../firebase/firebase";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import { MdDelete } from "react-icons/md";
 import style from "./popup.module.css";
 import close from "../../../utils/Image/Close.png";
@@ -98,6 +98,7 @@ const DeleteAgentModal = ({ docEmail, docName }) => {
             </div>
           </form>
         </div>
+        <ToastContainer />
       </Dialog>
     </React.Fragment>
   );

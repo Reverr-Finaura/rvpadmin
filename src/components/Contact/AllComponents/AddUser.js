@@ -6,9 +6,11 @@ import { ToastContainer, toast } from "react-toastify";
 import ReactSelect from "react-select";
 import CreatableSelect from "react-select/creatable";
 import { selectStyles2 } from "../../../utils";
+import { useSelector } from "react-redux";
 
 const AddUser = () => {
   const userType = [{ name: "founder" }, { name: "professional" }];
+  const allChats = useSelector((state) => state.contact.allAdminChats);
   const [name, setName] = useState("");
   const [code, setCode] = useState("");
   const [number, setNumber] = useState("");
@@ -19,6 +21,7 @@ const AddUser = () => {
   };
   const [tags, setTags] = useState({});
   const [selectedTags, setSelectedTags] = useState([]);
+  console.log(allChats);
 
   const handleTagSelectChange = async (selectedOptions) => {
     if (selectedOptions) {
@@ -58,7 +61,7 @@ const AddUser = () => {
     if (number.length === 10 && code) {
       const data = {
         name: name,
-        number: code.toString() + number.toString(),
+        number: code.toString().trim() + number.toString().trim(),
         userType: selectedData.name,
         userTags: selectedTags.map((item) => item.label),
         messages: [],
@@ -67,10 +70,14 @@ const AddUser = () => {
         exits: "true",
       };
       try {
-        await setDoc(doc(database, "WhatsappMessages", data.number), {
-          ...data,
-        });
-        toast.success("User have been successfully Added");
+        if (allChats.some((x) => x.number === data.number)) {
+          toast.success("User already present");
+        } else {
+          await setDoc(doc(database, "WhatsappMessages", data.number), {
+            ...data,
+          });
+          toast.success("User have been successfully Added");
+        }
       } catch (error) {
         toast.error("Error adding in user");
         console.error(error);
