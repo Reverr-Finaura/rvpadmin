@@ -124,6 +124,7 @@ const EditAgentModal = ({ docId, docName, docChatAssigned }) => {
             </div>
           </form>
         </div>
+        <ToastContainer />
       </Dialog>
       <ToastContainer />
     </React.Fragment>
