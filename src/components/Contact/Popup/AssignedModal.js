@@ -142,7 +142,7 @@ const AssignedModal = ({
           await batch.commit();
           toast.success("Successfully assigned");
         } else {
-          toast.error("Alreaedy Assigned");
+          toast.error("User Already assigned");
         }
       } else {
         toast.error("Agents document does not exist");
