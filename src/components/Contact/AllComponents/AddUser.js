@@ -71,7 +71,7 @@ const AddUser = () => {
       };
       try {
         if (allChats.some((x) => x.number === data.number)) {
-          toast.success("User already present");
+          toast.error("User already present");
         } else {
           await setDoc(doc(database, "WhatsappMessages", data.number), {
             ...data,

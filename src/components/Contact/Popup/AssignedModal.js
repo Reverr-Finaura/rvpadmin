@@ -93,6 +93,7 @@ const AssignedModal = ({
       handleClose();
       return;
     }
+    const agentsDocRef = doc(database, "Agents", selectedData.email);
     const chatDocRef = doc(database, "WhatsappMessages", selectedChatId);
     try {
       await updateDoc(chatDocRef, {
@@ -101,6 +102,15 @@ const AssignedModal = ({
           isAssigned: false,
         },
       });
+
+      const agentData = (await getDoc(agentsDocRef)).data();
+      if (agentData.assignedChats.length > 0) {
+        await updateDoc(agentsDocRef, {
+          assignedChats: agentData.assignedChats.filter(
+            (x) => x.number !== selectedChatId
+          ),
+        });
+      }
       toast.success("Assigned Agent has been successfully removed");
     } catch (error) {
       console.error("Error in deleteAgent:", error);
