@@ -77,7 +77,6 @@ const EditUser = () => {
       profile: true,
       stop: false,
     };
-    console.log(data);
     try {
       await updateDoc(doc(database, "WhatsappMessages", selectedData?.id), {
         ...data,

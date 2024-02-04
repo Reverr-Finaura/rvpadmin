@@ -1,7 +1,7 @@
 import { deleteDoc, doc } from "firebase/firestore";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import { database } from "../../../firebase/firebase";
 import style from "./style.module.css";
 import EditAgentModal from "../Popup/EditAgentModal";
@@ -151,6 +151,7 @@ const ManageAgent = () => {
           totalPages={totalPages}
           setPage={setPage}
         />
+        <ToastContainer />
       </div>
     </div>
   );

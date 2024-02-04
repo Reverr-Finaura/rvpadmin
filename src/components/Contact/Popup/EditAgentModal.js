@@ -2,7 +2,7 @@ import { Dialog, useMediaQuery, useTheme } from "@mui/material";
 import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 import React from "react";
 import { useSelector } from "react-redux";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import { database } from "../../../firebase/firebase";
 import ReactSelect from "react-select";
 import { MdModeEdit } from "react-icons/md";
@@ -60,13 +60,13 @@ const EditAgentModal = ({ docId, docName, docChatAssigned }) => {
         ...data,
         notification: arrayUnion(...data.notification),
       });
-      toast.success("User has been successfully added");
+      toast.success("Agent has been successfully updated");
     } catch (error) {
-      toast.error("Error in adding user");
+      toast.error("Error in assigning user");
     } finally {
       setLoadings(false);
     }
-    handleClose();
+    handleClose(e);
   };
 
   return (
@@ -124,7 +124,9 @@ const EditAgentModal = ({ docId, docName, docChatAssigned }) => {
             </div>
           </form>
         </div>
+        <ToastContainer />
       </Dialog>
+      <ToastContainer />
     </React.Fragment>
   );
 };

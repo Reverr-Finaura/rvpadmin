@@ -2,7 +2,7 @@ import { Dialog, useMediaQuery, useTheme } from "@mui/material";
 import { deleteDoc, doc } from "firebase/firestore";
 import React from "react";
 import { database } from "../../../firebase/firebase";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import style from "./popup.module.css";
 import close from "../../../utils/Image/Close.png";
 import { MdDelete } from "react-icons/md";
@@ -80,6 +80,7 @@ const DeleteFeedbackModal = ({ docId, docPhone }) => {
             </div>
           </form>
         </div>
+        <ToastContainer />
       </Dialog>
     </React.Fragment>
   );
